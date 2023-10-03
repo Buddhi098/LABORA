@@ -7,6 +7,7 @@
     <title>Patient dashboard</title>
 </head>
 <body>
-    <h1>Welcome to patient dashboard</h1>
+    <h1>Welcome to patient dashboard <?php echo $_SESSION['username'];?></h1>
+    <a href=""></a>
 </body>
 </html>

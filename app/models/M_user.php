@@ -40,11 +40,11 @@
                 
             }
 
-            public function getId($email){
+            public function getUser($email){
                 $result =mysqli_query($this->conn , "SELECT * FROM patient_data WHERE email='$email'") ;
                 if(mysqli_num_rows($result)>0){
-                    $row = mysqli_fetch_assoc($result);
-                    return $row['id'];
+                    $user = mysqli_fetch_assoc($result);
+                    return $user;
                 }
             }
     }

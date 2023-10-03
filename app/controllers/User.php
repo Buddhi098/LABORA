@@ -40,7 +40,7 @@
 
                 if(empty( $data['passworderr']) && empty($data['emailerr'])){
                     $this->sendtOTP($email , $fullname);
-                    $link = 'http://localhost/labora/OTP/submitOTP/'.$fullname.'/'.$email.'/'.$password.'/'.$phone.'/'.$dob.'/'.$address;
+                    $link = URLROOT.'/OTP/submitOTP/'.$fullname.'/'.$email.'/'.$password.'/'.$phone.'/'.$dob.'/'.$address;
                     header("location: $link");
                     // $this->md->enterUserData($fullname,$email,$password,$confirmpassword,$phone,$dob,$address);
                 }
@@ -91,8 +91,8 @@
 
                 if(empty($data['emailerr']) && empty($data['passworderr'])){
                     $_SESSION["login"] = true;
-                    $_SESSION["id"] = $this->md->getId($data['email']);
-                    header("Location: http://localhost/labora/PatientDashboard/patient");
+                    $user = $this->md->getUser($data['email']);
+                    $this->createUserSession($user);
                 }else{
                     $_SESSION['login'] = false;
                 }
@@ -104,6 +104,7 @@
                     'passworderr' => ''
                 ];
             }
+
             $this->view('Login' , $data);
 
             echo
@@ -114,9 +115,29 @@
             </script>";
         }
 
+        public function createUserSession($user){
+            $_SESSION['username'] = $user['name'];
+            $_SESSION['userid'] = $user['id'];
+            header("Location: ".URLROOT."/PatientDashboard/patient");
+        }
+
+        public function logout(){
+            unset($_SESSION['username']);
+            unset($_SESSION['userid']);
+            session_destroy();
+            header("Location: ".URLROOT);
+        }
+
+        public function isLoggedIn($user){
+            if(isset($_SESSION['id'])){
+                return true;
+            }else{
+                return false;
+            }
+        }
 
 
-
+        // OTP verification part
         function generateOTP() {
             // Generate a random 4-digit number
             $min = 1000; 
@@ -146,13 +167,13 @@
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = 'harshamalik096@gmail.com';                     //SMTP username
-                $mail->Password   = 'zyjp rejd nyid llld';                               //SMTP password
+                $mail->Username   = 'cs29groupproject@gmail.com';                     //SMTP username
+                $mail->Password   = 'azwq irtg fuej dfxs';                               //SMTP password
                 $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
                 $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom('harshamalik096@gmail.com', 'Labora');
+                $mail->setFrom('cs29groupproject@gmail.com', 'Labora');
                 $mail->addAddress($email, $name);     //Add a recipient
 
                 //Content
