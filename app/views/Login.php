@@ -12,12 +12,14 @@
         <div class="login-box">
             <h2>Login as <span>Employee</span></h2>
             <div class="horizontal-line"></div>
-            <form action="" method="post">
+            <form action="<?php echo URLROOT?>Employee/login?>" method="post">
                 <div class="form-group">
-                    <input type="email" id="employee-Email" name="employee-Email" placeholder="Email" value="" required>
+                    <input type="email" id="employee-Email" name="employee-Email" placeholder="Email" value="" required><br>
+                    <span class="formerr"><?php echo $data['empemailerr'];?></span>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="employee-password" name="employee-password" value="" placeholder="Password">
+                    <input type="password" id="employee-password" name="employee-password" value="" placeholder="Password"><br>
+                    <span class="formerr"><?php echo $data['emppassworderr'];?></span>
                 </div>
                 <button type="submit" name="submit" class="btn-login button">Login</button>
             </form>

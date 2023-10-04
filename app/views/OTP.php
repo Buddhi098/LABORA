@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="1000; url=http://localhost/labora/user/register"> -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/otpbox.css'?>">
+    <script src="<?php echo APPROOT.'\public\js\otp.js';?>"></script>
     <title>OTP Submit Box</title>
     
 </head>
@@ -20,7 +22,6 @@
         <span class="err"><?php echo $data['otperr'];?></span><br>
         <button type="submit" class="submit-btn button">Submit</button>
         </form>
-        
     </div>
 </body>
 </html>

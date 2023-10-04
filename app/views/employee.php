@@ -9,7 +9,7 @@
     <title>Patient dashboard</title>
 </head>
 <body>
-    <h1>Welcome to patient dashboard <?php echo $_SESSION['username'];?></h1>
+    <h1>Welcome to Employee dashboard <?php echo $_SESSION['empname'];?></h1>
     <a href="http://localhost/labora/user/logout">Logout</a>
 </body>
 </html>

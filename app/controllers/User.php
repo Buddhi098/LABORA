@@ -40,6 +40,7 @@
 
                 if(empty( $data['passworderr']) && empty($data['emailerr'])){
                     $this->sendtOTP($email , $fullname);
+                    $_SESSION["name"] = $fullname;
                     $link = URLROOT.'/OTP/submitOTP/'.$fullname.'/'.$email.'/'.$password.'/'.$phone.'/'.$dob.'/'.$address;
                     header("location: $link");
                     // $this->md->enterUserData($fullname,$email,$password,$confirmpassword,$phone,$dob,$address);
@@ -56,26 +57,26 @@
             }
 
             $this->view('Signup' , $data);
-            echo
-            "<script>
-            if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-            }
-            </script>";
 
-            
+            //for avoding form resubmission
+            stopResubmission();
         }
 
 
 
         public function login(){
+            if($this->isLoggedIn()){
+                header('location: http://localhost/labora/PatientDashboard/patient');
+            }
             if($_SERVER['REQUEST_METHOD']=="POST"){
                 $_POST = filter_input_array(INPUT_POST , FILTER_SANITIZE_STRING);
                 $data = [
                     'email' => trim($_POST['patient-Email']),
                     'password' => trim($_POST['patient-password']),
                     'emailerr' => '',
-                    'passworderr' => ''
+                    'passworderr' => '',
+                    'empemailerr' => '',
+                    'emppassworderr' => ''
                 ];
                 // print_r($data);
                 // echo $data['email'];
@@ -99,37 +100,34 @@
 
             }else{
                 $data = [
-                    
                     'emailerr' => '',
-                    'passworderr' => ''
+                    'passworderr' => '',
+                    'empemailerr' => '',
+                    'emppassworderr' => ''
                 ];
             }
 
             $this->view('Login' , $data);
 
-            echo
-            "<script>
-            if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-            }
-            </script>";
+            stopResubmission();
         }
 
         public function createUserSession($user){
             $_SESSION['username'] = $user['name'];
             $_SESSION['userid'] = $user['id'];
-            header("Location: ".URLROOT."/PatientDashboard/patient");
+            $_SESSION['last_login_timestamp'] = time();
+            header("Location: ".URLROOT."PatientDashboard/patient");
         }
 
         public function logout(){
             unset($_SESSION['username']);
             unset($_SESSION['userid']);
             session_destroy();
-            header("Location: ".URLROOT);
+            header("Location: ".URLROOT."user/login");
         }
 
-        public function isLoggedIn($user){
-            if(isset($_SESSION['id'])){
+        public function isLoggedIn(){
+            if(isset($_SESSION['username'])){
                 return true;
             }else{
                 return false;

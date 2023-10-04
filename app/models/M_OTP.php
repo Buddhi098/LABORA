@@ -30,5 +30,10 @@
                 }
                 
             }
+
+            public function dropOTP($email){
+                mysqli_query($this->conn, "DELETE FROM otptable WHERE email='$email'");
+            }
+            
     }
 ?>

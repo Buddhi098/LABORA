@@ -1,3 +1,6 @@
 check this things
-login session
-access control via link
+login session - auto log out after 10min
+access control via link - ok
+clear otp tabel - auto clear
+set timer for otp
+check emp login
