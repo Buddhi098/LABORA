@@ -30,11 +30,11 @@
             <div class="horizontal-line"></div>
             <form action="<?php echo URLROOT?>User/login?>" method="post">
                 <div class="form-group patient">
-                    <input type="email" id="patient-Email" name="patient-Email" value="" placeholder="Email" required><br>
+                    <input type="email" id="patient-Email" name="patient-Email" value="" placeholder="Email" value='' required><br>
                     <span class="formerr"><?php echo $data['emailerr'];?></span>
                 </div>
                 <div class="form-group patient">
-                    <input type="password" id="patient-password" name="patient-password" value="" placeholder="Password" required><br>
+                    <input type="password" id="patient-password" name="patient-password" value="" placeholder="Password" value='' required><br>
                     <span class="formerr"><?php echo $data['passworderr'];?></span>
                 </div>
                 <button type="submit" name="submit" class="btn-login button">Login</button>

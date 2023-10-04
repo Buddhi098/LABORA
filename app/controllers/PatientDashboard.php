@@ -16,7 +16,7 @@
             }
 
             $data = [];
-            $this->view("Patient" , $data);
+            $this->view("patientdashboard/Patient" , $data);
         }
     }
 ?>

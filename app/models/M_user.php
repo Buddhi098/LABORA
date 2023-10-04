@@ -15,7 +15,13 @@
             }
 
             public function enterUserData($name,$email,$password,$phone,$dob,$address){
-                $query = "INSERT INTO patient_data VALUES('','$name','$email','$password','$phone','$dob','$address')";
+                // get last row id
+                $result =mysqli_query($this->conn , "SELECT * FROM patient_data ORDER BY ID DESC LIMIT 1") ;
+                $user = mysqli_fetch_assoc($result);
+                $lastid = $user['id'];
+
+                $nextid = $lastid +1;
+                $query = "INSERT INTO patient_data VALUES('$nextid','$name','$email','$password','$phone','$dob','$address')";
                 mysqli_query($this->conn , $query);
                 echo
                 "<script> alert('Registration Successful');</script>";
@@ -23,7 +29,6 @@
 
             public function isExistEmail($email){
                 $query =mysqli_query($this->conn , "SELECT * FROM patient_data WHERE email='$email'") ;
-                echo mysqli_num_rows($query);
                 if(mysqli_num_rows($query)>0){
                     return true;
                 }else{

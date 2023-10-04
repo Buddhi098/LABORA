@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout">
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/patient.css'?>">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/patientdashboard/patient.css'?>">
 
     <title>Patient dashboard</title>
 </head>
