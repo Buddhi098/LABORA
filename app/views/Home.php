@@ -179,7 +179,7 @@
     </ul>
     
     <div class="legal">
-        <p>&copy; 2019 Something. All rights reserved.</p>
+        <p>&copy; 2023 Labs. All rights reserved.</p>
     </div>
     </footer>
 </body>
