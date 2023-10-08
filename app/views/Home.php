@@ -89,18 +89,21 @@
     </div>
     <div class="contact" id="contact">
         <div class="contact-section"><h1><br>Contact <span>SAHANYA Labs</h1></span><br><div class="horizontal-line"></div></div>
-         <div class="contact-form">
+        <div class="contact-form">
         <form action="submit.php" method="post">
-            <h2>Get In Touch</h2>
-            <input type="text" id="name" name="name" placeholder="Name" required>
+            <fieldset class="getintouch">
+                <legend><h2>Get In Touch</h2></legend>
+                <input type="text" id="name" name="name" placeholder="Name" required>
 
-            <input type="email" id="email" name="email" placeholder="Email" required><br>
+                <input type="email" id="email" name="email" placeholder="Email" required><br>
 
-            <input type="text" id="subject" name="subject" placeholder="Subject" required><br>
+                <input type="text" id="subject" name="subject" placeholder="Subject" required><br>
 
-            <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea><br>
+                <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea><br>
 
-            <input type="submit" value="Submit" class="submit button">
+                <input type="submit" value="Submit" class="submit button">
+            </fieldset>
+            
         </form>
         </div>
     </div>

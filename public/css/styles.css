@@ -331,6 +331,13 @@ nav .signin-button:hover {
     margin: 50px;
     
 }
+.contact-form .getintouch{
+    padding-left: 40px;
+    padding-bottom: 20px;
+    width: 800px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0,0.3);
+}
 .contact-form form{
     width: 70%;
     margin: 10px auto;
