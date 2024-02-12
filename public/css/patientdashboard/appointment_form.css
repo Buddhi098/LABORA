@@ -1,0 +1,292 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+:root {
+  --primary-color: #f90a39;
+  --text-color: #1d1d1d;
+  --bg-color: #33186B;
+}
+
+/* form style */
+
+/* body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+} */
+
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: rgba(192, 189, 255, 0.1);
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 28px;
+    margin: 0px;
+    overflow: auto;
+    height: 95%;
+}
+
+.container_2 {
+    max-width: 800px;
+    margin: 0px auto;
+    border-radius: 10px;
+    padding: 24px;
+    width: 780px;
+    background-color: white;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.container_1 .title {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #1e0e58;
+  text-align: center;
+}
+
+.container_1 .sub_title {
+  margin: 0;
+  text-align: center;
+  color: #555;
+}
+
+.container_1 .date {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.container_1 .item_1 {
+  display: flex;
+}
+
+.container_1 .item_1 .calenderr {
+  flex: 1;
+  /* You can add a background image for the calendar here if needed */
+}
+
+.container_1 .item_1 .time_slots {
+  flex: 1;
+  height: 379px;
+  overflow: auto;
+  background-color: var(--bg-color);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.container_1 .item_1 .time_slots div .clicked{
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+}
+
+.container_1 .item_1 .time_slots div {
+  margin: 8px;
+  display: inline-block;
+}
+
+.container_1 .item_1 .time_slots div p {
+  border: 2px solid rgba(30, 14, 88 , 0.8);
+  padding: 10px 0px;
+  width: 140px;
+  border-radius: 10px;
+  color: #1e0e58;
+  cursor: pointer;
+  margin: 0;
+  font-size: 13px;
+  text-align: center;
+  background-color: white;
+  font-family: roboto;
+  font-weight: bold;
+}
+
+.container_1 .item_1 .time_slots div p:hover {
+  background-color: green;
+  color: white;
+}
+
+.container_1 .item_2 {
+  margin-top: 20px;
+}
+
+.container_1 form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.container_1 .submitted {
+  opacity: 0.8;
+  pointer-events: none; 
+}
+
+
+.container_1 .section_1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container_1 .section_1 .name,
+.container_1 .section_1 .email {
+  width: 48%;
+}
+
+.container_1 .section_1 label {
+  display: block;
+  margin-bottom: 5px;
+  color: #1e0e58;
+}
+
+.container_1 .section_1 select,
+.container_1 .section_1 input,
+.container_1 .section_2 textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 6px;
+}
+
+.container_1 .section_2 {
+  margin-bottom: 20px;
+}
+
+.container_1 .submit_button {
+  background-color: #1e0e58;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.container_1 .submit_button:hover {
+  background-color: #0d0731;
+}
+
+
+
+
+/* calender Styles */
+.container {
+  width: 100%;
+  min-height: 58vh;
+}
+.calendar {
+  width: 95%;
+  max-width: 600px;
+  padding: 30px 20px;
+  background-color: var(--bg-color);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.calendar .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+.calendar .header .month {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+}
+.calendar .header .btns {
+  display: flex;
+  gap: 10px;
+}
+.calendar .header .btns .btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--primary-color);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.calendar .header .btns .btn:hover {
+  background-color: #db0933;
+  transform: scale(1.05);
+}
+.weekdays {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.weekdays .day {
+  width: calc(100% / 7 - 10px);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color:white;
+}
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.days .day {
+  width: calc(100% / 7 - 10px);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: #fff;
+  transition: all 0.3s;
+}
+.days .day:not(.next):not(.prev):hover {
+  color: #fff;
+  background-color:green;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
+.days .day.today {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+.days .day.next,
+.days .day.prev {
+  color: #ccc;
+}
+
+.days .clicked{
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+}
+
+
+/* Credits */
+.credits a {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #aaa;
+}
+.credits span {
+  color: var(--primary-color);
+}
