@@ -1,0 +1,28 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 10px;
+    margin: 0px;
+    height: 93%;
+    overflow: auto;
+    font-family: roboto;
+}
+
+table .download,
+table .delete{
+
+    color: var(--darkblue);
+    font-size: 1.9em;
+    margin-left: 10px ;
+}
+
+tbody tr:hover .download,
+tbody tr:hover .delete{
+    color: white;
+}
