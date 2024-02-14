@@ -1,0 +1,51 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 10px;
+    margin: 0px;
+    height: 93%;
+    overflow: auto;
+    font-family: roboto;
+}
+
+/* table button */
+
+button.cancel {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+button.cancel:hover {
+    background-color: #0056b3;
+}
+
+button.del{
+    background-color: #ff0000;
+}
+button.del:hover{
+    background-color: #a70000;
+}
+
+
+table .download,
+table .delete{
+
+    color: var(--darkblue);
+    font-size: 1.9em;
+    margin-left: 10px ;
+}
+
+tbody tr:hover .download,
+tbody tr:hover .delete{
+    color: white;
+}
