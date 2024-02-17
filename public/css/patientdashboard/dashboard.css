@@ -1,7 +1,7 @@
 .container_1
 {
     position: fixed;
-    width: calc(100% - 300px);
+    width: calc(100% - 350px);
     left: 300px;
     background: white;
     transition: 0.5s;
@@ -16,6 +16,9 @@
     background-color: #e9ecff75;
 }
 
+body{
+  overflow: hidden;
+}
 .container_1 .boxset_1{
   
   margin: 0;
