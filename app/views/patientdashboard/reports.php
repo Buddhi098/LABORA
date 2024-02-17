@@ -83,5 +83,7 @@
             </div>
         </div>
     </div>
+
+    <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
 </body>
 </html>
