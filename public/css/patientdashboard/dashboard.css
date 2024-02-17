@@ -79,6 +79,7 @@
   align-items: center;
   justify-content: space-around;
   margin-bottom: 32px;
+  min-height: 500px;
 }
 
 .container_1 .boxset_2 .bigbox_1{
@@ -136,7 +137,14 @@
 } 
 .container_1 .boxset_2 .bigbox_1 .test_box .tbox{
   text-align: center;
+  
 }
+
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox_2{
+  position: absolute;
+  left: 424px;
+}
+
 .container_1 .boxset_2 .bigbox_1 .test_box .tbox_1 h4 i{
   background-color: rgba(128, 0, 255,0.2);
   padding: 10px;
