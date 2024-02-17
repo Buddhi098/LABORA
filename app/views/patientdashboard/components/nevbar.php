@@ -64,7 +64,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="logout">
+            <div class="logout" onclick="clearSession()">
                 <a href="http://localhost/labora/user/logout" class="button">
                 <span class="icon"><ion-icon name="log-out"></ion-icon></span>
                 <span class="log">Log out</span>
@@ -97,3 +97,34 @@
     </div>
 </body>
 </html>
+
+<script>
+    let list = document.querySelectorAll(".navigation ul li");
+
+
+    if (sessionStorage.getItem('activeIndex')) {
+        let activeIndex = parseInt(sessionStorage.getItem('activeIndex'));
+
+        list[activeIndex].classList.add("hovered");
+    }else{
+        document.querySelector(".navigation ul li:nth-child(1)").classList.add("hovered");
+    }
+
+    function activeLink() {
+
+        list.forEach((item) => {
+            item.classList.remove("hovered");
+        });
+
+        let index = Array.from(list).indexOf(this);
+
+        sessionStorage.setItem('activeIndex', index.toString());
+    }
+
+    list.forEach((item) => item.addEventListener('click', activeLink));
+
+    function clearSession(){
+        sessionStorage.clear();
+    }
+
+</script>
