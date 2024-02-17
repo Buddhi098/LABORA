@@ -39,7 +39,8 @@ body
 
 .navigation
 {
-    background-image: url('/LABORA/public/img/contact1.png');
+    /* background-image: url('/LABORA/public/img/contact1.png'); */
+    background-color: #130E2A;
     position: fixed;
     width: 300px;
     height: 100%;
