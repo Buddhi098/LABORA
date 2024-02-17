@@ -84,6 +84,8 @@
         public function dashboard(){
 
             $data = [];
+            $medical_tests = $this->md_testtype->getRow();
+            $data['medical_test'] = $medical_tests;
             $this->view("patientdashboard/dashboard" , $data);
         }
 
