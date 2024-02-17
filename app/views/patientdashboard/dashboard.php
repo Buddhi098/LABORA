@@ -71,71 +71,24 @@
                     <p class="sub_title"><i class="fa-solid fa-file-invoice-dollar"></i> Cost of medical Test</p>
                 </div>
                 <div class="boxes">
-                    <div class="test_box">
-                        <div class="tbox tbox_1">
-                            <h4><i class="fa-solid fa-heart-pulse" style="color: #8000ff;"></i>  Blood Test</h4>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>$1500</p>
-                            <span>Cost</span>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>15 min</p>
-                            <span>Time duration</span>
-                        </div>
-                    </div>
-                    <div class="test_box">
-                        <div class="tbox tbox_1">
-                            <h4><i class="fa-solid fa-heart-pulse" style="color: #8000ff;"></i>  Blood Test</h4>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>$150</p>
-                            <span>Cost</span>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>12 min</p>
-                            <span>Time duration</span>
-                        </div>
-                    </div>
-                    <div class="test_box">
-                        <div class="tbox tbox_1">
-                            <h4><i class="fa-solid fa-heart-pulse" style="color: #8000ff;"></i>  Blood Test</h4>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>$100</p>
-                            <span>Cost</span>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>20 min</p>
-                            <span>Time duration</span>
-                        </div>
-                    </div>
-                    <div class="test_box">
-                        <div class="tbox tbox_1">
-                            <h4><i class="fa-solid fa-heart-pulse" style="color: #8000ff;"></i>  Blood Test</h4>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>$1500</p>
-                            <span>Cost</span>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>15 min</p>
-                            <span>Time duration</span>
-                        </div>
-                    </div>
-                    <div class="test_box">
-                        <div class="tbox tbox_1">
-                            <h4><i class="fa-solid fa-heart-pulse" style="color: #8000ff;"></i>  Blood Test</h4>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>$1500</p>
-                            <span>Cost</span>
-                        </div>
-                        <div class="tbox tbox_1">
-                            <p>15 min</p>
-                            <span>Time duration</span>
-                        </div>
-                    </div>
+                    <?php
+                        foreach($data['medical_test'] as $data){
+                            echo '<div class="test_box">
+                            <div class="tbox tbox_1">
+                                <h4><i class="fa-solid fa-heart-pulse" style="color: #8000ff;"></i> '. $data['Test_type'].'</h4>
+                            </div>
+                            <div class="tbox tbox_2">
+                                <p>'. $data['price'].'</p>
+                                <span>Cost</span>
+                            </div>
+                            <div class="tbox tbox_3">
+                                <p>'. $data['Time_duration'].' min</p>
+                                <span>Time duration</span>
+                            </div>
+                        </div>';
+
+                        }
+                    ?>
                 </div>
             </div>
             <div class="bigbox bigbox_2">
