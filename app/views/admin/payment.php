@@ -89,5 +89,6 @@
 
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+    <script src="<?php echo APPROOT.'/public/js/admin/table.js'?>"></script>
 </body>
 </html>
