@@ -31,23 +31,8 @@
             
             $data = array();
             $result = $this->md_appointment->getRowByEmail($_SESSION['useremail']);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    // Add each row as an associative array to the $data array
-                    $data[] = $row;
-                }
-            }else{
-                $data = [[
-                    'Id'=> "",
-                    'Ref_No' => '',
-                    'Test_Type' => '',
-                    'Appointment_Date' => '',
-                    'Appointment_Time'=> '',
-                    'Appointment_Duration'=> '',
-                    'Appointment_Status'=> '',
-                    'Appointment_Notes'=> '',
-                ],];
-                $this->view("patientdashboard/appointment" , $data);
+            if($result){
+                $data['dataset'] = $result;
             }
             
             $this->view("patientdashboard/appointment" , $data);
@@ -294,20 +279,8 @@
             
             $data = array();
             $result = $this->md_report->getRowByEmail($_SESSION['useremail']);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    // Add each row as an associative array to the $data array
-                    $data[] = $row;
-                }
-            }else{
-                $data = [[
-                    'id'=> "",
-                    'ref_No' => '',
-                    'Test_Type' => '',
-                    'date' => '',
-                    'message'=> '',
-                ],];
-                $this->view("patientdashboard/reports" , $data);
+            if ($result) {
+                $data = $result;
             }
             
             $this->view("patientdashboard/reports" , $data);
@@ -358,6 +331,9 @@
                 ) 
             );
 
+            // store payment amount in session varibale for store database;
+            $_SESSION['cost'] = $amount;
+
             $output['hash'] =  $hash;
             $output['merchant_id'] =  $merchant_id;
             $output['order_id'] =  $order_id;
@@ -379,8 +355,38 @@
 
         public function storeAppointment()
         {
-            $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['appointment_time_as'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail']);
+            $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['appointment_time_as'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail'],'online' ,'paid',$_SESSION['cost']);
             exit();
+        }
+
+        public function storeOnsiteAppointment()
+        {
+
+            try {
+                $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'], $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], 'onsite', 'unpaid', $_SESSION['cost']);
+            
+                $data = [
+                    'success_msg' => 'payment_success'
+                ];
+            
+                echo json_encode($data);
+                exit();
+            } catch (Exception $e) {
+
+                $error_message = $e->getMessage();
+                $data = [
+                    'error_msg' => 'Something went wrong. Try Again!',
+                    'error' => $error_message
+                ];
+                
+
+                error_log($error_message);
+            
+                http_response_code(500); 
+                echo json_encode($data);
+                exit();
+            }
+            
         }
         
         public function showReports(){
