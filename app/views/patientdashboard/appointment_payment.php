@@ -29,6 +29,20 @@
             </div>
         </section>
     </div>
+
+
+    <!-- popup success messages -->
+    <div class="success-message-container" id="successMessage">
+    <p>Success! Payment Successfull.</p>
+    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+    <div class="error-message-container" id="ErrorMessage">
+    <p>Error! Payment was failed.</p>
+    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+
 </body>
 </html>
 <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
@@ -65,7 +79,7 @@
             // Payment completed. It can be a successful failure.
             payhere.onCompleted =async function onCompleted(orderId) {
                 console.log("Payment completed. OrderID:" + orderId);
-
+                showSuccessMessage();
                 const apiUrl = 'http://localhost/labora/PatientDashboard/storeAppointment';
                 fetch(apiUrl)
                     .then(response => {
@@ -91,6 +105,7 @@
             payhere.onDismissed = function onDismissed() {
                 // Note: Prompt user to pay again or show an error page
                 console.log("Payment dismissed");
+                showErrorMessage()
                 // Redirect to a specific URL
 
             };
