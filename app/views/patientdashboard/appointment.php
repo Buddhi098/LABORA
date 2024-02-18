@@ -63,9 +63,10 @@
         <tbody>
                 <div class='table_body'>
                         <?php
-                        $reversedArray = array_reverse($data, true);
-                        if(count($reversedArray)>1){
-                            foreach ($reversedArray as $row) {
+                        if(!empty($data['dataset'])){
+                            $reversedArray = array_reverse($data['dataset'], true);
+
+                            foreach ($data['dataset'] as $row) {
                               echo '<tr>
                               <td>'.$row['Id'].'</td>
                               <td>'.$row['Ref_No'].'</td>
@@ -79,7 +80,7 @@
                           </tr>';
                           }
                         }else{
-                          echo '';
+                          echo '<tr><td colspan="100%" class="empty_msg">No data available in the table.</td></tr>';
                         }
                         
                         ?>
