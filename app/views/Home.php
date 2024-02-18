@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="<?php echo APPROOT.'\public\css\styles.css';?>">
-    hi
 </head>
 <body onload="service()">
     <div class="container">
