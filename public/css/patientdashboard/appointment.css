@@ -1,0 +1,224 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 10px;
+    margin: 0px;
+    height: 93%;
+    overflow: auto;
+    font-family: roboto;
+}
+
+body{
+    overflow: hidden;
+}
+
+.tablename {
+    color: #007bff;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.container_1 .line{
+    position: absolute;
+    top: 75px;
+    left: 157px;
+    width: 40px;
+    color: red;
+    background-color: red;
+    height: 2.4px;
+}
+
+.tablename h3 {
+    margin: 0;
+}
+
+/* Style the search bar */
+.searchbar .search{
+    width: 80%;
+    margin: 20px 0;
+    height: 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.search {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.search:focus {
+    outline: none;
+}
+
+
+.search +a {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 9px 20px;
+    text-decoration: none;
+    margin-left: -4px;
+    height: 41px;
+    width: 19.9%;
+    text-align: center;
+    justify-content: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.search + a:hover {
+    background-color: #0056b3;
+}
+
+/* Style the filter form */
+.filter {
+    margin: 20px 0;
+}
+
+.filter .submit{
+    border-radius: 16px;
+}
+
+.test-type, .from, .to {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+
+button.submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button.submit:hover {
+    background-color: #0056b3;
+}
+
+/* table button */
+
+a.cancel {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 16px;
+    text-decoration: none;
+}
+
+a.cancel:hover {
+    background-color: #0056b3;
+}
+
+button.del{
+    background-color: #ff0000;
+}
+button.del:hover{
+    background-color: #a70000;
+}
+
+/* Style the container div */
+.add {
+    display: flex;
+    align-items: center;
+    background-color: #1e0e58;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    justify-content: flex-end;
+  }
+  
+  .add {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add a {
+    text-decoration: none;
+    color: white;
+}
+
+.addbtn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #371ba7;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px solid #371ba7;
+    cursor: pointer;
+}
+
+.addbtn:hover {
+    background-color: #321795;
+    border-color: #321795;
+}
+
+  
+
+
+
+/* override nev bar for keep white check */
+
+.navigation ul li:nth-child(2)
+{
+    background-color: white;
+}
+
+.navigation ul li:nth-child(2) a .title
+{
+    color: var(--darkblue);
+}
+
+.navigation ul li:nth-child(2) a::before
+{
+    content:'';
+    position: absolute;
+    right:0;
+    top:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px 30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a::after
+{
+    content:'';
+    position: absolute;
+    right:0;
+    bottom:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px -30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a .icon
+{
+    color: var(--darkblue);
+}
+
+
+.container_1 h5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-family: roboto;
+    color: rgb(68, 68, 68);
+    margin-right: 67%;
+}
