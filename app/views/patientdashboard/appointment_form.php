@@ -78,12 +78,43 @@
                             <h3 style="color:rgba(255 , 255 , 255 , 0.8);margin-top:50px;">Please Select date first</h3>
                         </div>
                     </div>
-                    <a  class="submit_button submitted" id="nextBtn" href="<?php echo URLROOT.'PatientDashboard/getPaymentPage'?>" style="text-decoration:none;">Submit</a>
+                    <a  class="submit_button submitted" id="nextBtn" style="text-decoration:none;" onclick="openModal()">Submit</a>
             </div>
 
       </div>
 
-      <script src="<?php echo APPROOT.'/public/js/patientdashboard/appointment_form.js';?>"></script>
+
+
+
+        <!-- Modal -->
+
+    <div id="customModal" class="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color: #422CA7; margin: 0;">Select Payment Method</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="payment-options">
+                <button id="onsitePaymentBtn" onclick="onsitePayment()">Onsite Payment</button>
+                <button id="onlinePaymentBtn" onclick="onlinePayment()">Online Payment</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- pop success & error messages -->
+    <!-- popup success messages -->
+    <div class="success-message-container" id="successMessage">
+    <p>Success! Appointment Scheduled.</p>
+    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+    <div class="error-message-container" id="ErrorMessage">
+    <p>Something went wrong. Try Again!</p>
+    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+    <script src="<?php echo APPROOT.'/public/js/patientdashboard/appointment_form.js';?>"></script>
 
     <script>
         function getTime(date){
@@ -91,7 +122,5 @@
         }
     </script>
 
-      
 </body>
 </html>
-
