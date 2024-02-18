@@ -19,6 +19,10 @@
     <!-- common javascript functions -->
     <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
 
+    <!--Modal -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/modal.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/modal.js'?>"></script>
+
     <!-- popup messages -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
     <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
