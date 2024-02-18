@@ -20,18 +20,16 @@
         <div class="boxset-1">
             <div class="box box-1">
                 <span>8</span><br>
-                <h5>Number of User Accounts</h5><br>
+                <h3>Number of User Accounts</h3><br>
                 <!-- <p>patient are kept up to date with real-time updates to their medical history.</p> -->
             </div>
             <div class="box box-2">
                 <span>16</span><br>
-                <h5>Number of Medical Tests</h5><br>
-                <p>Provides the number of medical tests performed today</p>
+                <h3>Number of Medical Tests</h3><br>
             </div>
             <div class="box box-3">
                 <span>Rs 16000</span><br>
-                <h5>Total Revenue</h5><br>
-                <p>Today, received total payment </p>
+                <h3>Total Revenue</h3><br>
             </div>
         </div>
     </div>

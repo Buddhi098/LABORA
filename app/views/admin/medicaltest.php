@@ -28,18 +28,11 @@
             <div class="filter-section">
                 <select class="filter-box">
                 <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
+                <option value="category1">Blood Tests</option>
+                <option value="category2">Imaging Tests</option>
+                <option value="category2">Urine Tests</option>
                 </select>
-                <button class="filter-button">Filter By ID</button>
-            </div>
-            <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                </select>
-                <button class="filter-button">Filter By Email</button>
+                <button class="filter-button">Filter By Test Type </button>
             </div>
         </div>
         <table id="myTable">
