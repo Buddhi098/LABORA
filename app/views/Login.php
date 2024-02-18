@@ -53,3 +53,10 @@
     
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    sessionStorage.clear(); 
+    });
+
+</script>
