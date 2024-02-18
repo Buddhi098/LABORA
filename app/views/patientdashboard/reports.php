@@ -56,9 +56,8 @@
         <tbody>
                 <div class='table_body'>
                     <?php
-                    
-                    $reversedArray = array_reverse($data, true);
-                    if(count($reversedArray)>1){
+                    if(!empty($data)){
+                        $reversedArray = array_reverse($data, true);
                         foreach ($reversedArray as $row) {
                             echo '<tr>
                             <td>'.$row['id'].'</td>
@@ -69,6 +68,8 @@
                             <td><a href="http://localhost/uploads/'.$row['path'].'" >View</a> <a href="http://localhost/labora/PatientDashboard/deleteReport/'.$row['id'].'/'.$row['path'].'">delete</a></td>
                         </tr>';
                         }
+                    }else{
+                        echo '<tr><td colspan="100%" class="empty_msg">No data available in the table.</td></tr>';
                     }
                     
                     ?>   
