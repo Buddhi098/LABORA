@@ -118,6 +118,8 @@ function hideTodayBtn() {
   }
 }
 
+
+
 // for getting avalable time slots
 function getTimes(date , day){
   const baseLink = window.location.origin
@@ -157,6 +159,7 @@ function getTimes(date , day){
 }
 
 
+
 // for setting time
 
 function setTime(time , slot){
@@ -190,6 +193,7 @@ function setTime(time , slot){
   nextBtn.classList.remove('submitted')
 
 }
+
 
 
 // for submitting form
@@ -244,7 +248,54 @@ form.addEventListener('submit', function(event) {
   item1.classList.remove('submitted');
 });
 
+
+
 // for sanitize inputs
 function sanitizeInput(input) {
   return input.replace(/<[^>]*>?/gm, '');
+}
+
+
+
+
+// select payment methods
+function onlinePayment(){
+  let baseLink = window.location.origin;
+  let Url = `${baseLink}/labora/PatientDashboard/getPaymentPage`
+  window.location.replace(Url)
+}
+
+function onsitePayment(){
+
+  let baseLink = window.location.origin;
+  let link = `${baseLink}//labora/PatientDashboard/storeOnsiteAppointment`
+
+  fetch(link)
+    .then(response => {
+      if(!response.ok){
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    })
+    .then(data =>{
+      console.log(data);
+
+      if(data['success_msg']){
+        showSuccessMessage()
+      }else if(data['error_msg']){
+        showErrorMessage()
+      }
+
+      closeModal();
+
+
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('nextBtn').style.opacity = '0.8';
+      document.getElementById('nextBtn').style.cursor = 'not-allowed';
+    })
+    .catch(error => {
+      console.error('There wa a problem with the fetch operation: ' , error)
+    })
+
+
 }
