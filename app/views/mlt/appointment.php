@@ -28,18 +28,14 @@
             <div class="filter-section">
                 <select class="filter-box">
                 <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
+                <option value="category1">Pending</option>
+                <option value="category2">Completed</option>
                 </select>
-                <button class="filter-button">Filter By ID</button>
+                <button class="filter-button">Filter By Status</button>
             </div>
             <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                </select>
-                <button class="filter-button">Filter By Email</button>
+                <input type="date" id="filterDate">
+                <button class="filter-button" >Filter by Date</button>
             </div>
         </div>
         <table id="myTable">

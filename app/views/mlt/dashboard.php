@@ -20,23 +20,15 @@
         <div class="boxset-1">
             <div class="box box-1">
                 <span>12</span><br>
-                <h5>Number of Appointments Received</h5><br>
-                <p>Number of appointments to be completed</p>
+                <h3>Number of Appointments Received</h3><br>
             </div>
             <div class="box box-2">
                 <span>6</span><br>
-                <h5>Number of Medical Reports</h5><br>
-                <p>Number of reports to be validated</p>
+                <h3>Number of Medical Reports</h3><br>
             </div>
-            <!-- <div class="box box-3">
-                <span>600$</span><br>
-                <h5>Medical Test Expenses</h5><br>
-                <p>The total expenses will automatically update as new costs are incurred. </p>
-            </div> -->
             <div class="box box-4">
                 <span>13</span><br>
-                <h5>Number of Medical Test</h5><br>
-                <p>Current number of medical tests performed</p>
+                <h3>Number of Medical Test</h3><br>
             </div>
         </div>
     </div>
