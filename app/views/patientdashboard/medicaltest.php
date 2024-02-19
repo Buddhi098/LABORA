@@ -11,17 +11,55 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <script src="<?php echo APPROOT.'\public\js\home.js';?>"></script>
-    <title>Patient dashboard</title>
 
-    <script>
+    <!-- <script src="<?php echo APPROOT.'\public\js\home.js';?>"></script> -->
+    <title>Patient dashboard</title>
+</head>
+<body>
+    <?php require_once 'components/nevbar.php' ?>
+    <div class="container_1">
+        <div class="services" id="services">
+            <div class="test-type">
+                <div class="test-search">
+                    <input id="search1" type="search" placeholder="Search here" data-search>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <div class="test-list">
+                        <ul id="service-list">
+                        </ul>
+                    </div>
+                </div>
+                <div class="test-description">
+                    <h4><i class="fa-solid fa-file-prescription"></i></i> Description</h4>
+                    <p id="dis" class="dis"></p>
+                    <h4><i class="fa-solid fa-user-doctor"></i> Preparation</h4>
+                    <p id="pre" class="pre"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script>
+    document.addEventListener('onload', service());
+
+
     let testtype = [];
     function service(id=1){
         baseLink = window.location.origin;
+        console.log('asdsa')
+        fetch(`${baseLink}/labora/home/getService`)
+        .then((res)=>{
+            if(!res.ok){
+                throw new Error('Network Error Occurred');
+            }
 
-        fetch(`${baseLink}labora/home/getService`)
-        .then((res)=>res.json())
+            return res.json()
+        })
         .then(response=>{
+
+            console.log(response)
             let output = '';
             let des = '';
             let pre = '';
@@ -60,30 +98,5 @@
 
     // end daynamic search
 </script>
-</head>
-<body  onload="service()">
-    <?php require_once 'components/nevbar.php' ?>
-    <div class="container_1">
-        <div class="services" id="services">
-            <div class="test-type">
-                <div class="test-search">
-                    <input id="search1" type="search" placeholder="Search here" data-search>
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <div class="test-list">
-                        <ul id="service-list">
-                        </ul>
-                    </div>
-                </div>
-                <div class="test-description">
-                    <h4><i class="fa-solid fa-file-prescription"></i></i> Description</h4>
-                    <p id="dis" class="dis"></p>
-                    <h4><i class="fa-solid fa-user-doctor"></i> Preparation</h4>
-                    <p id="pre" class="pre"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
 
 
