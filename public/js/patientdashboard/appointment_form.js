@@ -266,10 +266,9 @@ function onlinePayment(){
 }
 
 function onsitePayment(){
-
   let baseLink = window.location.origin;
-  let link = `${baseLink}//labora/PatientDashboard/storeOnsiteAppointment`
-
+  let link = `${baseLink}/labora/PatientDashboard/storeOnsiteAppointment`
+  console.log(link);
   fetch(link)
     .then(response => {
       if(!response.ok){
