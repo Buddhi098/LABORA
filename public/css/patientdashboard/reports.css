@@ -1,0 +1,30 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 10px;
+    margin: 0px;
+    height: 93%;
+    overflow: auto;
+    font-family: roboto;
+    height: 100vh;
+}
+
+.container_1 .table-container tbody tr td a{
+    background: #2f45ff;
+    padding: 8px 16px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    width: 20px;
+    min-height: 650px;
+}
+
+.container_1 .table-container tbody tr td a:hover{
+    background: #0c0eff;
+}
