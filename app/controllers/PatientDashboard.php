@@ -225,6 +225,7 @@
         public function set_available_times($time){
             if($_SERVER['REQUEST_METHOD']=='GET'){
                 $_SESSION['appointment_time_as'] = $time;
+                $_SESSION['cost'] = $_SESSION['Test_cost'];
             }
             $message = [
                 'status' => 'success'
@@ -332,7 +333,6 @@
             );
 
             // store payment amount in session varibale for store database;
-            $_SESSION['cost'] = $amount;
 
             $output['hash'] =  $hash;
             $output['merchant_id'] =  $merchant_id;
