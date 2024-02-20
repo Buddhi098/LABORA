@@ -1,5 +1,5 @@
 <?php
-    class MLT extends Controller{
+    class MLTDashboard extends Controller{
         private $auth;
 
         public function __construct(){
