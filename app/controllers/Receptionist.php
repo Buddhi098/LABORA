@@ -51,10 +51,10 @@
             $data = [];
             $this->view("receptionist/appointment_form" , $data);
         }
-        public function payment2_form(){
+        public function payment_form(){
 
             $data = [];
-            $this->view("receptionist/payment2_form" , $data);
+            $this->view("receptionist/payment_form" , $data);
         }
     }
 ?>

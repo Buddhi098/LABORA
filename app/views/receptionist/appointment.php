@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/appointment2.css'?>">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/appointment.css'?>">
     <script src="<?php echo APPROOT.'/public/js/receptionist/recept.js';?>"></script>
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -29,20 +29,8 @@
 
         <div class="filter-box">
             <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                </select>
-                <button class="filter-button">Filter By ID</button>
-            </div>
-            <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                </select>
-                <button class="filter-button">Filter By Email</button>
+                <input type="date" id="filterDate">
+                <button class="filter-button" >Filter by Date</button>
             </div>
         </div>
         <table id="myTable">
