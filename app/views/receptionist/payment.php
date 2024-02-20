@@ -20,7 +20,7 @@
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i>Appointments</h2>
         <div class="add">
-            <a href="<?php echo URLROOT?>receptionist/payment2_form" class="addbtn"><ion-icon name="add"></ion-icon>Add Payment</a>
+            <a href="<?php echo URLROOT?>receptionist/payment_form" class="addbtn"><ion-icon name="add"></ion-icon>Add Payment</a>
         </div>
         <div class="search-container">
         <input type="text" class="search-box" id="searchInput" placeholder="Search...">
@@ -29,20 +29,8 @@
 
         <div class="filter-box">
             <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                </select>
-                <button class="filter-button">Filter By ID</button>
-            </div>
-            <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-                </select>
-                <button class="filter-button">Filter By Email</button>
+                <input type="date" id="filterDate">
+                <button class="filter-button" >Filter by Date</button>
             </div>
         </div>
         <table id="myTable">

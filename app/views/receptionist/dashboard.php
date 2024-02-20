@@ -20,17 +20,17 @@
         <div class="boxset-1">
             <div class="box box-1">
                 <span>6</span><br>
-                <h5>Register Patient</h5><br>
+                <h3>Register Patients</h3><br>
                 <p>Number of patients registered in a day</p>
             </div>
             <div class="box box-2">
                 <span>8</span><br>
-                <h5>Appointment</h5><br>
+                <h3>Appointments</h3><br>
                 <p>Number of appointments in a day</p>
             </div>
             <div class="box box-3">
                 <span>Rs 6000</span><br>
-                <h5>Payment</h5><br>
+                <h3>Payment</h3><br>
                 <p>Total amount of payments received in a day</p>
             </div>
         </div>

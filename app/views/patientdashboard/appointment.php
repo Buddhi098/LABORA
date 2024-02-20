@@ -66,7 +66,7 @@
                         if(!empty($data['dataset'])){
                             $reversedArray = array_reverse($data['dataset'], true);
 
-                            foreach ($data['dataset'] as $row) {
+                            foreach ($reversedArray as $row) {
                               echo '<tr>
                               <td>'.$row['Id'].'</td>
                               <td>'.$row['Ref_No'].'</td>
