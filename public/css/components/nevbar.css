@@ -92,6 +92,7 @@ body
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
+
 .navigation ul li:hover,
 .navigation ul li.hovered
 {
