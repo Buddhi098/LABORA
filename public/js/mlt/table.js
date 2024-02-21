@@ -6,11 +6,10 @@ function filterTableByDate() {
 
     for (var i = 0; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName('td');
-        // Date is in the 4th column
-        var appointmentDate = cells[3].innerText || cells[3].textContent; 
+        var appointmentDate = cells[3].innerText.trim(); // Assuming the date is in the 4th column
 
-        // Compare the date 
-        if (appointmentDate.trim() === filterDate.trim()) {
+        // Compare the appointment date from the table with the selected date
+        if (appointmentDate === filterDate) {
             rows[i].style.display = '';
         } else {
             rows[i].style.display = 'none';
@@ -18,5 +17,4 @@ function filterTableByDate() {
     }
 }
 
-// Attach event listener
-document.getElementById('filterButton').addEventListener('click', filterTableByDate);
+// document.getElementById('filterButton').addEventListener('click', filterTableByDate);
