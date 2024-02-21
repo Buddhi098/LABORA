@@ -5,11 +5,7 @@
                 $this->conn = new Database;
                 $this->conn = $this->conn->dbObject();
             }
-
             public function enterAppointmentData($refno,$test_type,$appointment_date,$appointment_time,$appointment_duration,$appointment_status,$appointment_notes,$email , $payment_method , $payment_status , $cost){
-
-            public function enterAppointmentData($refno,$test_type,$appointment_date,$appointment_time,$appointment_duration,$appointment_status,$appointment_notes,$email , $payment_method , $payment_status , $cost){
-
 
                 $result =mysqli_query($this->conn , "SELECT * FROM appointment ORDER BY id DESC LIMIT 1") ;
                 $appointment = mysqli_fetch_assoc($result);
@@ -20,11 +16,7 @@
                 
 
                 $nextid = $lastid +1;
-
                 $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost')";
-
-                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost')";
-
                 mysqli_query($this->conn , $query);
 
                 return true;
@@ -44,21 +36,12 @@
 
             public function getRowByEmail($email){
                 $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE patient_email='$email'") ;
-
                 $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 if(!empty($result_data)){
                     return $result_data;
                 }else{
                     return false;
                 }       
-
-                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
-                if(!empty($result_data)){
-                    return $result_data;
-                }else{
-                    return false;
-                }       
-
             }
 
             public function getRow(){
