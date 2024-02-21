@@ -15,14 +15,7 @@
                     return $rows;
                 }else{
                     return false;
-                }       
-=======
-                $rows = mysqli_fetch_all($result , MYSQLI_ASSOC) ;
-                if(!empty($row)){
-                    return $rows;
-                }else{
-                    return false;
-                }       
+                }     
 
             }
 

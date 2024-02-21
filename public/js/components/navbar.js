@@ -14,6 +14,4 @@ function sanitize(string) {
     return string.replace(reg, (match)=>(map[match]));
 
 }
-=======
-}
 
