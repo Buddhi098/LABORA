@@ -16,7 +16,6 @@
                 }else{
                     return false;
                 }     
-
             }
 
             public function deleteFromId($id){
