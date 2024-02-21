@@ -1,0 +1,104 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 10px;
+    margin: 0px;
+    height: 93%;
+    overflow: auto;
+    font-family: roboto;
+}
+
+/* table button */
+
+button.cancel {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+button.cancel:hover {
+    background-color: #0056b3;
+}
+
+button.del{
+    background-color: #ff0000;
+}
+button.del:hover{
+    background-color: #a70000;
+}
+
+
+table .download,
+table .delete{
+
+    color: var(--darkblue);
+    font-size: 1.7em;
+    margin-left: 10px ;
+}
+
+tbody tr:hover .download,
+tbody tr:hover .delete{
+    color: white;
+}
+
+
+/*Styles for the download icon*/
+.delete ion-icon,
+.download ion-icon {
+    color: initial !important; 
+}
+
+.delete:hover ion-icon,
+.download:hover ion-icon {
+    color: blue !important; 
+}
+
+/* override nev bar for keep white check */
+
+.navigation ul li:nth-child(4)
+{
+    background-color: white;
+}
+
+.navigation ul li:nth-child(4) a .title
+{
+    color: var(--darkblue);
+}
+
+.navigation ul li:nth-child(4) a::before
+{
+    content:'';
+    position: absolute;
+    right:0;
+    top:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px 30px 0 10px white;
+}
+
+.navigation ul li:nth-child(4) a::after
+{
+    content:'';
+    position: absolute;
+    right:0;
+    bottom:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px -30px 0 10px white;
+}
+
+.navigation ul li:nth-child(4) a .icon
+{
+    color: var(--darkblue);
+}
