@@ -39,8 +39,7 @@ body
 
 .navigation
 {
-    /* background-image: url('/LABORA/public/img/contact1.png'); */
-    background-color: #130E2A;
+    background-image: url('/LABORA/public/img/contact1.png');
     position: fixed;
     width: 300px;
     height: 100%;
@@ -92,9 +91,7 @@ body
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
-
-.navigation ul li:hover,
-.navigation ul li.hovered
+.navigation ul li:hover
 {
     background-color: white;
 }
@@ -109,8 +106,7 @@ body
     color: white;
 }
 
-.navigation ul li:hover a,
-.navigation ul li.hovered a
+.navigation ul li:hover a
 {
     color: var(--darkblue);
 }
@@ -142,8 +138,7 @@ body
     line-height:  50px;
 }
 
-.navigation ul li:hover a::before,
-.navigation ul li.hovered a::before
+.navigation ul li:hover a::before
 {
     content:'';
     position: absolute;
@@ -155,8 +150,7 @@ body
     box-shadow: 30px 30px 0 10px white;
 }
 
-.navigation ul li:hover a::after,
-.navigation ul li.hovered a::after
+.navigation ul li:hover a::after
 {
     content:'';
     position: absolute;
@@ -294,23 +288,5 @@ body
 
 /* font family */
 
-/* simple table style */
-.simple_table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.simple_table th, td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: left;
-    font-family: roboto;
-}
-.simple_table th {
-    background-color: #f2f2f2;
-}
-.simple_table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-.simple_table tr:hover {
-    background-color: #f2f2f2;
-}
+
+
