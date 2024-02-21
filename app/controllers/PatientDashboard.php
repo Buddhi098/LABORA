@@ -1,4 +1,5 @@
 <?php
+buddi
     class PatientDashboard extends Controller{
         private $md_appointment;
         private $md_testtype;
