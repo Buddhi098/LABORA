@@ -1,0 +1,313 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 350px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 28px;
+    margin: 0px;
+    overflow: auto;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    background-color: #e9ecff75;
+}
+
+body{
+  overflow: hidden;
+}
+.container_1 .boxset_1{
+  
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  height: 350px;
+  margin-top: 16px;
+  padding: 0 20px;
+}
+
+.container_1 .boxset_1 .box {
+	display: flex;
+	width: 504px;
+	height: 159px;
+	font-family: roboto;
+	padding: 18px;
+	border: 2px solid #7570ff;
+	border-radius: 16px;
+	background-color: white;
+	box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  margin:10px 0;
+}
+
+.container_1 .boxset_1 .box .text h5 {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgba(24, 11, 76, 0.8);
+	margin-top: 4px;
+	width: 250px;
+	justify-content: left;
+}
+.container_1 .boxset_1 .box .text h1{
+    margin:14px 0;
+    font-family: mainfont;
+}
+.container_1 .boxset_1 .box .text p {
+	font-size: 14px;
+	color: #000000ab;
+}
+
+.container_1 .boxset_1 .icon i {
+	background: #99a0ff8f;
+	padding: 16px;
+	border-radius: 16px;
+	font-size: 24px;
+	color: #4d1ff4;
+	width: 55px;
+	height: 55px;
+	text-align: center;
+}
+
+.container_1 .boxset_2{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  padding: 0 7px;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 32px;
+  min-height: 500px;
+}
+
+.container_1 .boxset_2 .bigbox_1{
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  overflow: hidden;
+  background-color: white;
+  padding: 24px;
+  font-family: roboto;
+  border-radius: 16px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  padding-top: 0;
+  color: #2e1699;
+}
+.container_1 .boxset_2 .bigbox_1 .boxes{
+  overflow: scroll;
+}
+.container_1 .boxset_2 .bigbox_1 h3{
+  margin-left: 10px;
+  color: #2e1699;
+}
+.container_1 .boxset_2 .bigbox_1 .title{
+  margin-bottom: 30px;
+  height: 80px;
+  width: 49%;
+  background-color: white;
+  margin: 0;
+  padding-top: 30px;
+}
+.container_1 .boxset_2 .bigbox_1 .sub_title{
+  color: rgba(13, 6, 40,0.6);
+  margin:5px 0;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.container_1 .boxset_2 .bigbox_1 .test_box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 10px;
+	border-radius: 10px;
+	background-color: #f0f0f0;
+	margin: 10px;
+	border: 1px solid #e1e1e1;
+}
+
+.container_1 .boxset_2 .bigbox_1 .test_box:hover{
+  background-color: #eaeaea;
+}
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox span{
+  font-size: 14px;
+  color: rgb(87, 87, 87);
+} 
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox{
+  text-align: center;
+  
+}
+
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox_2{
+  position: absolute;
+  left: 424px;
+}
+
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox_1 h4 i{
+  background-color: rgba(128, 0, 255,0.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.container_1 .boxset_2 .bigbox_2{
+  width: 30%;
+  height: 80%;
+  padding: 24px;
+  font-family: roboto;
+  border-radius: 16px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+/* calender Styles */
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+:root {
+  --primary-color: rgb(0, 0, 177);
+  --text-color: #1d1d1d;
+  --bg-color: #33186B;
+}
+
+.container_1 .boxset_2 .bigbox_2 .calendar {
+	width: 103%;
+	height: 104%;
+	max-width: 600px;
+	padding: 30px 20px;
+	background-color: var(--bg-color);
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .month {
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 600;
+  color: white;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .btns {
+  display: flex;
+  gap: 10px;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .btns .btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--primary-color);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .btns .btn:hover {
+  background-color: #db0933;
+  transform: scale(1.05);
+}
+.container_1 .boxset_2 .bigbox_2 .weekdays {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.weekdays .day {
+  width: calc(100% / 7 - 10px);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color:white;
+}
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.days .day {
+  width: calc(100% / 7 - 10px);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: #fff;
+  transition: all 0.3s;
+}
+.days .day:not(.next):not(.prev):hover {
+  color: #fff;
+  background-color:green;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
+.days .day.today {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+.days .day.next,
+.days .day.prev {
+  color: #ccc;
+}
+
+.days .clicked{
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+}
+
+
+/* Credits */
+.credits a {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #aaa;
+}
+.credits span {
+  color: var(--primary-color);
+}
+
+
+
+
+
+
+
+
+
+
+/* responsive */
+
+@media (max-width: 800px) {
+  .container_1 .boxset_1 {
+    height: 110%;
+  }
+
+  .container_1 .boxset_1 .box{
+    margin-top:8px;
+  }
+}
