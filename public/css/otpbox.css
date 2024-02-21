@@ -1,0 +1,86 @@
+
+.button{
+    font-family: roboto;
+}
+.button:hover{
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    transform: translate(1px, 1px);
+    transition-duration: 250ms;
+    font-family: roboto;
+}
+body {
+    background-image: url(../img/contact1.png);
+    backdrop-filter:blur(10px);
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.otp-container {
+    background-color: #fff;
+    opacity: 0.9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+.otp-input {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px;
+}
+.otp-input:hover{
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+.otp-input:focus {
+    outline: none;
+    border: 2px solid #007bff;
+}
+
+.submit-btn {
+    font-family: Arial, sans-serif;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width:60%;
+    margin-top: 15px;
+}
+
+.submit-btn:hover {
+    background-color: #071c84;
+    font-family: Arial, sans-serif;
+}
+h2{
+    font-size: 30px;
+}
+.otp-container center{
+    font-size: 14px;
+}
+h2 img{
+    position: relative;
+    top:5px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    
+}
+.err{
+    color:red;
+    font-size:12px;
+    font-family: roboto;
+    font-weight: lighter;
+}

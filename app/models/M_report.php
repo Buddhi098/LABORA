@@ -9,7 +9,21 @@
 
             public function getRowByEmail($email){
                 $result =mysqli_query($this->conn , "SELECT * FROM medical_report WHERE email='$email'") ;
-                return $result;       
+
+                $rows = mysqli_fetch_all($result , MYSQLI_ASSOC) ;
+                if(!empty($row)){
+                    return $rows;
+                }else{
+                    return false;
+                }       
+=======
+                $rows = mysqli_fetch_all($result , MYSQLI_ASSOC) ;
+                if(!empty($row)){
+                    return $rows;
+                }else{
+                    return false;
+                }       
+
             }
 
             public function deleteFromId($id){
