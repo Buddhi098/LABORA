@@ -35,7 +35,7 @@
             </div>
             <div class="filter-section">
                 <input type="date" id="filterDate">
-                <button class="filter-button" >Filter by Date</button>
+                <button class="filter-button" onclick="filterTableByDate()">Filter by Date</button>
             </div>
         </div>
         <table id="myTable">
@@ -56,7 +56,7 @@
                         <td>1</td>
                         <td>AP12345</td>
                         <td>Check-up</td>
-                        <td>2023-11-15</td>
+                        <td>2024-10-29</td>
                         <td>10:00 AM</td>
                         <td>Pending</td>
                         <!-- <td>Scheduled</td> -->
@@ -125,5 +125,6 @@
 
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+    <script src="<?php echo APPROOT.'/public/js/mlt/table.js'?>"></script>
 </body>
 </html>
