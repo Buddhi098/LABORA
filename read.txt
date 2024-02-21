@@ -1,0 +1,16 @@
+check this things
+login session - auto log out after 10min
+access control via link - ok
+clear otp tabel - auto clear
+set timer for otp
+check emp login
+OTP code chance 3
+
+
+vlidate
+birthday passe date danna birthday
+phone number validated
+form validation
+appointment eka danna puluwan issaraha date walata witharai
+appointment eka his thiyanna puluwan wenna one
+flash msg danna
