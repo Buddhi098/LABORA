@@ -46,7 +46,8 @@
                     return $result_data;
                 }else{
                     return false;
-                }       
+                }      
+
             }
 
             public function getRow(){
