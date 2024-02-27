@@ -65,26 +65,27 @@ body{
 
 .container_1 .boxset_2 .bigbox_1{
   width: 55%;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   height: 80%;
+  /* height: auto; */
   overflow: hidden;
   background-color: white;
-  padding: 24px;
+  padding: 20px;
   font-family: roboto;
   border-radius: 16px;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
   padding-top: 0;
   color: #2e1699;
 }
-.container_1 .boxset_2 .bigbox_1 .boxes{
+/* .container_1 .boxset_2 .bigbox_1 .boxes{
   overflow: scroll;
-}
+} */
 .container_1 .boxset_2 .bigbox_1 h3{
   margin-left: 10px;
   color: #2e1699;
 }
-.container_1 .boxset_2 .bigbox_1 .title{
+/* .container_1 .boxset_2 .bigbox_1 .title{
   margin-bottom: 30px;
   height: 80px;
   width: 49%;
@@ -130,7 +131,7 @@ body{
   background-color: rgba(128, 0, 255,0.2);
   padding: 10px;
   border-radius: 10px;
-}
+} */
 
 .container_1 .boxset_2 .bigbox_2{
   width: 30%;
@@ -326,3 +327,40 @@ body{
 {
     color: var(--darkblue);
 }
+
+
+/* chart */
+.charts {
+  display: grid;
+  grid-template-columns:50% 50%;
+  grid-template-areas: "left right";
+  grid-gap: 3rem;
+  margin-top: 5rem;
+  margin-right: 2rem;
+  margin-left: -1rem;
+}
+
+.revenue{
+  grid-area: "right";
+}
+
+.charts h2{
+  font-weight: 400;
+}
+
+.charts h3{
+  font-weight: 400;
+  color: #727171;
+  line-height: 3rem;
+}
+
+
+
+
+
+
+
+
+
+
+

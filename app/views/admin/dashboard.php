@@ -11,6 +11,9 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+
+    <!-- chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <title>Admin dashboard</title>
 </head>
 <body>
@@ -49,8 +52,15 @@
         <div class="boxset_2">
             <div class="bigbox bigbox_1">
                 <div class="title">
-                    <h3>Reports</h3>
-                    <p class="sub_title"><i class="fa-solid fa-file-invoice-dollar"></i></p>
+                    <!-- <h3>Reports</h3> -->
+                    <!-- <p class="sub_title"><i class="fa-solid fa-file-invoice-dollar"></i></p> -->
+                    <div class="charts">
+                        <div class="revenue">
+                            <h3>Monthly Revenue</h3>
+                            <h6>The monthly revenue in last 5 months</h6><br>
+                            <canvas id="chart2" height="180px"></canvas>  
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="bigbox bigbox_2">
@@ -93,5 +103,8 @@
             
         }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script> 
+    <script src="<?php echo APPROOT.'/public/js/admin/revenue.js';?>"></script>
 </body>
 </html>
