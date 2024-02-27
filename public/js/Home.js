@@ -1,5 +1,6 @@
 let testtype = [];
 function service(id=1){
+
     fetch('http://localhost/labora/home/getService')
     .then((res)=>res.json())
     .then(response=>{

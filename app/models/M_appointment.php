@@ -20,7 +20,6 @@
                 $nextid = $lastid +1;
 
                 $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost')";
-
                 mysqli_query($this->conn , $query);
 
                 return true;
@@ -46,7 +45,8 @@
                     return $result_data;
                 }else{
                     return false;
-                }       
+                }      
+
             }
 
             public function getRow(){
