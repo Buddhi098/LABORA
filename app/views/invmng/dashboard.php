@@ -12,18 +12,20 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.46.0/apexcharts.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+
     <title>Inventory Manager dashboard</title>
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>
-
+    
     <div class="container_1">
-        
-
     <main class="main-container">
-        <div class="main-title">
+        <!-- <div class="main-title">
             <p class="font-weight-bold">DASHBOARD</p> 
-        </div>
+        </div> -->
         <div class="main-cards">
 
             <div class="card">
@@ -59,8 +61,23 @@
             </div>
 
         </div>
-    </main>
 
+        <div class="charts">
+            <div class="charts-card">
+                <p class="chart-title">Top 5 Products</p> 
+                <div id="bar-chart"></div>
+            </div>
+            
+            <div class="charts-card">
+                <p class="chart-title">Purchase and Sales Orders</p> 
+                <div id="area-chart"></div>
+            </div>
+        </div>
+        
+    </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.46.0/apexcharts.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js" ></script>
 
 
         <!-- <div class="boxset-1">
@@ -104,6 +121,6 @@
             <div class="message box-1"></div>
             <div class="notify box-1"></div>
         </div> -->
-    </div>
+  
 </body>
 </html>

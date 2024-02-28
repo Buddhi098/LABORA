@@ -12,6 +12,7 @@
     height: 93%;
     overflow: auto;
     font-family: roboto;
+    background-color: #e9ecff75;
 }
 
 .container_1 .boxset-1{
@@ -124,7 +125,8 @@
 
 .main-container {
     grid-area: main;
-    overflow-y: auto; padding: 20px 20px;
+    overflow-y: auto; 
+    padding: 20px 20px;
 }
 
 .main-title {
@@ -139,7 +141,8 @@
 .main-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px; margin: 20px 0;
+    gap: 20px; 
+    margin: 20px 0;
 }
    
 .card{
@@ -151,7 +154,9 @@
     box-sizing: border-box;
     border: 1px solid #d2d2d3;
     border-radius: 5px;
-    box-shadow: 6px 7px -4px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 6px 7px -4px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    /* border: 2px solid #7570ff; */
 }
     
 .card:first-child {
@@ -187,4 +192,30 @@
     
 .card-inner > span {
     font-size: 35px;
+}
+
+.charts { 
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+}
+
+.charts-card {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 25px;
+    box-sizing: border-box; 
+    -webkit-column-break-inside: avoid;
+    border: 1px solid #d2d2d3;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px 4px rgba(0, 0, 0, 0.2);
+}
+
+.chart-title{ 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-size: 22px; 
+    
+    font-weight: 600;
 }
