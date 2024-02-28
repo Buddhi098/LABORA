@@ -39,13 +39,14 @@
             </div>
             <div class="filter-section">
                 <!-- Add your filter options here -->
-                <select class="filter-box">
+                <select class="filter-box" id="filterByStatus">
                 <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
+                <option value="Pending">Pending</option>
+                <option value="Canceled">Canceled</option>
+                <option value="Approved">Approved</option>
                 <!-- Add more filter options as needed -->
                 </select>
-                <button class="filter-button">Filter By Email</button>
+                <button class="filter-button" onclick="filterByStatus()">Filter By Status</button>
             </div>
         </div>
         <table id="myTable">
@@ -57,47 +58,185 @@
                 <th>Appointment Time</th>
                 <th>Appointment Duration</th>
                 <th>Appointment Status</th>
+                <th>Payment Status</th>
                 <th>Appointment Notes</th>
                 <th>Action</th>
         </thead >
-        <tbody>
-                <div class='table_body'>
-                        <?php
-                        if(!empty($data['dataset'])){
-                            $reversedArray = array_reverse($data['dataset'], true);
-
-                            foreach ($reversedArray as $row) {
-                              echo '<tr>
-                              <td>'.$row['Id'].'</td>
-                              <td>'.$row['Ref_No'].'</td>
-                              <td>'.$row['Test_Type'].'</td>
-                              <td>'.$row['Appointment_Date'].'</td>
-                              <td>'.$row['Appointment_Time'].'</td>
-                              <td>'.$row['Appointment_Duration'].'</td>
-                              <td>'.$row['Appointment_Status'].'</td>
-                              <td>'.$row['Appointment_Notes'].'</td>
-                              <td><a href="http://localhost/labora/PatientDashboard/cancelAppointment/'.$row['Id'].'" class="cancel">Cancel</a></td>
-                          </tr>';
-                          }
-                        }else{
-                          echo '<tr><td colspan="100%" class="empty_msg">No data available in the table.</td></tr>';
-                        }
-                        
-                        ?>
-                        
-                        <!-- Add more rows as needed -->
-                </div>
-            </tbody>
+        <tbody id="t_body">
+        </tbody>
         </table>
             <div class="pagination">
             <h5 id="table_data"></h5>
-            <button onclick="previousPage()" >Previous</button>
+            <button onclick="previousPage()" id="prev">Previous</button>
             <button onclick="nextPage()" id="next">Next</button>
             </div>
         </div>
     </div>
 
+    <!-- delete waring message -->
+    <div id="deleteModal" class="warning-modal">
+        <div class="warning-modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure you want to Cancel?</p>
+            <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+            <input type="hidden" value="" id="hidden_id">
+            </div>
+        </div>
+    </div>
+
+    <!--popup success message and error message -->
+    <div class="success-message-container" id="successMessage">
+        <p>Success! Your action was completed.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+    <div class="error-message-container" id="ErrorMessage">
+        <p>Error! Your action was failed.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
     <!-- table js -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+
+    <!-- waring modal -->
+    <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script>
+
+
+
+
+    <!-- warining modal yes button -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            getTableData();
+        });
+
+
+        // get table data
+        function getTableData(){
+           const baseLink = window.location.origin;
+           const link =`${baseLink}/labora/PatientDashboard/getAppointmentData`
+
+           fetch(link)
+           .then(response => {
+                if(!response.ok){
+                    throw new Error('HTTP error! Status: ${response.status}');
+                }
+                return response.json()
+           })
+           .then(data => {
+                console.log(data)
+                let mockup = ''
+                data['dataset'].reverse()
+                data['dataset'].forEach(row => {
+                    mockup += `<tr>
+                              <td>${row['Id']}</td>
+                              <td>${row['Ref_No']}</td>
+                              <td>${row['Test_Type']}</td>
+                              <td>${row['Appointment_Date']}</td>
+                              <td>${row['Appointment_Time']}</td>
+                              <td>${row['Appointment_Duration']}</td>
+                              <td><span class="status-indicator" id="status">${row['Appointment_Status']}</span></td>
+                              <td>${row['payment_status']}</td>
+                              <td>${row['Appointment_Notes']}</td>
+                              <td><button onclick="openModal('${row['Id']}')" id="btn${row['Id']}" class="action-button">Cancel</button></td>
+                          </tr>`
+                })
+                document.getElementById('t_body').innerHTML = mockup;
+                showPage(1)
+                makeStatus()
+
+           })
+           .catch(Error=>{
+                console.error('Error fetching data: ', Error)
+           })
+        }
+
+        // filer functions
+        function filterByStatus() {
+    let value = document.getElementById('filterByStatus').value;
+    console.log(value);
+    let rows = document.querySelectorAll('.table-container tr');
+
+    console.log(rows);
+
+    rows.forEach(row => {
+        let status = row.querySelector('td .status-indicator').innerText;
+        console.log(status)
+        if (value === '' || status === value) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+
+
+
+        // make status color
+        function makeStatus(){
+                let statuses = document.querySelectorAll('.status-indicator'); 
+                statuses.forEach(status => { 
+                    let text = status.innerText.trim(); 
+                    if(text === 'Pending'){
+                        status.classList.add('pending');
+                    } else if(text === 'Canceled'){
+                        status.classList.add('rejected');
+                        const row = status.closest('tr');
+            
+                        const button = row.querySelector('.action-button');
+
+                        button.disabled = true;
+                        button.style.opacity = 0.8
+                        button.style.cursor = 'not-allowed'
+
+                    } else if(text === 'Approved'){
+                        status.classList.add('approved');
+                    } else if(text = 'Complete'){
+                        const row = status.closest('tr');
+            
+                        const button = row.querySelector('.action-button');
+
+                        button.disabled = true;
+                        button.style.opacity = 0.8
+                        button.style.cursor = 'not-allowed'
+                    }
+            });
+        };
+
+
+
+        yesBtn.onclick = function() {
+        //   console.log("Item deleted");
+          let id = document.getElementById('hidden_id').value;
+
+          let baseLink = window.location.origin;
+          let link = `${baseLink}/labora/PatientDashboard/cancelAppointment/${id}`
+
+          fetch(link)
+          .then(response => {
+            if(!response.ok){
+                throw new Error("HTTP error! Status: ${response.status}")
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log(data);
+            if(data['status']=='success'){
+                showSuccessMessage();
+                getTableData();
+            }else{
+                showErrorMessage();
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching data ', error)
+          })
+
+          modal.style.display = "none";
+        }
+    </script>
 </body>
 </html>

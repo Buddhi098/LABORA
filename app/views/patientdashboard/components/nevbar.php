@@ -26,6 +26,10 @@
     <!-- popup messages -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
     <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
+
+    <!-- delete warning message -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
+    <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
     
     <title>Patient dashboard</title>
 </head>
