@@ -30,13 +30,20 @@
         public function appointment(){
             
             $data = array();
+            
+            $this->view("patientdashboard/appointment" , $data);
+            
+        }
+
+        public function getAppointmentData(){
+            $data = array();
             $result = $this->md_appointment->getRowByEmail($_SESSION['useremail']);
             if($result){
                 $data['dataset'] = $result;
             }
-            
-            $this->view("patientdashboard/appointment" , $data);
-            
+
+            echo json_encode($data);
+            exit();
         }
 
         public function searchAppointment(){
@@ -100,7 +107,7 @@
                 $refno = 'LB-'.$formattedNumber;
                 $test_type = $this->md_testtype->getDuration($test_type_id);
                 
-                $appointment_status = "Pending Approval";
+                $appointment_status = "Pending";
                 $_SESSION['status'] = $appointment_status;
                 $_SESSION['refno'] = $refno;
                 $_SESSION['appointment_duration'] = $test_type["Time_duration"];
@@ -236,8 +243,23 @@
 
         public function cancelAppointment($id){
             $data=[];
-            $this->md_appointment->cancelAppointment($id);
-            header("Location: http://localhost/labora/PatientDashboard/appointment");
+            try{
+                $this->md_appointment->cancelAppointment($id);
+
+                $data = [
+                    'status'=> 'success'
+                ];
+
+                echo json_encode($data);
+                exit();
+            }catch(Exception $e){
+                $error_msg = $e->getMessage();
+                $data['status'] = $error_msg;
+
+                echo json_encode($data);
+                exit();
+            }
+            
         }
 
         public function editProfile(){
@@ -301,11 +323,16 @@
         }
 
         public function getPaymentPage(){
-            $data = [
-                'test_name' => $_SESSION['Test_type'],
-                'test_price' => $_SESSION['Test_cost']
-            ];
-            $this->view('patientdashboard/appointment_payment' , $data);
+            $data = array();
+            if(!isset($_SESSION["appointment_time_as"])){
+                $this->view("patientdashboard/appointment_form" , $data);
+            }else{
+                $data = [
+                    'test_name' => $_SESSION['Test_type'],
+                    'test_price' => $_SESSION['Test_cost']
+                ];
+                $this->view('patientdashboard/appointment_payment' , $data);
+            }
         }
 
         public function payment(){

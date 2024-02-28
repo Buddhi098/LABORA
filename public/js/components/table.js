@@ -2,6 +2,7 @@
 let currentPage = 1;
 
 function showPage(page) {
+    console.log('asda')
     const rows = document.querySelectorAll('tbody tr');
     const rowsPerPage = 5; 
 
@@ -50,10 +51,23 @@ function searchTable() {
 
     var input = document.getElementById('searchInput');
     var filter = input.value.toUpperCase();
-    console.log(filter)
+    // console.log(filter)
     if(filter==''){
     showPage(currentPage);
+        document.getElementById('prev').disabled = false;
+        document.getElementById('prev').style.cursor = 'pointer'
+        document.getElementById('prev').style.opacity = '1'
+        document.getElementById('next').disabled = false;
+        document.getElementById('next').style.cursor = 'pointer'
+        document.getElementById('next').style.opacity = '1'
     return
+    }else{
+        document.getElementById('prev').disabled = true;
+        document.getElementById('prev').style.cursor = 'not-allowed'
+        document.getElementById('prev').style.opacity = '0.8'
+        document.getElementById('next').disabled = true;
+        document.getElementById('next').style.cursor = 'not-allowed'
+        document.getElementById('next').style.opacity = '0.8'
     }
 
     var table = document.getElementById('myTable');

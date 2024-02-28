@@ -145,7 +145,7 @@
   }
 
   .table-container .action-button:hover {
-    background-color: #218838;
+    background-color: #0d8e29;
   }
 
   .table-container .status-cell {
@@ -153,18 +153,18 @@
   }
 
   .table-container .status-indicator {
+    color: white;
+    background-color: blue;
+    border-radius: 20px;
+    min-width: 12px;
     display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    transform: translate(-50%, -50%);
+    text-align: center;
+    margin: auto;
+    padding: 4px 3px;
   }
 
   .table-container .status-indicator.pending {
-    background-color: #ffc107; /* Yellow */
+    background-color: #cf9c05; /* Yellow */
   }
 
   .table-container .status-indicator.approved {
