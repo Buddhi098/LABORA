@@ -41,7 +41,7 @@
             </thead >
         <tbody>
                 <div class='table_body'>
-                <tr>
+                <!-- <tr>
                     <td>1</td>
                     <td>Blood Test</td>
                     <td>BT</td>
@@ -58,43 +58,28 @@
                     <td><button class="cancel del">no</button></td>
                     <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
                     <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Electrocardiogram</td>
-                    <td>ECG</td>
-                    <td>Check-up</td>
-                    <td><button class="cancel del">no</button></td>
+                </tr> -->
+
+                <?php
+                // <td>'.$row['availability'].'</td>
+                // <td><button class="cancel">'.$row['availability'].'</button></td>
+
+                // <td><a href="#" class="cancel">Edit</a>
+                // <a href="http://localhost/labora/mltdashboard/deleteTest/'.$row['test_name'].'" class="cancel">Delete</a></td>
+                $reversedArray = array_reverse($data, true);
+                foreach ($reversedArray as $row) {
+                    echo '<tr>
+                    <td>'.$row['id'].'</td>
+                    <td>'.$row['test_name'].'</td>
+                    <td>'.$row['short_name'].'</td>
+                    <td>'.$row['test_type'].'</td>
+                    <td><span id="availability_1"><button class="availability-button yes" onclick="toggleAvailability(1)">'.$row['availability'].'</button></span></td>
+                                      
                     <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Urine Analysis</td>
-                    <td>UA</td>
-                    <td>Check-up</td>
-                    <td><button class="cancel">yes</button></td>
-                    <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>CT Scan</td>
-                    <td>CTS</td>
-                    <td>MRI Scan</td>
-                    <td><button class="cancel del">no</button></td>
-                    <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Electrocardiogram</td>
-                    <td>ECG</td>
-                    <td>Check-up</td>
-                    <td><button class="cancel del">no</button></td>
-                    <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr>
+                    <a href="http://localhost/labora/mlt/deleteTest/'.$row['id'].'" class="delete"><ion-icon name="trash"></ion-icon></a></td>
+                </tr>';
+                }
+                ?>
                 </div>
             </tbody>
         </table>
@@ -108,5 +93,6 @@
 
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+    <script src="<?php echo APPROOT.'/public/js/mlt/medicalTests.js'?>"></script>
 </body>
 </html>
