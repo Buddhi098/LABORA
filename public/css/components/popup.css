@@ -29,7 +29,7 @@
     position: fixed;
     top: 13%;
     right: -350px; /* Start off-screen */
-    background-color: #4caf50;
+    background-color: rgba(77, 176, 80 , 0.9);
     color: #fff;
     padding: 20px;
     border-radius: 16px;
