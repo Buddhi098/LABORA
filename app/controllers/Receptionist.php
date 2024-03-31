@@ -1,5 +1,5 @@
 <?php
-    class Receptionist extends Controller{
+    class receptionist extends Controller{
         private $auth;
         public function __construct(){
             $this->auth = new AuthMiddleware();
