@@ -39,56 +39,57 @@ var inventoryChart = new Chart(ctx, {
     options: chartOptions
 });
 
+
 //Bar Chart
-var barChartOptions = {
-    series:[ {
-        data: [10, 8, 6, 4, 21]
-    }],
+// var barChartOptions = {
+//     series:[ {
+//         data: [10, 8, 6, 4, 21]
+//     }],
     
-    chart: {
-        type: 'bar',
-        height: 350,
-        toolbar: {
-            show: false
-        }
-    },
+//     chart: {
+//         type: 'bar',
+//         height: 350,
+//         toolbar: {
+//             show: false
+//         }
+//     },
    
-    colors: [
-        "#246dec",
-        "#cc3c43",
-        "#367952",
-        "#f5b741",
-        "#84135a"],
+//     colors: [
+//         "#246dec",
+//         "#cc3c43",
+//         "#367952",
+//         "#f5b741",
+//         "#84135a"],
 
     
-    plotOptions: {  
-        bar: { 
-            distributed: true,
-            borderRadius: 4,
-            horizontal: false, 
-            columnWidth: '40%',
-        } 
-    },
+//     plotOptions: {  
+//         bar: { 
+//             distributed: true,
+//             borderRadius: 4,
+//             horizontal: false, 
+//             columnWidth: '40%',
+//         } 
+//     },
     
-    dataLabels: {
-        enabled: false
-    },
+//     dataLabels: {
+//         enabled: false
+//     },
 
-    legend: { 
-        show: false
-    },
+//     legend: { 
+//         show: false
+//     },
     
-    xaxis: {
-        categories: ["Laptop", "Phone", "Monitor", "Headphones", "Camera"],
-    },
+//     xaxis: {
+//         categories: ["Laptop", "Phone", "Monitor", "Headphones", "Camera"],
+//     },
     
-    yaxis: {
-        title: {
-            text: "Count"
-        }
-    }
+//     yaxis: {
+//         title: {
+//             text: "Count"
+//         }
+//     }
     
-};
+// };
 
-var barChart = new ApexCharts(document.querySelector("#bar-chart"), barChartOptions); 
-barChart.render();
+// var barChart = new ApexCharts(document.querySelector("#bar-chart"), barChartOptions); 
+// barChart.render();

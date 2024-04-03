@@ -62,7 +62,7 @@
 
         </div>
 
-        <div class="charts">
+        <!-- <div class="charts">
             <div class="charts-card">
                 <p class="chart-title">Top 5 Products</p> 
                 <div id="bar-chart"></div>
@@ -72,12 +72,11 @@
                 <p class="chart-title">Purchase and Sales Orders</p> 
                 <div id="area-chart"></div>
             </div>
-        </div>
+        </div> -->
         
     </main>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.46.0/apexcharts.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js" ></script>
+   
 
 
         <!-- <div class="boxset-1">
