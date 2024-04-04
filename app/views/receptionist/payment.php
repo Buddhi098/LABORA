@@ -146,6 +146,17 @@
                     <td>3500</td>
                     <!-- <td><button class="cancel del">Delete</button></td> -->
                 </tr>
+                <tr>
+                    <td>9</td>
+                    <td>AP98765</td>
+                    <td>PAT009</td>
+                    <td>Karen Rodriguez</td>
+                    <td>Check-up</td>
+                    <td>2023-11-25</td>
+                    <td>09:15 AM</td>
+                    <td>1500</td>
+                    <!-- <td><button class="cancel del">Delete</button></td> -->
+                </tr>
                 </div>
             </tbody>
         </table>
