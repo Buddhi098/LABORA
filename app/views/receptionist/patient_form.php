@@ -3,61 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/patient_form.css'?>">
-    <script src="<?php echo APPROOT.'/public/js/receptionist/recept.js';?>"></script>
-    <!-- static icons -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <!-- annimation icons -->
-    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <title>Receptionist dashboard</title>
+    <title>Patient Registration</title>
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>
-    <div class="container_1">
-    <h1>Register Patient</h1>
-    <form class="appointment-form">
-        <div class="form-group">
-            <label for="test-type">Patient Name:</label>
-            <input type="text" id="test-type" name="test-type" required>
-        </div>
-        <div class="form-group">
-            <label for="test-type">Phone:</label>
-            <input type="text" id="test-type" name="test-type" required>
-        </div>
-        <div class="form-group">
-            <label for="test-type">Email:</label>
-            <input type="text" id="test-type" name="test-type" required>
-        </div>
-        <div class="form-group">
-            <label for="test-type">Address:</label>
-            <input type="text" id="test-type" name="test-type" required>
-        </div>
-        <div class="form-group">
-            <label for="appointment-date">Date of Birth:</label>
-            <input type="date" id="appointment-date" name="appointment-date" required>
-        </div>
-        <div class="form-group">
-        <label for="gender">Gender:</label><br>
-        <form action="">
-            <input type="radio" name="gender" value="male" checked> Male
-            <input type="radio" name="gender" value="female"> Female
-            <input type="radio" name="gender" value="other"> Other
-            </form><br>
 
-            <div class="form-group"><br>
-            <label for="test-type">User Name:</label>
-            <input type="text" id="test-type" name="test-type" required>
-            </div>
-            <div class="form-group">
-            <label for="test-type">Password:</label>
-            <input type="text" id="test-type" name="test-type" required>
-            </div>
+    <div class="container_1">
+        <div class="container">
+            <h2><i class="fa-regular fa-user"></i>  Patient Registration</h2>
+            <p class="subtitle">Please fill out the form below to register as a patient</p>
+            <form id="registrationForm">
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter Your Name" pattern="[A-Za-z. ]+" oninvalid="this.setCustomValidity('Please enter a valid name with English characters only.')" oninput="setCustomValidity('')" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter Your Tel" pattern="[0-9]+" maxlength="10" oninvalid="this.setCustomValidity('Accept only numbers')" oninput="setCustomValidity('')" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <?php
+                        $maxDate = new DateTime();
+                        $maxDateFormatted = $maxDate->format('Y-m-d');
+                    ?>
+                    <input type="date" id="dob" name="dob" max="<?php echo $maxDateFormatted?>" required>
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" pattern="[A-Za-z0-9,. -&@:/]+" oninvalid="this.setCustomValidity('Enter valid address')" oninput="setCustomValidity('')" rows="4"required></textarea>
+                </div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
         </div>
-        </div>
-        <button type="submit" class="button">Submit</button>
-    </form>
     </div>
+    
 </body>
 </html>
