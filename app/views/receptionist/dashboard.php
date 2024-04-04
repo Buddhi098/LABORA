@@ -33,6 +33,11 @@
                 <h5>Payment</h5><br>
                 <p>Total amount of payments received in a day</p>
             </div>
+            <!-- <div class="box box-4">
+                <span>MRI</span><br>
+                <h5>Most Frequent Test</h5><br>
+                <p>This box identifies the primary medical test type that the patient has taken most often.</p>
+            </div> -->
         </div>
     </div>
 
