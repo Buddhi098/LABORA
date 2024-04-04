@@ -50,6 +50,12 @@
                     <span class="title">Payment</span>
                     </a>
                 </li>
+                <!-- <li>
+                    <a href="http://localhost/labora/receptionist/profile">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <span class="title">Profile</span>
+                    </a>
+                </li> -->
             </ul>
             <div class="logout">
                 <a href="<?php echo URLROOT?>Employee/logout" class="button">
