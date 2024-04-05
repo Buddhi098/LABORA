@@ -69,7 +69,7 @@
                         <td>'.$row['reorder_limit'].'</td>
                         <td>'.$row['description'].'</td>
                         <td>'.$row['manufacturer'].'</td>
-                        <td><a href="#" class="action-button">Edit</a> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
+                        <td><a href="http://localhost/labora/invmng/addInventoryForm" class="action-button">Edit</a> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
                         </tr>';
                     }
                 }
