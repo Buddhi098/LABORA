@@ -260,14 +260,10 @@ function sanitizeInput(input) {
 
 // select payment methods
 function onlinePayment(){
-  let baseLink = window.location.origin;
-  let Url = `${baseLink}/labora/PatientDashboard/getPaymentPage`
-  window.location.replace(Url)
-}
 
-function onsitePayment(){
   let baseLink = window.location.origin;
-  let link = `${baseLink}/labora/PatientDashboard/storeOnsiteAppointment`
+  let method = "online"
+  let link = `${baseLink}/labora/PatientDashboard/storeAppointment/${method}`
   console.log(link);
   fetch(link)
     .then(response => {
@@ -280,7 +276,45 @@ function onsitePayment(){
       console.log(data);
 
       if(data['success_msg']){
-        showSuccessMessage()
+        let Url = `${baseLink}/labora/PatientDashboard/getPaymentPage`
+        window.location.replace(Url)
+      }else if(data['error_msg']){
+        showErrorMessage()
+      }
+
+      closeModal();
+
+
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('nextBtn').style.opacity = '0.8';
+      document.getElementById('nextBtn').style.cursor = 'not-allowed';
+    })
+    .catch(error => {
+      console.error('There wa a problem with the fetch operation: ' , error)
+    })
+
+
+  
+}
+
+function onsitePayment(){
+  let baseLink = window.location.origin;
+  let method = "onsite"
+  let link = `${baseLink}/labora/PatientDashboard/storeAppointment/${method}`
+  console.log(link);
+  fetch(link)
+    .then(response => {
+      if(!response.ok){
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    })
+    .then(data =>{
+      console.log(data);
+
+      if(data['success_msg']){
+        let Url = `${baseLink}/labora/PatientDashboard/thankYouPage`
+        window.location.replace(Url)
       }else if(data['error_msg']){
         showErrorMessage()
       }

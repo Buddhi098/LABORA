@@ -66,5 +66,29 @@
                 SET Appointment_Status = 'Send to MLT'
                 WHERE Id = '$id'");
             }
+
+            public function isAvailableDate($date , $time){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Date='$date' AND Appointment_Time='$time'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(empty($result_data)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            public function doPayment($refno){
+
+                $result = mysqli_query($this->conn , "UPDATE appointment
+                SET Payment_Status = 'Paid'
+                WHERE Ref_No = '$refno'");
+
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }
     }
 ?>

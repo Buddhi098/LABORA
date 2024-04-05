@@ -80,7 +80,7 @@
             payhere.onCompleted =async function onCompleted(orderId) {
                 console.log("Payment completed. OrderID:" + orderId);
                 showSuccessMessage();
-                const apiUrl = 'http://localhost/labora/PatientDashboard/storeAppointment';
+                const apiUrl = 'http://localhost/labora/PatientDashboard/doPayment';
                 fetch(apiUrl)
                     .then(response => {
                         if (!response.ok) {
@@ -90,7 +90,6 @@
                     })
                     .then(data => {
                         console.log('Data:', data);
-                        window.location.href = "http://localhost/labora/PatientDashboard/appointment";
                     })
                     .catch(error => {
                         console.error('Fetch error:', error);
@@ -114,6 +113,7 @@
             payhere.onError = function onError(error) {
                 // Note: show an error page
                 console.log("Error:"  + error);
+                showErrorMessage()
             };
 
             // Put the payment variables here

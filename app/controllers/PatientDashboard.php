@@ -323,7 +323,8 @@
         }
 
         public function getPaymentPage(){
-            $data = array();
+            $data = array();         
+
             if(!isset($_SESSION["appointment_time_as"])){
                 $this->view("patientdashboard/appointment_form" , $data);
             }else{
@@ -380,17 +381,41 @@
             exit();
         }
 
-        public function storeAppointment()
+        public function doPayment()
         {
-            $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['appointment_time_as'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail'],'online' ,'paid',$_SESSION['cost']);
-            exit();
+            try{
+                $this->md_appointment->doPayment($_SESSION['refno']);
+                $data = [
+                    'success_msg' => 'payment_success'
+                ];
+                echo json_encode($data);
+                exit();
+            }catch (Exception $e){
+                $error_message = $e->getMessage();
+                $data = [
+                    'error_msg'=> 'Something went wrong. Try Again!',
+                ];
+                error_log($error_message);
+                http_response_code(500);
+                echo json_encode($data);
+                exit();
+            }
         }
 
-        public function storeOnsiteAppointment()
+        public function storeAppointment($method)
         {
 
             try {
-                $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'], $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], 'onsite', 'unpaid', $_SESSION['cost']);
+                $isAvailable = $this->md_appointment->isAvailableDate($_SESSION['date'], $_SESSION['appointment_time_as']);
+                if(!$isAvailable){
+                    $data = [
+                        'error_msg' => 'This time slot is already taken. Please select another time slot.'
+                    ];
+                    echo json_encode($data);
+                    exit();
+                }
+
+                $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'], $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], $method, 'unpaid', $_SESSION['cost']);
             
                 $data = [
                     'success_msg' => 'payment_success'
@@ -419,6 +444,14 @@
         public function showReports(){
             $data = [];
             $this->view('patientdashboard\reports\abc.pdf' , $data);
+        }
+
+        public function thankYouPage(){
+            $data = [
+                'appointment_date' => $_SESSION['date'],
+                'appointment_time' => $_SESSION['appointment_time_as']
+            ];
+            $this->view('patientdashboard/appointment_finish' , $data);
         }
 
 }
