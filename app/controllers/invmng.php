@@ -13,6 +13,7 @@
             $this->md_supplier = $this->model('M_employee');
             $this->md_item = $this->model('M_items');
             $this->md_order = $this->model('M_orders_tbl');
+            $this->md_expire = $this->model('M_expiredChemicals');
             $this->md_order_items = $this->model('M_order_item');
             // auth middleware
 
@@ -21,25 +22,24 @@
         }
 
         public function order(){
-
             $data = [];
             $table_data = $this->md_order->orderTableData();
-            // // print_r($table_data);
-            // // echo $table_data;
-            // // die();
-            // $data_set = [];
-            // foreach($table_data as $data){
-            //     $data['items'] = $this->md_order_items->getOrderItem($data['id']);
-            //     $data_set[] = $data;
-            // }
             $this->view("invmng/order" , $table_data);
         }
+
         public function getOrderItems($order_id){
             $data = $this->md_order_items->getOrderItem($order_id);
 
             echo json_encode($data);
             exit();
         }
+
+        public function expiredChemicals(){
+            $data = [];
+            $table_data = $this->md_expire->getExpiredItem();
+            $this->view("invmng/expiredChemicals" , $table_data);
+        }
+
 
         public function product(){
 
@@ -88,13 +88,6 @@
 
             $data = [];
             $this->view("invmng/dashboard" , $data);
-        }
-
-
-        public function expiredChemicals(){
-
-            $data = [];
-            $this->view("invmng/expiredChemicals" , $data);
         }
 
         public function reorder(){
@@ -153,8 +146,22 @@
 
 
         public function itemDetails(){
+            $data = array();
+            $result = $this->md_item->getAllData();
+            if (count($result) > 0) {
+                $data = $result;
+            }else{
+                $data = [[
+                    'Item_Id'=> "",
+                    'Item_name' => '',
+                   'item_type' => '',
+                    'reorder_limit' => '',
+                    'description' => '',
+                    'manufacturer' => ''
+                ],];
+                $this->view("invmng/product" , $data);
+            }
 
-            $data = [];
             $this->view("invmng/itemDetails" , $data);
         }
 
@@ -213,10 +220,7 @@
             ];
             echo json_encode($msg);
            
-            exit();
-        
-            
-             
+            exit();      
             
         }
 
@@ -236,5 +240,9 @@
                 echo "Item with ID $item_id does not exist.";
             }
         }
+
+       
+
+
     }
 ?>
