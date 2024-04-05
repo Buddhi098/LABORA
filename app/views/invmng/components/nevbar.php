@@ -40,20 +40,26 @@
                 </li>
                 <li>
                     <a href="http://localhost/labora/invmng/product">
-                    <span class="icon"><ion-icon name="medkit"></ion-icon></ion-icon></span>
-                    <span class="title">Inventory Items</span>
+                    <span class="icon"><ion-icon name="flask-sharp"></ion-icon></span>
+                    <span class="title">Chemicals</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/labora/invmng/issueChemicals">
+                    <span class="icon"><ion-icon name="bag-remove-sharp"></ion-icon></span>
+                    <span class="title">Issue Chemicals</span>
                     </a>
                 </li>
                 <li>
                     <a href="http://localhost/labora/invmng/supplier">
                     <span class="icon"><ion-icon name="people"></ion-icon></span>
-                    <span class="title">Supplier</span>
+                    <span class="title">Suppliers</span>
                     </a>
                 </li>
                 <li>
                     <a href="http://localhost/labora/invmng/order">
                     <span class="icon"><ion-icon name="cart"></ion-icon></span>
-                    <span class="title">Purchase Order</span>
+                    <span class="title">Purchase Orders</span>
                     </a>
                 </li>
             </ul>
