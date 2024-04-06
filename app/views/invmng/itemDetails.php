@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/product.css'?>">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/itemDetails.css'?>">
     <script src="<?php echo APPROOT.'/public/js/invmng/invmng.js';?>"></script>
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -19,9 +19,7 @@
 
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i> Products</h2>
-        <div class="add">
-            <a href="<?php echo URLROOT?>invmng/getAddItemForm" class="addbtn"><ion-icon name="add"></ion-icon> Add Item</a>
-        </div>
+        
         <div class="search-container">
         <input type="text" class="search-box" id="searchInput" placeholder="Search...">
         <button class="search-button">Search</button>
@@ -52,7 +50,6 @@
                     <th>Added Date</th>
                     <th>Expire Date</th>
                     <th>Quantity</th>
-                    <th>Action</th>
             </thead >
         <tbody>
                 <div class='table_body'>
@@ -63,11 +60,10 @@
                         echo '
                         <tr>
                         <td>'.$index.'</td>
-                        <td>'.$row['subID'].'</td>
-                        <td>'.$row['item_type'].'</td>
-                        <td>'.$row['reorder_limit'].'</td>
-                        <td>'.$row['description'].'</td>
-                        <td><a href="http://localhost/labora/invmng/itemDetails" class="action-button">Edit</a> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
+                        <td>'.$row['id'].'</td>
+                        <td>'.$row['item_name'].'</td>
+                        <td>'.$row['expire_date'].'</td>
+                        <td>'.$row['quantity'].'</td>
                         </tr>';
                     }
                 }

@@ -48,32 +48,34 @@
         <table id="myTable">
             <thead>
                     <th>Index</th>
-                    <th>Item Name</th>
-                    <th>Item Type</th>
-                    <th>Reorder Limit</th>
-                    <th>Note</th>
+                    <th>Chemical Name</th>
                     <th>Manufacturer</th>
+                    <th>Reorder Limit</th>
+                    <th>Quantity in Stock</th>     
+                    <th>Note</th>                    
                     <th>Action</th>
             </thead >
         <tbody>
                 <div class='table_body'>
                 <?php
-                $reversedArray = array_reverse($data, true);
-                if(count($reversedArray)>1){
-                    foreach ($reversedArray as $index => $row) {
-                        echo '
-                        <tr>
-                        <td>'.$index.'</td>
-                        <td>'.$row['Item_name'].'</td>
-                        <td>'.$row['item_type'].'</td>
-                        <td>'.$row['reorder_limit'].'</td>
-                        <td>'.$row['description'].'</td>
-                        <td>'.$row['manufacturer'].'</td>
-                        <td><a href="http://localhost/labora/invmng/addInventoryForm" class="action-button">Edit</a> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
-                        </tr>';
+                    if(count($data) > 1) {
+                        foreach ($data as $index => $row) {
+                            echo '
+                            <tr>
+                                <td>'.$index.'</td>
+                                <td>'.$row['Item_name'].'</td>  
+                                <td>'.$row['manufacturer'].'</td>
+                                <td>'.$row['reorder_limit'].'</td>
+                                <td>'.$row['total_quantity'].'</td>
+                                <td>'.$row['description'].'</td>
+                                <td>
+                                    <a href="http://localhost/labora/invmng/itemDetails" class="action-button">View Details</a>
+                                    <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Remove</a>
+                                </td>
+                            </tr>';
+                        }
                     }
-                }
-                ?>
+                    ?>    
                 </div>
             </tbody>
         </table>

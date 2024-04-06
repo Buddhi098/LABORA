@@ -17,8 +17,8 @@
                 }
             }
 
-            public function getAllData(){
-                $result = mysqli_query($this->conn , "SELECT * FROM inventory_items");
+            public function getItemDetails(){
+                $result = mysqli_query($this->conn , "SELECT id, item_name, expire_date, quantity FROM order_item WHERE item_id = 23 AND expire_date IS NOT NULL");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 
                 return $data;

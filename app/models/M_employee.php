@@ -68,7 +68,7 @@
             }
 
             public function getAllSupplier(){
-                $supplier = mysqli_query($this->conn, "SELECT * FROM employees WHERE role='supplier'");
+                $supplier = mysqli_query($this->conn, "SELECT * FROM employees WHERE role='supplier' ORDER BY id ASC");
                 if($supplier && mysqli_num_rows($supplier) > 0){
                     $supplier_array = array();
                     while($row = mysqli_fetch_assoc($supplier)){

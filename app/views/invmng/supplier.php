@@ -18,7 +18,7 @@
     <div class="container_1">
 
     <div class="table-container">
-        <h2><i class="fa-solid fa-calendar-check"></i> Supplier</h2>
+        <h2><i class="fa-solid fa-calendar-check"></i> Suppliers</h2>
         <div class="search-container">
         <input type="text" class="search-box" id="searchInput" placeholder="Search...">
         <button class="search-button">Search</button>
@@ -54,9 +54,8 @@
         <tbody>
                 <div class='table_body'>
                 <?php
-                $reversedArray = array_reverse($data, true);
-                if(count($reversedArray)>1){
-                    foreach ($reversedArray as $index => $row) {
+                if(count($data)>0){
+                    foreach ($data as $index => $row) {
                         echo '<tr>
                         <td>'.$index.'</td>
                         <td>'.$row['full_name'].'</td>
