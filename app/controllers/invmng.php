@@ -15,6 +15,8 @@
             $this->md_order = $this->model('M_orders_tbl');
             $this->md_expire = $this->model('M_expiredChemicals');
             $this->md_order_items = $this->model('M_order_item');
+            $this->md_supply_requests = $this->model('M_issue_chemicals');
+            $this->md_request_item = $this->model('M_request_items');
             // auth middleware
 
             $this->auth = new AuthMiddleware();
@@ -25,6 +27,13 @@
             $data = [];
             $table_data = $this->md_order->orderTableData();
             $this->view("invmng/order" , $table_data);
+        }
+
+        public function getRequestItems($request_id){
+            $data = $this->md_request_item->getRequestItem($request_id);
+
+            echo json_encode($data);
+            exit();
         }
 
         public function getOrderItems($order_id){
@@ -44,7 +53,7 @@
         public function product(){
 
             $data = array();
-            $result = $this->md_item->getAllData();
+            $result = $this->md_product->getAllData();
             if (count($result) > 0) {
                 $data = $result;
             }else{
@@ -63,12 +72,10 @@
         }
 
         public function supplier(){
-        
-            // Fetch supplier data from the model
+    
             $data = array();
             $suppliers = $this->md_supplier->getAllSupplier();
-            // print_r($suppliers);
-            // die();
+        
             if (count($suppliers) > 0) {
                 $data = $suppliers;
             }else{
@@ -88,6 +95,13 @@
 
             $data = [];
             $this->view("invmng/dashboard" , $data);
+        }
+
+        public function issueChemicals(){
+
+            $data = [];
+            $data = $this -> md_supply_requests->getAllData();
+            $this->view("invmng/issueChemicals" , $data);
         }
 
         public function reorder(){
@@ -147,23 +161,22 @@
 
         public function itemDetails(){
             $data = array();
-            $result = $this->md_item->getAllData();
+            $result = $this->md_item->getItemDetails();
             if (count($result) > 0) {
                 $data = $result;
             }else{
                 $data = [[
-                    'Item_Id'=> "",
-                    'Item_name' => '',
-                   'item_type' => '',
-                    'reorder_limit' => '',
-                    'description' => '',
-                    'manufacturer' => ''
+                    'id'=> "",
+                    'item_name' => '',
+                    'expire_date' => '',
+                    'quantity' => ''
                 ],];
-                $this->view("invmng/product" , $data);
+                $this->view("invmng/itemDetails" , $data);
             }
 
             $this->view("invmng/itemDetails" , $data);
         }
+
 
         public function invnavbar(){
 
