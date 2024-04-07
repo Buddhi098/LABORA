@@ -48,7 +48,6 @@
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Date Of Birth</th>
                     <th>Address</th>
             </thead >
         <tbody>
@@ -61,7 +60,6 @@
                         <td>'.$row['full_name'].'</td>
                         <td>'.$row['email'].'</td>
                         <td>'.$row['phone'].'</td>
-                        <td>'.$row['dob'].'</td>
                         <td>'.$row['address'].'</td>
                     </tr>';
                     }

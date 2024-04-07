@@ -55,7 +55,7 @@
                 <th>Status</th>
                 <th>Items Ordered</th>
                 <th>Invoices</th>
-                <th>action</th>
+                
             </thead >
         <tbody>
                 <div class='table_body'>
@@ -73,7 +73,7 @@
                             <td>'.$row['status'].'</td>
                             <td><button href="#" class="action-button" onclick="getItems('.$row['id'].')">View</button></td>
                             <td>Not_Available</td>
-                            <td><button href="#" class="action-button" style="padding:7px 10px;">Cancel</button> <button href="http://localhost/labora/admin/deleteEmployee/" class="action-button" style="padding:7px 10px;">Delete</button></td>
+                            
                             </tr>';
 
                     }
@@ -116,7 +116,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn-primary" onclick="closeModal()">Close</button>
-        <button type="button" class="btn-primary">Save Changes</button>
+        <!-- <button type="button" class="btn-primary">Save Changes</button> -->
       </div>
 
     </div>

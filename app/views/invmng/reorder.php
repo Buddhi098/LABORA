@@ -17,16 +17,14 @@
     <?php require_once 'components/dashnavbar.php' ?>
     <div class="container_1">    
     <div class="table-container">
-        <h2><i class="fa-solid fa-calendar-check"></i>Chemicals about to Expire</h2>
+        <h2><i class="fa-solid fa-calendar-check"></i>Items to Reorder</h2>
 
         <table id="myTable">
             <thead>
                     <th>Item Id</th>
                     <th>Item Name</th>
-                    <th>Added Date</th>
-                    <th>Expire Date</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
+                    <th>Quantity in the stock</th>
+                    <th>Reorder Limit</th>
             </thead >
         <tbody>
                 <div class='table_body'>
@@ -41,7 +39,6 @@
                         <td>'.$row['id'].'</td>
                         <td>'.$row['expire_date'].'</td>
                         <td>'.$row['quantity'].'</td>
-                        <td> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
                         </tr>';
                     }
                 

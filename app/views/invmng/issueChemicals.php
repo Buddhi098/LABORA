@@ -95,7 +95,7 @@
   <div class="modal" id="customModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"><i class="fa-solid fa-flask"></i>Requested Items</h4>
+        <h4 class="modal-title"><i class="fa-solid fa-flask"></i> Requested Items</h4>
         <button type="button" onclick="closeModal()">&times;</button>
       </div>
       <div class="modal-body">
@@ -115,7 +115,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn-primary" onclick="closeModal()">Close</button>
-        <button type="button" class="btn-primary">Save Changes</button>
+        <!-- <button type="button" class="btn-primary">Save Changes</button> -->
       </div>
 
     </div>
