@@ -6,10 +6,16 @@
                 $this->conn = $this->conn->dbObject();
             }
 
-            public function getAllData(){
-                $result = mysqli_query($this->conn , "SELECT * FROM inventory_items ORDER BY id ASC");
-                $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
-
+            public function getAllData()
+            {
+                $query = "SELECT i.id, i.Item_name, i.manufacturer, i.reorder_limit, SUM(o.quantity) AS total_quantity, i.description
+                          FROM inventory_items i
+                          LEFT JOIN order_item o ON i.id = o.item_id
+                          GROUP BY i.id
+                          ORDER BY i.id ASC";
+            
+                $result = mysqli_query($this->conn, $query);
+                $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 return $data;
             }
 
@@ -33,41 +39,7 @@
                     return false;
                 }
             }
-
-
-          
-            // public function enterItemData($item_name, $reorder_level){
-            //     $query = "INSERT INTO inventorychemical (item_name, reorder_level) VALUES ('$item_name',  '$reorder_level')";
-            //     mysqli_query($this->conn, $query);
-            // }
-            // public function getRowById(){
-            //     $result =mysqli_query($this->conn , "SELECT * FROM inventorychemical") ;
-            //     return $result;       
-            // }
-
-            // public function getNextId(){
-            //     $result = mysqli_query($this->conn, "SELECT MAX(item_id) as max_id FROM inventorychemical");
-            //     $row = mysqli_fetch_assoc($result);
-            //     return $row['max_id'] + 1;
-            // }
-
-            // public function deleteItemById($item_id){
-            //     $query = "DELETE FROM inventorychemical WHERE Item_Id = '$item_id'";
-            //     return mysqli_query($this->conn, $query);
-            // }
-
-            // public function getItemById($item_id){
-            //     $query = "SELECT * FROM inventorychemical WHERE Item_Id = '$item_id'";
-            //     $result = mysqli_query($this->conn, $query);
-            //     return mysqli_fetch_assoc($result);
-            // }
-            
-            // public function isItemNameExists($item_name) {
-            //     $query = "SELECT * FROM inventorychemical WHERE Item_Name = '$item_name'";
-            //     $result = mysqli_query($this->conn, $query);
-            //     return mysqli_num_rows($result) > 0;
-            // }
-            
+         
 
         
     }

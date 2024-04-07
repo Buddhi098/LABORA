@@ -158,23 +158,27 @@
         }
         
 
+        // public function itemDetails(){
+        //     $data = array();
+        //     $result = $this->md_item->getItemDetails();
+        //     if (count($result) > 0) {
+        //         $data = $result;
+        //     }else{
+        //         $data = [[
+        //             'id'=> "",
+        //             'item_name' => '',
+        //             'expire_date' => '',
+        //             'quantity' => ''
+        //         ],];
+        //         $this->view("invmng/itemDetails" , $data);
+        //     }
 
-        public function itemDetails(){
-            $data = array();
-            $result = $this->md_item->getItemDetails();
-            if (count($result) > 0) {
-                $data = $result;
-            }else{
-                $data = [[
-                    'id'=> "",
-                    'item_name' => '',
-                    'expire_date' => '',
-                    'quantity' => ''
-                ],];
-                $this->view("invmng/itemDetails" , $data);
-            }
-
-            $this->view("invmng/itemDetails" , $data);
+        //     $this->view("invmng/itemDetails" , $data);
+        // }
+        public function itemDetails($itemId)
+        {
+            $data = $this->md_item->getItemDetailsWithExpiry($itemId);
+            $this->view('invmng/itemDetails', $data);
         }
 
 

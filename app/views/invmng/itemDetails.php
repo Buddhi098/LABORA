@@ -53,21 +53,21 @@
             </thead >
         <tbody>
                 <div class='table_body'>
+              
                 <?php
-                $reversedArray = array_reverse($data, true);
-                if(count($reversedArray)>1){
-                    foreach ($reversedArray as $index => $row) {
-                        echo '
-                        <tr>
-                        <td>'.$index.'</td>
-                        <td>'.$row['id'].'</td>
-                        <td>'.$row['item_name'].'</td>
-                        <td>'.$row['expire_date'].'</td>
-                        <td>'.$row['quantity'].'</td>
-                        </tr>';
+                    if (count($data) > 0) {
+                        foreach ($data as $index => $row) {
+                            echo '
+                            <tr>
+                                <td>' . $index . '</td>
+                                <td>' . $row['item_name'] . '</td>
+                                <td>' . $row['manufacturer'] . '</td>
+                                <td>' . $row['expire_date'] . '</td>
+                                <td>' . $row['quantity'] . '</td>
+                            </tr>';
+                        }
                     }
-                }
-                ?>
+                    ?>
                 </div>
             </tbody>
         </table>

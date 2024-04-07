@@ -58,19 +58,19 @@
         <tbody>
                 <div class='table_body'>
                 <?php
-                    if(count($data) > 1) {
+                    if(count($data) > 0) {
                         foreach ($data as $index => $row) {
                             echo '
                             <tr>
-                                <td>'.$index.'</td>
+                                <td>'.$row['id'].'</td>
                                 <td>'.$row['Item_name'].'</td>  
                                 <td>'.$row['manufacturer'].'</td>
                                 <td>'.$row['reorder_limit'].'</td>
                                 <td>'.$row['total_quantity'].'</td>
                                 <td>'.$row['description'].'</td>
                                 <td>
-                                    <a href="http://localhost/labora/invmng/itemDetails" class="action-button">View Details</a>
-                                    <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Remove</a>
+                                <a href="'.URLROOT.'invmng/itemDetails/'.$row['id'].'" class="action-button">View Details</a>
+                                <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Remove</a>
                                 </td>
                             </tr>';
                         }
