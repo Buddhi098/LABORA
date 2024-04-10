@@ -97,7 +97,7 @@
                     <ion-icon name="notifications"></ion-icon>
                 </div>
                 <div class="user">
-                    <img src="/labora/public/img/patientdashboard/user1.jpg" alt="">
+                    <img id="top_bar_pic" src=<?php echo APPROOT."/public/img/profile/". $_SESSION['profile_image']?> alt="">
                     <h4><?php echo $_SESSION['username'];?></h4>
                 </div>
             </div>
