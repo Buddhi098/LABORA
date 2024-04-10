@@ -46,5 +46,13 @@
                     return $row;
                 }
             }
+
+            public function getTestTypeCount(){
+                $result =mysqli_query($this->conn , "SELECT * FROM test_type");
+                $count = mysqli_num_rows($result);
+                return $count;
+            }
+
+            
     }
 ?>
