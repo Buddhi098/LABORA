@@ -198,29 +198,23 @@ function setTime(time , slot){
 
 // for submitting form
 
-const form = document.getElementById('test_form'); 
+const form = document.getElementById('test_form');
+const prescription = document.getElementById('prescription'); 
 
 form.addEventListener('submit', function(event) {
 
   event.preventDefault(); 
 
-  const formData = new FormData(form); 
-  const jsonData = {};
-  formData.forEach((value, key) => {
-      jsonData[key] = sanitizeInput(value);
-  });
-        
-  const jsonString = JSON.stringify(jsonData);
-  console.log(jsonString)
+  const formData = new FormData(form);
+  formData.append('prescription', prescription.files[0]);
+
+  // console.log(formData)
 
   baseLink = window.location.origin
 
   fetch(baseLink+'/labora/PatientDashboard/appointment_form', {
     method: 'POST',
-    headers:{
-      'Content-Type' : 'application/json'
-    },
-    body: jsonString
+    body: formData
   })
   .then(response => {
     if (!response.ok) {
@@ -230,22 +224,27 @@ form.addEventListener('submit', function(event) {
   })
   .then(data => {
     console.log(data);
+    if(data['error']){
+        document.getElementById('img_error').innerHTML = data['error'];
+    }else{
+        const formElements = form.elements;
+        for (let i = 0; i < formElements.length; i++) {
+          formElements[i].disabled = true;
+        }
+
+        
+        form.classList.add('submitted');
+
+        let item1 = document.getElementById('item1')
+
+        item1.classList.remove('submitted');
+    }
   })
   .catch(error => {
     console.error('Fetch error:', error);
   });
 
-  const formElements = form.elements;
-  for (let i = 0; i < formElements.length; i++) {
-    formElements[i].disabled = true;
-  }
-
   
-  form.classList.add('submitted');
-
-  let item1 = document.getElementById('item1')
-
-  item1.classList.remove('submitted');
 });
 
 
