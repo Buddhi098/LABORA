@@ -259,13 +259,13 @@ body
     top: 18px;
     right: 32px;
 }
-.user h4{
-    font-family: mainfont;
-    color:white;
-    font-weight: 100;
-    position: absolute;
-    top: 26px;
-    right: 80px;
+.user h4 {
+	font-family: mainfont;
+	color: white;
+	font-weight: 100;
+	position: absolute;
+	top: 26px;
+	right: 46px;
 }
 .chat{
     position: absolute;
