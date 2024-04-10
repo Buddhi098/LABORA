@@ -252,17 +252,18 @@ body
     text-align: center;
     justify-content: center;
 }
-.user img
-{
-    display: inline-block;
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-    top: 18px;
-    right: 32px;
+.user img {
+	display: inline-block;
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+	cursor: pointer;
+	top: 12px;
+	right: 180px;
+	object-fit: cover;
+	/* margin: auto auto; */
 }
 .user h4{
     font-family: mainfont;
@@ -270,7 +271,7 @@ body
     font-weight: 100;
     position: absolute;
     top: 26px;
-    right: 80px;
+    right: 26px;
 }
 .chat{
     position: absolute;
@@ -312,3 +313,4 @@ body
 }
 .simple_table tr:hover {
     background-color: #f2f2f2;
+}
