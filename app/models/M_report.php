@@ -20,5 +20,11 @@
             public function deleteFromId($id){
                 $result = mysqli_query($this->conn ,"DELETE FROM medical_report WHERE id = '$id';") ;
             }
+
+            public function getReportCount($email){
+                $result = mysqli_query($this->conn , "SELECT * FROM medical_report WHERE email='$email';") ;
+                $report_count = mysqli_num_rows($result) ;
+                return $report_count ;
+            }
     }
 ?>
