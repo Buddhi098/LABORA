@@ -5,7 +5,7 @@
                 $this->conn = new Database;
                 $this->conn = $this->conn->dbObject();
             }
-            public function enterAppointmentData($refno,$test_type,$appointment_date,$appointment_time,$appointment_duration,$appointment_status,$appointment_notes,$email , $payment_method , $payment_status , $cost){
+            public function enterAppointmentData($refno,$test_type,$appointment_date,$appointment_time,$appointment_duration,$appointment_status,$appointment_notes,$email , $payment_method , $payment_status , $cost , $prescription){
 
                 $result =mysqli_query($this->conn , "SELECT * FROM appointment ORDER BY id DESC LIMIT 1") ;
                 $appointment = mysqli_fetch_assoc($result);
@@ -16,7 +16,7 @@
                 
 
                 $nextid = $lastid +1;
-                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost')";
+                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription')";
                 mysqli_query($this->conn , $query);
 
                 return true;
@@ -35,7 +35,7 @@
             }
 
             public function getRowByEmail($email){
-                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE patient_email='$email'") ;
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE patient_email='$email' AND NOT (payment_method='online' AND payment_status='unpaid')") ;
                 $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 if(!empty($result_data)){
                     return $result_data;
@@ -89,6 +89,26 @@
                     return false;
                 }
 
+            }
+
+            public function getTotalRefund($email){
+                $result = mysqli_query($this->conn , "SELECT SUM(cost) AS refund FROM appointment WHERE patient_email='$email' AND payment_status='paid' AND Appointment_Status='Canceled' AND payment_method='online'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data[0]['refund'])){
+                    return $result_data[0]['refund'];
+                }else{
+                    return 0;
+                }
+            }
+
+            public function getTotalCost($email){
+                $result = mysqli_query($this->conn , "SELECT SUM(cost) AS cost FROM appointment WHERE patient_email='$email' AND payment_status='paid'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data[0]['cost'])){
+                    return $result_data[0]['cost'];
+                }else{
+                    return 0;
+                }
             }
     }
 ?>
