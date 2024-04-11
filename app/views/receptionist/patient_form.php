@@ -105,7 +105,7 @@
             state="in-reveal">
             </lord-icon>
         </div>
-        <p> Success! Appointment Scheduled.</p>
+        <p> Success! Account Created.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
