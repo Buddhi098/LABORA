@@ -2,7 +2,18 @@
     class receptionist extends Controller{
         private $auth;
         private $m_user;
+
+        private $md_appointment;
+        private $md_testtype;
+        private $md_temp_prescription;
+
+        private $md_user;
         public function __construct(){
+            $this->md_appointment = $this->model('M_appointment');
+            $this->md_testtype = $this->model('M_testtype');
+            $this->md_temp_prescription = $this->model('M_temp_prescription');
+            $this->md_user = $this->model('M_user');
+
             $this->auth = new AuthMiddleware();
             $this->auth->authMiddleware('receptionist');
             $this->m_user = $this->model('M_user');
@@ -122,11 +133,6 @@
                 }
             }
         }
-        public function appointment_form(){
-
-            $data = [];
-            $this->view("receptionist/appointment_form" , $data);
-        }
         public function payment2_form(){
 
             $data = [];
@@ -161,6 +167,307 @@
             return $randomString;
         }
 
+
+        // appointment Scheduling
+
+        public function appointment_form($patient_email=null){
+
+            $data = [
+                'error' => ""
+            ];
+
+            if($_SERVER['REQUEST_METHOD']=="POST"){
+
+                $test_type_id = trim($_POST['test-type']);
+                $appointment_notes = trim($_POST['appointment-notes']);
+
+                if(empty($data["error"])){
+                    $formattedNumber = str_pad($this->md_appointment->getNextId(), 4, '0', STR_PAD_LEFT);
+
+                    $refno = 'LB-'.$formattedNumber;
+                    $test_type = $this->md_testtype->getDuration($test_type_id);
+
+                    $_SESSION['prescription'] = '';
+
+                    if(is_uploaded_file($_FILES["prescription"]['tmp_name'])){
+                        $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
+                        if($is_valid_file !== 1){
+                            $data['error'] = $is_valid_file;
+                            echo json_encode($data);
+                            exit();
+                        }
+
+                        // for saving prescription
+                        $prescription_id = $this->md_temp_prescription->enterPrescription($_SESSION['patient_email']);
+                        $target_dir = "../app/storage/prescription/";
+                        $image_name = $_FILES["prescription"]["name"];
+                        $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
+                        $target_file = $target_dir.'PR-'.$prescription_id.'.'.$file_extention;
+
+                        if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
+                            $img_status = 'uploaded';
+                        } else {
+                            $img_status = 'not uploaded';
+                        }
+
+                        $_SESSION['prescription'] = 'PR-'.$prescription_id.'.'.$file_extention;
+                    }
+                    
+                    
+                    $appointment_status = "Pending";
+                    $_SESSION['status'] = $appointment_status;
+                    $_SESSION['refno'] = $refno;
+                    $_SESSION['appointment_duration'] = $test_type["Time_duration"];
+                    $_SESSION['Test_type'] = $test_type["Test_type"];
+                    $_SESSION['Test_cost'] = $test_type["price"];
+                    $_SESSION['appointment_status'] = $appointment_status;
+                    $_SESSION['appointment_notes'] = $appointment_notes;
+                    // $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['$appointment_time'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail']);
+                }
+
+            }else{
+                $_SESSION['patient_email'] = $patient_email;
+                $test_types = $this->md_testtype->getROw();
+                $data['test_types'] = $test_types;
+                $data['patient_email'] = $patient_email;
+                $this->view("receptionist/appointment_form" , $data);
+            }
+
+            $message = [
+                'status' => 'success',
+            ];
+            echo json_encode($message);
+            exit();
+            
+        }
+
+        // Function to verify and scan uploaded image
+        function verifyAndScanImage($uploadedFile) {
+
+            if (!isset($uploadedFile['tmp_name']) || !is_uploaded_file($uploadedFile['tmp_name'])) {
+                return 'No file uploaded.';
+            }
+
+            $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+            if (!in_array($uploadedFile['type'], $allowedTypes)) {
+                return 'Invalid file type. Only JPEG, PNG, and PDF are allowed.';
+            }
+
+            $maxSize = 5 * 1024 * 1024;
+            if ($uploadedFile['size'] > $maxSize) {
+                return 'File size exceeds the limit. Maximum allowed size is 5 MB.';
+            }
+
+            return 1;
+        }
+
+
+
+        public function get_available_times($date){
+            if($_SERVER['REQUEST_METHOD']=="GET"){
+                $date = new DateTime($date);
+                $date = $date->format('Y-m-d');
+                $_SESSION['date'] = $date;
+                $timeString = $_SESSION['appointment_duration'];
+
+                // Create a DateTime object with a specific time
+                $dateTime = new DateTime($timeString);
+                $time_duration =  $dateTime->format('H:i:s');
+                $total_time_duration_minutes = $dateTime->format('H') * 60 + $dateTime->format('i');
+                $duration_interval = new DateInterval('PT'.$total_time_duration_minutes .'M');
+
+
+                $first_start_time = new DateTime('08:00:00');
+                $first_end_time = new DateTime('12:00:00');
+                $second_start_time = new DateTime('1:00:00');
+                $second_end_time = new DateTime('5:00:00');
+
+                $available_times = [];
+                $available_start_times = [];
+                $appointment_start_time = $first_start_time;
+                $appointment_start_time_in_string = $appointment_start_time->format('H:i:s');
+                while(true){
+                    $appointment_end_time = $appointment_start_time->add($duration_interval);
+                    // print_r($appointment_end_time);
+                    // die();
+                    $appointment_end_time_in_string = $appointment_end_time->format('H:i:s');
+                    if($appointment_end_time>$first_end_time){
+                        break;
+                    }
+                    // echo($appointment_start_time_in_string);
+                    // echo($appointment_end_time_in_string);
+                    // die();
+                    $sheduled_time = $this->md_testtype->getAvailableTime($date , $appointment_start_time_in_string , $appointment_end_time_in_string);
+                    
+                    if($sheduled_time){ 
+                        $appointment_time = new DateTime($sheduled_time['Appointment_Time']);
+                        $appointment_duration = new DateTime($sheduled_time['Appointment_Duration']);
+                        $total_minutes = $appointment_duration->format('i') + ($appointment_duration->format('H') * 60);
+                        $appointment_duration_interval = new DateInterval('PT'.$total_minutes .'M');
+
+                        $next_start_time = $appointment_time->add($appointment_duration_interval);
+                        $appointment_start_time =$next_start_time;
+                        $appointment_start_time_in_string = $appointment_start_time->format('H:i:s');
+                        // echo($appointment_start_time_in_string);
+                        // die();
+                    }else{
+                        $available_start_times[] = $appointment_start_time_in_string;
+                        $time_slot = substr($appointment_start_time_in_string , 0 , 5).' AM - '.substr($appointment_end_time_in_string , 0 , 5).' AM';
+                        $available_times[] = $time_slot;
+                        $appointment_start_time = $appointment_end_time;
+                        $appointment_start_time_in_string = trim($appointment_end_time_in_string);
+                    }
+
+                }
+
+
+                $appointment_start_time = $second_start_time;
+                $appointment_start_time_in_string = $appointment_start_time->format('H:i:s');
+                while(true){
+                    $appointment_end_time = $appointment_start_time->add($duration_interval);
+                    $appointment_end_time_in_string = $appointment_end_time->format('H:i:s');
+                    if($appointment_end_time>$second_end_time){
+                        break;
+                    }
+                    $sheduled_time = $this->md_testtype->getAvailableTime($date , $appointment_start_time_in_string , $appointment_end_time_in_string);
+                    // echo($sheduled_time);
+                    if($sheduled_time){
+                        $appointment_time = new DateTime($sheduled_time['Appointment_Time']);
+                        $appointment_duration = new DateTime($sheduled_time['Appointment_Duration']);
+                        $total_minutes = $appointment_duration->format('i') + ($appointment_duration->format('H') * 60);
+                        $appointment_duration_interval = new DateInterval('PT'.$total_minutes .'M');
+
+                        $next_start_time = $appointment_time->add($appointment_duration_interval);
+                        $appointment_start_time =$next_start_time;
+                        $appointment_start_time_in_string = $appointment_start_time->format('H:i:s');
+                    }else{
+                        $available_start_times[] = $appointment_start_time_in_string;
+                        $time_slot = substr($appointment_start_time_in_string , 0 , 5).' PM - '.substr($appointment_end_time_in_string , 0 , 5).' PM';
+                        $available_times[] = $time_slot;
+                        $appointment_start_time = $appointment_end_time;
+                        $appointment_start_time_in_string = trim($appointment_end_time_in_string);
+                    }
+
+                }
+                $totalMinutes = $dateTime->format('i') + ($dateTime->format('H') * 60);
+
+                $data['time_slots'] = $available_times;
+                $data['time_slots_value'] = $available_start_times;
+                
+                echo(json_encode($data));
+                // echo json_encode($data);
+                exit();
+            }
+        }
+
+        public function set_available_times($time){
+            if($_SERVER['REQUEST_METHOD']=='GET'){
+                $_SESSION['appointment_time_as'] = $time;
+                $_SESSION['cost'] = $_SESSION['Test_cost'];
+            }
+            $message = [
+                'status' => 'success'
+            ];
+            echo json_encode($message);
+            exit();
+        }
+
+
+        public function storeAppointment()
+        {
+
+            try {
+                $isAvailable = $this->md_appointment->isAvailableDate($_SESSION['date'], $_SESSION['appointment_time_as']);
+                if(!$isAvailable){
+                    $data = [
+                        'error_msg' => 'This time slot is already taken. Please select another time slot.'
+                    ];
+                    echo json_encode($data);
+                    exit();
+                }
+
+                $result = $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'],
+                $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['patient_email'], 'onsite', 'paid', $_SESSION['cost'] , $_SESSION['prescription']);
+                
+                if($result){
+                    $data = [
+                        'success_msg' => 'payment_success'
+                    ];
+                    $this->sendAppointmentEmail();
+                }else{
+                    $data = [
+                        'error_msg' => 'payment_failed'
+                    ];
+                }
+                
+                echo json_encode($data);
+                exit();
+                
+            } catch (Exception $e) {
+
+                $error_message = $e->getMessage();
+                $data = [
+                    'error_msg' => 'Something went wrong. Try Again!',
+                    'error' => $error_message
+                ];
+                
+
+                error_log($error_message);
+            
+                http_response_code(500); 
+                echo json_encode($data);
+                exit();
+            }
+            
+        }
+
+        public function sendAppointmentEmail(){
+                $subject = 'Appointment Confirmation & Payment Details';
+
+                $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear '.$_SESSION['username'].',</p>
+
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your upcoming appointment:</p>
+                
+                <ul style="list-style-type: none; padding: 0; margin-bottom: 20px;">
+                    <li><strong>Date:</strong> '.$_SESSION['date'].'</li>
+                    <li><strong>Time:</strong> '.$_SESSION['appointment_time_as'].'</li>
+                    <li><strong>Duration:</strong> '.$_SESSION['appointment_duration'].'</li>
+                </ul>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><strong>Payment:</strong></p>
+                
+                <ul style="list-style-type: none; padding: 0; margin-bottom: 20px;">
+                    <li><strong>Method:</strong> Onsite</li>
+                    <li><strong>Status:</strong> Paid</li>
+                    <li><strong>Amount:</strong> Rs.'.$_SESSION['cost'].'</li>
+                </ul>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Thank you for choosing us.</p>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
+                LABORA<br>';
+
+                sendEmail($_SESSION['patient_email'] , $_SESSION['username'] , $body , $subject );
+        }
+
+        public function getAppointmentInvoice(){
+            $user = $this->md_user->getUser($_SESSION['patient_email']);
+            $data = [
+                'refNo' => $_SESSION['refno'],
+                'test_type' =>  $_SESSION['Test_type'],
+                'appointment_date' => $_SESSION['date'],
+                'appointment_time' => $_SESSION['appointment_time_as'],
+                'appointment_duration' => $_SESSION['appointment_duration'],
+                'price' => $_SESSION['cost'],
+                'email' => $_SESSION['patient_email'],
+                'name' => $user['patient_name'],
+                'phone' => $user['patient_phone']
+            ];
+
+            $this->view('receptionist/appointment_invoice' , $data);
+        }
 
 
     }
