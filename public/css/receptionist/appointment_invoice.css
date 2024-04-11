@@ -1,0 +1,120 @@
+
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: rgba(192, 189, 255, 0.1);
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 28px;
+    margin: 0px;
+    overflow: auto;
+    height: 95%;
+}
+
+.invoice-container {
+  font-family: Arial, sans-serif;
+  max-width: 750px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.invoice-container *{
+    margin:4px;
+}
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-width: 60px;
+  margin-right: 15px;
+}
+
+.invoice-info i {
+  margin-right: 5px;
+}
+
+/* Client Info Styles */
+.client-info {
+  margin-bottom: 30px;
+}
+
+.client-info i {
+  margin-right: 5px;
+}
+
+/* Service Info Styles */
+.service-info table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.service-info th, .service-info td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.service-info i {
+  margin-right: 5px;
+}
+
+/* Total Info Styles */
+.total-info {
+  text-align: right;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.total-info i {
+  margin-right: 5px;
+}
+
+.print-btn {
+	padding: 10px 50px;
+	margin-left: 1000px;
+	position: relative;
+	left: 44%;
+	top: -15px;
+	background-color: green;
+	font-family: roboto;
+	border-radius: 10px;
+	color: white;
+	font-size: 14px;
+  border:none;
+  box-shadow:1px 1px 5px rgba(0, 0, 0 , 0.3)
+}
+.print-btn:hover{
+  background-color: rgb(0, 86, 0);
+}
+
+@media print {
+  body * {
+    display: none;
+  }
+  .container_1,
+  .container_1 * {
+    display: block;
+  }
+
+  .invoice-container{
+    box-shadow: none;
+    width: 1600px;
+    margin-top:-100px;
+  }
+
+}
