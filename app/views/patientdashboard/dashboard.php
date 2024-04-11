@@ -22,7 +22,7 @@
             <div class="box box_1">
                 <div class="text">
                     <h5>Number of Reports Received</h5>
-                    <h1>14</h1>
+                    <h1><?php echo $data['number_of_reports']?></h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> patient are kept up to date with real-time updates to their medical history.</p>
                 </div>
                 <div class="icon">
@@ -33,7 +33,7 @@
             <div class="box box_2">
                 <div class="text">
                     <h5>Number of Medical Test Types</h5>
-                    <h1>3</h1>
+                    <h1><?php echo $data['test_type_count']?></h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> This box provides a snapshot of the variety of medical test types the patient has undergone.</p>
                 </div>
                 <div class="icon">
@@ -44,8 +44,8 @@
             <div class="box box_2">
                 <div class="text">
                     <h5>Total Refund</h5>
-                    <h1>Rs. 6500</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> giving back all the money to a patient if they cancel their appointment in a lab system</p>
+                    <h1>Rs. <?php echo $data['total_refund_amount']?></h1>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> giving back all the money to a patient if they cancel their online appointment in a lab system</p>
                 </div>
                 <div class="icon">
                     <i class="fa-solid fa-money-bill-trend-up"></i>
@@ -55,7 +55,7 @@
             <div class="box box_2">
                 <div class="text">
                     <h5>Medical Test Expenses</h5>
-                    <h1>Rs. 65</h1>
+                    <h1>Rs. <?php echo $data['total_cost']?></h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> The total expenses will automatically update as new costs are incurred.</p>
                 </div>
                 <div class="icon">

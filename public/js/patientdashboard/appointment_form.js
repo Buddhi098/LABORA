@@ -198,29 +198,23 @@ function setTime(time , slot){
 
 // for submitting form
 
-const form = document.getElementById('test_form'); 
+const form = document.getElementById('test_form');
+const prescription = document.getElementById('prescription'); 
 
 form.addEventListener('submit', function(event) {
 
   event.preventDefault(); 
 
-  const formData = new FormData(form); 
-  const jsonData = {};
-  formData.forEach((value, key) => {
-      jsonData[key] = sanitizeInput(value);
-  });
-        
-  const jsonString = JSON.stringify(jsonData);
-  console.log(jsonString)
+  const formData = new FormData(form);
+  formData.append('prescription', prescription.files[0]);
+
+  // console.log(formData)
 
   baseLink = window.location.origin
 
   fetch(baseLink+'/labora/PatientDashboard/appointment_form', {
     method: 'POST',
-    headers:{
-      'Content-Type' : 'application/json'
-    },
-    body: jsonString
+    body: formData
   })
   .then(response => {
     if (!response.ok) {
@@ -230,22 +224,27 @@ form.addEventListener('submit', function(event) {
   })
   .then(data => {
     console.log(data);
+    if(data['error']){
+        document.getElementById('img_error').innerHTML = data['error'];
+    }else{
+        const formElements = form.elements;
+        for (let i = 0; i < formElements.length; i++) {
+          formElements[i].disabled = true;
+        }
+
+        
+        form.classList.add('submitted');
+
+        let item1 = document.getElementById('item1')
+
+        item1.classList.remove('submitted');
+    }
   })
   .catch(error => {
     console.error('Fetch error:', error);
   });
 
-  const formElements = form.elements;
-  for (let i = 0; i < formElements.length; i++) {
-    formElements[i].disabled = true;
-  }
-
   
-  form.classList.add('submitted');
-
-  let item1 = document.getElementById('item1')
-
-  item1.classList.remove('submitted');
 });
 
 
@@ -260,14 +259,10 @@ function sanitizeInput(input) {
 
 // select payment methods
 function onlinePayment(){
-  let baseLink = window.location.origin;
-  let Url = `${baseLink}/labora/PatientDashboard/getPaymentPage`
-  window.location.replace(Url)
-}
 
-function onsitePayment(){
   let baseLink = window.location.origin;
-  let link = `${baseLink}/labora/PatientDashboard/storeOnsiteAppointment`
+  let method = "online"
+  let link = `${baseLink}/labora/PatientDashboard/storeAppointment/${method}`
   console.log(link);
   fetch(link)
     .then(response => {
@@ -280,7 +275,45 @@ function onsitePayment(){
       console.log(data);
 
       if(data['success_msg']){
-        showSuccessMessage()
+        let Url = `${baseLink}/labora/PatientDashboard/getPaymentPage`
+        window.location.replace(Url)
+      }else if(data['error_msg']){
+        showErrorMessage()
+      }
+
+      closeModal();
+
+
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('nextBtn').style.opacity = '0.8';
+      document.getElementById('nextBtn').style.cursor = 'not-allowed';
+    })
+    .catch(error => {
+      console.error('There wa a problem with the fetch operation: ' , error)
+    })
+
+
+  
+}
+
+function onsitePayment(){
+  let baseLink = window.location.origin;
+  let method = "onsite"
+  let link = `${baseLink}/labora/PatientDashboard/storeAppointment/${method}`
+  console.log(link);
+  fetch(link)
+    .then(response => {
+      if(!response.ok){
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    })
+    .then(data =>{
+      console.log(data);
+
+      if(data['success_msg']){
+        let Url = `${baseLink}/labora/PatientDashboard/thankYouPage`
+        window.location.replace(Url)
       }else if(data['error_msg']){
         showErrorMessage()
       }

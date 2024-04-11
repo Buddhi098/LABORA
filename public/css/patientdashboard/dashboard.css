@@ -266,6 +266,11 @@ body{
   color: #fff;
   background-color: var(--primary-color);
 }
+.days .holiday{
+  background-color: red;
+  color:white;
+}
+
 .days .day.next,
 .days .day.prev {
   color: #ccc;
@@ -276,29 +281,6 @@ body{
   color: white;
   border-radius: 5px;
 }
-
-
-/* Credits */
-.credits a {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: #aaa;
-}
-.credits span {
-  color: var(--primary-color);
-}
-
-
-
-
-
-
-
-
-
 
 /* responsive */
 
