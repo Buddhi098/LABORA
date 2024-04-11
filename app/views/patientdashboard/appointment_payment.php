@@ -31,15 +31,32 @@
     </div>
 
 
+    <!-- pop success & error messages -->
     <!-- popup success messages -->
     <div class="success-message-container" id="successMessage">
-    <p>Success! Payment Successfull.</p>
-    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+        <div class="icon">
+            <lord-icon
+            src="https://cdn.lordicon.com/guqkthkk.json"
+            trigger="in"
+            delay="15"
+            state="in-reveal">
+            </lord-icon>
+        </div>
+        <p> Success! Appointment Scheduled.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
     <div class="error-message-container" id="ErrorMessage">
-    <p>Error! Payment was failed.</p>
-    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+        <div class="icon">
+            <lord-icon
+            src="https://cdn.lordicon.com/akqsdstj.json"
+            trigger="in"
+            delay="15"
+            state="in-reveal">
+            </lord-icon>
+        </div>
+        <p id="error_msg">Error! Your action was failed.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
 
