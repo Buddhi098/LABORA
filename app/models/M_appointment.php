@@ -16,10 +16,14 @@
                 
 
                 $nextid = $lastid +1;
-                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription')";
-                mysqli_query($this->conn , $query);
+                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription' , '' , '')";
+                $result = mysqli_query($this->conn , $query);
 
-                return true;
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
                 // echo
                 // "<script> alert('Registration Successful');</script>";
             }
