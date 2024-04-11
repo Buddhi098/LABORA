@@ -15,58 +15,48 @@
 </head>
 <body>
     <?php require_once 'components/dashnavbar.php' ?>
-    <div class="container_1">
+    <div class="container_1">    
+    <div class="table-container">
+        <h2><i class="fa-solid fa-calendar-check"></i>Chemicals about to Expire</h2>
 
-        <div class="tablename">
-            <h3>Expired Chemical Details</h3>
-        </div>
-        <div class="line"></div>
-        
-        
-        <div>
-        <table>
-        <thead>
-        <tr>
-        <th>Item ID</th>
-        <th>Item Name</th>
-       
-        <th>Sub ID</th>
-        <th>Expired Quantity</th>
-        <th>Added Date</th>
-        <th>Action</th>
-    </tr>
-        </thead>
+        <table id="myTable">
+            <thead>
+                    <th>Item Id</th>
+                    <th>Item Name</th>
+                    <th>Added Date</th>
+                    <th>Expire Date</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+            </thead >
         <tbody>
-        
-    <tr>
-        <td>1001</td>
-        <td>Chemical A</td>
-        
-        <td>11A</td>
-        <td>5</td>
-        <td>2022-11-15</td>
-        <td><a href="#" class="del" >Delete</a></td>
-    </tr>
-    <tr>
-        <td>1002</td>
-        <td>Chemical B</td>
-        <td>42D</td>
-        <td>10</td>
-        <td>2022-12-05</td>
-        <td><a href="#" class="del" >Delete</a></td>
-    </tr>
-    <tr>
-        <td>1003</td>
-        <td>Chemical D</td>
-        <td>12S</td>
-        <td>10</td>
-        <td>2021-12-09</td>
-        <td><a href="#" class="del" >Delete</a></td>
-    </tr>
-            <!-- Add more rows as needed -->
-        </tbody>
+                <div class='table_body'>
+                <?php
+                $reversedArray = array_reverse($data, true);
+               
+                    foreach ($reversedArray as $index => $row) {
+                        echo '
+                        <tr>
+                        <td>'.$row['item_id'].'</td>
+                        <td>'.$row['item_name'].'</td>
+                        <td>'.$row['id'].'</td>
+                        <td>'.$row['expire_date'].'</td>
+                        <td>'.$row['quantity'].'</td>
+                        <td> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
+                        </tr>';
+                    }
+                
+                ?>
+                </div>
+            </tbody>
         </table>
+            <div class="pagination">
+            <h5 id="table_data"></h5>
+            <button onclick="previousPage()" >Previous</button>
+            <button onclick="nextPage()" id="next">Next</button>
+            </div>
         </div>
+    </div>
+       
     </div>
 </body>
 </html>

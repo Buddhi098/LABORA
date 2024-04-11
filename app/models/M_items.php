@@ -17,8 +17,8 @@
                 }
             }
 
-            public function getAllData(){
-                $result = mysqli_query($this->conn , "SELECT * FROM inventory_items");
+            public function getItemDetails(){
+                $result = mysqli_query($this->conn , "SELECT id, item_name, expire_date, quantity FROM order_item WHERE item_id = 23 AND expire_date IS NOT NULL");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 
                 return $data;
@@ -33,6 +33,21 @@
                 }else{
                     return false;
                 }
+            }
+            public function getItemDetailsWithExpiry($itemId)
+            {
+                $query = "SELECT o.id, o.item_name, o.expire_date, o.quantity, i.manufacturer
+                        FROM order_item o
+                        JOIN inventory_items i ON o.item_id = i.id
+                        WHERE o.item_id = ? AND o.expire_date IS NOT NULL
+                        ORDER BY o.expire_date ASC";
+
+                $stmt = mysqli_prepare($this->conn, $query);
+                mysqli_stmt_bind_param($stmt, 'i', $itemId);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                return $data;
             }
     }
 ?>
