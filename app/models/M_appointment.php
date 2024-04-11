@@ -110,5 +110,11 @@
                     return 0;
                 }
             }
+
+            public function getUnpaidOnsiteAppointment($email){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE patient_email='$email' AND payment_method='onsite' AND payment_status='unpaid' AND  Appointment_Status ='Pending'") ;
+                $unpaid_appointment_count = mysqli_num_rows($result);
+                return $unpaid_appointment_count;
+            }
     }
 ?>
