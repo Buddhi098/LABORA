@@ -1,7 +1,6 @@
 // common functions for some functionality
 
 function sanitize(string) {
-    console.log('asdas')
     const map = {
         '&': '&amp;',
         '<': '&lt;',

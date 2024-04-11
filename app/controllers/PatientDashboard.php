@@ -8,12 +8,17 @@
         private $auth;
 
         private $md_report;
+
+        private $md_temp_prescription;
+
+        private $md_holiday_calendar;
         public function __construct(){
             $this->md_appointment = $this->model('M_appointment');
             $this->md_testtype = $this->model('M_testtype');
             $this->md_user = $this->model('M_user');
             $this->md_report = $this->model('M_report');
-
+            $this->md_temp_prescription = $this->model('M_temp_prescription');
+            $this->md_holiday_calendar  = $this->model('M_holiday_calendar');
             // checo authentication
             $this->auth = new AuthMiddleware();
             $this->auth->authMiddleware("patient");
@@ -23,6 +28,7 @@
         public function index(){
 
             $data = [];
+
             $this->view("patientdashboard/Dashboard" , $data);
         }
 
@@ -76,9 +82,38 @@
         public function dashboard(){
 
             $data = [];
+
             $medical_tests = $this->md_testtype->getRow();
             $data['medical_test'] = $medical_tests;
+
+            $test_type_count = $this->md_testtype->getTestTypeCount();
+            $data['test_type_count'] = $test_type_count;
+
+            $number_of_reports = $this->md_report->getReportCount($_SESSION['useremail']);
+            $data['number_of_reports'] = $number_of_reports;
+
+            $total_refund_amount = $this->md_appointment->getTotalRefund($_SESSION['useremail']);
+            $data['total_refund_amount'] = $total_refund_amount;
+
+            $total_cost = $this->md_appointment->getTotalCost($_SESSION['useremail']);
+            $data['total_cost'] = $total_cost;
+            
             $this->view("patientdashboard/dashboard" , $data);
+        }
+
+        public function getHolidays($year , $month){
+            $result = $this->md_holiday_calendar->getAlldates($year , $month);
+            if($result){
+                echo json_encode($result);
+                exit();
+            }else{
+                $data = [
+                    'error' => 'No holidays found'
+                ];
+                echo json_encode($data);
+                exit();
+            }
+
         }
 
         public function medicaltest(){
@@ -90,32 +125,51 @@
         public function appointment_form(){
 
             $data = [
-                'dateerr' => ""
+                'error' => ""
             ];
 
             if($_SERVER['REQUEST_METHOD']=="POST"){
-                // $currentDate = date('Y-m-d');
-                $jsonData = file_get_contents("php://input");
-                $data = json_decode($jsonData, true);
 
-                $test_type_id = trim($data['test-type']);
-                $appointment_notes = trim($data['appointment-notes']);
+                $test_type_id = trim($_POST['test-type']);
+                $appointment_notes = trim($_POST['appointment-notes']);
 
-                if(empty($data["dateerr"])){
-                $formattedNumber = str_pad($this->md_appointment->getNextId(), 4, '0', STR_PAD_LEFT);
+                if(empty($data["error"])){
+                    $formattedNumber = str_pad($this->md_appointment->getNextId(), 4, '0', STR_PAD_LEFT);
 
-                $refno = 'LB-'.$formattedNumber;
-                $test_type = $this->md_testtype->getDuration($test_type_id);
-                
-                $appointment_status = "Pending";
-                $_SESSION['status'] = $appointment_status;
-                $_SESSION['refno'] = $refno;
-                $_SESSION['appointment_duration'] = $test_type["Time_duration"];
-                $_SESSION['Test_type'] = $test_type["Test_type"];
-                $_SESSION['Test_cost'] = $test_type["price"];
-                $_SESSION['appointment_status'] = $appointment_status;
-                $_SESSION['appointment_notes'] = $appointment_notes;
-                // $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['$appointment_time'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail']);
+                    $refno = 'LB-'.$formattedNumber;
+                    $test_type = $this->md_testtype->getDuration($test_type_id);
+
+
+                    $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
+                    if($is_valid_file !== 1){
+                        $data['error'] = $is_valid_file;
+                        echo json_encode($data);
+                        exit();
+                    }
+                    // for saving prescription
+                    $prescription_id = $this->md_temp_prescription->enterPrescription($_SESSION['useremail']);
+                    $target_dir = "../app/storage/prescription/";
+                    $image_name = $_FILES["prescription"]["name"];
+                    $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
+                    $target_file = $target_dir.'PR-'.$prescription_id.'.'.$file_extention;
+
+                    if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
+                        $img_status = 'uploaded';
+                    } else {
+                        $img_status = 'not uploaded';
+                    }
+                    
+                    
+                    $appointment_status = "Pending";
+                    $_SESSION['prescription'] = 'PR-'.$prescription_id.'.'.$file_extention;
+                    $_SESSION['status'] = $appointment_status;
+                    $_SESSION['refno'] = $refno;
+                    $_SESSION['appointment_duration'] = $test_type["Time_duration"];
+                    $_SESSION['Test_type'] = $test_type["Test_type"];
+                    $_SESSION['Test_cost'] = $test_type["price"];
+                    $_SESSION['appointment_status'] = $appointment_status;
+                    $_SESSION['appointment_notes'] = $appointment_notes;
+                    // $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['$appointment_time'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail']);
                 }
 
             }else{
@@ -123,14 +177,36 @@
                 $data['test_types'] = $test_types;
                 $this->view("patientdashboard/appointment_form" , $data);
             }
-            
 
             $message = [
-                'status' => 'success'
+                'status' => 'success',
             ];
             echo json_encode($message);
             exit();
+            
         }
+
+        // Function to verify and scan uploaded image
+        function verifyAndScanImage($uploadedFile) {
+
+            if (!isset($uploadedFile['tmp_name']) || !is_uploaded_file($uploadedFile['tmp_name'])) {
+                return 'No file uploaded.';
+            }
+
+            $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+            if (!in_array($uploadedFile['type'], $allowedTypes)) {
+                return 'Invalid file type. Only JPEG, PNG, and PDF are allowed.';
+            }
+
+            $maxSize = 5 * 1024 * 1024;
+            if ($uploadedFile['size'] > $maxSize) {
+                return 'File size exceeds the limit. Maximum allowed size is 5 MB.';
+            }
+
+            return 1;
+        }
+
+
 
         public function get_available_times($date){
             if($_SERVER['REQUEST_METHOD']=="GET"){
@@ -265,36 +341,96 @@
         public function editProfile(){
 
             if($_SERVER['REQUEST_METHOD']=="POST"){
-                $_POST = filter_input_array(INPUT_POST , FILTER_SANITIZE_STRING);
-
                 $data = [
-                    'fullname' => trim($_POST['fullname']),
+                    'fullname' => trim($_POST['name']),
                     'email' => $_SESSION['useremail'],
                     'phone' => trim($_POST['phone']),
                     'dob' => trim($_POST['dob']),
-                    'address' => trim($_POST['address'])
+                    'address' => trim($_POST['address']),
+                    'password' => trim($_POST['new_password']),
+                    'comfirm_password' => trim($_POST['confirm_password']),
                 ];
 
-                $this->md_user->changeName($data['email'] , $data['fullname']);
-                $this->md_user->changePhone($data['email'] , $data['phone']);
-                $this->md_user->changeDob($data['email'] , $data['dob']);
-                $this->md_user->changeAddress($data['email'] , $data['address']);
+                $img_status = 'not uploaded';
+                $profile_rename = 'default.jpg';
+
+                if(isset($_FILES["profileImage"])){
+                    // $is_valid_file = $this->verifyAndScanImage($_FILES["profileImage"]);
+                    // if($is_valid_file !== 1){
+                    //     $data['error'] = $is_valid_file;
+                    //     echo json_encode($data);
+                    //     exit();
+                    // }
+    
+                    $path = './img/profile/';
+                    $image_name = $_FILES["profileImage"]["name"];
+                    $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
+                    $target_file = $path.'PP-'.$_SESSION['userid'].'.'.$file_extention;
+                    $profile_rename = 'PP-'.$_SESSION['userid'].'.'.$file_extention;
+    
+                    if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
+                        $img_status = 'uploaded';
+                    } else {
+                        $img_status = 'not uploaded';
+                    }
+
+                    $this->md_user->setProfileImage( $profile_rename, $data['email']);
+                }
+
+                
+                if($data['password'] != '' && $data['comfirm_password'] != ''){
+                    if($data['password'] != $data['comfirm_password']){
+                        $message['error'] = 'Password and Confirm Password does not match';
+                        echo json_encode($message);
+                        exit();
+                    }else{
+                        $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
+                        $this->md_user->changePassword($hashed_password , $data['email']);
+                    }
+                }
+                if($data['fullname'] != ''){
+                    $this->md_user->changeName($data['email'] , $data['fullname']);
+                }
+
+                if($data['phone'] != ''){
+                    $this->md_user->changePhone($data['email'] , $data['phone']);
+                }
+
+                if($data['dob'] != ''){
+                    $this->md_user->changeDob($data['email'] , $data['dob']);
+                }
+
+                if($data['address'] != ''){
+                    $this->md_user->changeAddress($data['email'] , $data['address']);
+                }
+
+                $message = [
+                    'status' => 'success',
+                    'image_status' => $img_status
+                ];
+
+                echo json_encode($message);
+                exit();
 
             }else{
                 $current_user=$this->md_user->getUser( $_SESSION['useremail']);
+                if($current_user['profile_img']==''){
+                    $current_user['profile_img'] = 'default.jpg';
+                }
                 $data = [
                     'fullname' => $current_user['patient_name'],
                     'email' => $_SESSION['useremail'],
                     'phone' => $current_user['patient_phone'],
                     'dob' => $current_user['patient_dob'],
                     'address' => $current_user['patient_address'],
+                    'profile_image' => $current_user['profile_img']
                 ];
             }
 
             $this->view('patientdashboard/profile' , $data);
 
             //for avoiding form resubmission
-            stopResubmission();
+            // stopResubmission();
         }
 
 
@@ -323,7 +459,8 @@
         }
 
         public function getPaymentPage(){
-            $data = array();
+            $data = array();         
+
             if(!isset($_SESSION["appointment_time_as"])){
                 $this->view("patientdashboard/appointment_form" , $data);
             }else{
@@ -380,17 +517,41 @@
             exit();
         }
 
-        public function storeAppointment()
+        public function doPayment()
         {
-            $this->md_appointment->enterAppointmentData($_SESSION['refno'],$_SESSION['Test_type'], $_SESSION['date'],$_SESSION['appointment_time_as'],$_SESSION['appointment_duration'],$_SESSION['status'],$_SESSION['appointment_notes'],$_SESSION['useremail'],'online' ,'paid',$_SESSION['cost']);
-            exit();
+            try{
+                $this->md_appointment->doPayment($_SESSION['refno']);
+                $data = [
+                    'success_msg' => 'payment_success'
+                ];
+                echo json_encode($data);
+                exit();
+            }catch (Exception $e){
+                $error_message = $e->getMessage();
+                $data = [
+                    'error_msg'=> 'Something went wrong. Try Again!',
+                ];
+                error_log($error_message);
+                http_response_code(500);
+                echo json_encode($data);
+                exit();
+            }
         }
 
-        public function storeOnsiteAppointment()
+        public function storeAppointment($method)
         {
 
             try {
-                $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'], $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], 'onsite', 'unpaid', $_SESSION['cost']);
+                $isAvailable = $this->md_appointment->isAvailableDate($_SESSION['date'], $_SESSION['appointment_time_as']);
+                if(!$isAvailable){
+                    $data = [
+                        'error_msg' => 'This time slot is already taken. Please select another time slot.'
+                    ];
+                    echo json_encode($data);
+                    exit();
+                }
+
+                $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'], $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], $method, 'unpaid', $_SESSION['cost'] , $_SESSION['prescription']);
             
                 $data = [
                     'success_msg' => 'payment_success'
@@ -419,6 +580,14 @@
         public function showReports(){
             $data = [];
             $this->view('patientdashboard\reports\abc.pdf' , $data);
+        }
+
+        public function thankYouPage(){
+            $data = [
+                'appointment_date' => $_SESSION['date'],
+                'appointment_time' => $_SESSION['appointment_time_as']
+            ];
+            $this->view('patientdashboard/appointment_finish' , $data);
         }
 
 }

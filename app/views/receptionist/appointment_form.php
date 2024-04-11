@@ -34,6 +34,10 @@
             <label for="appointment-time">Appointment Time:</label>
             <input type="time" id="appointment-time" name="appointment-time" required>
         </div>
+        <!-- <div class="form-group">
+            <label for="appointment-duration">Appointment Duration (in minutes):</label>
+            <input type="number" id="appointment-duration" name="appointment-duration" required>
+        </div> -->
         <div class="form-group">
             <label for="appointment-notes">Appointment Notes:</label>
             <textarea id="appointment-notes" name="appointment-notes" rows="4"></textarea>

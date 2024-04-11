@@ -25,10 +25,14 @@
                 
 
                 $nextid = $lastid +1;
-                $query = "INSERT INTO patient_data VALUES('$nextid','$name','$email','$password','$phone','$dob','$gender','$address')";
-                mysqli_query($this->conn , $query);
-                // echo
-                // "<script> alert('Registration Successful');</script>";
+                $query = "INSERT INTO patient_data (patient_id, patient_name, patient_email, password, patient_phone, patient_dob, patient_gender, patient_address)
+                VALUES ('$nextid', '$name', '$email', '$password', '$phone', '$dob', '$gender', '$address')";
+                $result = mysqli_query($this->conn , $query);
+                if($result){
+                    return true;
+                }else{
+                    return $result;
+                }
             }
 
             public function isExistEmail($email){
@@ -92,6 +96,36 @@
             public function getRow(){
                 $result =mysqli_query($this->conn , "SELECT * FROM patient_data") ;
                 return $result;       
+            }
+
+            public function setProfileImage($profile_image , $email){
+                $result = mysqli_query($this->conn , "UPDATE patient_data
+                SET profile_img = '$profile_image'
+                WHERE patient_email = '$email'");
+
+                return $result;
+            }
+
+            public function changePassword($password , $email){
+                $result = mysqli_query($this->conn , "UPDATE patient_data
+                SET password = '$password'
+                WHERE patient_email = '$email'");
+
+            }
+
+            public function isMailExist($mail){
+                $result =mysqli_query($this->conn , "SELECT * FROM patient_data WHERE patient_email='$mail'") ;
+                if(mysqli_num_rows($result)>0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            public function getAllPatient(){
+                $result = mysqli_query($this->conn , "SELECT * FROM patient_data");
+                $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                return $result;
             }
     }
 ?>

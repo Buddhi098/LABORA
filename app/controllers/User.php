@@ -132,6 +132,11 @@
             $_SESSION['useremail'] = $user['patient_email'];
             $_SESSION['last_login_timestamp'] = time();
             $_SESSION['role'] = 'patient';
+            if($user['profile_img'] == ''){
+                $_SESSION['profile_image'] = 'default.jpg';
+            }else{
+            $_SESSION['profile_image'] = $user['profile_img'];
+            }
             header("Location: ".URLROOT."PatientDashboard/dashboard");
         }
 

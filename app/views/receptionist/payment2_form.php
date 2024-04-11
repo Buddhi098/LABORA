@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/payment_form.css'?>">
-    <script src="<?php echo APPROOT.'/public/js/receptionist/patient.js';?>"></script>
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/payment2_form.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/receptionist/recept.js';?>"></script>
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -27,27 +27,22 @@
             <input type="text" id="test-type" name="test-type" required>
         </div>
         <div class="form-group">
-            <label for="test-type">Test Type:</label>
+            <label for="test-type">Test Name:</label>
             <input type="text" id="test-type" name="test-type" required>
         </div>
         <div class="form-group">
             <label for="test-type">Payment Amount:</label>
             <input type="text" id="test-type" name="test-type" required>
         </div>
-        <!-- <div class="form-group">
+         <!-- <div class="form-group">
             <label for="appointment-time">Appointment Time:</label>
             <input type="time" id="appointment-time" name="appointment-time" required>
         </div>
         <div class="form-group">
-            <label for="appointment-duration">Appointment Duration (in minutes):</label>
-            <input type="number" id="appointment-duration" name="appointment-duration" required>
-        </div> -->
-        <!-- <div class="form-group">
             <label for="appointment-notes">Address:</label>
             <textarea id="appointment-notes" name="appointment-notes" rows="4"></textarea>
-        </div> -->
+        </div>  -->
         <button type="submit" class="button">Submit</button>
     </form>
-    </div>
 </body>
 </html>
