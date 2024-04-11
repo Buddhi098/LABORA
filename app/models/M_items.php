@@ -6,9 +6,18 @@
                 $this->conn = $this->conn->dbObject();
             }
 
+            public function getItemDetailsWithExpiry($id){
+                $result = mysqli_query($this->conn , "SELECT o.id, o.item_name, o.expire_date, o.quantity, i.id, i.supplier_id
+                FROM order_item o
+                JOIN orders_tbl i ON o.item_id = i.id
+                WHERE o.item_id = '$id' AND o.expire_date IS NOT NULL
+                ORDER BY o.expire_date ASC");
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                return $result_data;
+            }
 
-            public function enterItems($item_name , $item_type , $manufacture , $reorder_level , $description){
-                $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, item_type, reorder_limit, description, manufacturer) VALUES ('$item_name', '$item_type', '$reorder_level', '$description', '$manufacture')");
+            public function enterItems($item_name , $manufacture , $reorder_level , $description){
+                $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, reorder_limit, description, manufacturer) VALUES ('$item_name', '$reorder_level', '$description', '$manufacture')");
 
                 if($result){
                     return true;
@@ -17,12 +26,27 @@
                 }
             }
 
-            public function getItemDetails(){
-                $result = mysqli_query($this->conn , "SELECT id, item_name, expire_date, quantity FROM order_item WHERE item_id = 23 AND expire_date IS NOT NULL");
+            // public function editItems($itemId, $itemName, $reorderLimit, $manufacturer, $description) {
+            //     $sql = "UPDATE inventory_items SET Item_name = ?, reorder_limit = ?, manufacturer = ?, description = ? WHERE id = ?";
+            //     $stmt = $this->conn->prepare($sql);
+            //     $stmt->bind_param("ssisi", $itemName, $reorderLimit, $manufacturer, $description, $itemId);
+            //     $result = $stmt->execute();
+            //     return $result;
+            // }
+
+            public function getAllData(){
+                $result = mysqli_query($this->conn , "SELECT * FROM inventory_items");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 
                 return $data;
             }
+
+            // public function getItemDetails(){
+            //     $result = mysqli_query($this->conn , "SELECT id, item_name, expire_date, quantity FROM order_item WHERE item_id = 23 AND expire_date IS NOT NULL");
+            //     $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
+
+            //     return $data;
+            // }
 
             public function getNameById($id){
                 $name = mysqli_query($this->conn , "SELECT Item_name FROM  inventory_items WHERE id='$id'");
@@ -34,20 +58,33 @@
                     return false;
                 }
             }
-            public function getItemDetailsWithExpiry($itemId)
-            {
-                $query = "SELECT o.id, o.item_name, o.expire_date, o.quantity, i.manufacturer
-                        FROM order_item o
-                        JOIN inventory_items i ON o.item_id = i.id
-                        WHERE o.item_id = ? AND o.expire_date IS NOT NULL
-                        ORDER BY o.expire_date ASC";
 
-                $stmt = mysqli_prepare($this->conn, $query);
-                mysqli_stmt_bind_param($stmt, 'i', $itemId);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                return $data;
+            public function editItems($item_name , $manufacture , $reorder_level , $description){
+                $result = mysqli_query($this->conn, "UPDATE inventory_items SET Item_name = '$item_name' , reorder_limit = '$reorder_level', manufacturer = '$manufacture', description = '$description' WHERE id = ?");
+
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
             }
+
+            public function getItemById($itemId) {
+                $sql = "SELECT * FROM inventory_items WHERE id = ?";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bind_param("i", $itemId);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                return $result->fetch_assoc();
+            }
+        
+            public function updateItem($itemId, $itemName, $manufacturer, $reorderLimit, $description) {
+                $sql = "UPDATE inventory_items SET Item_name = ?, manufacturer = ?, reorder_limit = ?, description = ? WHERE id = ?";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bind_param("ssisi", $itemName, $manufacturer, $reorderLimit, $description, $itemId);
+                $result = $stmt->execute();
+                return $result;
+            }
+
     }
 ?>
