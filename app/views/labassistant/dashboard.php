@@ -4,41 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/supplier/dashboard.css'?>">
-    <script src="<?php echo APPROOT.'/public/js/labassistant/patient.js';?>"></script>
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/patientdashboard/dashboard.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/patientdashboard/patient.js';?>"></script>
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <title>Labassistant dashboard</title>
+    <title>Patient dashboard</title>
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>
 
     <div class="container_1">
-        <div class="boxset-1">
-            <div class="box box-1">
-                <span>65</span><br>
-                <h5>Number of Reports Received</h5><br>
-                <p>patient are kept up to date with real-time updates to their medical history.</p>
+        <div class="boxset_1">
+
+            <div class="box box_1">
+                <div class="text">
+                    <h5>Number of Reports Received</h5>
+                    <h1>35</h1>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> patient are kept up to date with real-time updates to their medical history.</p>
+                </div>
+                <div class="icon">
+                    <i class="fa-solid fa-file-contract"></i>
+                </div>
             </div>
-            <div class="box box-2">
-                <span>6</span><br>
-                <h5>Number of Medical Test Types</h5><br>
-                <p>This box provides a snapshot of the variety of medical test types the patient has undergone. </p>
+
+            <div class="box box_2">
+                <div class="text">
+                    <h5>Number of Medical Test Types</h5>
+                    <h1>10</h1>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> This box provides a snapshot of the variety of medical test types the patient has undergone.</p>
+                </div>
+                <div class="icon">
+                    <i class="fa-solid fa-hand-holding-medical"></i>
+                </div>
             </div>
-            <div class="box box-3">
-                <span>600$</span><br>
-                <h5>Medical Test Expenses</h5><br>
-                <p>The total expenses will automatically update as new costs are incurred. </p>
+
+            <div class="box box_2">
+                <div class="text">
+                    <h5>Total Medical Test Expenses</h5>
+                    <h1>Rs. 4000</h1>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> giving back all the money to a patient if they cancel their appointment in a lab system</p>
+                </div>
+                <div class="icon">
+                    <i class="fa-solid fa-money-bill-trend-up"></i>
+                </div>
             </div>
-            <div class="box box-4">
-                <span>MRI</span><br>
-                <h5>Most Frequent Test</h5><br>
-                <p>This box identifies the primary medical test type that the patient has taken most often.</p>
+
+            <div class="box box_2">
+                <div class="text">
+                    <h5>Most frequently requested Test</h5>
+                    <h1>Full Blood Count(FBC)</h1>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> Most number of patients requested test type in previous month</p>
+                </div>
+                <div class="icon">
+                    <i class="fa-solid fa-vials"></i>
+                </div>
             </div>
+
         </div>
-    </div>
+        
+
+    <script src="<?php echo APPROOT.'/public/js/patientdashboard/dashboard.js';?>"></script>
+
+
 </body>
 </html>
