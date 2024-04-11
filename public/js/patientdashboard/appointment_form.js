@@ -329,6 +329,4 @@ function onsitePayment(){
     .catch(error => {
       console.error('There wa a problem with the fetch operation: ' , error)
     })
-
-
 }
