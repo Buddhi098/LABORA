@@ -315,6 +315,7 @@ function onsitePayment(){
         let Url = `${baseLink}/labora/PatientDashboard/thankYouPage`
         window.location.replace(Url)
       }else if(data['error_msg']){
+        document.getElementById('error_msg').innerHTML = 'You reached Maximum Unpaid Appointment!'
         showErrorMessage()
       }
 
