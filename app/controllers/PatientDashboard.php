@@ -139,29 +139,32 @@
                     $refno = 'LB-'.$formattedNumber;
                     $test_type = $this->md_testtype->getDuration($test_type_id);
 
+                    if(is_uploaded_file($_FILES["prescription"]['tmp_name'])){
+                        $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
+                        if($is_valid_file !== 1){
+                            $data['error'] = $is_valid_file;
+                            echo json_encode($data);
+                            exit();
+                        }
 
-                    $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
-                    if($is_valid_file !== 1){
-                        $data['error'] = $is_valid_file;
-                        echo json_encode($data);
-                        exit();
-                    }
-                    // for saving prescription
-                    $prescription_id = $this->md_temp_prescription->enterPrescription($_SESSION['useremail']);
-                    $target_dir = "../app/storage/prescription/";
-                    $image_name = $_FILES["prescription"]["name"];
-                    $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
-                    $target_file = $target_dir.'PR-'.$prescription_id.'.'.$file_extention;
+                        // for saving prescription
+                        $prescription_id = $this->md_temp_prescription->enterPrescription($_SESSION['useremail']);
+                        $target_dir = "../app/storage/prescription/";
+                        $image_name = $_FILES["prescription"]["name"];
+                        $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
+                        $target_file = $target_dir.'PR-'.$prescription_id.'.'.$file_extention;
 
-                    if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
-                        $img_status = 'uploaded';
-                    } else {
-                        $img_status = 'not uploaded';
+                        if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
+                            $img_status = 'uploaded';
+                        } else {
+                            $img_status = 'not uploaded';
+                        }
+
+                        $_SESSION['prescription'] = 'PR-'.$prescription_id.'.'.$file_extention;
                     }
                     
                     
                     $appointment_status = "Pending";
-                    $_SESSION['prescription'] = 'PR-'.$prescription_id.'.'.$file_extention;
                     $_SESSION['status'] = $appointment_status;
                     $_SESSION['refno'] = $refno;
                     $_SESSION['appointment_duration'] = $test_type["Time_duration"];
@@ -546,6 +549,16 @@
                 if(!$isAvailable){
                     $data = [
                         'error_msg' => 'This time slot is already taken. Please select another time slot.'
+                    ];
+                    echo json_encode($data);
+                    exit();
+                }
+
+                $unpaid_appointment = $this->md_appointment->getUnpaidOnsiteAppointment($_SESSION['useremail']);
+
+                if($unpaid_appointment>=2 && $method == 'onsite'){
+                    $data = [
+                        'error_msg' => 'You have an maximum unpaid appointment. Please pay for the previous appointment to make a new appointment.'
                     ];
                     echo json_encode($data);
                     exit();
