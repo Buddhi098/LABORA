@@ -52,15 +52,38 @@ function renderCalendar() {
       currentMonth === new Date().getMonth() &&
       currentYear === new Date().getFullYear()
     ) {
-      days += `<div class="day today">${i}</div>`;
-    } else {
-      days += `<div class="day ">${i}</div>`;
+      days += `<div id="${i}" class="day today">${i}</div>`;
+    }else {
+      days += `<div id="${i}" class="day ">${i}</div>`;
     }
   }
 
   for (let j = 1; j <= nextDays; j++) {
     days += `<div class="day next">${j}</div>`;
   }
+
+  const baseLink = window.location.origin;
+  const link = `${baseLink}/labora/patientdashboard/getHolidays/${currentYear}/${currentMonth + 1}`;
+  console.log(link);
+  fetch(link , {
+    method: "GET"
+  }).then(res => {
+    if(!res.ok){
+      throw new Error("Error fetching data");
+    }
+    return res.json();
+  }).then(data => {
+    console.log(data);
+    for(let i=0 ; i<data.length ; i++){
+      const day = document.getElementById(data[i]['Dates']);
+      day.classList.add("holiday");
+    }
+
+  }).catch(err => {
+    console.log(err);
+  
+  })
+
   hideTodayBtn();
   daysContainer.innerHTML = days;
 }

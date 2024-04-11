@@ -26,6 +26,10 @@
     <!-- popup messages -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
     <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
+
+    <!-- delete warning message -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
+    <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
     
     <title>Patient dashboard</title>
 </head>
@@ -93,7 +97,7 @@
                     <ion-icon name="notifications"></ion-icon>
                 </div>
                 <div class="user">
-                    <img src="/labora/public/img/patientdashboard/user1.jpg" alt="">
+                    <img id="top_bar_pic" src=<?php echo APPROOT."/public/img/profile/". $_SESSION['profile_image']?> alt="">
                     <h4><?php echo $_SESSION['username'];?></h4>
                 </div>
             </div>

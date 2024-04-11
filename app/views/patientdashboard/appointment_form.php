@@ -37,6 +37,13 @@
                             <textarea id="appointment-notes" name="appointment-notes" rows="4"></textarea>
                             </div>
                         </div>
+                        <div class="section_3">
+                            <div class="note">
+                            <label for="prescription">Upload prescription </label><br>
+                            <input type="file" id="prescription" name="prescription"></input>
+                            </div>
+                            <div id="img_error" style="color:red;font-size:12px; margin-bottom:12px;"></div>
+                        </div>
                         <button type="submit" class="submit_button">Next</button>
                         </form>
                     </div>
