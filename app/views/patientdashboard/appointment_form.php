@@ -133,7 +133,7 @@
             state="in-reveal">
             </lord-icon>
         </div>
-        <p>Error! Your action was failed.</p>
+        <p id="error_msg">Error! Your action was failed.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
