@@ -86,14 +86,31 @@
         </div>
     </div>
 
-    <!--popup success message and error message -->
+    <!-- pop success & error messages -->
+    <!-- popup success messages -->
     <div class="success-message-container" id="successMessage">
-        <p>Success! Your action was completed.</p>
+        <div class="icon">
+            <lord-icon
+            src="https://cdn.lordicon.com/guqkthkk.json"
+            trigger="in"
+            delay="15"
+            state="in-reveal">
+            </lord-icon>
+        </div>
+        <p> Success! Appointment Scheduled.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
     <div class="error-message-container" id="ErrorMessage">
-        <p>Error! Your action was failed.</p>
+        <div class="icon">
+            <lord-icon
+            src="https://cdn.lordicon.com/akqsdstj.json"
+            trigger="in"
+            delay="15"
+            state="in-reveal">
+            </lord-icon>
+        </div>
+        <p id="error_msg">Error! Your action was failed.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
