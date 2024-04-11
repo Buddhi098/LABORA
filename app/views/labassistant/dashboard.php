@@ -21,9 +21,9 @@
 
             <div class="box box_1">
                 <div class="text">
-                    <h5>Number of Reports Received</h5>
+                    <h5>Number of Appointments Received</h5>
                     <h1>35</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> patient are kept up to date with real-time updates to their medical history.</p>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> Appointments are validating with a special procedure. Appointments can schedule in both physical or online methods.</p>
                 </div>
                 <div class="icon">
                     <i class="fa-solid fa-file-contract"></i>
@@ -45,7 +45,7 @@
                 <div class="text">
                     <h5>Total Medical Test Expenses</h5>
                     <h1>Rs. 4000</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> giving back all the money to a patient if they cancel their appointment in a lab system</p>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> All the medical tests cost, done in previous month.</p>
                 </div>
                 <div class="icon">
                     <i class="fa-solid fa-money-bill-trend-up"></i>
