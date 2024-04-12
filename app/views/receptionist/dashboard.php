@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/dashboard.css'?>">
-    <script src="<?php echo APPROOT.'/public/js/receptionist/recept.js';?>"></script>
     
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
