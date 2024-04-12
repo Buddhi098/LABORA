@@ -7,11 +7,14 @@
         private $md_testtype;
         private $md_temp_prescription;
 
+        private $md_holiday;
+
         private $md_user;
         public function __construct(){
             $this->md_appointment = $this->model('M_appointment');
             $this->md_testtype = $this->model('M_testtype');
             $this->md_temp_prescription = $this->model('M_temp_prescription');
+            $this->md_holiday = $this->model('M_holiday_calendar');
             $this->md_user = $this->model('M_user');
 
             $this->auth = new AuthMiddleware();
@@ -40,6 +43,7 @@
         public function dashboard(){
 
             $data = [];
+            
             $this->view("receptionist/dashboard" , $data);
         }
 
@@ -469,6 +473,60 @@
             $this->view('receptionist/appointment_invoice' , $data);
         }
 
+
+        public function setHoliday(){
+            if(isset($_SERVER['REQUEST_METHOD'])=='POST'){
+                $_POST = filter_input_array(INPUT_POST , FILTER_SANITIZE_STRING);
+
+                $date = trim($_POST['date']);
+                $reason = trim($_POST['reason']);
+
+                $result = $this->md_holiday->enterHolidayData($date , $reason);
+                if($result){
+                    $data['success'] = 'success';
+                }else{
+                    $data['error'] = 'error';
+                }
+
+                echo json_encode($data);
+                exit();
+            }
+        }
+
+        public function getHolidays(){
+            $holidays = $this->md_holiday->getHolidays();
+            $data['holidays'] = $holidays;
+
+            echo json_encode($data);
+            exit();
+        }
+
+        public function deleteHoliday($id){
+            $result = $this->md_holiday->deleteHoliday($id);
+            if($result){
+                $data['msg'] = 'success';
+            }else{
+                $data['error'] = 'error';
+            }
+
+            echo json_encode($data);
+        }
+
+
+        public function getHolidaysCalendar($year , $month){
+            $result = $this->md_holiday->getAlldates($year , $month);
+            if($result){
+                echo json_encode($result);
+                exit();
+            }else{
+                $data = [
+                    'error' => 'No holidays found'
+                ];
+                echo json_encode($data);
+                exit();
+            }
+
+        }
 
     }
 ?>
