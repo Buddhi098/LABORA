@@ -16,7 +16,7 @@
                 
 
                 $nextid = $lastid +1;
-                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription' , '' , '' , '')";
+                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription' , '' , '' , '' , '1')";
                 $result = mysqli_query($this->conn , $query);
 
                 if($result){
@@ -120,5 +120,59 @@
                 $unpaid_appointment_count = mysqli_num_rows($result);
                 return $unpaid_appointment_count;
             }
+
+            public function getPendingAppointments(){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Status='Pending'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data)){
+                    return $result_data;
+                }else{
+                    return false;
+                }
+            }
+
+            public function setPassKey($appointment_id){
+                $pass_key = $this->generateRandomString();
+                $store_key = md5($pass_key);
+                
+                $result = mysqli_query($this->conn , "UPDATE appointment
+                SET pass_code  = '$store_key '
+                WHERE Id = '$appointment_id'");
+
+                $result2 = mysqli_query($this->conn , "UPDATE appointment 
+                SET  Appointment_Status='Complete' 
+                WHERE Id = '$appointment_id'");
+
+                return $pass_key;
+            }
+
+            public function generateRandomString($length = 10) {
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $randomString = '';
+                $max = strlen($characters) - 1;
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[random_int(0, $max)];
+                }
+                return $randomString;
+            }
+
+            public function getAppointmentByID($appointment_id){
+                $appointment = mysqli_query($this->conn , "SELECT * FROM appointment WHERE id='$appointment_id'");
+                $appointment = mysqli_fetch_assoc($appointment);
+                return $appointment;
+            }
+
+            public function getAppointmentByPassKey($key){
+                $hashed_key = md5($key);
+                $appointment = mysqli_query($this->conn , "SELECT * FROM appointment WHERE  pass_code='$hashed_key' ");
+                if(mysqli_num_rows($appointment)>0){
+                    $appointment = mysqli_fetch_assoc($appointment);
+                    return $appointment;
+                }else{
+                    return false;
+                }
+                
+            }
+            
     }
 ?>
