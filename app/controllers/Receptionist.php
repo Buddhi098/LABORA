@@ -34,11 +34,29 @@
             $this->view("receptionist/register" , $data);
         }
 
-        public function appointment(){
+        public function pending_appointment(){
 
             $data = [];
-            $this->view("receptionist/appointment" , $data);
+            $appointment_data = $this->md_appointment->getPendingAppointments();
+            $data['appointment_data'] = $appointment_data;
+            $this->view("receptionist/pending_appointment" , $data);
         }
+
+        public function complete_appointment(){
+
+            $data = [];
+            $appointment_data = $this->md_appointment->getAllAppointments();
+            $data['appointment_data'] = $appointment_data;
+            $this->view("receptionist/complete_appointment" , $data);
+        }
+        public function refunded_appointment(){
+
+            $data = [];
+            $appointment_data = $this->md_appointment->getAllAppointments();
+            $data['appointment_data'] = $appointment_data;
+            $this->view("receptionist/refunded_appointment" , $data);
+        }
+
 
         public function dashboard(){
 
@@ -525,6 +543,18 @@
                 echo json_encode($data);
                 exit();
             }
+
+        }
+
+
+        public function getAppointmentPass($appointment_id){
+            $pass_key = $this->md_appointment->setPassKey($appointment_id);
+            $appointment_data = $this->md_appointment->getAppointmentByID($appointment_id);
+
+            $data['appointment_data'] = $appointment_data;
+            $data['pass_key'] = $pass_key;
+
+            $this->view('receptionist/appointment_pass' , $data);
 
         }
 
