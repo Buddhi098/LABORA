@@ -173,6 +173,22 @@
                         </div>
                     </div>
             </div>
+            <div class="grid-item big-item holiday">
+                <div class="graph-text">
+                    <div class="graph_icon"><i class="fa-solid fa-mug-hot"></i></div>
+                    <h4>Mark Holiday</h4>
+                </div>
+                <p>You can indicate days off or holidays on this calendar.</p>
+                <div class="holiday-item">
+                <input type="date" id="holiday-date" placeholder="Select holiday date" required>
+                <input type="text" id="holiday-reason" placeholder="Add reason">
+                <button class="btn" id="save-holiday">Save</button>
+                </div>
+                <div class="container">
+                    <div class="holiday-list">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
