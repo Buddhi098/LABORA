@@ -115,3 +115,45 @@
   .container_1 button:hover {
     background-color: #32217a;
   }
+
+
+  /* override nev bar for keep white check */
+
+.navigation ul li:nth-child(2)
+{
+    background-color: white;
+}
+
+.navigation ul li:nth-child(2) a .title
+{
+    color: var(--darkblue);
+}
+
+.navigation ul li:nth-child(2) a::before
+{
+    content:'';
+    position: absolute;
+    right:0;
+    top:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px 30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a::after
+{
+    content:'';
+    position: absolute;
+    right:0;
+    bottom:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px -30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a .icon
+{
+    color: var(--darkblue);
+}
