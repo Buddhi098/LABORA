@@ -36,36 +36,24 @@
                 <h2>Sahanya Labs</h2>
             </div>
             <ul>
-                <li>
+                <li id="1">
                     <a href="<?php echo URLROOT;?>receptionist/dashboard">
                     <span class="icon"><ion-icon name="grid"></ion-icon></span>
                     <span class="title">Dashboard</span>
                     </a>
                 </li>
-                <li>
+                <li id="2">
                     <a href="<?php echo URLROOT;?>receptionist/patient_details">
                     <span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
                     <span class="title">Patient Details</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo URLROOT;?>receptionist/appointment">
+                <li id="3-multi">
+                    <a href="<?php echo URLROOT;?>receptionist/pending_appointment">
                     <span class="icon"><ion-icon name="calendar-number-outline"></ion-icon></span>
                     <span class="title">Appointment</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo URLROOT;?>receptionist/payment">
-                    <span class="icon"><ion-icon name="card-outline"></ion-icon></span>
-                    <span class="title">Payment</span>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a href="http://localhost/labora/receptionist/profile">
-                    <span class="icon"><ion-icon name="person"></ion-icon></span>
-                    <span class="title">Profile</span>
-                    </a>
-                </li> -->
             </ul>
             <div class="logout">
                 <a href="<?php echo URLROOT?>Employee/logout" class="button">
@@ -98,6 +86,8 @@
             </div>
         </div>
     </div>
+
+    <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
 </body>
 </html>
 
