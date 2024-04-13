@@ -2,7 +2,6 @@
 let currentPage = 1;
 
 function showPage(page) {
-    console.log('asda')
     const rows = document.querySelectorAll('tbody tr');
     const rowsPerPage = 5; 
 
