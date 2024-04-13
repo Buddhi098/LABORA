@@ -319,15 +319,16 @@ body
 /* simple button styles */
 
 .btn {
-    padding: 7px 20px;
-    font-size: 13px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    margin:0 5px
-  }
+	padding: 9px 20px;
+	font-size: 13px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+	margin: 0 5px;
+	min-width: 107px;
+}
   
   /* Button 1 */
   .btn-1 {
