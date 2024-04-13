@@ -1,0 +1,114 @@
+
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: white;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 10px;
+    margin: 0px;
+    height: 93%;
+    overflow: auto;
+    font-family: roboto;
+}
+
+.container {
+    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 10px 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 80vh
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px;
+}
+.header img {
+    max-height: 50px;
+}
+.receipt {
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+}
+.receipt h2 {
+    margin-top: 0;
+}
+.receipt table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.receipt table th, .receipt table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.receipt table th {
+    text-align: left;
+}
+.receipt .total {
+    text-align: right;
+    font-weight: bold;
+}
+.customer-details {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+.customer-details h3 {
+    margin-top: 0;
+}
+.print-btn {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+}
+
+
+ /* override nev bar for keep white check */
+
+ .navigation ul li:nth-child(2)
+ {
+     background-color: white;
+ }
+ 
+ .navigation ul li:nth-child(2) a .title
+ {
+     color: var(--darkblue);
+ }
+ 
+ .navigation ul li:nth-child(2) a::before
+ {
+     content:'';
+     position: absolute;
+     right:0;
+     top:-50px;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     box-shadow: 30px 30px 0 10px white;
+ }
+ 
+ .navigation ul li:nth-child(2) a::after
+ {
+     content:'';
+     position: absolute;
+     right:0;
+     bottom:-50px;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     box-shadow: 30px -30px 0 10px white;
+ }
+ 
+ .navigation ul li:nth-child(2) a .icon
+ {
+     color: var(--darkblue);
+ }
