@@ -34,27 +34,37 @@
             $this->view("receptionist/register" , $data);
         }
 
+        public function approved_appointment(){
+
+            $data = [];
+            $appointment_data = $this->md_appointment->getApprovedAppointments();
+            $data['appointment_data'] = $appointment_data;
+            $this->view("receptionist/approved_appointment" , $data);
+        }
+
+        public function complete_appointment(){
+
+            $data = [];
+            $appointment_data = $this->md_appointment->getCompleteAppointments();
+            $data['appointment_data'] = $appointment_data;
+            if(!isset($_SESSION['msg'])){
+                $_SESSION['msg'] = '';
+            }
+            $this->view("receptionist/complete_appointment" , $data);
+        }
+        public function refunded_appointment(){
+            $appointment_data = $this->md_appointment->getRenfundAppointment();
+            $data = [];
+            $data['appointment_data'] = $appointment_data;
+            $this->view("receptionist/refunded_appointment" , $data);
+        }
+
         public function pending_appointment(){
 
             $data = [];
             $appointment_data = $this->md_appointment->getPendingAppointments();
             $data['appointment_data'] = $appointment_data;
             $this->view("receptionist/pending_appointment" , $data);
-        }
-
-        public function complete_appointment(){
-
-            $data = [];
-            $appointment_data = $this->md_appointment->getAllAppointments();
-            $data['appointment_data'] = $appointment_data;
-            $this->view("receptionist/complete_appointment" , $data);
-        }
-        public function refunded_appointment(){
-
-            $data = [];
-            $appointment_data = $this->md_appointment->getAllAppointments();
-            $data['appointment_data'] = $appointment_data;
-            $this->view("receptionist/refunded_appointment" , $data);
         }
 
 
@@ -558,8 +568,74 @@
 
         }
 
-        public function getPaymentForm(){
+        public function viewPass($appointment_id){
+            $appointment_data = $this->md_appointment->getAppointmentByID($appointment_id);
+            $data['appointment_data'] = $appointment_data;
+            $data['pass_key'] = $appointment_data['pass_code'];
+            $this->view('receptionist/appointment_pass' , $data);
+        }
+
+        public function getPaymentForm($id , $email){
+            $appointment_data = $this->md_appointment->getPriceByID($id);
+            $result = $this->md_appointment->payAppointment($id);
+            $user = $this->md_user->getUser($email);
+            $data['appointment'] = $appointment_data ;
+            $data['user'] = $user;
+
+            $this->view('receptionist/payment_invoice' , $data);
+        }
+
+        public function removeAppointment($appointment_id){
+            $result = $this->md_appointment->removeAppointment($appointment_id);
+            if($result){
+                $_SESSION['msg'] = 'success';
+            }else{
+                $_SESSION['msg'] = 'error';
+            }
+
+            header('Location: '.URLROOT.'receptionist/complete_appointment');
+        }
+
+        public function getRefundInovoice($appointment_id , $email){
+            $isComplete = $this->md_appointment->isRefundComplete($appointment_id);
+            if($isComplete){
+                $appointment_data = $this->md_appointment->getAppointmentByID($appointment_id);
+                $user = $this->md_user->getUser($email);
+                $data['appointment'] = $appointment_data ;
+                $data['user'] = $user;
+                
+                $this->view('receptionist/refund_invoice' , $data);
+            }else{
+                $refund_key = $this->md_appointment->setRefundKey($appointment_id);
+                $user = $this->md_user->getUser($email);
+                $name = $user['patient_name'];
+                $link = URLROOT.'RefundConfirm/confirmRefund/'.$refund_key;
+                $this->sendRefundEmail($email , $name , $link);
+                $data = [
+                    'error' => 'Refund is not completed yet'
+                ];
+                $this->view('receptionist/refund_info' , $data);
+            }
+        }
+
+        public function sendRefundEmail($email , $name , $link){
+
+            $subject = 'Refund Confirmation';
+            $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear '.$name.',</p>
+
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your refund request. Please click the link below to confirm the refund.</p>
             
+            <a href="'.$link.'" style="display: inline-block; background-color: #007bff; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 4px; font-size: 16px;">Confirm Refund</a>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Thank you for choosing us.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
+            LABORA<br>';
+
+            sendEmail($email , $name , $body , $subject );
+
         }
 
     }
