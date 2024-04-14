@@ -11,7 +11,7 @@
 <div class="container_1">
 <div class="container">
     <div class="header">
-      <img src="logo.png" alt="LABORA">
+      <img src="<?php echo APPROOT.'/public/';?>img/Health_Care__2_-removebg-preview.png" alt="LABORA">
       <h1>LABORA</h1>
     </div>
     <div class="receipt">
@@ -23,11 +23,11 @@
         </tr>
         <tr>
           <td>Appointment Fee</td>
-          <td>$50.00</td>
+          <td><?php echo $data['appointment']['cost']?>.00</td>
         </tr>
         <tr class="total">
           <td>Total</td>
-          <td>$55.00</td>
+          <td><?php echo $data['appointment']['cost']?>.00</td>
         </tr>
       </table>
       <p>Thank you for your payment. We look forward to seeing you at your appointment.</p>
@@ -36,23 +36,36 @@
         <table>
           <tr>
             <th>Name</th>
-            <td>John Doe</td>
+            <td><?php echo $data['user']['patient_name']?></td>
           </tr>
           <tr>
             <th>Email</th>
-            <td>johndoe@example.com</td>
+            <td><?php echo $data['user']['patient_email']?></td>
           </tr>
           <tr>
             <th>Phone</th>
-            <td>123-456-7890</td>
+            <td><?php echo $data['user']['patient_phone']?></td>
           </tr>
         </table>
       </div>
     </div>
     <div class="print-btn">
-      <button onclick="window.print()">Print</button>
+      <button class="btn btn-2" onclick="window.print()">Print</button>
     </div>
   </div>
+
+  <div class="pass-btn">
+        <button class="btn btn-1" onclick="getPass('<?php echo $data['appointment']['Id']?>')">Get Pass</button>
+  </div>
 </div>
+
+
+<script>
+  function getPass(id){
+            const baseLink = window.location.origin;
+            const link = `${baseLink}/labora/receptionist/getAppointmentPass/${id}`;
+            window.open(link , '_blank');
+        }
+</script>
 </body>
 </html>
