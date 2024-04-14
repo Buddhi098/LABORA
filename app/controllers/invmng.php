@@ -42,6 +42,13 @@
             echo json_encode($data);
             exit();
         }
+        
+        public function getItemDetails($id)
+        {
+            $data = $this->md_item->getItemDetailsWithExpiry($id);
+            echo json_encode($data);
+            exit();
+        }
 
         public function expiredChemicals(){
             $data = [];
@@ -130,12 +137,12 @@
             $data = json_decode($jsonData, true);
 
             $item_name = $data['itemName'];
-            $item_type = $data['itemType'];
+            // $item_type = $data['itemType'];
             $manufacture = $data['manufacture'];
             $reorder_level = $data['reorderLimit'];
             $description = $data['description'];
 
-            $result = $this->md_item->enterItems($item_name ,$item_type ,$manufacture , $reorder_level ,$description);
+            $result = $this->md_item->enterItems($item_name  ,$manufacture , $reorder_level ,$description);
 
             if($result){
                 $msg = [
@@ -156,6 +163,70 @@
             $data = []; 
             $this->view("invmng/addInventoryForm" , $data);
         }
+
+        public function getEditForm($itemId) {
+            $data = $this->md_item->getItemById($itemId);
+            require_once 'views/editInventoryForm.php';
+        }
+    
+        public function updateItem($itemId) {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true);
+    
+            $itemName = $data['itemName'];
+            $manufacture = $data['manufacture'];
+            $reorderLimit = $data['reorderLimit'];
+            $description = $data['description'];
+    
+            $result = $this->md_item->updateItem($itemId, $itemName, $manufacture, $reorderLimit, $description);
+    
+            if ($result) {
+                $msg = ['msg' => true];
+                echo json_encode($msg);
+                exit();
+            } else {
+                $msg = ['msg' => false];
+                echo json_encode($msg);
+                exit();
+            }
+        }
+
+        // public function editInventoryForm(){
+    
+        //     $jsonData = file_get_contents("php://input");
+
+            
+        //     $data = json_decode($jsonData, true);
+
+        //     $item_name = $data['itemName'];
+        //     // $item_type = $data['itemType'];
+        //     $manufacture = $data['manufacture'];
+        //     $reorder_level = $data['reorderLimit'];
+        //     $description = $data['description'];
+
+        //     $result = $this->md_item->editItems($item_name  ,$manufacture , $reorder_level ,$description);
+
+        //     if($result){
+        //         $msg = [
+        //             'msg' => true
+        //         ];
+        //         echo json_encode($msg);
+        //         exit();
+        //     }else{
+        //         $msg = [
+        //             'msg' => false
+        //         ];
+        //         echo json_encode($msg);
+        //         exit();
+        //     }
+        // }
+
+       
+
+        // public function getEditItemForm(){
+        //     $data = []; 
+        //     $this->view("invmng/editInventoryForm" , $data);
+        // }
         
 
         // public function itemDetails(){

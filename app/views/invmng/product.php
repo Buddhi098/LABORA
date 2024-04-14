@@ -51,7 +51,8 @@
                     <th>Chemical Name</th>
                     <th>Manufacturer</th>
                     <th>Reorder Limit</th>
-                    <th>Quantity in Stock</th>     
+                    <th>Quantity in Stock</th>
+                    <th>Item Details</th>     
                     <th>Note</th>                    
                     <th>Action</th>
             </thead >
@@ -67,9 +68,13 @@
                                 <td>'.$row['manufacturer'].'</td>
                                 <td>'.$row['reorder_limit'].'</td>
                                 <td>'.$row['total_quantity'].'</td>
+                                <td>
+                                <a href="#" class="action-button" onclick="getItems('.$row['id'].')">View</a>
+                                </td>
                                 <td>'.$row['description'].'</td>
                                 <td>
-                                <a href="'.URLROOT.'invmng/itemDetails/'.$row['id'].'" class="action-button">View Details</a>
+                                <a href="http://localhost/labora/invmng/getEditForm '.$row['id'].'?>" class="action-button">Edit</a>
+                                
                                 <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Remove</a>
                                 </td>
                             </tr>';
@@ -86,8 +91,76 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal for Item Details -->
+    <div class="modal" id="customModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Item Details</h4>
+                <button type="button" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="simple_table">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Supplier Name</th>
+                            <th>Expiry Date</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modal_body">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
-</body>
+
+</body>   
 </html>
+
+<script>
+    function getItems(id){
+                console.log(id);
+
+                baseLink = window.location.origin
+                link = `${baseLink}/labora/invmng/getItemDetails/${id}`
+                console.log(link);
+                fetch(link)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    mockup = ''
+                    for(let i=0 ; i < data.length ; i++){
+                        mockup += `
+                        <tr>
+                        <td>${data[i]['item_name']}</td>
+                        <td>${data[i]['supplier_id']}</td>
+                        <td>${data[i]['expire_date']}</td>
+                        <td>${data[i]['quantity']}</td>
+                        </tr>`
+                    }
+                    console.log(mockup)
+                    document.getElementById('modal_body').innerHTML =mockup;
+
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+                openModal();
+
+            }
+</script>
