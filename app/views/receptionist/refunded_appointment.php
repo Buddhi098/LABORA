@@ -72,7 +72,7 @@
                                 echo "<td>Rs. ".$appointment['cost'].".00</td>";
                                 echo "<td>".$appointment['Appointment_Status']."</td>";
                                 echo "<td>".$appointment['payment_status']."</td>";
-                                echo "<td><a href='".URLROOT."receptionist/getRefundInovoice/".$appointment['Id']."/".$appointment['patient_email']."' target='_blank'><button class='viewbtn btn-0 btn-2' ".$str.">Pay Refund</button></a></td>";
+                                echo "<td><a><button class='viewbtn btn-0 btn-2' onclick=\"openWarningModal('" . $appointment['Id'] . "' , '" . $appointment['patient_email'] . "')\" " . $str . ">Pay Refund</button></a></td>";
                                 echo "</tr>";
                             }
                         }else{
@@ -90,6 +90,40 @@
         </div>
     </div>
 
+    <!-- delete waring message -->
+    <div id="deleteModal" class="warning-modal">
+        <div class="warning-modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure you want to Pay Refund?</p>
+            <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+            <input type="hidden" value="" id="hidden_id">
+            <input type="hidden" value="" id="hidden_email">
+            </div>
+        </div>
+    </div>
+
+    <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script>
+
+    <script>
+        function openWarningModal(id , email){
+            console.log(id)
+            console.log(email);
+            document.getElementById('hidden_id').value = id;
+            document.getElementById('hidden_email').value = email;
+            modal.style.display = "block";
+        }
+
+        yesBtn.onclick = function() {
+          const baseLink = window.location.origin
+          const id = document.getElementById('hidden_id').value;
+          const email = document.getElementById('hidden_email').value;
+          const link = `${baseLink}/labora/receptionist/getRefundInovoice/${id}/${email}`
+          window.open(link , '_blank');
+          modal.style.display = "none";
+        }
+    </script>
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
 </body>
