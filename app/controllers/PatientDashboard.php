@@ -139,29 +139,34 @@
                     $refno = 'LB-'.$formattedNumber;
                     $test_type = $this->md_testtype->getDuration($test_type_id);
 
+                    $_SESSION['prescription'] = '';
 
-                    $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
-                    if($is_valid_file !== 1){
-                        $data['error'] = $is_valid_file;
-                        echo json_encode($data);
-                        exit();
-                    }
-                    // for saving prescription
-                    $prescription_id = $this->md_temp_prescription->enterPrescription($_SESSION['useremail']);
-                    $target_dir = "../app/storage/prescription/";
-                    $image_name = $_FILES["prescription"]["name"];
-                    $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
-                    $target_file = $target_dir.'PR-'.$prescription_id.'.'.$file_extention;
+                    if(is_uploaded_file($_FILES["prescription"]['tmp_name'])){
+                        $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
+                        if($is_valid_file !== 1){
+                            $data['error'] = $is_valid_file;
+                            echo json_encode($data);
+                            exit();
+                        }
 
-                    if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
-                        $img_status = 'uploaded';
-                    } else {
-                        $img_status = 'not uploaded';
+                        // for saving prescription
+                        $prescription_id = $this->md_temp_prescription->enterPrescription($_SESSION['useremail']);
+                        $target_dir = "../app/storage/prescription/";
+                        $image_name = $_FILES["prescription"]["name"];
+                        $file_extention = pathinfo($image_name , PATHINFO_EXTENSION);
+                        $target_file = $target_dir.'PR-'.$prescription_id.'.'.$file_extention;
+
+                        if (move_uploaded_file($_FILES["prescription"]["tmp_name"], $target_file)) {
+                            $img_status = 'uploaded';
+                        } else {
+                            $img_status = 'not uploaded';
+                        }
+
+                        $_SESSION['prescription'] = 'PR-'.$prescription_id.'.'.$file_extention;
                     }
                     
                     
                     $appointment_status = "Pending";
-                    $_SESSION['prescription'] = 'PR-'.$prescription_id.'.'.$file_extention;
                     $_SESSION['status'] = $appointment_status;
                     $_SESSION['refno'] = $refno;
                     $_SESSION['appointment_duration'] = $test_type["Time_duration"];
@@ -520,10 +525,18 @@
         public function doPayment()
         {
             try{
-                $this->md_appointment->doPayment($_SESSION['refno']);
-                $data = [
-                    'success_msg' => 'payment_success'
-                ];
+                $result = $this->md_appointment->doPayment($_SESSION['refno']);
+                if($result){
+                    $this->sendAppointmentEmail('Online');
+                    $data = [
+                        'success_msg' => 'payment_success'
+                    ];
+                }else{
+                    $data = [
+                        'error_msg' => 'payment_failed'
+                    ];
+                }
+                
                 echo json_encode($data);
                 exit();
             }catch (Exception $e){
@@ -551,14 +564,36 @@
                     exit();
                 }
 
-                $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'], $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], $method, 'unpaid', $_SESSION['cost'] , $_SESSION['prescription']);
-            
-                $data = [
-                    'success_msg' => 'payment_success'
-                ];
-            
+                // check unpaid appointment count
+                $unpaid_appointment = $this->md_appointment->getUnpaidOnsiteAppointment($_SESSION['useremail']);
+
+                if($unpaid_appointment>=2 && $method == 'onsite'){
+                    $data = [
+                        'error_msg' => 'You have an maximum unpaid appointment. Please pay for the previous appointment to make a new appointment.'
+                    ];
+                    echo json_encode($data);
+                    exit();
+                }
+
+                $result = $this->md_appointment->enterAppointmentData($_SESSION['refno'], $_SESSION['Test_type'], $_SESSION['date'], $_SESSION['appointment_time_as'], $_SESSION['appointment_duration'],
+                $_SESSION['status'], $_SESSION['appointment_notes'], $_SESSION['useremail'], $method, 'unpaid', $_SESSION['cost'] , $_SESSION['prescription']);
+                
+                if($result){
+                    if($method=='onsite'){
+                        $this->sendAppointmentEmail('Onsite');
+                    }
+                    $data = [
+                        'success_msg' => 'payment_success'
+                    ];
+                }else{
+                    $data = [
+                        'error_msg' => 'payment_failed'
+                    ];
+                }
+                
                 echo json_encode($data);
                 exit();
+                
             } catch (Exception $e) {
 
                 $error_message = $e->getMessage();
@@ -576,6 +611,42 @@
             }
             
         }
+
+        public function sendAppointmentEmail($method){
+                if($method == 'Onsite'){
+                    $status = "Pending";
+                }else{
+                    $status = "Paid";
+                }
+                $subject = 'Appointment Confirmation & Payment Details';
+
+                $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear '.$_SESSION['username'].',</p>
+
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your upcoming appointment:</p>
+                
+                <ul style="list-style-type: none; padding: 0; margin-bottom: 20px;">
+                    <li><strong>Date:</strong> '.$_SESSION['date'].'</li>
+                    <li><strong>Time:</strong> '.$_SESSION['appointment_time_as'].'</li>
+                    <li><strong>Duration:</strong> '.$_SESSION['appointment_duration'].'</li>
+                </ul>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;"><strong>Payment:</strong></p>
+                
+                <ul style="list-style-type: none; padding: 0; margin-bottom: 20px;">
+                    <li><strong>Method:</strong> '.$method.'</li>
+                    <li><strong>Status:</strong> '.$status.'</li>
+                    <li><strong>Amount:</strong> Rs.'.$_SESSION['cost'].'</li>
+                </ul>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Thank you for choosing us.</p>
+            
+                <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
+                LABORA<br>';
+
+                sendEmail($_SESSION['useremail'] , $_SESSION['username'] , $body , $subject );
+        }
         
         public function showReports(){
             $data = [];
@@ -589,7 +660,6 @@
             ];
             $this->view('patientdashboard/appointment_finish' , $data);
         }
-
 }
 ?>
 

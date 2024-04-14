@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <script src="<?php echo APPROOT.'/public/js/admin/admin.js'?>"></script>
+    <script src="<?php echo APPROOT.'/public/js/patientdashboard/patient.js'?>"></script>
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/nevbar.css'?>">
 
     <!-- import table styles -->
@@ -13,10 +13,20 @@
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <!-- annimation icons -->
-    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    
-    <title>Admin dashboard</title>
+
+    <!--Modal -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/modal.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/modal.js'?>"></script>
+
+    <!-- popup messages -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
+
+    <!-- delete warning message -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
+    <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
+
+    <title>Patient dashboard</title>
 </head>
 <body>
     <div class="container">
@@ -26,34 +36,10 @@
                 <h2>Sahanya Labs</h2>
             </div>
             <ul>
-                <li>
-                    <a href="<?php echo URLROOT?>admin/dashboard">
-                    <span class="icon"><ion-icon name="grid"></ion-icon></span>
-                    <span class="title">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo URLROOT?>admin/userAccount">
-                    <span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
-                    <span class="title">User Accounts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo URLROOT?>admin/medicaltest">
-                    <span class="icon"><ion-icon name="thermometer"></ion-icon></span>
-                    <span class="title">Medical Tests</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo URLROOT?>admin/payment">
-                    <span class="icon"><ion-icon name="cash-outline"></ion-icon></span>
-                    <span class="title">Payment</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo URLROOT?>admin/reports">
-                    <span class="icon"><ion-icon name="document-attach-outline"></ion-icon></span>
-                    <span class="title">Reports</span>
+                <li id="4-multi">
+                    <a href="<?php echo URLROOT;?>receptionist/patient_details">
+                    <span class="icon"><ion-icon name="arrow-back-outline"></ion-icon></span>
+                    <span class="title">Back</span>
                     </a>
                 </li>
             </ul>
@@ -83,15 +69,17 @@
                 </div>
                 <div class="user">
                     <img src="/labora/public/img/patientdashboard/user1.jpg" alt="">
-                    <h4><?php echo $_SESSION['username'];?><span></h4>
+                    <h4><?php echo $_SESSION['username'];?></h4>
                 </div>
             </div>
         </div>
     </div>
 
+
     <!--add hover effect to the table -->
     <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
-    
+
+
 </body>
 </html>
 

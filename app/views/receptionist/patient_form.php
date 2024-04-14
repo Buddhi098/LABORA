@@ -11,7 +11,7 @@
     <title>Patient Registration</title>
 </head>
 <body>
-    <?php require_once 'components/nevbar.php' ?>
+    <?php require_once 'components/patient_details_nevbar.php' ?>
 
     <div class="container_1" id="container_1">
         <div class="container">
@@ -105,7 +105,7 @@
             state="in-reveal">
             </lord-icon>
         </div>
-        <p> Success! Appointment Scheduled.</p>
+        <p> Success! Account Created.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 

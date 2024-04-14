@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/register.css'?>">
-    <script src="<?php echo APPROOT.'/public/js/receptionist/recept.js';?>"></script>
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/receptionist/patient_details.css'?>">
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -68,7 +67,7 @@
                                 echo "<td>".$patient['patient_email']."</td>";
                                 echo "<td>".$patient['patient_phone']."</td>";
                                 echo "<td>".$patient['patient_address']."</td>";
-                                echo "<td><a href='".URLROOT."receptionist/patient_details/".$patient['patient_id']."'><button class='view'>View</button></a></td>";
+                                echo "<td><button type='button' class='view btn-0 btn-2' onclick=\"setAppointment('" . $patient['patient_email'] . "')\">+ Appointment</button></td>";
                                 echo "</tr>";
                                 
                             }
@@ -88,3 +87,12 @@
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
 </body>
 </html>
+
+<script>
+
+    function setAppointment(patient_email){
+        console.log(patient_email);
+        window.location.href = "<?php echo URLROOT?>receptionist/appointment_form/"+patient_email;
+        
+    }
+</script>
