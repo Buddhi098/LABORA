@@ -127,5 +127,11 @@
                 $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 return $result;
             }
+
+            public function getTotalPatient(){
+                $result = mysqli_query($this->conn , "SELECT * FROM patient_data");
+                $result = mysqli_num_rows($result);
+                return $result;
+            }
     }
 ?>
