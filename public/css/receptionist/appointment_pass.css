@@ -142,6 +142,7 @@ body{
 
     .pass-container{
         box-shadow: none;
+        border: 1px solid black;
     }
 
     .print-btn{
