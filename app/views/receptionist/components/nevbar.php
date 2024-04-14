@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li id="3-multi">
-                    <a href="<?php echo URLROOT;?>receptionist/pending_appointment">
+                    <a href="<?php echo URLROOT;?>receptionist/approved_appointment">
                     <span class="icon"><ion-icon name="calendar-number-outline"></ion-icon></span>
                     <span class="title">Appointment</span>
                     </a>
