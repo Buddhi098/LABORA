@@ -147,13 +147,13 @@
                         <div class="header">
                             <div class="month"></div>
                             <div class="btns">
-                                <div class="btn today-btn">
+                                <div class="c-btn today-btn">
                                     <i class="fas fa-calendar-day"></i>
                                 </div>
-                                <div class="btn prev-btn">
+                                <div class="c-btn prev-btn">
                                     <i class="fas fa-chevron-left"></i>
                                 </div>
-                                <div class="btn next-btn">
+                                <div class="c-btn next-btn">
                                     <i class="fas fa-chevron-right"></i>
                                 </div>
                             </div>
