@@ -84,7 +84,7 @@
             public function doPayment($refno){
 
                 $result = mysqli_query($this->conn , "UPDATE appointment
-                SET Payment_Status = 'Paid'
+                SET Payment_Status = 'paid'
                 WHERE Ref_No = '$refno'");
 
                 if($result){
@@ -121,8 +121,8 @@
                 return $unpaid_appointment_count;
             }
 
-            public function getPendingAppointments(){
-                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Status='Pending'") ;
+            public function getApprovedAppointments(){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Status='Approved'") ;
                 $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 if(!empty($result_data)){
                     return $result_data;
@@ -174,5 +174,81 @@
                 
             }
             
+            public function getPriceByID($id){
+                $price = mysqli_query($this->conn , "SELECT cost , Id FROM appointment WHERE id='$id'");
+                $price = mysqli_fetch_assoc($price);
+                return $price;
+            }
+
+            public function payAppointment($id){
+                $result = mysqli_query($this->conn , "UPDATE appointment SET payment_status='paid' WHERE Id='$id'");
+                return $result;
+            }
+
+            public function getCompleteAppointments(){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Status='Complete' AND active_status='1'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data)){
+                    return $result_data;
+                }else{
+                    return false;
+                }
+            }
+
+            public function removeAppointment($id){
+                $result = mysqli_query($this->conn , "UPDATE appointment SET active_status='0' WHERE Id='$id'");
+                return $result;
+            }
+
+            public function getRenfundAppointment(){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE (Appointment_Status='Canceled' OR Appointment_Status='Expired') AND payment_status='paid' AND payment_method='online'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data)){
+                    return $result_data;
+                }else{
+                    return false;
+                }
+            }
+
+            public function getPendingAppointments(){
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Status='Pending'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data)){
+                    return $result_data;
+                }else{
+                    return false;
+                }
+            }
+
+            public function isRefundComplete($id){
+                $result = mysqli_query($this->conn , "SELECT * FROM appointment WHERE refund_status='refunded' AND  Id='$id'");
+                if(mysqli_num_rows($result)>0){
+                    return true;
+                }else{
+                    return false;
+                }
+                
+            }
+
+            public function setRefundKey($id){
+                $refund_key = $this->generateRandomString();
+                $result = mysqli_query($this->conn , "UPDATE appointment SET refund_code='$refund_key' WHERE Id='$id'");
+                return $refund_key;
+            }
+
+            public function completeRefundByRefundKey($key){
+                $result = mysqli_query($this->conn , "UPDATE appointment SET refund_status='complete' WHERE refund_code='$key'");
+                $result = mysqli_query($this->conn , "UPDATE appointment SET refund_code='closed' WHERE refund_code='$key'");
+                return $result;
+            }
+
+            public function isExistRefundKey($key){
+                $result = mysqli_query($this->conn , "SELECT * FROM appointment WHERE refund_code='$key'");
+                if(mysqli_num_rows($result)>0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
     }
 ?>
