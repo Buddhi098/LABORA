@@ -25,7 +25,7 @@
         public function index(){
 
             $data = [];
-            $this->view("receptionist/dashboard" , $data);
+            $this->dashboard();
         }
 
         public function register(){
@@ -71,6 +71,24 @@
         public function dashboard(){
 
             $data = [];
+
+            $total_patients = $this->md_user->getTotalPatient();
+            $data['total_patients'] = $total_patients;
+
+            $todayRevenue = $this->md_appointment->getTodayRevenue();
+            $data['today_revenue'] = $todayRevenue;
+
+            $today_appointment_count = $this->md_appointment->getTodayAppointmentCount();
+            $data['today_appointment_count'] = $today_appointment_count;
+
+            $today_refund_amount = $this->md_appointment->getTodayRefundCost();
+            $data['today_refund_amount'] = $today_refund_amount;
+
+            $today_appoinment = $this->md_appointment->getTodayAppointment();
+            $data['today_appoinment'] = $today_appoinment;
+
+            $appointment_graph = $this->md_appointment->getNextSevenDateAppointment();
+            $data['graph_data'] = $appointment_graph;
             
             $this->view("receptionist/dashboard" , $data);
         }
