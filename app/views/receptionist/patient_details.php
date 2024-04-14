@@ -67,7 +67,7 @@
                                 echo "<td>".$patient['patient_email']."</td>";
                                 echo "<td>".$patient['patient_phone']."</td>";
                                 echo "<td>".$patient['patient_address']."</td>";
-                                echo "<td><button type='button' class='view btn btn-2' onclick=\"setAppointment('" . $patient['patient_email'] . "')\">+ Appointment</button></td>";
+                                echo "<td><button type='button' class='view btn-0 btn-2' onclick=\"setAppointment('" . $patient['patient_email'] . "')\">+ Appointment</button></td>";
                                 echo "</tr>";
                                 
                             }
