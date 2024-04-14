@@ -44,7 +44,7 @@
                 </li>
                 <li id="1">
                     <a href="<?php echo URLROOT;?>receptionist/approved_appointment">
-                    <span class="icon"><ion-icon name="hourglass-outline"></ion-icon></span>
+                    <span class="icon"><ion-icon name="cloud-done-outline"></ion-icon></span>
                     <span class="title">Approved Appointment</span>
                     </a>
                 </li>
@@ -62,7 +62,7 @@
                 </li>
                 <li id="4">
                     <a href="<?php echo URLROOT;?>receptionist/pending_appointment">
-                    <span class="icon"><ion-icon name="cash-outline"></ion-icon></span>
+                    <span class="icon"><ion-icon name="hourglass-outline"></ion-icon></span>
                     <span class="title">Pending Appointment</span>
                     </a>
                 </li>
