@@ -7,6 +7,8 @@
             }
             public function enterAppointmentData($refno,$test_type,$appointment_date,$appointment_time,$appointment_duration,$appointment_status,$appointment_notes,$email , $payment_method , $payment_status , $cost , $prescription){
 
+                $today_date = date("Y-m-d");
+
                 $result =mysqli_query($this->conn , "SELECT * FROM appointment ORDER BY id DESC LIMIT 1") ;
                 $appointment = mysqli_fetch_assoc($result);
                 $lastid = 0;
@@ -16,7 +18,7 @@
                 
 
                 $nextid = $lastid +1;
-                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription' , '' , '' , '' , '1')";
+                $query = "INSERT INTO appointment VALUES('$nextid','$refno','$test_type','$appointment_date','$appointment_time','$appointment_duration','$appointment_status','$appointment_notes','$email' , '$payment_method' , '$payment_status' , '$cost' , '$prescription' , '' , '' , '' , '1' , ' $today_date')";
                 $result = mysqli_query($this->conn , $query);
 
                 if($result){
@@ -237,7 +239,7 @@
             }
 
             public function completeRefundByRefundKey($key){
-                $result = mysqli_query($this->conn , "UPDATE appointment SET refund_status='complete' WHERE refund_code='$key'");
+                $result = mysqli_query($this->conn , "UPDATE appointment SET refund_status='refunded' WHERE refund_code='$key'");
                 $result = mysqli_query($this->conn , "UPDATE appointment SET refund_code='closed' WHERE refund_code='$key'");
                 return $result;
             }
@@ -250,5 +252,76 @@
                     return false;
                 }
             }
+
+            public function getTodayRevenue(){
+                $today_date = date("Y-m-d");
+                $result = mysqli_query($this->conn , "SELECT SUM(cost) AS revenue FROM appointment WHERE `date`='$today_date' AND payment_status='paid'");
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data[0]['revenue'])){
+                    return $result_data[0]['revenue'];
+                }else{
+                    return 0;
+                }
+            }
+
+            public function getTodayAppointmentCount(){
+                $today_date = date("Y-m-d");
+                $result = mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Date='$today_date'");
+                return mysqli_num_rows($result);
+            }
+
+            public function getTodayRefundCost(){
+                $today_date = date("Y-m-d");
+                $result = mysqli_query($this->conn , "SELECT SUM(cost) AS refund FROM appointment WHERE `date`='$today_date' AND refund_status='refunded'");
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data[0]['refund'])){
+                    return $result_data[0]['refund'];
+                }else{
+                    return 0;
+                }
+            }
+
+            public function getTodayAppointment(){
+                $today_date = date("Y-m-d");
+                $result =mysqli_query($this->conn , "SELECT * FROM appointment WHERE Appointment_Date='$today_date'") ;
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                if(!empty($result_data)){
+                    return $result_data;
+                }else{
+                    return false;
+                }
+            }
+
+            public function getNextSevenDateAppointment() {
+                $today_date = date("Y-m-d");
+                $next_seven_date = date('Y-m-d', strtotime($today_date . ' + 7 days'));
+                
+                $result_data = array();
+                
+                for ($i = 0; $i < 7; $i++) {
+                    $current_date = date('Y-m-d', strtotime("$today_date + $i days"));
+                    
+                    $query = "SELECT COUNT(*) AS Appointment_Count 
+                              FROM appointment 
+                              WHERE Appointment_Date = '$current_date' AND (Appointment_Status = 'Approved' OR Appointment_Status = 'Pending')";
+                    
+                    $result = mysqli_query($this->conn, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    
+                    $result_data[] = array(
+                        'Appointment_Date' => $current_date,
+                        'Appointment_Count' => $row['Appointment_Count']
+                    );
+                }
+                
+                if (!empty($result_data)) {
+                    return $result_data;
+                } else {
+                    return false;
+                }
+            }
+            
+            
+            
     }
 ?>
