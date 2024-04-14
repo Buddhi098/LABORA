@@ -8,7 +8,7 @@
 </head>
 </head>
 <body>
-      <?php require_once 'components/nevbar.php' ?>
+      <?php require_once 'components/patient_details_nevbar.php' ?>
       <div class="container_1">
             <div class="container_2">
                     <h1 class="title">Appointment Form</h1>
