@@ -18,9 +18,6 @@
 
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i>Appointments</h2>
-        <div class="add">
-            <a href="<?php echo URLROOT?>receptionist/appointment_form" class="addbtn"><ion-icon name="add"></ion-icon>Schedule appointment</a>
-        </div>
         <div class="search-container">
         <input type="text" class="search-box" id="searchInput" placeholder="Search...">
         <button class="search-button">Search</button>
@@ -50,8 +47,8 @@
                 <th>Patient Email</th>
                 <th>Test Category</th>
                 <th>Appointment Date</th>
-                <th>Appointment Time</th>
-                <th>Appointment Notes</th>
+                <th>Refund Status</th>
+                <th>Refund Amount</th>
                 <th>Appointment Status</th>
                 <th>Payment Status</th>
                 <th>Action</th>
@@ -61,23 +58,21 @@
                     <?php
                         if($data['appointment_data']){
                             foreach($data['appointment_data'] as $appointment){
-                                if($appointment['Appointment_Status'] == 'Pending' && $appointment['payment_status'] == 'unpaid'){
-                                    $button = "<td><button class='btn btn-1' onclick='cancelAppointment(".$appointment['Id'].")'>Pay Now</button></td>";
-                                }else if($appointment['Appointment_Status'] == 'Pending' && $appointment['payment_status'] == 'paid'){
-                                    $button = "<td><button class='btn btn-2' onclick='cancelAppointment(".$appointment['Id'].")'>Get PASS</button></td>";
+                                if($appointment['refund_status'] == 'refunded'){
+                                    $str = 'disabled';
                                 }else{
-                                    
+                                    $str = '';
                                 }
                                 echo "<tr>";
                                 echo "<td>".$appointment['Ref_No']."</td>";
                                 echo "<td>".$appointment['patient_email']."</td>";
                                 echo "<td>".$appointment['Test_Type']."</td>";
                                 echo "<td>".$appointment['Appointment_Date']."</td>";
-                                echo "<td>".$appointment['Appointment_Time']."</td>";
-                                echo "<td>".$appointment['Appointment_Notes']."</td>";
+                                echo "<td>".$appointment['refund_status']."</td>";
+                                echo "<td>Rs. ".$appointment['cost'].".00</td>";
                                 echo "<td>".$appointment['Appointment_Status']."</td>";
                                 echo "<td>".$appointment['payment_status']."</td>";
-                                echo "<td><a href='".URLROOT."receptionist/appointment_details/".$appointment['Id']."'><button class='viewbtn'>View</button></a></td>";
+                                echo "<td><a href='".URLROOT."receptionist/getRefundInovoice/".$appointment['Id']."/".$appointment['patient_email']."' target='_blank'><button class='viewbtn btn-0 btn-2' ".$str.">Pay Refund</button></a></td>";
                                 echo "</tr>";
                             }
                         }else{
