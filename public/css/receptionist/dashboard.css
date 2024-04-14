@@ -217,7 +217,7 @@
   display: flex;
   gap: 10px;
 }
-.container_1 .calendar_1 .header .btns .btn {
+.container_1 .calendar_1 .header .btns .c-btn {
   width: 30px;
   height: 30px;
   display: flex;
@@ -230,7 +230,7 @@
   cursor: pointer;
   transition: all 0.3s;
 }
-.container_1 .calendar_1 .header .btns .btn:hover {
+.container_1 .calendar_1 .header .btns .c-btn:hover {
   background-color: #db0933;
   transform: scale(1.05);
 }
