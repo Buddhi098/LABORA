@@ -17,7 +17,7 @@
     <?php require_once 'components/nevbar.php' ?>
     <div class="container_1">
     <h1>Add New Test</h1>
-    <form class="appointment-form">
+    <form class="test-form">
         <div class="form-group">
             <label for="test-type">Test Name:</label>
             <input type="text" id="test-type" name="test-type" required>
@@ -27,25 +27,33 @@
             <input type="text" id="test-type" name="test-type" required>
         </div>
         <div class="form-group">
-            <label for="test-type">Test ID:</label>
-            <input type="text" id="test-type" name="test-type" required>
-        </div>
-        <div class="form-group">
             <label for="test-type">Test Type:</label>
             <input type="text" id="test-type" name="test-type" required>
         </div>
         <div class="form-group">
-            <div class="form-group">
-            <label for="test-type">Price(Rs):</label>
-            <input type="text" id="test-type" name="test-type" required>
+            <label for="statusSelect">Select Status:</label>
+            <select id="statusSelect" name="status">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
         </div>
         <div class="form-group">
-            <label for="appointment-notes">Description:</label>
-            <textarea id="appointment-notes" name="appointment-notes" rows="4"></textarea>
+            <label for="test-notes">Description:</label>
+            <textarea id="test-notes" name="test-notes" rows="4"></textarea>
         </div>
+        <div class="form-group">
+            <label for="test-notes">Preparation:</label>
+            <textarea id="test-notes" name="test-notes" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="test-type">Time:</label>
+            <input type="text" id="test-type" name="test-type" required>
         </div>
 
         <button type="submit" class="button">Submit</button>
+        </div>
+
     </form>
     </div>
 </body>
