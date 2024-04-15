@@ -52,7 +52,7 @@
                     <th>Manufacturer</th>
                     <th>Reorder Limit</th>
                     <th>Quantity in Stock</th>
-                    <th>Item Details</th>     
+                    <th>Chemical Details</th>     
                     <th>Note</th>                    
                     <th>Action</th>
             </thead >
@@ -71,6 +71,7 @@
                                 <td>
                                 <button href="#" class="action-button" onclick="getItems('.$row['id'].','.$row['total_quantity'].')">View</button>
                                 </td>
+                               
                                 <td>'.$row['description'].'</td>
                                 <td>
                                 <a href="http://localhost/labora/invmng/getEditForm '.$row['id'].'?>" class="action-button">Edit</a>
@@ -104,7 +105,7 @@
                     <thead>
                         <tr>
                             <th>Category ID</th>
-                            <th>Supplier Name</th>
+                            <th>Supplier ID</th>
                             <th>Expiry Date</th>
                             <th>Quantity</th>
                         </tr>
@@ -127,10 +128,8 @@
 </html>
 
 <script>
-
-function getItems(id, totalQuantity) {
-    if (totalQuantity > 0) {
-        // Proceed with fetching item details
+function getItems(id, total_quantity) {
+    if (total_quantity > 0) {
         baseLink = window.location.origin;
         link = `${baseLink}/labora/invmng/getItemDetails/${id}`;
         console.log(link);
@@ -148,7 +147,7 @@ function getItems(id, totalQuantity) {
                     mockup += `
                     <tr>
                     <td>${data[i]['id']}</td>
-                    <td>${data[i]['supplier_id']}</td>
+                    <td>${data[i]['suplier_id']}</td>
                     <td>${data[i]['expire_date']}</td>
                     <td>${data[i]['quantity']}</td>
                     </tr>`;
@@ -162,10 +161,10 @@ function getItems(id, totalQuantity) {
 
         openModal();
     } else {
-        // Disable the "View" button
-        var viewButton = document.querySelector(`button[onclick="getItems(${id}, ${totalQuantity})"]`);
-        viewButton.disabled = true;
-        viewButton.style.cursor = 'not-allowed';
+        // Display "No items in stock" message
+        const modalBody = document.getElementById('modal_body');
+        modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
+        openModal();
     }
 }
 </script>

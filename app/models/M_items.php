@@ -6,20 +6,18 @@
                 $this->conn = $this->conn->dbObject();
             }
 
-            public function getItemDetailsWithExpiry($id){
+            public function getItemDetail($id){
                 $result = mysqli_query($this->conn , "SELECT
                 oi.id,
-                o.supplier_id,
+                o.suplier_id,
                 oi.expire_date,
                 oi.quantity 
             FROM
                 order_item oi
             JOIN
                 orders_tbl o ON oi.order_id = o.id
-            JOIN
-                inventory_items i ON oi.item_id = i.id
             WHERE
-                i.id = '$id'
+                oi.item_id = '$id'
             AND
                 oi.expire_date IS NOT NULL
             ORDER BY

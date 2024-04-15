@@ -45,8 +45,8 @@
         
         public function getItemDetails($id)
         {
-            $data = $this->md_item->getItemDetailsWithExpiry($id);
-            
+            $data = $this->md_item->getItemDetail($id);
+
             echo json_encode($data);
             exit();
         }
