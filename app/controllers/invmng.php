@@ -46,6 +46,7 @@
         public function getItemDetails($id)
         {
             $data = $this->md_item->getItemDetailsWithExpiry($id);
+            
             echo json_encode($data);
             exit();
         }

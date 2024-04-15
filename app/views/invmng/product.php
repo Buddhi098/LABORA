@@ -69,7 +69,7 @@
                                 <td>'.$row['reorder_limit'].'</td>
                                 <td>'.$row['total_quantity'].'</td>
                                 <td>
-                                <a href="#" class="action-button" onclick="getItems('.$row['id'].')">View</a>
+                                <button href="#" class="action-button" onclick="getItems('.$row['id'].','.$row['total_quantity'].')">View</button>
                                 </td>
                                 <td>'.$row['description'].'</td>
                                 <td>
@@ -103,7 +103,7 @@
                 <table class="simple_table">
                     <thead>
                         <tr>
-                            <th>Item Name</th>
+                            <th>Category ID</th>
                             <th>Supplier Name</th>
                             <th>Expiry Date</th>
                             <th>Quantity</th>
@@ -127,6 +127,49 @@
 </html>
 
 <script>
+
+function getItems(id, totalQuantity) {
+    if (totalQuantity > 0) {
+        // Proceed with fetching item details
+        baseLink = window.location.origin;
+        link = `${baseLink}/labora/invmng/getItemDetails/${id}`;
+        console.log(link);
+        fetch(link)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                mockup = '';
+                for (let i = 0; i < data.length; i++) {
+                    mockup += `
+                    <tr>
+                    <td>${data[i]['id']}</td>
+                    <td>${data[i]['supplier_id']}</td>
+                    <td>${data[i]['expire_date']}</td>
+                    <td>${data[i]['quantity']}</td>
+                    </tr>`;
+                }
+                console.log(mockup);
+                document.getElementById('modal_body').innerHTML = mockup;
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
+        openModal();
+    } else {
+        // Disable the "View" button
+        var viewButton = document.querySelector(`button[onclick="getItems(${id}, ${totalQuantity})"]`);
+        viewButton.disabled = true;
+        viewButton.style.cursor = 'not-allowed';
+    }
+}
+</script>
+<!-- <script>
     function getItems(id){
                 console.log(id);
 
@@ -146,7 +189,7 @@
                     for(let i=0 ; i < data.length ; i++){
                         mockup += `
                         <tr>
-                        <td>${data[i]['item_name']}</td>
+                        <td>${data[i]['id']}</td>
                         <td>${data[i]['supplier_id']}</td>
                         <td>${data[i]['expire_date']}</td>
                         <td>${data[i]['quantity']}</td>
@@ -163,4 +206,4 @@
                 openModal();
 
             }
-</script>
+</script> -->

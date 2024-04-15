@@ -7,11 +7,24 @@
             }
 
             public function getItemDetailsWithExpiry($id){
-                $result = mysqli_query($this->conn , "SELECT o.id, o.item_name, o.expire_date, o.quantity, i.id, i.supplier_id
-                FROM order_item o
-                JOIN orders_tbl i ON o.item_id = i.id
-                WHERE o.item_id = '$id' AND o.expire_date IS NOT NULL
-                ORDER BY o.expire_date ASC");
+                $result = mysqli_query($this->conn , "SELECT
+                oi.id,
+                o.supplier_id,
+                oi.expire_date,
+                oi.quantity 
+            FROM
+                order_item oi
+            JOIN
+                orders_tbl o ON oi.order_id = o.id
+            JOIN
+                inventory_items i ON oi.item_id = i.id
+            WHERE
+                i.id = '$id'
+            AND
+                oi.expire_date IS NOT NULL
+            ORDER BY
+                oi.expire_date ASC");
+
                 $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 return $result_data;
             }

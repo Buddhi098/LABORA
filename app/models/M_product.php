@@ -8,11 +8,21 @@
 
             public function getAllData()
             {
-                $query = "SELECT i.id, i.Item_name, i.manufacturer, i.reorder_limit, SUM(o.quantity) AS total_quantity, i.description
-                          FROM inventory_items i
-                          LEFT JOIN order_item o ON i.id = o.item_id
-                          GROUP BY i.id
-                          ORDER BY i.id ASC";
+                $query = "SELECT
+                i.id,
+                i.Item_name,
+                i.manufacturer,
+                i.reorder_limit,
+                SUM(CASE WHEN oi.expire_date IS NOT NULL THEN oi.quantity ELSE 0 END) AS total_quantity,
+                i.description
+            FROM
+                inventory_items i
+            LEFT JOIN
+                order_item oi ON i.id = oi.item_id
+            GROUP BY
+                i.id
+            ORDER BY
+                i.id ASC";
             
                 $result = mysqli_query($this->conn, $query);
                 $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
