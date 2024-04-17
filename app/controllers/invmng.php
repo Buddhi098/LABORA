@@ -165,12 +165,12 @@
             $this->view("invmng/addInventoryForm" , $data);
         }
 
-        public function getEditForm($itemId) {
-            $data = $this->md_item->getItemById($itemId);
-            require_once 'views/editInventoryForm.php';
+        public function getEditForm() {
+            $data = [];
+            $this->view('invmng/editInventoryForm', $data);
         }
     
-        public function updateItem($itemId) {
+        public function updateInventoryItem($itemId) {
             $jsonData = file_get_contents("php://input");
             $data = json_decode($jsonData, true);
     
@@ -191,43 +191,6 @@
                 exit();
             }
         }
-
-        // public function editInventoryForm(){
-    
-        //     $jsonData = file_get_contents("php://input");
-
-            
-        //     $data = json_decode($jsonData, true);
-
-        //     $item_name = $data['itemName'];
-        //     // $item_type = $data['itemType'];
-        //     $manufacture = $data['manufacture'];
-        //     $reorder_level = $data['reorderLimit'];
-        //     $description = $data['description'];
-
-        //     $result = $this->md_item->editItems($item_name  ,$manufacture , $reorder_level ,$description);
-
-        //     if($result){
-        //         $msg = [
-        //             'msg' => true
-        //         ];
-        //         echo json_encode($msg);
-        //         exit();
-        //     }else{
-        //         $msg = [
-        //             'msg' => false
-        //         ];
-        //         echo json_encode($msg);
-        //         exit();
-        //     }
-        // }
-
-       
-
-        // public function getEditItemForm(){
-        //     $data = []; 
-        //     $this->view("invmng/editInventoryForm" , $data);
-        // }
         
 
         // public function itemDetails(){
@@ -279,9 +242,6 @@
             $data['item_name'] = $item_name;
             $data['supplier_name'] = $supplier;
 
-            // print_r($data);
-            // die();
-
             $this->view("invmng/orderForm" , $data);
         }
 
@@ -330,8 +290,44 @@
             }
         }
 
-       
-
+        function sendEmailExpiredItem(){
+            $result = mysqli_query($this->conn, "SELECT id, item_id, item_name, quantity, expire_date 
+                                                FROM order_item 
+                                                WHERE expire_date <= CURDATE() + INTERVAL 2 DAY 
+                                                ORDER BY expire_date ASC");
+            $expiredItems = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+            $body = '<h2>Items with Expiry Date Within the Next Two Days:</h2>';
+            $body .= '<table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Item ID</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Expire Date</th>
+                        </tr>';
+        
+            foreach ($expiredItems as $item) {
+                $body .= '<tr>';
+                $body .= '<td>' . $item['id'] . '</td>';
+                $body .= '<td>' . $item['item_id'] . '</td>';
+                $body .= '<td>' . $item['item_name'] . '</td>';
+                $body .= '<td>' . $item['quantity'] . '</td>';
+                $body .= '<td>' . $item['expire_date'] . '</td>';
+                $body .= '</tr>';
+            }
+        
+            $body .= '</table>';
+        
+            $user = $_SESSION['user'];
+            $name = $user['name'];
+            $email = $user['email'];
+            $subject = 'Items with Expiry Date Within the Next Two Days';
+        
+            sendEmail($email, $name, $body, $subject);
+        
+            return $expiredItems;
+        }
 
     }
 ?>

@@ -41,7 +41,7 @@
                         <td>'.$row['id'].'</td>
                         <td>'.$row['expire_date'].'</td>
                         <td>'.$row['quantity'].'</td>
-                        <td> <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Delete</a></td>
+                        <td> <a href="#" class="action-button">Delete</a></td>
                         </tr>';
                     }
                 
