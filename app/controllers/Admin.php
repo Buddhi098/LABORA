@@ -51,10 +51,10 @@
             $this->view("admin/dashboard" , $data);
         }
 
-        public function reports(){
+        public function finance_report(){
 
             $data = [];
-            $this->view("admin/reports" , $data);
+            $this->view("admin/finance_report" , $data);
         }
 
         public function payment(){
