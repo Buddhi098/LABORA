@@ -27,8 +27,10 @@
                 return $result_data;
             }
 
-            public function enterItems($item_name , $manufacture , $reorder_level , $description){
-                $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, reorder_limit, description, manufacturer) VALUES ('$item_name', '$reorder_level', '$description', '$manufacture')");
+            public function enterItems($item_name , $manufacture , $reorder_level , $description, $unit_of_measure){
+                $result = mysqli_query($this->conn, "INSERT INTO inventory_items 
+                (Item_name, reorder_limit, description, manufacturer, unit_of_measure) 
+                VALUES ('$item_name', '$reorder_level', '$description', '$manufacture','$unit_of_measure')");
 
                 if($result){
                     return true;
@@ -46,7 +48,8 @@
             // }
 
             public function getAllData(){
-                $result = mysqli_query($this->conn , "SELECT * FROM inventory_items");
+                $result = mysqli_query($this->conn , "SELECT * 
+                FROM inventory_items");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 
                 return $data;
@@ -60,7 +63,9 @@
             // }
 
             public function getNameById($id){
-                $name = mysqli_query($this->conn , "SELECT Item_name FROM  inventory_items WHERE id='$id'");
+                $name = mysqli_query($this->conn , "SELECT Item_name 
+                FROM  inventory_items 
+                WHERE id='$id'");
                 $name = mysqli_fetch_assoc($name);
 
                 if($name){
@@ -70,31 +75,19 @@
                 }
             }
 
-            public function editItems($item_name , $manufacture , $reorder_level , $description){
-                $result = mysqli_query($this->conn, "UPDATE inventory_items SET Item_name = '$item_name' , reorder_limit = '$reorder_level', manufacturer = '$manufacture', description = '$description' WHERE id = ?");
+            public function updateItem($itemId,$item_name , $manufacture , $reorder_level , $description){
+                $result = mysqli_query($this->conn, "UPDATE inventory_items 
+                SET Item_name = '$item_name' , 
+                reorder_limit = '$reorder_level', 
+                manufacturer = '$manufacture', 
+                description = '$description' 
+                WHERE id = '$itemId'");
 
                 if($result){
                     return true;
                 }else{
                     return false;
                 }
-            }
-
-            public function getItemById($itemId) {
-                $sql = "SELECT * FROM inventory_items WHERE id = ?";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bind_param("i", $itemId);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                return $result->fetch_assoc();
-            }
-        
-            public function updateItem($itemId, $itemName, $manufacturer, $reorderLimit, $description) {
-                $sql = "UPDATE inventory_items SET Item_name = ?, manufacturer = ?, reorder_limit = ?, description = ? WHERE id = ?";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bind_param("ssisi", $itemName, $manufacturer, $reorderLimit, $description, $itemId);
-                $result = $stmt->execute();
-                return $result;
             }
 
     }

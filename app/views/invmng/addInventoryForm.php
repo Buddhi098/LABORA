@@ -22,39 +22,43 @@
             <p>Please fill out the form below to enter new inventory details.</p>
             <form id="inventoryForm">
                 <div class="form-row">
-                <div class="form-group">
-                    <label for="itemName">Item Name</label>
-                    <input type="text" id="itemName" name="itemName" required>
-                </div>
-                <div class="form-group">
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" name="itemName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="manufacture">Manufacture</label>
+                        <input type="text" id="manufacture" name="manufacture" required>
+                    </div>
+                <!-- <div class="form-group">
                     <label for="itemType">Item Type</label>
                     <select id="itemType" name="itemType" required>
                     <option value="">Select Item Type</option>
                     <option value="Chemical">Chemicals</option>
                     <option value="Equipment">Equipment</option>
                     </select>
-                </div>
-                </div>
-                <div class="form-row">
-                <div class="form-group">
-                    <label for="reorderLimit">Reorder Limit</label>
-                    <input type="number" id="reorderLimit" name="reorderLimit" required>
-                </div>
-                <div class="form-group">
-                    <label for="manufacture">Manufacture</label>
-                    <input type="text" id="manufacture" name="manufacture" required>
-                </div>
+                </div> -->
                 </div>
                 <div class="form-row">
-                <div class="form-group" style="width: 100%;">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description"></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="reorderLimit">Reorder Limit</label>
+                        <input type="number" id="reorderLimit" name="reorderLimit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitOfMeasure">Unit of Measurement</label>
+                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" required>
+                    </div>
                 </div>
                 <div class="form-row">
-                <div class="form-group" style="width: 100%;">
-                    <button type="submit">Submit</button>
+                    <div class="form-group" style="width: 100%;">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group" style="width: 100%;">
+                        <button type="submit">Submit</button>
+                    </div>
                 </div>
             </form>
             </div>

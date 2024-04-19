@@ -134,7 +134,6 @@
     
             $jsonData = file_get_contents("php://input");
 
-            
             $data = json_decode($jsonData, true);
 
             $item_name = $data['itemName'];
@@ -142,8 +141,9 @@
             $manufacture = $data['manufacture'];
             $reorder_level = $data['reorderLimit'];
             $description = $data['description'];
+            $unit_of_measure = $data['unitOfMeasure'];
 
-            $result = $this->md_item->enterItems($item_name  ,$manufacture , $reorder_level ,$description);
+            $result = $this->md_item->enterItems($item_name  ,$manufacture , $reorder_level ,$description, $unit_of_measure);
 
             if($result){
                 $msg = [
