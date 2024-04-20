@@ -3,13 +3,73 @@
     position: absolute;
     width: calc(100% - 325px);
     left: 300px;
-    background: rgba(201, 194, 194, 0.1);
+    background: rgb(245, 241, 241);
     transition: 0.5s;
     color: rgb(0, 0, 0);
     top: 116px;
     padding: 0px;
     margin: 0px 0 10px 10px;
     border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Reset default styles */
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container_1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+.top-box {
+    /* display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px; */
+
+    position: relative;
+    top: 20px;
+    left: 0px;
+    border: 5px solid black;
+    background: rgb(121, 137, 124);
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 30px;
+    min-height: 200px;
+}
+
+.center-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 200px; /* Adjust as needed */
+}
+
+.box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    width: 150%; /* Adjust width for the top boxes */
+    max-width: 400px;
+    margin-bottom: 20px;
 }
 
 
@@ -19,17 +79,17 @@
 
 /* override nev bar for keep white check */
 
-.navigation ul li:nth-child(5)
+.navigation ul li:nth-child(2)
 {
     background-color: white;
 }
 
-.navigation ul li:nth-child(5) a .title
+.navigation ul li:nth-child(2) a .title
 {
     color: var(--darkblue);
 }
 
-.navigation ul li:nth-child(5) a::before
+.navigation ul li:nth-child(2) a::before
 {
     content:'';
     position: absolute;
@@ -41,7 +101,7 @@
     box-shadow: 30px 30px 0 10px white;
 }
 
-.navigation ul li:nth-child(5) a::after
+.navigation ul li:nth-child(2) a::after
 {
     content:'';
     position: absolute;
@@ -53,7 +113,7 @@
     box-shadow: 30px -30px 0 10px white;
 }
 
-.navigation ul li:nth-child(5) a .icon
+.navigation ul li:nth-child(2) a .icon
 {
     color: var(--darkblue);
 }

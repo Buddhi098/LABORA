@@ -1,9 +1,12 @@
 <?php
     class Admin extends Controller{
         private $md_employee;
+        private $md_chart;
+
         private $auth;
         public function __construct(){
             $this->md_employee = $this->model('M_employee');
+            $this->md_chart = $this->model('M_chart');
 
             $this->auth = new AuthMiddleware();
             $this->auth->authMiddleware('admin');
@@ -51,10 +54,25 @@
             $this->view("admin/dashboard" , $data);
         }
 
+        // report
         public function finance_report(){
 
             $data = [];
+
+            $appointment_graph = $this->md_chart->getNextSevenDateAppointment();
+            $data['graph_data'] = $appointment_graph;
+
             $this->view("admin/finance_report" , $data);
+        }
+        public function appointment_report(){
+
+            $data = [];
+            $this->view("admin/appointment_report" , $data);
+        }
+        public function test_report(){
+
+            $data = [];
+            $this->view("admin/test_report" , $data);
         }
 
         public function payment(){

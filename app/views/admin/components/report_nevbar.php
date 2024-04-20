@@ -50,7 +50,7 @@
                 </li>
                 <li id="2">
                     <a href="<?php echo URLROOT;?>admin/appointment_report">
-                    <span class="icon"><ion-icon name="checkmark-done-outline"></ion-icon></span>
+                    <span class="icon"><ion-icon name="calendar-number"></ion-icon></span>
                     <span class="title">Appointment Reports</span>
                     </a>
                 </li>
