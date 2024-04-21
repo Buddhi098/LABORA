@@ -187,7 +187,8 @@ function filterChart() {
     const startMonth = document.getElementById('startMonth').value;
     const endMonth = document.getElementById('endMonth').value;
 
-    const url = 'http://localhost/labora/Admin/fetchChartData';
+    // const url = 'http://localhost/labora/Admin/fetchChartData';
+    const url = 'http://localhost/labora/Report/fetchChartData';
 
     fetch(url, {
         method: 'POST',

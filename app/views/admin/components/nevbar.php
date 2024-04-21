@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo URLROOT?>admin/finance_report">
+                    <a href="<?php echo URLROOT?>report/finance_report">
                     <span class="icon"><ion-icon name="document-attach-outline"></ion-icon></span>
                     <span class="title">Reports</span>
                     </a>

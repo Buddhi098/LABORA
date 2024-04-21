@@ -43,19 +43,19 @@
                     </a>
                 </li>
                 <li id="1">
-                    <a href="<?php echo URLROOT;?>admin/finance_report">
+                    <a href="<?php echo URLROOT;?>report/finance_report">
                     <span class="icon"><ion-icon name="cash-outline"></ion-icon></span>
                     <span class="title">Financial Reports</span>
                     </a>
                 </li>
                 <li id="2">
-                    <a href="<?php echo URLROOT;?>admin/appointment_report">
+                    <a href="<?php echo URLROOT;?>report/appointment_report">
                     <span class="icon"><ion-icon name="calendar-number"></ion-icon></span>
                     <span class="title">Appointment Reports</span>
                     </a>
                 </li>
                 <li id="3">
-                    <a href="<?php echo URLROOT;?>admin/test_report">
+                    <a href="<?php echo URLROOT;?>report/test_report">
                     <span class="icon"><ion-icon name="thermometer-outline"></ion-icon></span>
                     <span class="title">Test Reports</span>
                     </a>

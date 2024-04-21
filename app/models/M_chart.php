@@ -6,6 +6,8 @@
             $this->conn = $this->conn->dbObject();
         }
 
+        //Finance chart
+        //chart 1
         public function getCost() {
             $result_data = array();
         
