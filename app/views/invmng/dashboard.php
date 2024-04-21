@@ -18,58 +18,86 @@
 
 <body>
     <?php require_once 'components/nevbar.php' ?>
-
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <div class="container_1">
-        <div class="boxset_1">
-
-            <div class="box box_1">
-                <div class="text">
-                    <h5>Number of Items in Stock</h5>
-                    <h1>125</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> Keep track of your inventory and never run out of stock.</p>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-boxes-stacked"></i>
-                </div>
-            </div>
-
-            <div class="box box_2">
-                <div class="text">
-                    <h5>Number of Low Stock Items</h5>
-                    <h1>10</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> Get notified when items reach a low stock threshold.</p>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-exclamation-triangle"></i>
-                </div>
-            </div>
-
-            <div class="box box_2">
-                <div class="text">
-                    <h5>Number of Suppliers</h5>
-                    <h1>5</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> Manage relationships with your suppliers.</p>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-truck-moving"></i>
-                </div>
-            </div>
-
-            <div class="box box_2">
-                <div class="text">
-                    <h5>Total Stock Value</h5>
-                    <h1>Rs. 50000</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i> Keep track of your inventory investments.</p>
-                </div>
-                <div class="icon">
-                    <i class="fa-solid fa-money-check-dollar"></i>
-                </div>
-            </div>
-
-        </div>
-
+    <div class="dashboard-container">
+  <!-- Dashboard Header -->
+  <!-- <div class="dashboard-header">
+    <h2>Inventory Dashboard</h2>
+    <div class="date-range">
+      <input type="date" id="start-date" placeholder="Start Date">
+      <input type="date" id="end-date" placeholder="End Date">
     </div>
-    <div class="bar-chart-container"></div>
+  </div> -->
+
+  <!-- Dashboard Cards -->
+  <div class="dashboard-cards">
+    <div class="card">
+      <div class="card-icon"> <i class="fa-solid fa-boxes-stacked"></i></div>
+      <div class="card-content">
+        <h3>Total Items</h3>
+        <p>1,234</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
+      <div class="card-content">
+        <h3>Low Stock</h3>
+        <p>24</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fa-solid fa-truck-moving"></i></div>
+      <div class="card-content">
+        <h3>Top Selling</h3>
+        <p>Product XYZ</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="chart-section">
+    <div class="chart-container">
+      <h3>Inventory Levels</h3>
+      <canvas id="inventory-chart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Sales Performance</h3>
+      <canvas id="sales-chart"></canvas>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="table-section">
+    <h3>Recent Transactions</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Product A</td>
+          <td>10</td>
+          <td>2023-04-20</td>
+          <td>Sale</td>
+        </tr>
+        <tr>
+          <td>Product B</td>
+          <td>5</td>
+          <td>2023-04-19</td>
+          <td>Purchase</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
     <script src="<?php echo APPROOT.'/public/js/invmng/dashboard.js';?>"></script>
 
 
