@@ -19,34 +19,72 @@
 <body>
     <?php require_once 'components/report_nevbar.php' ?>
     <div class="container_1">
-        <!-- Top Boxes -->
-        <div class="top-box">
-            <!-- First Top Box -->
-            <div class="box">
-                <!-- Content for First Top Box -->
-                <h1>ssssss</h1>
-                <canvas id="myChart"></canvas>
+    <div class="header">
+        <div class="ChartTitle">Charts</div>
+        <div class="actions">
+            <button id="download-button" class="download-btn">Download as PDF</button>
+        </div>
+    </div>
+        <div class="top-boxes">
+            <div class="box box-small">
+                <!-- Chart 1 (small pie chart) goes here -->
+                <canvas id="myChart" class="chart"></canvas>
             </div>
-            <!-- Second Top Box -->
-            <div class="box">
-                <!-- Content for Second Top Box -->
-                <h1>ssssss</h1>
-                <canvas id="myChart2"></canvas>
+            <div class="box box-large">
+                <!-- Chart 2 goes here -->
+                <canvas id="myChart2" class="chart"></canvas>
             </div>
         </div>
-
-        <!-- Centered Bottom Box -->
-        <div class="center-box">
-            <!-- Content for Centered Bottom Box -->
-            <div class="box">
-                <!-- Content for Centered Bottom Box -->
-                <h1>ssssss</h1>
+        <div class="bottom-box">
+            <!-- Date Range Filter -->
+            <div class="filter-container">
+                <div class="filter-item">
+                    <label for="startMonth">Start Month:</label>
+                    <select id="startMonth">
+                        <option value="">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="endMonth">End Month:</label>
+                    <select id="endMonth">
+                        <option value="">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <button onclick="filterChart()">Apply Filter</button>
             </div>
+            <!-- Chart 3 goes here -->
+            <canvas id="myChart3" class="chart"></canvas>
         </div>
     </div>
     <script>
-        // var data1 = <?php echo json_encode($data['graph_data'], JSON_HEX_TAG); ?>; // Don't forget the extra semicolon!
         let graph_data = <?php echo json_encode($data['graph_data'])?>;
+        let graph_data2 = <?php echo json_encode($data['revenue_data'])?>;
+        let graph_data3 = <?php echo json_encode($data['revenue_month'])?>;
+
     </script>
     <script src="<?php echo APPROOT.'/public/js/admin/finance_report.js';?>"></script>
 </body>
