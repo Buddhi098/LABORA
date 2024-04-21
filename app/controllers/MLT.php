@@ -50,11 +50,12 @@
                 }
             }else{
                 $data = [[
-                    'id'=> "",
-                    'test_name' => '',
-                    'short_name' => '',
-                    'test_type' => '',
-                    'availability'=> '',
+                    'Test_Id'=> "",
+                    'Test_Name' => '',
+                    'Test_Type' => '',
+                    'TimeToDo' => '',
+                    'cost' => '',
+                    'Status'=> '',
                 ],];
             }
             // $data = [];
@@ -66,27 +67,35 @@
             $this->view("mlt/test_form" , $data);
         }
 
-        public function deleteTest($id){
-            $this->md_test->deleteFromTest($id);
+        public function deleteTest($Test_ID){
+            $this->md_test->deleteFromTest($Test_ID);
             header('location: http://localhost/labora/mlt/medicalTests');
         }
 
         public function updateAvailability() {
-            // Get the test ID and new availability from the AJAX request
-            $testId = $_GET['testId'];
-            $newAvailability = $_GET['newAvailability'];
-            
-            // Call the model method to update availability
-            $model = new MedicalTestsModel(); // Assuming you've included the model file
-            $success = $model->updateAvailability($testId, $newAvailability);
-            
-            // Send response back to client
-            if ($success) {
-                echo "Availability updated successfully";
-            } else {
-                echo "Error updating availability";
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            if (!empty($data['testId']) && !empty($data['newAvailability'])) {
+                $testId = $data['testId'];
+                $newAvailability = $data['newAvailability'];
+
+                // Assuming you have a model method to update availability in the database
+                $success = $this->md_test->updateAvailability($testId, $newAvailability);
+
+                if ($success) {
+                    // Return success response if needed
+                    http_response_code(200);
+                    echo json_encode(['message' => 'Availability updated successfully']);
+                    exit;
+                }
             }
+
+            // Return error response if failed to update
+            http_response_code(500);
+            echo json_encode(['message' => 'Failed to update availability']);
+            exit;
         }
+
         
     }
 ?>

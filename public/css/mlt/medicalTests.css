@@ -104,28 +104,18 @@ tbody tr:hover .delete{
 }
 
 /* status */
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-th {
-    background-color: #f2f2f2;
-}
 .availability-button {
     cursor: pointer;
     border: none;
-    color: #fff;
     border-radius: 4px;
     padding: 6px 12px;
 }
-.availability-button.yes {
+.availability-button.available {
     background-color: blue;
+    color: #fff;
 }
-.availability-button.no {
+.availability-button.not-available {
     background-color: red;
+    color: #fff;
 }
+

@@ -34,49 +34,41 @@
             <thead>
                 <th>Test ID</th>
                 <th>Test Name</th>
-                <th>Short Name</th>
                 <th>Test Type</th>
-                <th>Availability</th>
+                <th>Time To Do</th>
+                <th>Price</th>
+                <th>Status</th>
                 <th>Action</th>
             </thead >
         <tbody>
                 <div class='table_body'>
-                <!-- <tr>
-                    <td>1</td>
-                    <td>Blood Test</td>
-                    <td>BT</td>
-                    <td>Check-up</td>
-                    <td><button class="cancel ">yes</button></td>
-                    <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>X-ray Examination</td>
-                    <td>XRE</td>
-                    <td>MRI Scan</td>
-                    <td><button class="cancel del">no</button></td>
-                    <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
-                </tr> -->
 
                 <?php
-                // <td>'.$row['availability'].'</td>
-                // <td><button class="cancel">'.$row['availability'].'</button></td>
-
-                // <td><a href="#" class="cancel">Edit</a>
-                // <a href="http://localhost/labora/mltdashboard/deleteTest/'.$row['test_name'].'" class="cancel">Delete</a></td>
+  
                 $reversedArray = array_reverse($data, true);
                 foreach ($reversedArray as $row) {
+                    $testId = $row['Test_ID'];
+                    $testName = $row['Test_Name'];
+                    $testType = $row['Test_Type'];
+                    $TimeToDo = $row['TimeToDo'];
+                    $cost = $row['cost'];
+                    $status = $row['Status'];
+                    $availabilityClass = strtolower($status) === 'available' ? 'available' : 'not-available';
+
                     echo '<tr>
-                    <td>'.$row['id'].'</td>
-                    <td>'.$row['test_name'].'</td>
-                    <td>'.$row['short_name'].'</td>
-                    <td>'.$row['test_type'].'</td>
-                    <td><span id="availability_1"><button class="availability-button yes" onclick="toggleAvailability(1)">'.$row['availability'].'</button></span></td>
-                                      
-                    <td><a href="#" class="download"><ion-icon name="create-outline"></ion-icon></a>
-                    <a href="http://localhost/labora/mlt/deleteTest/'.$row['id'].'" class="delete"><ion-icon name="trash"></ion-icon></a></td>
+                    <td>'.$row['Test_ID'].'</td>
+                    <td>'.$row['Test_Name'].'</td>
+                    <td>'.$row['Test_Type'].'</td>
+                    <td>'.$row['TimeToDo'].'</td>
+                    <td>'.$row['cost'].'</td>
+
+                    <td>
+                        <span id="availability_'.$testId.'">
+                            <button class="availability-button '.$availabilityClass.'" onclick="toggleAvailability('.$testId.')">'.$status.'</button>
+                        </span>
+                    </td>
+                
+                    <td><a href="#" class="action-button">Edit</a> <a href="http://localhost/labora/mlt/deleteTest/'.$row['Test_ID'].'" class="action-button">Delete</a></td>
                 </tr>';
                 }
                 ?>
