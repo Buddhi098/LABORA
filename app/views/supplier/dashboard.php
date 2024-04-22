@@ -11,7 +11,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <title>Lab assistant dashboard</title>
+    <title>Supplier dashboard</title>
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>
@@ -19,8 +19,9 @@
     <div class="container_1">
         <div class="boxset_1">
 
+            <!-- Existing boxes in code 1 -->
             <div class="box box_1">
-                <div class="text">
+            <div class="text">
                     <h5>Number of Orders</h5>
                     <h1>30</h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Total number of orders received form the inventory manager in previous month.</p>
@@ -31,7 +32,7 @@
             </div>
 
             <div class="box box_2">
-                <div class="text">
+            <div class="text">
                     <h5>Number of Pending Orders</h5>
                     <h1>10</h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>These orders are still pending check the availability on items and chemicals.</p>
@@ -41,8 +42,8 @@
                 </div>
             </div>
 
-            <div class="box box_2">
-                <div class="text">
+            <div class="box box_3">
+            <div class="text">
                     <h5>Number of Rejected Orders</h5>
                     <h1>5</h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Rejecting the orders because of unavailability of items or chemicals or lack of producers.</p>
@@ -52,8 +53,8 @@
                 </div>
             </div>
 
-            <div class="box box_2">
-                <div class="text">
+            <div class="box box_4">
+            <div class="text">
                     <h5>Number of sent out quotations</h5>
                     <h1>15</h1>
                     <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Quotations are sent after confirmation of items or chemicals</p>
@@ -63,11 +64,10 @@
                 </div>
             </div>
 
+            </div>
+
         </div>
-        
-
-    <script src="<?php echo APPROOT.'/public/js/patientdashboard/dashboard.js';?>"></script>
 
 
-</body>
+
 </html>
