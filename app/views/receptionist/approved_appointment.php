@@ -97,6 +97,7 @@
             const baseLink = window.location.origin;
             const link = `${baseLink}/labora/receptionist/getAppointmentPass/${id}`;
             window.open(link , '_blank');
+            location.reload();
         }
 
         function getPaymentForm(id , email){

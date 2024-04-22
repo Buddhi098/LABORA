@@ -82,7 +82,7 @@
             }else if($user["role"]== "receptionist"){
                 header("Location: ".URLROOT."receptionist/");
             }else if($user["role"]=="MLT"){
-                header("Location: ".URLROOT."MLTDashboard/");
+                header("Location: ".URLROOT."MLT/");
             }else if($user["role"]=="supplier"){
                 header("Location: ".URLROOT."supplier/");
             }else if($user["role"]=="inventory_manager"){

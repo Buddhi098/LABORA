@@ -1,0 +1,117 @@
+.container_1 {
+  position: fixed;
+  width: calc(100% - 300px);
+  left: 300px;
+  background: #e9ecff75;
+  transition: 0.5s;
+  color: rgb(0, 0, 0);
+  top: 72px;
+  padding: 10px;
+  margin: 0px;
+  height: 93%;
+  overflow: auto;
+  font-family: roboto;
+}
+
+.container_3 {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0px;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 8px 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-container p {
+  text-align: center;
+  color: #8f8f8f;
+  margin-top: 5px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  width: 90%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-fields {
+  display: grid;
+  grid-template-columns: auto auto;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.field-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.field-group .form-group {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.remove-field,
+.add-field {
+  background-color: #5133cf;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 10px;
+  box-shadow: 1px 1px 5px #dadada;
+}
+
+.add-field {
+  margin-top: 10px;
+}
+
+.remove-field:hover,
+.add-field:hover {
+  background-color: #5f41ea;
+}
+
+.save-form {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #2e59d4;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.save-form:hover {
+  background-color: #3b6df0;
+}

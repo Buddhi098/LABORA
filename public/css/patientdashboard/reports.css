@@ -14,17 +14,3 @@
     font-family: roboto;
     height: 100vh;
 }
-
-.container_1 .table-container tbody tr td a{
-    background: #2f45ff;
-    padding: 8px 16px;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    width: 20px;
-    min-height: 650px;
-}
-
-.container_1 .table-container tbody tr td a:hover{
-    background: #0c0eff;
-}

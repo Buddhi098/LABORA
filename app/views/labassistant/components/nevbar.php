@@ -15,6 +15,19 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+
+
+     <!--Modal -->
+     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/modal.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/modal.js'?>"></script>
+
+    <!-- popup messages -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
+
+    <!-- delete warning message -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
+    <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
     
     <title>Patient dashboard</title>
 </head>
@@ -52,7 +65,8 @@
                 </li>
                 <li>
                     <a href="http://localhost/labora/labassistant/report">
-                    <span class="icon"><i class="fa-solid fa-notes-medical"></i></span>
+
+                    <span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
                     <span class="title">report</span>
                     </a>
                 </li>

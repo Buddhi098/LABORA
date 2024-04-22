@@ -328,7 +328,7 @@ cursor: pointer;
 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 transition: all 0.3s ease;
 margin: 5px 5px;
-min-width: 107px;
+min-width: 100px;
 }
 
 /* Button 1 */
@@ -374,4 +374,104 @@ color: #fff;
 }
 .btn-5:hover {
 background-color: #23272b;
+}
+
+/* Disabled button style */
+.button_disabled {
+    background-color: #b3b3b3; /* Light gray */
+    color: #393939; /* Dark gray text */
+    cursor: not-allowed;
+    opacity: 0.6; /* Reduced opacity */
+    pointer-events: none; /* Prevent any interaction */
+}
+
+
+/* for status style */
+
+/* Status 1 */
+.status-1 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #0039c0;
+  color: white;
+}
+
+/* Status 2 */
+.status-2 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #9244ff;
+  color: white;
+}
+
+/* Status 3 */
+.status-3 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #00ba22;
+  color: white;
+}
+
+/* Status 4 */
+.status-4 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #c39900;
+  color: white;
+}
+
+/* Status 5 */
+.status-5 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #ff2c2c;
+  color: white;
+}
+
+/* Status 6 */
+.status-6 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #9370db;
+  color: white;
+}
+
+/* Status 7 */
+.status-7 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #00e676;
+  color: white;
+}
+
+/* Status 8 */
+.status-8 {
+  display: inline-block;
+  padding: 4px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: #ff9800;
+  color: white;
 }
