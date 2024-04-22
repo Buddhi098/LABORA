@@ -73,6 +73,10 @@ class M_appointment
         $result = mysqli_query($this->conn, "UPDATE appointment
                 SET Appointment_Status = 'Canceled'
                 WHERE Id = '$id'");
+
+        $result = mysqli_query($this->conn, "UPDATE appointment
+                SET refund_status = 'pending'
+                WHERE Id = '$id'");
     }
 
     public function sendAppointment($id)
