@@ -1,6 +1,6 @@
 .error-message-container {
   position: fixed;
-  top: 10%;
+  top: 16%;
   right: -350px; /* Start off-screen */
   background-color: rgba(255, 146 ,146 , 0.7);
   color: black;
@@ -59,9 +59,9 @@
 
 .success-message-container {
   position: fixed;
-  top: 10%;
+  top: 16%;
   right: -350px; /* Start off-screen */
-  background-color: rgb(76, 230 ,76 , 0.4);
+  background-color: rgb(76, 230 ,76 , 0.8);
   color: black;
   padding: 15px;
   border-radius: 16px;
