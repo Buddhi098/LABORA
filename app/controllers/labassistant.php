@@ -21,6 +21,15 @@
             $this->view("labassistant/dashboard" , $data);
         }
 
+        public function dashboard(){
+
+            $data = [];
+            $this->view("labassistant/dashboard" , $data);
+        }
+
+        
+
+        
         public function reports(){
 
             $data = [];
@@ -122,14 +131,6 @@
             $this->view("labassistant/inventory" , $data);
             
         }
-
-        public function dashboard(){
-
-            $data = [];
-            $this->view("labassistant/dashboard" , $data);
-        }
-
-        
 
         
     }
