@@ -15,6 +15,9 @@ class labassistant extends Controller
 
     private $md_item;
 
+    private $md_lab_order;
+    private $md_lab_order_item;
+
     private $auth;
     public function __construct()
     {
@@ -25,6 +28,8 @@ class labassistant extends Controller
         $this->md_report_form = $this->model('M_test_form');
         $this->md_holiday = $this->model('M_holiday_calendar');
         $this->md_item = $this->model('M_items');
+        $this->md_lab_order = $this->model('M_lab_order');
+        $this->md_lab_order_item = $this->model('M_lab_order_item');
 
         // set auth middleware
         $this->auth = new AuthMiddleware();
@@ -42,32 +47,8 @@ class labassistant extends Controller
     {
 
         $data = array();
-        $result = $this->md_appointment->getRow();
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                // Add each row as an associative array to the $data array
-                if ($row['Appointment_Status'] == 'Pending Approval' || $row['Appointment_Status'] == 'Send to MLT') {
-                    $row['patient_name'] = $this->md_user->getUserName($row['patient_email']);
-                    $data[] = $row;
-                }
-
-            }
-        } else {
-            $data = [
-                [
-                    'Id' => "",
-                    'Ref_No' => '',
-                    'Test_Type' => '',
-                    'Appointment_Date' => '',
-                    'Appointment_Time' => '',
-                    'Appointment_Duration' => '',
-                    'Appointment_Status' => '',
-                    'Appointment_Notes' => '',
-                    'patient_name' => ''
-                ],
-            ];
-            $this->view("labassistant/appointment", $data);
-        }
+        $result = $this->md_appointment->getAllAppointment();
+        $data['appointments'] = $result;
 
         $this->view("labassistant/appointment", $data);
     }
@@ -101,23 +82,12 @@ class labassistant extends Controller
 
     }
 
-    public function inventory()
+    public function itemRequest()
     {
 
         $data = array();
-        // $result = $this->md_appointment->getRow();
-        // if ($result->num_rows > 0) {
-        //     while ($row = $result->fetch_assoc()) {
-        //         // Add each row as an associative array to the $data array
-        //         $data[] = $row;
-        //     }
-        // } else {
-        //     $data = [
-        //         'Id' => "",
-        //         'Ref_no' => '',
-        //     ];
-        //     $this->view("labassistant/inventory", $data);
-        // }
+        $result = $this->md_lab_order->getRequestOrder();
+        $data['request_order'] = $result;
 
         $this->view("labassistant/order", $data);
 
@@ -376,7 +346,7 @@ class labassistant extends Controller
 
     public function viewReport($report_ref_no)
     {
-        $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
+        $pdfPath = '../app/storage/medical_reports/' . $report_ref_no . '.pdf';
 
         $pdfContent = file_get_contents($pdfPath);
 
@@ -404,18 +374,61 @@ class labassistant extends Controller
 
     }
 
-    public function getorderForm(){
+    public function getorderForm()
+    {
 
         $data = [];
         $rowData = $this->md_item->getAllData();
         $item_name = [];
-        foreach($rowData as $index => $dt){
+        foreach ($rowData as $index => $dt) {
             $item_name[$index]['item_name'] = $dt['Item_name'];
             $item_name[$index]['item_id'] = $dt['id'];
         }
         $data['item_name'] = $item_name;
 
-        $this->view("labassistant/orderForm" , $data);
+        $this->view("labassistant/orderForm", $data);
+    }
+
+    public function submitRequestOrder()
+    {
+        $formData = file_get_contents('php://input');
+
+        $data = json_decode($formData, true);
+
+        $items = $data['items'];
+        $note = $data['note'];
+
+        $storeOrderId = $this->md_lab_order->enterLabOrder($note);
+
+        foreach ($items as $item) {
+            $item_name = $this->md_item->getNameById($item['itemName']);
+
+            $set_item = $this->md_lab_order_item->enterLabOrderItem($storeOrderId, $item['itemName'], $item_name, $item['quantity'], $item['specialNote']);
+        }
+
+        $msg = [
+            'msg' => true
+        ];
+        echo json_encode($msg);
+
+        exit();
+    }
+
+    public function getRequestItems($order_id)
+    {
+        $result = $this->md_lab_order_item->getRequestItems($order_id);
+        echo json_encode($result);
+        exit();
+    }
+
+    public function cancelRequestOrder($order_id){
+        $result = $this->md_lab_order->cancelOrder($order_id);
+        if($result){
+            $_SESSION['success_msg'] = "Order cancelled successfully.";
+        }else{
+            $_SESSION['error_msg'] = "Order cancelling failed.";
+        }
+        header('Location: ' . URLROOT . '/labassistant/itemRequest');
     }
 
 
