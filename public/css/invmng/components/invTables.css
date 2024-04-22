@@ -1,0 +1,65 @@
+.table-container .action-button {
+    padding: 7px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+
+.table-container .action-button:hover {
+    background-color: #0d8e29;
+}
+
+.table-container .action-button-delete {
+    padding: 7px 20px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+
+.table-container .action-button-delete:hover {
+    background-color: #A90E00;
+}
+
+
+.table-container .action-button-edit {
+    padding: 7px 20px;
+    background-color: #E1BA10;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+
+.table-container .action-button-edit:hover {
+    background-color: #cf9c05 ;
+}
+
+.table-container .action-button-approve {
+    padding: 7px 20px;
+    background-color: #6f42c1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+
+.table-container .action-button-approve:hover {
+    background-color: #9c27b0 ;
+}
+
+th {
+    justify-content: center;
+    max-width: 100px; /* Adjust the value as needed */
+  }

@@ -42,7 +42,7 @@
                 <option value="category1">Category 1</option>
                 <option value="category2">Category 2</option>
                 </select>
-                <button class="filter-button">Filter By Email</button>
+                <button class="filter-button">Filter By Status</button>
             </div>
         </div>
         <table id="myTable">

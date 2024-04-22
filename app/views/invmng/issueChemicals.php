@@ -15,7 +15,12 @@
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>
+
+    
+
     <div class="container_1">
+
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
 
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i>Supply Requests</h2>
@@ -70,11 +75,12 @@
                             <td>'.$row['request_date'].'</td>
                             <td>'.$row['requested_delivery_date'].'</td>
                             <td>'.$row['status'].'</td>
-                            <td><button href="#" class="action-button" onclick="getItems('.$row['request_id'].')">View</button></td>
+                            <td><a href="#" class="action-button" onclick="getItems('.$row['request_id'].')">View</a></td>
                             <td>'.$row['notes'].'</td>
                             <td>
-                                <button href="#" class="action-button" onclick="approveRequest('.$row['request_id'].')">Approve</button>
-                                <button href="#" class="action-button" onclick="denyRequest('.$row['request_id'].')">Deny</button>
+                                <a href="#" class="action-button-approve" onclick="approveRequest('.$row['request_id'].')">Approve</a>
+                        
+                                <a href="#" class="action-button-delete" onclick="denyRequest('.$row['request_id'].')">Deny</a>
                             </td>
                             </tr>';
                     }

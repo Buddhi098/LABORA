@@ -17,8 +17,10 @@
     <?php require_once 'components/nevbar.php' ?>
     <div class="container_1">
 
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
+
     <div class="table-container">
-        <h2><i class="fa-solid fa-calendar-check"></i> Products</h2>
+        <h2><i class="fa-solid fa-calendar-check"></i>Chemicals</h2>
         <div class="add">
             <a href="<?php echo URLROOT?>invmng/getAddItemForm" class="addbtn"><ion-icon name="add"></ion-icon> Add Item</a>
         </div>
@@ -42,17 +44,18 @@
                 <option value="category1">Category 1</option>
                 <option value="category2">Category 2</option>
                 </select>
-                <button class="filter-button">Filter By Email</button>
+                <button class="filter-button">Filter By Name</button>
             </div>
         </div>
         <table id="myTable">
             <thead>
                     <th>Index</th>
                     <th>Chemical Name</th>
-                    <th>Manufacturer</th>
+                   
                     <th>Reorder Limit</th>
                     <th>Quantity in Stock</th>
-                    <th>Chemical Details</th>     
+                    <th>Unit of measure</th>
+                    <th>More Details</th>     
                     <th>Note</th>                    
                     <th>Action</th>
             </thead >
@@ -65,18 +68,19 @@
                             <tr>
                                 <td>'.$row['id'].'</td>
                                 <td>'.$row['Item_name'].'</td>  
-                                <td>'.$row['manufacturer'].'</td>
+                              
                                 <td>'.$row['reorder_limit'].'</td>
                                 <td>'.$row['total_quantity'].'</td>
+                                <td>'.$row['unit_of_measure'].'</td>
                                 <td>
                                 <button href="#" class="action-button" onclick="getItems('.$row['id'].','.$row['total_quantity'].')">View</button>
                                 </td>
                                
                                 <td>'.$row['description'].'</td>
                                 <td>
-                                <a href="http://localhost/labora/invmng/getEditForm '.$row['id'].'?>" class="action-button">Edit</a>
+                                <a href="http://localhost/labora/invmng/getEditFom/" class="action-button-edit">Edit</a>
                                 
-                                <a href="http://localhost/labora/admin/deleteEmployee/" class="action-button">Remove</a>
+                                <a href="" class="action-button-delete">Remove</a>
                                 </td>
                             </tr>';
                         }
