@@ -58,6 +58,23 @@
             $this->view("labassistant/appointment" , $data);
         }
 
+        public function cancelAppointment($id){
+
+            $data = [];
+            $row = $this->md_appointment->getRowList($id);
+            if($row['Appointment_Status']=='Pending Approval'){
+                $this->md_appointment->cancelAppointment($id);
+            }
+            header("Location: http://localhost/labora/labassistant/appointment");
+        }
+
+        public function sendAppointment($id){
+
+            $data=[];
+            $this->md_appointment->sendAppointment($id);
+            header("Location: http://localhost/labora/labassistant/appointment");
+        }
+
         public function patientdetails(){
             
             $data = array();
@@ -112,22 +129,7 @@
             $this->view("labassistant/dashboard" , $data);
         }
 
-        public function cancelAppointment($id){
-
-            $data = [];
-            $row = $this->md_appointment->getRowList($id);
-            if($row['Appointment_Status']=='Pending Approval'){
-                $this->md_appointment->cancelAppointment($id);
-            }
-            header("Location: http://localhost/labora/labassistant/appointment");
-        }
-
-        public function sendAppointment($id){
-
-            $data=[];
-            $this->md_appointment->sendAppointment($id);
-            header("Location: http://localhost/labora/labassistant/appointment");
-        }
+        
 
         
     }
