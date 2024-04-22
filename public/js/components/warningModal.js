@@ -13,8 +13,13 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 
-function openModal(id){
+function openModal(id , msg='' ){
   console.log(id)
+  console.log(msg)
+
+  if(msg != ''){
+    document.getElementById('warning_msg').innerHTML = msg  
+  }
   document.getElementById('hidden_id').value = id;
   modal.style.display = "block";
 }
