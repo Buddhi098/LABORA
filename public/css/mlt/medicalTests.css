@@ -62,6 +62,25 @@ tbody tr:hover .delete{
     color: blue !important; 
 }
 
+
+.list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.list li:last-child {
+    border-bottom: none;
+}
+
+.list li:hover {
+    background-color: #f9f9f9;
+}
+
 /* override nev bar for keep white check */
 
 .navigation ul li:nth-child(4)
