@@ -350,6 +350,7 @@ class PatientDashboard extends Controller
 
             echo json_encode($data);
             exit();
+            
         } catch (Exception $e) {
             $error_msg = $e->getMessage();
             $data['status'] = $error_msg;
