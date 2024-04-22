@@ -414,6 +414,12 @@ class M_appointment
         return $result;
     }
 
+    public function getAllAppointment(){
+        $result = mysqli_query($this->conn , "SELECT * FROM appointment");
+        $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+        return $result_data;
+    }
+
 
 }
 ?>
