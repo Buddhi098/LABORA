@@ -78,7 +78,7 @@
                                
                                 <td>'.$row['description'].'</td>
                                 <td>
-                                <a href="http://localhost/labora/invmng/getEditFom/" class="action-button-edit">Edit</a>
+                                <a href="http://localhost/labora/invmng/getEditForm/'.$row['id'].'" class="action-button-edit">Edit</a>
                                 
                                 <a href="" class="action-button-delete">Remove</a>
                                 </td>

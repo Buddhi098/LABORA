@@ -55,6 +55,14 @@
                 return $data;
             }
 
+            public function getAllDataByID($itemId){
+                $result = mysqli_query($this->conn , "SELECT * 
+                FROM inventory_items WHERE id = '$itemId'");
+                $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
+
+                return $data;
+            }
+
             // public function getItemDetails(){
             //     $result = mysqli_query($this->conn , "SELECT id, item_name, expire_date, quantity FROM order_item WHERE item_id = 23 AND expire_date IS NOT NULL");
             //     $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
@@ -75,10 +83,11 @@
                 }
             }
 
-            public function updateItem($itemId,$item_name , $manufacture , $reorder_level , $description){
+            public function updateItem($itemId, $itemName, $manufacture,  $reorderLimit, $unitOfMeasure, $description){
                 $result = mysqli_query($this->conn, "UPDATE inventory_items 
                 SET Item_name = '$item_name' , 
-                reorder_limit = '$reorder_level', 
+                reorder_limit = '$reorder_level',
+                unit_of_measure = '$unitOfMeasure', 
                 manufacturer = '$manufacture', 
                 description = '$description' 
                 WHERE id = '$itemId'");
@@ -88,6 +97,34 @@
                 }else{
                     return false;
                 }
+            }
+
+            public function changeName($id , $name){
+                $result = mysqli_query($this->conn , "UPDATE inventory_items
+                SET Item_name = '$name'
+                WHERE id = '$id'");
+            }
+
+            public function changeManufacturer($id , $manufacturer){
+                $result = mysqli_query($this->conn , "UPDATE inventory_items
+                SET manufacturer = '$manufacturer'
+                WHERE id = '$id'");
+            }
+
+            public function changeReorderLimit($id , $reorder_limit){
+                $result = mysqli_query($this->conn , "UPDATE inventory_items
+                SET reorder_limit = '$reorder_limit'
+                WHERE id = '$id'");
+            }
+            public function changeUnitOfMeasure($id , $unit_of_measure){
+                $result = mysqli_query($this->conn , "UPDATE inventory_items
+                SET unit_of_measure = '$unit_of_measure'
+                WHERE id = '$id'");
+            }
+            public function changeDescription($id , $description){
+                $result = mysqli_query($this->conn , "UPDATE inventory_items
+                SET description = '$description'
+                WHERE id = '$id'");
             }
 
     }

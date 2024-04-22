@@ -14,6 +14,7 @@
                 i.manufacturer,
                 i.reorder_limit,
                 SUM(CASE WHEN oi.expire_date IS NOT NULL THEN oi.quantity ELSE 0 END) AS total_quantity,
+                i.unit_of_measure,
                 i.description
             FROM
                 inventory_items i

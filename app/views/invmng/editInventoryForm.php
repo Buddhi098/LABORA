@@ -16,16 +16,23 @@
         <div class="form-container">
             <h2>Edit Inventory Item</h2>
             <p>Update the inventory item details below.</p>
-            <form id="editInventoryForm">
+            <form id="editInventoryForm" method="post" action="">
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="itemID"><i class="fas fa-user icon"></i> Item ID</label>
                         <input type="text" id="itemId" name="itemId" placeholder="<?php echo $data['id']; ?>" readonly>
                     </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
                         <label for="itemName">Item Name</label>
                         <input type="text" id="itemName" name="itemName" placeholder="<?php echo $data['Item_name']; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="manufacture">Manufacture</label>
+                        <input type="text" id="manufacture" name="manufacture" placeholder="<?php echo $data['manufacturer']; ?>" required>
                     </div>
                 </div>
 
@@ -35,8 +42,8 @@
                         <input type="number" id="reorderLimit" name="reorderLimit" placeholder="<?php echo $data['reorder_limit']; ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="manufacture">Manufacture</label>
-                        <input type="text" id="manufacture" name="manufacture" placeholder="<?php echo $data['manufacturer']; ?>" required>
+                        <label for="unitOfMeasure">Unit of Measurement</label>
+                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" placeholder="<?php echo $data['unit_of_measure']; ?>"  required>
                     </div>
                 </div>
 
@@ -67,48 +74,40 @@
     </div>
 
     <script>
-        document.getElementById('editInventoryForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        
+        const editInventoryForm = document.getElementById('editInventoryForm');
 
-            const formData = new FormData(this);
-            let data = {};
-            for (var pair of formData.entries()) {
-                data[pair[0]] = sanitize(pair[1]);
-            }
-            console.log(data);
+        editInventoryForm.addEventListener('submit', e=> {
+            e.preventDefault(); 
 
-            baseUrl = window.location.origin;
-            const id = document.getElementById('id').value;
-            const url = `${baseUrl}/labora/invmng/updateInventoryItem/${id}`;
-            console.log(url);
+            const formData = new FormData(editInventoryForm);
+            const baseLink = window.location.origin;
+            const link = `${baseLink}/labora/invmng/editInventoryDetails`;
 
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            };
-
-            fetch(url, options)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(responseData => {
-                    console.log('Response:', responseData);
-                    if (responseData['msg']) {
-                        showSuccessMessage();
-                    } else {
-                        showErrorMessage();
-                    }
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error.message);
-                });
+            fetch(link, {
+            method: 'POST',
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Error in updating chemical details');
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                if(data[status]="success"){
+                    showSuccessMessage()
+                }else{
+                    showErrorMessage()
+                }
+            })
+            .catch(err => {
+                showErrorMessage()
+                console.error(err);
+            });
         });
+
     </script>
 </body>
 </html>
