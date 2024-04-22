@@ -47,7 +47,7 @@
           <textarea placeholder="Enter text here"
             style="padding: 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 16px; width: 100%; height: 100px; resize: vertical; transition: border-color 0.3s ease;"
             onfocus="this.style.borderColor='#4d90fe'; this.style.boxShadow='0 0 5px rgba(77, 144, 254, 0.5)';"
-            onblur="this.style.borderColor='#ccc'; this.style.boxShadow='none';"></textarea>
+            onblur="this.style.borderColor='#ccc'; this.style.boxShadow='none';" id="note"></textarea>
         </div>
         <button id="submit" type="submit">Submit Order</button>
     </div>
@@ -121,7 +121,7 @@
       let i = 0;
       let j = 0;
       for (data of formdata.entries()) {
-        item[data[0]] = sanitize(data[1]);
+        item[data[0]] = data[1];
         i++;
         if (i % 3 == 0) {
           items[j] = item;
@@ -130,19 +130,16 @@
         }
       }
 
-      let expected_date = document.getElementById('expected-date').value;
-      let supplier = document.getElementById('supplier').value
+      let note = document.getElementById('note').value;
 
       let order = {};
       order['items'] = items;
-      order['expected_date'] = expected_date;
-      order['supplier'] = supplier;
-
+      order['note'] = note;
 
       console.log(order);
 
       baseUrl = window.location.origin
-      const url = `${baseUrl}/labora/invmng/submitOrderForm`
+      const url = `${baseUrl}/labora/labassistant/submitRequestOrder`
 
       console.log(url)
 
