@@ -72,6 +72,10 @@ class M_appointment
         $result = mysqli_query($this->conn, "UPDATE appointment
                 SET Appointment_Status = 'Canceled'
                 WHERE Id = '$id'");
+
+        $result = mysqli_query($this->conn, "UPDATE appointment
+                SET refund_status = 'pending'
+                WHERE Id = '$id'");
     }
 
     public function sendAppointment($id)
@@ -407,6 +411,12 @@ class M_appointment
     public function removeAppointmentMLT($ref_no){
         $result = mysqli_query($this->conn , "UPDATE appointment SET mlt_active='0' WHERE Ref_No='$ref_no'");
         return $result;
+    }
+
+    public function getAllAppointment(){
+        $result = mysqli_query($this->conn , "SELECT * FROM appointment");
+        $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+        return $result_data;
     }
 
 

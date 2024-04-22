@@ -128,8 +128,7 @@
         // get table data
         function getTableData() {
             const baseLink = window.location.origin;
-            const link = `${baseLink}/labora/PatientDashboard/getAppointmentData`
-
+            const link = `${baseLink}/labora/PatientDashboard/getAppointmentData/`
             fetch(link)
                 .then(response => {
                     if (!response.ok) {

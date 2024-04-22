@@ -58,9 +58,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost/labora/labassistant/inventory">
+                    <a href="http://localhost/labora/labassistant/itemRequest">
                     <span class="icon"><ion-icon name="thermometer"></ion-icon></span>
-                    <span class="title">Inventory</span>
+                    <span class="title">Item Requests</span>
                     </a>
                 </li>
                 <li>
