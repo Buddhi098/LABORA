@@ -39,17 +39,17 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost/labora/supplier/quotation">
-                    <span class="icon"><ion-icon name="folder-open"></ion-icon></ion-icon></span>
-                    <span class="title">Quotations</span>
+                    <a href="http://localhost/labora/supplier/invoice">
+                    <span class="icon"><ion-icon name="receipt-outline"></ion-icon></ion-icon></span>
+                    <span class="title">Invoice</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="http://localhost/labora/supplier/catalog">
                     <span class="icon"><ion-icon name="server"></ion-icon></ion-icon></ion-icon></span>
                     <span class="title">Catalogue</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
             <div class="logout">
                 <a href="<?php echo URLROOT?>Employee/logout" class="button">
