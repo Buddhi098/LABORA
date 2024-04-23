@@ -14,6 +14,10 @@
 
     <!-- Download Button -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     
     <!-- charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -26,17 +30,18 @@
     <div class="header">
         <div class="ChartTitle">Finance Report</div>
         <div class="actions">
-            <button id="download-button" class="download-btn" >Download as PDF</button>
+            <button class="download-btn" onclick="getPDF()">Download as PDF</button>
         </div>
     </div>
-        <div class="top-boxes" >
+    <div class="content">
+        <div class="top-boxes">
             <div class="box box-small">
-                <!-- Chart 1 (small pie chart) goes here -->
-                <canvas id="myChart" class="chart"></canvas>
+                <!-- Chart 1 pie chart-->
+                <div><canvas id="myChart" class="chart"></canvas></div>
             </div>
             <div class="box box-large">
-                <!-- Chart 2 goes here -->
-                <canvas id="myChart2" class="chart"></canvas>
+                <!-- Chart 2  -->
+                <div><canvas id="myChart2" class="chart"></canvas></div>
             </div>
         </div>
         <div class="bottom-box" id="abc">
@@ -80,9 +85,10 @@
                 </div>
                 <button onclick="filterChart()">Apply Filter</button>
             </div>
-            <!-- Chart 3 goes here -->
-            <canvas id="myChart3" class="chart"></canvas>
+            <!-- Chart 3 -->
+            <div><canvas id="myChart3" class="chart"></canvas></div>
         </div>
+    </div>
     </div>
     <script>
         let graph_data = <?php echo json_encode($data['graph_data'])?>;

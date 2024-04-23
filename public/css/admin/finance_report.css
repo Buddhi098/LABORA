@@ -53,10 +53,17 @@
     align-items: center;
 }
 
+/* Add this div for download as PDF */
+.content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Download as PDF */
-
-
-
 
 
 .download-btn {
