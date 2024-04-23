@@ -77,7 +77,6 @@
 
         //cart3
         public function getMonthRevenue() {
-            // Initialize an empty array to store the result
             $revenue_month = [];
         
             // Build the SQL query to calculate revenue for the past seven days
@@ -160,6 +159,47 @@
             // Return the fetched data
             return $data;
         }
+
+
+        //Appointment report
+        public function getSevenDay() {
+            // Initialize an empty array to store the result
+            $app_data = [];
+        
+            // Build the SQL query to calculate revenue for the past seven days
+            $query = "
+            SELECT
+                    DATE(Appointment_Date) AS Appointment_Date,
+                    COUNT(*) AS Appointment_Count
+                FROM
+                    appointment
+                WHERE
+                    (Appointment_Status = 'Pending' OR Appointment_Status = 'Complete')
+                    AND DATE(Appointment_Date) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 6 DAY)
+                GROUP BY
+                    DATE(Appointment_Date)
+                ORDER BY
+                    DATE(Appointment_Date);
+            ";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $app_data[] = array(
+                        'Appointment_Date' => $row['Appointment_Date'],
+                        'Appointment_Count' => $row['Appointment_Count']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $app_data;
+        }
+        
+        
 
 
         

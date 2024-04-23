@@ -11,6 +11,10 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+
+    <!-- Download Button -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <!-- charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -18,14 +22,14 @@
 </head>
 <body>
     <?php require_once 'components/report_nevbar.php' ?>
-    <div class="container_1">
+    <div class="container_1" >
     <div class="header">
-        <div class="ChartTitle">Charts</div>
+        <div class="ChartTitle">Finance Report</div>
         <div class="actions">
-            <button id="download-button" class="download-btn">Download as PDF</button>
+            <button id="download-button" class="download-btn" >Download as PDF</button>
         </div>
     </div>
-        <div class="top-boxes">
+        <div class="top-boxes" >
             <div class="box box-small">
                 <!-- Chart 1 (small pie chart) goes here -->
                 <canvas id="myChart" class="chart"></canvas>
@@ -35,7 +39,7 @@
                 <canvas id="myChart2" class="chart"></canvas>
             </div>
         </div>
-        <div class="bottom-box">
+        <div class="bottom-box" id="abc">
             <!-- Date Range Filter -->
             <div class="filter-container">
                 <div class="filter-item">

@@ -12,6 +12,8 @@
     border-radius: 20px;
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 .container_1 {
     position: absolute;
     width: calc(100% - 325px);
@@ -50,6 +52,12 @@
     display: flex;
     align-items: center;
 }
+
+/* Download as PDF */
+
+
+
+
 
 .download-btn {
     background-color: #5E2BB8;
