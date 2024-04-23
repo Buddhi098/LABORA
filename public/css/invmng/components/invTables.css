@@ -1,5 +1,5 @@
 .table-container .action-button {
-    padding: 7px 20px;
+    padding: 9px 20px;
     background-color: #28a745;
     color: #fff;
     border: none;
@@ -7,6 +7,10 @@
     cursor: pointer;
     transition: background-color 0.3s;
     text-decoration: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 5px 5px;
+    min-width: 100px;
   }
 
 .table-container .action-button:hover {
@@ -14,7 +18,7 @@
 }
 
 .table-container .action-button-delete {
-    padding: 7px 20px;
+    padding: 9px 20px;
     background-color: #dc3545;
     color: #fff;
     border: none;
@@ -22,6 +26,10 @@
     cursor: pointer;
     transition: background-color 0.3s;
     text-decoration: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 5px 5px;
+    min-width: 100px;
   }
 
 .table-container .action-button-delete:hover {
@@ -30,7 +38,7 @@
 
 
 .table-container .action-button-edit {
-    padding: 7px 20px;
+    padding: 9px 20px;
     background-color: #E1BA10;
     color: #fff;
     border: none;
@@ -38,6 +46,10 @@
     cursor: pointer;
     transition: background-color 0.3s;
     text-decoration: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 5px 5px;
+    min-width: 100px;
   }
 
 .table-container .action-button-edit:hover {
@@ -45,7 +57,7 @@
 }
 
 .table-container .action-button-approve {
-    padding: 7px 20px;
+    padding: 9px 20px;
     background-color: #6f42c1;
     color: #fff;
     border: none;
@@ -53,13 +65,30 @@
     cursor: pointer;
     transition: background-color 0.3s;
     text-decoration: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 5px 5px;
+    min-width: 100px;
   }
 
 .table-container .action-button-approve:hover {
     background-color: #9c27b0 ;
 }
 
-th {
-    justify-content: center;
-    max-width: 100px; /* Adjust the value as needed */
-  }
+
+  .btn-6 {
+    background-color: #9244ff;
+    color: #fff;
+    }
+
+  .btn-6:hover {
+      background-color: #6f42c1;
+      }
+
+
+      th {
+        justify-content: center;
+       
+        max-width: 100px; /* Adjust the value as needed */
+      }
+    

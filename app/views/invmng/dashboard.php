@@ -246,28 +246,30 @@
 
   <!-- Table Section -->
   <div class="table-section">
-    <h3>Recent Transactions</h3>
+    <h3>Recent Orders</h3>
     <table>
       <thead>
         <tr>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Date</th>
-          <th>Type</th>
+          <th>Order ID</th>
+          <th>Supplier</th>
+          <th>Expected Date</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Product A</td>
-          <td>10</td>
+          <td>56</td>
+          <td>Avindu</td>
           <td>2023-04-20</td>
-          <td>Sale</td>
+          <td>Pending</td>
+          
         </tr>
         <tr>
-          <td>Product B</td>
-          <td>5</td>
+          <td>59</td>
+          <td>Avindu</td>
           <td>2023-04-19</td>
-          <td>Purchase</td>
+          <td>Recieved</td>
+          
         </tr>
         <!-- Add more rows as needed -->
       </tbody>

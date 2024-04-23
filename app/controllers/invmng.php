@@ -31,7 +31,8 @@
         public function order(){
             $data = [];
             $table_data = $this->md_order->orderTableData();
-            $this->view("invmng/order" , $table_data);
+            $data['table_data'] = $table_data;
+            $this->view("invmng/order" , $data);
         }
 
         public function getRequestItems($request_id){
