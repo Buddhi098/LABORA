@@ -1,0 +1,295 @@
+/* .container_1
+{
+    position: absolute;
+    width: calc(100% - 325px);
+    left: 300px;
+    background: rgb(245, 241, 241);
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 116px;
+    padding: 0px;
+    margin: 0px 0 10px 10px;
+    border-radius: 20px;
+} */
+
+
+.container_1 {
+    position: absolute;
+    width: calc(100% - 325px);
+    left: 300px;
+    background: rgb(245, 241, 241);
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 116px;
+    padding: 20px;
+    margin: 0px 0 10px 10px;
+    border-radius: 20px;
+
+    top: 80px;
+    justify-content: space-between;
+    align-items: center; /* Added this line */
+    overflow-y: auto; /* Add this line to enable vertical scrolling */
+    max-height: calc(100vh - 116px); /* Adjust this value to match the top value */
+}
+
+/* Header Styles */
+.header {
+    /* background-color: #333; */
+    color: #fff;
+    padding: 10px;
+    text-align: right;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+/* Wrapper 1 Styles */
+.wrapper1 {
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-top: 0px;
+}
+
+/* Header 2 Styles */
+.header2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header2 h2 {
+    margin: 0;
+    color: #555;
+}
+
+/* Wrapper 2 Styles */
+.wrapper2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center align content vertically */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Allow items to wrap to next line if needed */
+}
+
+/* Header 3 as Full Width */
+.header3-full {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    width: 100%; /* Full width within wrapper2 */
+}
+
+.header3-full h3 {
+    margin: 0;
+}
+
+/* Wrapper 3 Styles (Moved inside Wrapper 2) */
+.wrapper3 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Full width within wrapper2 */
+    margin-top: 20px;
+}
+
+/* Product Box Styles */
+.product-box {
+    /* flex-basis: calc(40% - 10px);  */
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+
+    /* display: flex; */
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#box2{
+    text-align: center;
+    background-color: aliceblue;
+    width: 80%;
+    margin: auto;
+}
+.product-box p {
+    margin: 0;
+}
+
+/* Specific Styles for Small Box */
+.small {
+    background-color: #eceadf;
+    width: 30%;
+}
+
+/* Specific Styles for Large Box */
+.large {
+    background-color: #cfe4de; /* Green */
+    width: 60%;
+}
+
+/* Additional Boxes Styles */
+.additional-boxes {
+    margin-top: 20px;
+}
+
+.header4 {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.header4 h3 {
+    margin: 0;
+}
+
+.wrapper4 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Adjust spacing between additional product boxes */
+.wrapper4 .product-box {
+    flex-basis: 48%;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-right: 10px; /* Small spacing between boxes */
+}
+
+/* Filter by date */
+.filter-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-container label,
+.filter-container input,
+.filter-container button {
+    margin-right: 10px;
+}
+
+.filter-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.filter-container button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+/* CSS for Chart Containers */
+
+/* .chart-container {
+    position: relative;
+    margin-bottom: 20px; 
+    padding: 20px;
+    border: 1px solid #ddd; 
+    background-color: #fff; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.canvas-container {
+    width: 100%; 
+    height: auto; 
+} */
+
+
+
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.filter-item label {
+    margin-right: 10px;
+}
+
+.filter-item select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #5E2BB8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* override nev bar for keep white check */
+
+.navigation ul li:nth-child(3)
+{
+    background-color: white;
+}
+
+.navigation ul li:nth-child(3) a .title
+{
+    color: var(--darkblue);
+}
+
+.navigation ul li:nth-child(3) a::before
+{
+    content:'';
+    position: absolute;
+    right:0;
+    top:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px 30px 0 10px white;
+}
+
+.navigation ul li:nth-child(3) a::after
+{
+    content:'';
+    position: absolute;
+    right:0;
+    bottom:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px -30px 0 10px white;
+}
+
+.navigation ul li:nth-child(3) a .icon
+{
+    color: var(--darkblue);
+}
