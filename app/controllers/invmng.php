@@ -178,28 +178,28 @@
         //     $this->view('invmng/editInventoryForm', $data);
         // }
     
-        public function updateInventoryItem() {
-            $jsonData = file_get_contents("php://input");
-            $data = json_decode($jsonData, true);
+        // public function updateInventoryItem() {
+        //     $jsonData = file_get_contents("php://input");
+        //     $data = json_decode($jsonData, true);
     
-            $itemName = $data['Item_name'];
-            $manufacture = $data['manufacturer'];
-            $reorderLimit = $data['reorder_limit'];
-            $unitOfMeasure = $data['unit_of_measure'];
-            $description = $data['description'];
+        //     $itemName = $data['Item_name'];
+        //     $manufacture = $data['manufacturer'];
+        //     $reorderLimit = $data['reorder_limit'];
+        //     $unitOfMeasure = $data['unit_of_measure'];
+        //     $description = $data['description'];
     
-            $result = $this->md_item->updateItem($itemName, $manufacture, $reorderLimit, $unitOfMeasure, $description);
+        //     $result = $this->md_item->updateItem($itemName, $manufacture, $reorderLimit, $unitOfMeasure, $description);
     
-            if ($result) {
-                $msg = ['msg' => true];
-                echo json_encode($msg);
-                exit();
-            } else {
-                $msg = ['msg' => false];
-                echo json_encode($msg);
-                exit();
-            }
-        }
+        //     if ($result) {
+        //         $msg = ['msg' => true];
+        //         echo json_encode($msg);
+        //         exit();
+        //     } else {
+        //         $msg = ['msg' => false];
+        //         echo json_encode($msg);
+        //         exit();
+        //     }
+        // }
 
         public function getEditForm($id)
         {
@@ -209,11 +209,11 @@
 // print_r($itemData);
 // die();
                 $data = [
-                    'id' => $itemData[0]['id'],
-                    'Item_name' => $itemData[0]['Item_name'],
+                    'itemID' => $itemData[0]['id'],
+                    'itemName' => $itemData[0]['Item_name'],
                     'manufacturer' => $itemData[0]['manufacturer'],
-                    'reorder_limit' => $itemData[0]['reorder_limit'],
-                    'unit_of_measure' => $itemData[0]['unit_of_measure'],
+                    'reorderLimit' => $itemData[0]['reorder_limit'],
+                    'unitOfMeasure' => $itemData[0]['unit_of_measure'],
                     'description' => $itemData[0]['description']
                 ];
 
@@ -255,30 +255,12 @@
 
                 $message = [
                     'status' => 'success',
-                    'image_status' => $img_status
                 ];
 
                 echo json_encode($message);
                 exit();
 
             }
-            // else{
-            //     $current_user=$this->md_user->getUser( $_SESSION['useremail']);
-               
-            //     $data = [
-            //         'fullname' => $current_user['patient_name'],
-            //         'email' => $_SESSION['useremail'],
-            //         'phone' => $current_user['patient_phone'],
-            //         'dob' => $current_user['patient_dob'],
-            //         'address' => $current_user['patient_address'],
-            //         'profile_image' => $current_user['profile_img']
-            //     ];
-            // }
-
-            // $this->view('invmng/editInventoryForm' , $data);
-
-            //for avoiding form resubmission
-            // stopResubmission();
         }
         
 
@@ -299,6 +281,7 @@
 
         //     $this->view("invmng/itemDetails" , $data);
         // }
+
         public function itemDetails($itemId)
         {
             $data = $this->md_item->getItemDetailsWithExpiry($itemId);

@@ -14,43 +14,43 @@
 <?php require_once 'components/addinventory_nav.php' ?>
     <div class="container_1">
         <div class="form-container">
-            <h2>Edit Inventory Item</h2>
-            <p>Update the inventory item details below.</p>
-            <form id="editInventoryForm" method="post" action="">
+            <h2>Edit Inventory Form</h2>
+            <p>Update the inventory chemical details below.</p>
+            <form id="editInventoryForm">
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="itemID"><i class="fas fa-user icon"></i> Item ID</label>
-                        <input type="text" id="itemId" name="itemId" placeholder="<?php echo $data['id']; ?>" readonly>
+                        <label for="itemID">Chemical ID</label>
+                        <input type="text" id="itemId" name="itemId" value="<?php echo $data['itemID']; ?>" readonly>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="itemName">Item Name</label>
-                        <input type="text" id="itemName" name="itemName" placeholder="<?php echo $data['Item_name']; ?>" required>
+                        <label for="itemName">Chemical Name</label>
+                        <input type="text" id="itemName" name="itemName" value="<?php echo $data['itemName']; ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="manufacture">Manufacture</label>
-                        <input type="text" id="manufacture" name="manufacture" placeholder="<?php echo $data['manufacturer']; ?>" required>
+                        <label for="manufacturer">Manufacturer</label>
+                        <input type="text" id="manufacturer" name="manufacturer" value="<?php echo $data['manufacturer']; ?>" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="reorderLimit">Reorder Limit</label>
-                        <input type="number" id="reorderLimit" name="reorderLimit" placeholder="<?php echo $data['reorder_limit']; ?>" required>
+                        <input type="number" id="reorderLimit" name="reorderLimit" value="<?php echo $data['reorderLimit']; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="unitOfMeasure">Unit of Measurement</label>
-                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" placeholder="<?php echo $data['unit_of_measure']; ?>"  required>
+                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" value="<?php echo $data['unitOfMeasure']; ?>"  required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group" style="width: 100%;">
                         <label for="description">Description</label>
-                        <textarea id="description" name="description" placeholder="<?php echo $data['description']; ?>" ></textarea>
+                        <textarea id="description" name="description" value="<?php echo $data['description']; ?>" ></textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -72,7 +72,6 @@
         <p>Error! Your action was failed.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
-
     <script>
         
         const editInventoryForm = document.getElementById('editInventoryForm');
@@ -109,5 +108,6 @@
         });
 
     </script>
+    
 </body>
 </html>

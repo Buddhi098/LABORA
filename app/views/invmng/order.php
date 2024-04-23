@@ -114,7 +114,7 @@
                         echo "<td><a class='" .$class_status ."'>" . $text_status . "</a></td>";
                         echo "<td><button class='action-button' onclick=\"getItems('".$order['id']."')\">View</button></td>";
                         echo "<td>Not_Available</td>";
-                        echo "<td><a class='" .$class ."'>" . $text . "</a></td>";
+                        echo "<td><button class='" .$class ."'>" . $text . "</button></td>";
                         echo "</tr>";    
 
                     }

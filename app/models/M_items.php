@@ -83,21 +83,21 @@
                 }
             }
 
-            public function updateItem($itemId, $itemName, $manufacture,  $reorderLimit, $unitOfMeasure, $description){
-                $result = mysqli_query($this->conn, "UPDATE inventory_items 
-                SET Item_name = '$item_name' , 
-                reorder_limit = '$reorder_level',
-                unit_of_measure = '$unitOfMeasure', 
-                manufacturer = '$manufacture', 
-                description = '$description' 
-                WHERE id = '$itemId'");
+            // public function updateItem($itemId, $itemName, $manufacture,  $reorderLimit, $unitOfMeasure, $description){
+            //     $result = mysqli_query($this->conn, "UPDATE inventory_items 
+            //     SET Item_name = '$item_name' , 
+            //     reorder_limit = '$reorder_level',
+            //     unit_of_measure = '$unitOfMeasure', 
+            //     manufacturer = '$manufacture', 
+            //     description = '$description' 
+            //     WHERE id = '$itemId'");
 
-                if($result){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
+            //     if($result){
+            //         return true;
+            //     }else{
+            //         return false;
+            //     }
+            // }
 
             public function changeName($id , $name){
                 $result = mysqli_query($this->conn , "UPDATE inventory_items
