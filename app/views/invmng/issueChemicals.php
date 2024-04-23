@@ -54,9 +54,9 @@
         <table id="myTable">
             <thead>
                 <th>Request ID</th>
-                <th>Requested By</th>
+            
                 <th>Request Date</th>
-                <th>Requested Delivery Date</th>
+                <th>Delivery Date</th>
                 <th>Status</th>
                 <th>Items Requested</th>
                 <th>Note</th>
@@ -64,25 +64,65 @@
             </thead>
             <tbody>
                 <div class='table_body'>
-                    <?php
-                    $array = array_reverse($data, true);
+                    <?php foreach($data['request_data'] as $request){
 
-                    foreach($array as $index=>$row){
-                        echo '
-                            <tr>
-                            <td>'.$row['request_id'].'</td>
-                            <td>'.$row['requested_by'].'</td>
-                            <td>'.$row['request_date'].'</td>
-                            <td>'.$row['requested_delivery_date'].'</td>
-                            <td>'.$row['status'].'</td>
-                            <td><a href="#" class="action-button" onclick="getItems('.$row['request_id'].')">View</a></td>
-                            <td>'.$row['notes'].'</td>
-                            <td>
-                                <a href="#" class="action-button-approve" onclick="approveRequest('.$row['request_id'].')">Approve</a>
+                        if ($request['status'] === 'Pending') {
+                            $text_1 = "Approve";
+                            $class_1 = "btn-0 btn-6";
+                            $text_2 = "Deny";
+                            $class_2 = "btn-0 btn-3";
+                        }
+                        else if ($request['status'] === 'Approved') {
+                            $text_1 = "Delivered";
+                            $class_1 = '';
+                            $text_2 = " ";
+                            $class_2 = " ";
+                        }
+                        else if ($request['status'] === 'Canceled') {
+                            $text_1 = "Remove";
+                            $class_1 = 'btn-0 btn-7';
+                            $text_2 = " ";
+                            $class_2 = " ";
+                        }
+                        else if($request['status'] === 'Denied') {
+                            $text_1 = "Remove";
+                            $class_1 = 'btn-0 btn-7';
+                            $text_2 = " ";
+                            $class_2 = " ";
+                        } 
+
+                        if ($request['status'] === 'Pending') {
+                            $text_status = "Pending Approval";
+                            $class_status = "status-1";
+                        }
+                        else if ($request['status'] === 'Approved') {
+                            $text_status = "Approved";
+                            $class_status = "status-3";
+                        }
+                        else if ($request['status'] === 'Canceled') {
+                            $text_status = "Canceled";
+                            $class_status = "status-5";
+                        }
+                        else if ($request['status'] === 'Denied') {
+                            $text_status = "Canceled";
+                            $class_status = "status-5";
+                        }
+                   
+                         
+                         echo "<tr>";
+                         echo "<td>".$request['request_id']."</td>";
+                          
+                         echo "<td>".$request['request_date']."</td>";
+                         echo "<td>".$request['delivered_date']."</td>";
+                         echo "<td><a class='" .$class_status ."'>" . $text_status . "</a></td>";
+                         echo "<td><a class='action-button' onclick=\"getItems('".$request['request_id']."')\">View</a></td>";
+                         echo "<td>".$request['note']."</td>";
+                         echo "<td>
+                                <button class='".$class_1."' onclick=\"approveRequest('".$request['request_id']."')\">" . $text_1 . "</button>
                         
-                                <a href="#" class="action-button-delete" onclick="denyRequest('.$row['request_id'].')">Deny</a>
-                            </td>
-                            </tr>';
+                                <button class='".$class_2."' onclick=\"denyRequest('".$request['request_id']."')\">" . $text_2 . "</button>
+                            </td>";
+                        echo "</tr>";
                     }
                     ?>
                 </div>

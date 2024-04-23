@@ -15,7 +15,7 @@
             $this->md_order = $this->model('M_orders_tbl');
             $this->md_expire = $this->model('M_expiredChemicals');
             $this->md_order_items = $this->model('M_order_item');
-            $this->md_supply_requests = $this->model('M_issue_chemicals');
+            $this->md_issue = $this->model('M_issue_chemicals');
             $this->md_request_item = $this->model('M_request_items');
             // auth middleware
 
@@ -114,7 +114,8 @@
         public function issueChemicals(){
 
             $data = [];
-            $data = $this -> md_supply_requests->getAllData();
+            $request_data = $this -> md_issue->getAllData();
+            $data['request_data'] = $request_data;
             $this->view("invmng/issueChemicals" , $data);
         }
 

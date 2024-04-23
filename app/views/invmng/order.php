@@ -64,7 +64,7 @@
                     <?php foreach ($data['table_data'] as $order) {
                         if ($order['status'] === 'received invoice') {
                             $text = "Confirm";
-                            $class = "btn-0 btn-6";
+                            $class = "btn-0 btn-8";
                         }
                         else if ($order['status'] === 'confirmed order') {
                             $text = "Add to Inventory";

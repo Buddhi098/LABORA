@@ -376,6 +376,26 @@
     background-color: #23272b;
     }
     
+    /* Button 7 */
+    .btn-6 {
+      background-color: #9244ff;
+      color: #fff;
+      }
+      .btn-6:hover {
+      background-color: #6f42c1;
+      }
+    
+      
+    /* Button 8 */
+    .btn-7 {
+      background-color: #FFA500;
+      color: #fff;
+      }
+      .btn-7:hover {
+      background-color: #FF8C00;
+      }
+    
+      
     /* Disabled button style */
     .button_disabled {
         background-color: #b3b3b3; /* Light gray */
