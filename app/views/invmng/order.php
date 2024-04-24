@@ -40,10 +40,13 @@
             <div class="filter-section">
                 <select class="filter-box">
                 <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
+                <option value="category1">Placed Order</option>
+                <option value="category2">Invoice Recieved</option>
+                <option value="category1">Order Confirmed</option>
+                <option value="category2">Completed</option>
+                <option value="category1">Canceled</option>
                 </select>
-                <button class="filter-button">Filter By Email</button>
+                <button class="filter-button">Filter By Status</button>
             </div>
         </div>
         <table id="myTable">

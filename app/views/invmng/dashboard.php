@@ -9,10 +9,11 @@
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <title>Inventory Manager dashboard</title>
 </head>
 
@@ -21,15 +22,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <div class="container_1">
     <div class="dashboard-container">
-  <!-- Dashboard Header -->
-  <!-- <div class="dashboard-header">
-    <h2>Inventory Dashboard</h2>
-    <div class="date-range">
-      <input type="date" id="start-date" placeholder="Start Date">
-      <input type="date" id="end-date" placeholder="End Date">
-    </div>
-  </div> -->
-
+ 
   <!-- Dashboard Cards -->
   
   <div class="top-cards">
@@ -38,8 +31,8 @@
       <i class="fas fa-clipboard-list"></i>
     </div>
     <div class="card-content">
-      <h3>Pending Orders</h3>
-      <p>25</p>
+      <h3>Total Orders</h3>
+      <p><?php echo $data['total_orders']; ?></p>
     </div>
   </div>
 
@@ -49,7 +42,8 @@
     </div>
     <div class="card-content">
       <h3>Total Stock Value</h3>
-      <p>$120,000</p>
+      
+      <p>RS. <?php echo $data['total_stock_value']; ?></p>
     </div>
   </div>
 
@@ -59,132 +53,11 @@
     </div>
     <div class="card-content">
       <h3>Total Wastage Value</h3>
-      <p>$5,000</p>
+      
+      <p>Rs. <?php echo $data['total_wastage_value']; ?></p>
     </div>
   </div>
 </div>
-
-<!-- <div class="urgent-actions">
-  <h2>Urgent Actions</h2>
-  <div class="action-item">
-    <div class="action-icon">
-      <i class="fas fa-exclamation-triangle"></i>
-    </div>
-    <div class="action-content">
-      <h3>Below Alert Quantity</h3>
-      <p>15 items</p>
-    </div>
-  </div>
-  <div class="action-item">
-    <div class="action-icon">
-      <i class="fas fa-clock"></i>
-    </div>
-    <div class="action-content">
-      <h3>New Expiry (21 Days)</h3>
-      <p>8 items</p>
-    </div>
-  </div>
-</div> -->
-
-<!-- <div class="dashboard-row">
-  <div class="urgent-actions">
-    <h2>Urgent Actions</h2>
-    <div class="action-item">
-      <div class="action-icon">
-        <i class="fas fa-exclamation-triangle"></i>
-      </div>
-      <div class="action-content">
-        <h3>Below Alert Quantity</h3>
-        <p>15 items</p>
-      </div>
-    </div>
-    <div class="action-item">
-      <div class="action-icon">
-        <i class="fas fa-clock"></i>
-      </div>
-      <div class="action-content">
-        <h3>New Expiry (21 Days)</h3>
-        <p>8 items</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="invoice-details">
-    <div class="invoice-card">
-      <div class="invoice-icon">
-        <i class="fas fa-file-invoice"></i>
-      </div>
-      <div class="invoice-content">
-        <h3>Pending Invoices</h3>
-        <p>25</p>
-      </div>
-    </div>
-    <div class="invoice-card">
-      <div class="invoice-icon">
-        <i class="fas fa-clipboard-check"></i>
-      </div>
-      <div class="invoice-content">
-        <h3>Invoices to Check</h3>
-        <p>12</p>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- <div class="dashboard-row">
-  <div class="urgent-actions">
-    <h2>Urgent Actions</h2>
-    <div class="action-item">
-      <div class="action-icon">
-        <i class="fas fa-exclamation-triangle"></i>
-      </div>
-      <div class="action-content">
-        <h3>Below Alert Quantity</h3>
-        <p>15 items</p>
-      </div>
-    </div>
-    <div class="action-item">
-      <div class="action-icon">
-        <i class="fas fa-clock"></i>
-      </div>
-      <div class="action-content">
-        <h3>New Expiry (21 Days)</h3>
-        <p>8 items</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="invoice-details">
-    <div class="invoice-card">
-      <h3>Pending Invoices</h3>
-      <div class="invoice-list">
-        <div class="invoice-item">
-          <span class="invoice-number">INV-00123</span>
-          <span class="invoice-date">Expected: 06/15/2023</span>
-        </div>
-        <div class="invoice-item">
-          <span class="invoice-number">INV-00456</span>
-          <span class="invoice-date">Expected: 06/20/2023</span>
-        </div>
-     
-      </div>
-    </div>
-    <div class="invoice-card">
-      <h3>Invoices to Check</h3>
-      <div class="invoice-list">
-        <div class="invoice-item">
-          <span class="invoice-number">INV-00789</span>
-          <span class="invoice-date">Received: 06/10/2023</span>
-        </div>
-        <div class="invoice-item">
-          <span class="invoice-number">INV-00012</span>
-          <span class="invoice-date">Received: 06/12/2023</span>
-        </div>
-     
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <div class="dashboard-row">
   <div class="urgent-actions">
@@ -195,7 +68,7 @@
       </div>
       <div class="action-content">
         <h3>Below Alert Quantity</h3>
-        <p>15 items</p>
+        <p><?php echo $data['below_alert_quantity']; ?> chemicals</p>
       </div>
     </div>
     <div class="action-item">
@@ -204,7 +77,7 @@
       </div>
       <div class="action-content">
         <h3>New Expiry (21 Days)</h3>
-        <p>8 items</p>
+        <p><?php echo $data['new_expiry_quantity']; ?> chemicals</p>
       </div>
     </div>
   </div>
@@ -217,7 +90,7 @@
       </div>
       <div class="action-content">
         <h3>Pending Invoices</h3>
-        <p>25</p>
+        <p><?php echo $data['pending_invoice_quantity']; ?></p>
       </div>
     </div>
     <div class="action-item">
@@ -226,7 +99,7 @@
       </div>
       <div class="action-content">
         <h3>Invoices to Check</h3>
-        <p>12</p>
+        <p><?php echo $data['invoice_to_check']; ?></p>
       </div>
     </div>
   </div>
@@ -236,7 +109,7 @@
   <div class="chart-section">
     <div class="chart-container">
       <h3>Inventory Status</h3>
-      <canvas id="multipleBarChart"></canvas>
+      <div><canvas id="multipleBarChart"></canvas></div>
     </div>
     <div class="chart-container">
       <h3>Sales Performance</h3>
@@ -351,6 +224,40 @@ const multipleBarChart = new Chart(ctx, {
         }
     }
 }); </script>
+
+<script>
+        const ctx2 = document.getElementById('sales-chart');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5', 'Test 6', 'Test 7', 'Test 8', 'Test 9', 'Test 10'],
+                datasets: [{
+                    label: 'Number of Tests',
+                    data: [25, 45, 32, 18, 12, 37, 29, 41, 22, 36],
+                    borderWidth: 1,
+                    backgroundColor: [
+                        '#FF6384', // Red
+                        '#36A2EB', // Blue
+                        '#FFCE56', // Yellow
+                        '#9966FF', // Purple
+                        '#4BC0C0', // Teal
+                        '#FF9F40', // Orange
+                        '#8E44AD', // Violet
+                        '#2ECC71', // Green
+                        '#E74C3C', // Crimson
+                        '#F1C40F'  // Yellow-Orange
+                    ]
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
 

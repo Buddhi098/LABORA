@@ -9,6 +9,7 @@
 
         private $md_order_items;
         public function __construct(){
+            $this->md_dashboard = $this->model('M_invDashboard'); 
             $this->md_product = $this->model('M_product'); 
             $this->md_supplier = $this->model('M_employee');
             $this->md_item = $this->model('M_items');
@@ -106,8 +107,29 @@
         }
 
         public function dashboard(){
-
             $data = [];
+
+            $totalOrders = $this->md_dashboard->getTotalOrders();
+            $data['total_orders'] = $totalOrders;
+
+            $totalStockValue = $this->md_dashboard->getTotalStockValue();
+            $data['total_stock_value'] = $totalStockValue;
+
+            $totalWastageValue = $this->md_dashboard->getTotalWastageValue();
+            $data['total_wastage_value'] = $totalWastageValue;
+
+            $belowAlertQuantity = $this->md_dashboard->getBelowAlertQuantity();
+            $data['below_alert_quantity'] = $belowAlertQuantity;
+
+            $newExpiryQuantity = $this->md_dashboard->getNewExpiryQuantity();
+            $data['new_expiry_quantity'] = $newExpiryQuantity;
+
+            $pendingInvoiceQuantity = $this->md_dashboard->getPendingInvoiceQuantity();
+            $data['pending_invoice_quantity'] = $pendingInvoiceQuantity;
+
+            $invoiceToCheckQuantity = $this->md_dashboard->getInvoiceToCheckQuantity();
+            $data['invoice_to_check'] = $invoiceToCheckQuantity;
+
             $this->view("invmng/dashboard" , $data);
         }
 
