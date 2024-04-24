@@ -26,24 +26,15 @@
             </div>
             <div class="filter-box">
                 <div class="filter-section">
-                    <!-- Add your filter options here -->
-                    <select class="filter-box">
+                    <select class="filter-box" id="filterStatus">
                         <option value="all">All</option>
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
-                        <!-- Add more filter options as needed -->
+                        <option value="Pending">Pending</option>
+                        <option value="Review By MLT">Review By MLT</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Completed">Completed</option>
                     </select>
-                    <button class="filter-button">Filter By ID</button>
-                </div>
-                <div class="filter-section">
-                    <!-- Add your filter options here -->
-                    <select class="filter-box">
-                        <option value="all">All</option>
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
-                        <!-- Add more filter options as needed -->
-                    </select>
-                    <button class="filter-button">Filter By Email</button>
+                    <button class="filter-button" onclick="filterByStatus()">Filter By Status</button>
                 </div>
             </div>
             <table id="myTable">
@@ -63,6 +54,7 @@
                             foreach ($reversedArray as $row) {
                                 $status_class = 'button_disabled';
                                 $str_btn = 'disabled';
+                                $str_href = '';
                                 if ($row['report_status'] == 'Pending') {
                                     $str = 'status-8';
                                 } else if ($row['report_status'] == 'Created') {
@@ -77,14 +69,15 @@
                                     $str = 'status-3';
                                     $status_class = '';
                                     $str_btn = '';
+                                    $str_href = 'href="' . APPROOT . "/PatientDashboard/viewReport/" . $row['ref_no'] . '" target=_blank"" ';
                                 }
                                 echo '<tr>
                             <td>' . $row['id'] . '</td>
                             <td>' . $row['ref_no'] . '</td>
                             <td>' . $row['test_type'] . '</td>
                             <td>' . $row['date'] . '</td>
-                            <td><div class="' . $str . '">' . $row['report_status'] . '</div></td>
-                            <td><a href="' . APPROOT . "/PatientDashboard/viewReport/" . $row['ref_no'] . '" target=_blank"" ><button class="btn-0 btn-2 ' . $status_class . '" ' . $str_btn . '>View</button></a> <a><button class="btn-0 btn-3 ' . $status_class . '" onclick=\'openModal("' . $row['ref_no'] . '")\' ' . $str_btn . '>Delete</button></a></td>
+                            <td><div class="' . $str . ' payment_status">' . $row['report_status'] . '</div></td>
+                            <td><a ' . $str_href . '><button class="btn-0 btn-2 ' . $status_class . '" ' . $str_btn . '>View</button></a> <a><button class="btn-0 btn-3 ' . $status_class . '" onclick=\'openModal("' . $row['ref_no'] . '")\' ' . $str_btn . '>Delete</button></a></td>
                         </tr>';
                             }
                         } else {
@@ -163,6 +156,36 @@
             console.log('zczx');
             window.location.href = "<?php echo URLROOT . '/PatientDashboard/deleteReport/' ?>" + ref_no;
         })
+    </script>
+
+
+    <script>
+        // filer by payment status functions
+        function filterByStatus() {
+            let value = document.getElementById('filterStatus').value;
+            console.log(value);
+            if (value == 'all') {
+                location.reload();
+            }
+            let rows = document.querySelectorAll('tbody tr');
+
+            // disable next and prev button
+            let next_btn =document.getElementById('next');
+            let prev_btn = document.getElementById('prev');
+            next_btn.style.display = 'none';
+            prev_btn.style.display = 'none';
+            console.log(rows);
+
+            rows.forEach(row => {
+                let status = row.querySelector('td .payment_status').innerText;
+                console.log(status)
+                if (value === '' || status === value) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
     </script>
 
     <script src="<?php echo APPROOT . '/public/js/components/table.js' ?>"></script>
