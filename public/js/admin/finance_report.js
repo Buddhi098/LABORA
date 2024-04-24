@@ -12,7 +12,7 @@ for(let i=0 ; i<graph_data.length ; i++){
 let ctx = document.getElementById('myChart').getContext('2d');
 // Set global chart options
 Chart.defaults.font.family = 'Lato';
-Chart.defaults.font.size = 18;
+Chart.defaults.font.size = 16;
 Chart.defaults.color = 'black';
 
 let pieChart = new Chart(ctx, {
@@ -32,7 +32,7 @@ let pieChart = new Chart(ctx, {
     options: {
         plugins: {
             title: {
-                display: true,
+                display: false,
                 text: 'Revenue By Test Type',
                 font: {
                     size: 35
@@ -52,7 +52,7 @@ let pieChart = new Chart(ctx, {
                 left: 0,
                 right: 0,
                 top: 0,
-                bottom: 0
+                bottom: 10,
             }
         },
         tooltips: {
@@ -104,7 +104,7 @@ let barChart = new Chart(ctx2, {
   options: {
     plugins: {
       title: {
-          display: true,
+          display: false,
           text: 'Revenue By Days',
           font: {
               size: 35
