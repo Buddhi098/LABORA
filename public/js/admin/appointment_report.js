@@ -9,11 +9,11 @@ Chart.defaults.color = 'black';
 let pieChart = new Chart(ctx, {
     type: 'doughnut',// bar, horizontalBar, pie, Line, doughnut, radar, polarArea
     data: {
-        labels: ['Complete','Pending'],
+        labels: ['Complete','Pending', 'Cancelled'],
         datasets: [{
             // label: 'Population',
-            data: [25,4],
-            backgroundColor: ['#C9473E', '#78C249'],
+            data: [25,4,3],
+            backgroundColor: ['#C9473E', '#78C249', '#FFD700'],
             borderWidth: 1,
             borderColor: 'yellow',
             hoverBorderWidth: 2,
@@ -23,7 +23,7 @@ let pieChart = new Chart(ctx, {
     options: {
         plugins: {
             title: {
-                display: true,
+                display: false,
                 text: 'Appointment Status',
                 font: {
                     size: 25
@@ -43,7 +43,7 @@ let pieChart = new Chart(ctx, {
                 left: 0,
                 right: 0,
                 top: 0,
-                bottom: 0
+                bottom: 10
             }
         },
         tooltips: {
@@ -97,7 +97,7 @@ let barChart = new Chart(ctx2, {
     plugins: {
       title: {
           display: true,
-          text: 'Appointment Schedule',
+          text: '',
           font: {
               size: 25
           }
@@ -191,10 +191,46 @@ function filterAppointmentsByTime(startTime, endTime) {
       return appointmentHour >= startTime && appointmentHour <= endTime;
   });
 
-  myChart.data.labels = filteredData.map(data => new Date(data.appointmentTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-  myChart.data.datasets[0].data = filteredData.map(data => data.value);
-  myChart.update();
+  myChart3.data.labels = filteredData.map(data => new Date(data.appointmentTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  myChart3.data.datasets[0].data = filteredData.map(data => data.value);
+  myChart3.update();
 }
 
 // Example: Filter appointments between 12:00 PM and 6:00 PM
 filterAppointmentsByTime(12, 18);
+
+
+
+// Function to create PDF from HTML content
+function getPDF(){
+
+  var HTML_Width = $(".content").width();
+  var HTML_Height = $(".content").height();
+  var top_left_margin = 15;
+  var PDF_Width = HTML_Width+(top_left_margin*2);
+  var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+  var canvas_image_width = HTML_Width;
+  var canvas_image_height = HTML_Height;
+
+  var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+
+
+html2canvas($(".content")[0],{allowTaint:true}).then(function(canvas) {
+  canvas.getContext('2d');
+  
+  console.log(canvas.height+"  "+canvas.width);
+  
+  
+  var imgData = canvas.toDataURL("image/jpeg", 1.0);
+  var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+  
+  
+  for (var i = 1; i <= totalPDFPages; i++) { 
+      pdf.addPage(PDF_Width, PDF_Height);
+      pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+  }
+  
+  pdf.save("Appointment Report.pdf");
+});
+};
