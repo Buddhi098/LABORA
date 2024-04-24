@@ -27,6 +27,10 @@
     <!-- delete warning message -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
     <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
+
+    <!-- loading -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/loading.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/loading.js'?>"></script>
     
     <title>Patient dashboard</title>
 </head>
