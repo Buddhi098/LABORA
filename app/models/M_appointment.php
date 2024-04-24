@@ -74,9 +74,17 @@ class M_appointment
                 SET Appointment_Status = 'Canceled'
                 WHERE Id = '$id'");
 
-        $result = mysqli_query($this->conn, "UPDATE appointment
+        $result = mysqli_query($this->conn , "SELECT * FROM appointment WHERE Id='$id'");
+        $result_data = mysqli_fetch_assoc($result);
+
+        if($result_data['payment_status'] == 'paid'){
+            $result = mysqli_query($this->conn, "UPDATE appointment
                 SET refund_status = 'pending'
                 WHERE Id = '$id'");
+        }
+
+        return $result_data;
+
     }
 
     public function sendAppointment($id)
@@ -400,13 +408,18 @@ class M_appointment
 
     public function setApprovedAppointment($ref_no){
         $result = mysqli_query($this->conn , "UPDATE appointment SET Appointment_Status='Approved' WHERE Ref_No='$ref_no'");
-        return $result;
+        $email = mysqli_query($this->conn , "SELECT patient_email  FROM appointment WHERE Ref_No='$ref_no'");
+        $email = mysqli_fetch_assoc($email);
+        return $email['patient_email'];
     }
 
     public function setRejectedAppointment($ref_no , $reason){
         $result = mysqli_query($this->conn , "UPDATE appointment SET Appointment_Status='Rejected' WHERE Ref_No='$ref_no'");
         $result2 = mysqli_query($this->conn , "UPDATE appointment SET reject_note='$reason' WHERE Ref_No='$ref_no'");
-        return $result;
+
+        $patient_email = mysqli_query($this->conn , "SELECT patient_email  FROM appointment WHERE Ref_No='$ref_no'");
+        $patient_email = mysqli_fetch_assoc($patient_email);
+        return $patient_email['patient_email'];
     }
 
     public function removeAppointmentMLT($ref_no){

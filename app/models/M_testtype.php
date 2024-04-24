@@ -43,6 +43,16 @@ class M_testtype
         return $result_set;
     }
 
+    public function getRowNew(){
+        $result = mysqli_query($this->conn, "SELECT * FROM test_type WHERE active_status='1' AND availability='1'");
+        $result_set = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = mysqli_query($this->conn, "SELECT * FROM test_type WHERE active_status='1' AND availability='1' LIMIT 1");
+        $result = mysqli_fetch_assoc($result);
+        $data['table_id'] = $result['id'];
+        $data['result'] = $result_set;
+        return $data;
+    }
+
     public function getAvailableTime($date, $start_time, $end_time)
     {
         $result_set = mysqli_query($this->conn, "SELECT * FROM appointment WHERE Appointment_Date = '$date' AND Appointment_Time BETWEEN '$start_time' AND '$end_time' ORDER BY Appointment_Time DESC LIMIT 1;");
