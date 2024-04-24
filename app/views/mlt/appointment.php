@@ -214,6 +214,20 @@
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
+
+    <!-- loading modal -->
+    <div id="loading-modal" class="loading_modal">
+        <div class="loading_modal-content">
+            <div class="loader">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <p>Sending Email...</p>
+        </div>
+    </div>
+
     <script src="<?php echo APPROOT . '/public/js/components/warningModal.js' ?>"></script>
 
     <script>
@@ -307,8 +321,30 @@
             let ref_no = document.getElementById('hidden3').value;
             let reason = document.getElementById('rejection-reason').value;
             const baseLink = window.location.origin;
-            const link = `${baseLink}/labora/mlt/setAppointmentRejected/${ref_no}/${reason}`;
-            window.location.href = link;
+            const link = `${baseLink}/labora/mlt/setAppointmentRejected/`;
+            closeModal3();
+            showLoadingModal();
+            const formData = new FormData();
+            formData.append('reason', reason);
+            formData.append('ref_no', ref_no);
+            fetch(link, {
+                method: 'POST',
+                body: formData
+            }).then(res => {
+                if(!res.ok){
+                    throw new Error('Failed to reject appointment');
+                }
+
+                return res.json()
+            }).then(data => {
+                if(data.success){
+                    window.location.reload();
+                }
+                hideLoadingModal();
+            }).catch(err => {
+                console.log(err);
+                hideLoadingModal();
+            });
         });
     </script>
 

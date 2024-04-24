@@ -70,10 +70,10 @@
                                 echo "<td><div class='" . $status_cls . "'>" . $report['report_status'] . "</td>";
                                 echo "<td><a href='" . APPROOT . "/mlt/viewReport/" . $report['ref_no'] . "' target='_blank'><button class='btn-0 btn-2'>View</button></a></td>";
                                 if ($report['report_status'] == 'Review By MLT') {
-                                    echo "<td><button class='btn-0 btn-2' onclick=\"openModal1('" . $report['ref_no'] . "')\">Approve</button><button class='btn-0 btn-3' onclick=\"openModal3('" . $report['ref_no'] . "')\">Reject</button></td>";
+                                    echo "<td><button class='btn-0 btn-2' onclick=\"openModal1('" . $report['ref_no'] . "')\">Approve</button><button class='btn-0 btn-3' onclick=\"openModal6('" . $report['ref_no'] . "')\">Reject</button></td>";
                                 } else if ($report['report_status'] == 'Completed' || $report['report_status'] == 'Rejected') {
                                     echo "<td><button class='btn-0 btn-3' onclick=\"openModal3('" . $report['ref_no'] . "')\">Remove</button></td>";
-                                }else if($report['report_status'] == 'Approved'){
+                                } else if ($report['report_status'] == 'Approved') {
                                     echo "<td><button class='btn-0 btn-1' onclick=\"openModal4('" . $report['ref_no'] . "')\">Complete</button></td>";
                                 }
 
@@ -191,11 +191,11 @@
 
 
     <!--reject Modal -->
-    <div class="modal" id="customModal3">
+    <div class="modal" id="customModal6">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Reason for Rejection</h4>
-                <button type="button" onclick="closeModal3()">&times;</button>
+                <button type="button" onclick="closeModal6()">&times;</button>
             </div>
             <div class="modal-body" style="height:250px;">
                 <label for="rejection-reason" style="font-family: Arial, sans-serif; color: #555;">Please provide the
@@ -205,32 +205,55 @@
                     style="font-family: Arial, sans-serif; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; padding: 8px;margin-top:10px;"></textarea>
             </div>
             <div class="modal-footer">
-                <input type="hidden" value="" id="hidden3">
+                <input type="hidden" value="" id="hidden6">
                 <button type="button" class="btn-primary" id='reason_btn'>Submit</button>
-                <button type="button" class="btn-primary" onclick="closeModal3()">Close</button>
+                <button type="button" class="btn-primary" onclick="closeModal6()">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        var modal3 = document.getElementById("customModal3");
+        var modal6 = document.getElementById("customModal6");
 
-        function openModal3(id) {
-            document.getElementById('hidden3').value = id;
-            modal3.style.display = "block";
+        function openModal6(id) {
+            document.getElementById('hidden6').value = id;
+            modal6.style.display = "block";
         }
 
-        function closeModal3() {
-            modal3.style.display = "none";
+        function closeModal6() {
+            modal6.style.display = "none";
         }
 
         var reason_btn = document.getElementById('reason_btn');
         reason_btn.onclick = function () {
-            let ref_no = document.getElementById('hidden3').value;
+            let ref_no = document.getElementById('hidden6').value;
             let reason = document.getElementById('rejection-reason').value;
             const baseLink = window.location.origin;
-            const link = `${baseLink}/labora/mlt/rejectReport/${ref_no}/${reason}`;
-            window.location.href = link;
+            const link = `${baseLink}/labora/mlt/rejectReport/`;
+
+            const formData = new FormData();
+            formData.append('ref_no', ref_no);
+            formData.append('reason', reason);
+
+            fetch(link, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Network Error Occurred'); // Fixed typo: "Occur" -> "Occurred"
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log(data); // Fixed typo: "console.data" -> "console.log"
+                    closeModal6();
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+
         }
     </script>
 
