@@ -321,17 +321,17 @@ body{
   border-radius: 8px;
   padding: 20px;
 
-  width: 63%;
+  width: 65%;
 }
 
-.chart-container2 {
+/* .chart-container2 {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
 
   width: 35%;
-}
+} */
 
 .chart-container h3 {
   font-size: 18px;
@@ -664,27 +664,49 @@ th {
 
 
 
+/* calender container */
+
+.chart-container2{
+  width: 30%;
+  height: 90%;
+  padding: 24px;
+  font-family: roboto;
+  border-radius: 16px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: auto;
+
+  /* background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px; */
+}
+
+
 
 /* calender Styles */
-/* @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
 :root {
   --primary-color: rgb(0, 0, 177);
   --text-color: #1d1d1d;
-  --bg-color: #33186B;
+  --bg-color: #0e266f;
+  /* --bg-color: #33186B; */
 }
 
-
-.container_1 .calendar_1 {
-	font-family: roboto;
-	width: 99%;
-	height: 69%;
+.calendar {
+	width: 103%;
+	height: 104%;
 	max-width: 600px;
 	padding: 30px 20px;
-	background-color: white;
+	background-color: var(--bg-color);
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
-	margin: 40px auto;
 }
-.container_1 .calendar_1 .header {
+.calendar .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -692,18 +714,18 @@ th {
   padding-bottom: 20px;
   border-bottom: 2px solid #ccc;
 }
-.container_1 .calendar_1 .header .month {
-	display: flex;
-	align-items: center;
-	font-size: 23px;
-	font-weight: 600;
-	color: black;
+.calendar .header .month {
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 600;
+  color: white;
 }
-.container_1 .calendar_1 .header .btns {
+.calendar .header .btns {
   display: flex;
   gap: 10px;
 }
-.container_1 .calendar_1 .header .btns .c-btn {
+.calendar .header .btns .btn {
   width: 30px;
   height: 30px;
   display: flex;
@@ -716,11 +738,11 @@ th {
   cursor: pointer;
   transition: all 0.3s;
 }
-.container_1 .calendar_1 .header .btns .c-btn:hover {
+.calendar .header .btns .btn:hover {
   background-color: #db0933;
   transform: scale(1.05);
 }
-.container_1  .weekdays {
+.weekdays {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
@@ -738,17 +760,17 @@ th {
   gap: 10px;
 }
 .days .day {
-	width: calc(100% / 7 - 10px);
-	height: 38px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 5px;
-	font-size: 16px;
-	font-weight: 400;
-	color: var(--text-color);
-	background-color: #fff;
-	transition: all 0.3s;
+  width: calc(100% / 7 - 10px);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: #fff;
+  transition: all 0.3s;
 }
 .days .day:not(.next):not(.prev):hover {
   color: #fff;
@@ -776,4 +798,4 @@ th {
   background-color: green;
   color: white;
   border-radius: 5px;
-} */
+}

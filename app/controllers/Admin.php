@@ -59,29 +59,21 @@
             $this->view("admin/dashboard" , $data);
         }
 
-        // public function getHolidaysCalendar($year, $month)
-        // {
-        //     $result = $this->md_holiday_calendar->getAlldates($year, $month);
-        //     if ($result) {
-        //         echo json_encode($result);
-        //         exit();
-        //     } else {
-        //         $data = [
-        //             'error' => 'No holidays found'
-        //         ];
-        //         echo json_encode($data);
-        //         exit();
-        //     }
+        public function getHolidays($year, $month)
+        {
+            $result = $this->md_holiday_calendar->getAlldates($year, $month);
+            if ($result) {
+                echo json_encode($result);
+                exit();
+            } else {
+                $data = [
+                    'error' => 'No holidays found'
+                ];
+                echo json_encode($data);
+                exit();
+            }
     
-        // }
-        // public function getHolidays()
-        // {
-        //     $holidays = $this->md_holiday->getHolidays();
-        //     $data['holidays'] = $holidays;
-    
-        //     echo json_encode($data);
-        //     exit();
-        // }
+        }
 
        
         public function payment(){
