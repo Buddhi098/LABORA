@@ -301,6 +301,8 @@ function onsitePayment(){
   let method = "onsite"
   let link = `${baseLink}/labora/PatientDashboard/storeAppointment/${method}`
   console.log(link);
+  closeModal();
+  showLoadingModal();
   fetch(link)
     .then(response => {
       if(!response.ok){
@@ -319,7 +321,7 @@ function onsitePayment(){
         showErrorMessage()
       }
 
-      closeModal();
+      hideLoadingModal()
 
 
       document.getElementById('nextBtn').disabled = true;
@@ -327,6 +329,7 @@ function onsitePayment(){
       document.getElementById('nextBtn').style.cursor = 'not-allowed';
     })
     .catch(error => {
+      hideLoadingModal()
       console.error('There wa a problem with the fetch operation: ' , error)
     })
 }

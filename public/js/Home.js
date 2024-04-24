@@ -1,18 +1,32 @@
 let testtype = [];
-function service(id=1){
-    fetch('http://localhost/labora/home/getService')
-    .then((res)=>res.json())
+function service(id=0 , table_id){
+    baseLink = window.location.origin;
+    console.log('asdsa')
+    fetch(`${baseLink}/labora/home/getService/${id}/${table_id}`)
+    .then((res)=>{
+        if(!res.ok){
+            throw new Error('Network Error Occurred');
+        }
+
+        return res.json()
+    })
     .then(response=>{
+
+        console.log(response)
         let output = '';
         let des = '';
         let pre = '';
-
-        for(let i in response){
-            output += '<li onclick="service('+response[i].id+')" id="'+response[i].id+'">'+response[i].Test_type+'</li>';
-            testtype.push([response[i].Test_type , response[i].id]);
-            if(response[i].id==id){
-                des = response[i].Description;
-                pre = response[i].Preparation;
+        console.log(id , table_id)
+        for(let i in response['result']){
+            output += '<li onclick="service('+i+','+response['result'][i].id+')" id="'+i+'">'+response['result'][i].Test_type+'</li>';
+            testtype.push([response['result'][i].Test_type , response['result'][i].id]);
+            if(i==id){
+                des = response['result'][i].Description;
+                pre = '';
+                for(let i=0 ; i<response['preparation'].length ; i++){
+                    pre += `<p>${i+1}. ${response['preparation'][i].preparation}<p>`;
+                }
+                console.log(pre);
             }
         }
         document.getElementById("service-list").innerHTML = output;
