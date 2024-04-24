@@ -31,23 +31,19 @@
 
             <div class="filter-box">
                 <div class="filter-section">
-                    <!-- Add your filter options here -->
-                    <select class="filter-box">
+                    <select class="filter-box" id="filterbyPaymentStatus">
                         <option value="all">All</option>
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
-                        <!-- Add more filter options as needed -->
+                        <option value="paid">Paid</option>
+                        <option value="unpaid">Unpaid</option>
                     </select>
-                    <button class="filter-button">Filter By ID</button>
+                    <button class="filter-button" onclick="filterByPaymentStatus()">Payment Status</button>
                 </div>
                 <div class="filter-section">
-                    <!-- Add your filter options here -->
                     <select class="filter-box" id="filterByStatus">
                         <option value="all">All</option>
                         <option value="Pending">Pending</option>
                         <option value="Canceled">Canceled</option>
                         <option value="Approved">Approved</option>
-                        <!-- Add more filter options as needed -->
                     </select>
                     <button class="filter-button" onclick="filterByStatus()">Filter By Status</button>
                 </div>
@@ -65,7 +61,7 @@
                     <th>Appointment Notes</th>
                     <th>Action</th>
                 </thead>
-                <tbody id="t_body">
+                <tbody class="tbody" id="t_body">
                 </tbody>
             </table>
             <div class="pagination">
@@ -116,6 +112,20 @@
     <script src="<?php echo APPROOT . '/public/js/components/warningModal.js' ?>"></script>
 
 
+    <!-- loading modal -->
+    <div id="loading-modal" class="loading_modal">
+        <div class="loading_modal-content">
+            <div class="loader">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <p>Sending Email...</p>
+        </div>
+    </div>
+
+
 
 
     <!-- warining modal yes button -->
@@ -141,6 +151,19 @@
                     let mockup = ''
                     data['dataset'].reverse()
                     data['dataset'].forEach(row => {
+                        if (row['payment_status'] == 'paid') {
+                            str = 'status-3'
+                        } else if (row['payment_status'] == 'unpaid') {
+                            str = 'status-5'
+                        }
+
+
+                        btn_disable = 'disabled'
+                        btn_clz = 'button_disabled'
+                        if (row['Appointment_Status'] == 'Pending' || row['Appointment_Status'] == 'Approved') {
+                            btn_disable = ''
+                            btn_clz = ''
+                        }
                         mockup += `<tr>
                             <td>${row['Id']}</td>
                             <td>${row['Ref_No']}</td>
@@ -149,9 +172,9 @@
                             <td>${row['Appointment_Time']}</td>
                             <td>${row['Appointment_Duration']}</td>
                             <td><span class="status-indicator" id="status">${row['Appointment_Status']}</span></td>
-                            <td>${row['payment_status']}</td>
+                            <td><div class="${str} payment_status">${row['payment_status']}</div></td>
                             <td>${row['Appointment_Notes']}</td>
-                            <td><button onclick="openModal('${row['Id']}')" id="btn${row['Id']}" class="action-button">Cancel</button></td>
+                            <td><button onclick="openModal('${row['Id']}')" id="btn${row['Id']}" class="btn-0 btn-2 ${btn_clz}" ${btn_disable}>Cancel</button></td>
                         </tr>`
                     })
                     document.getElementById('t_body').innerHTML = mockup;
@@ -164,11 +187,14 @@
                 })
         }
 
-        // filer functions
+        // filer by appointment status functions
         function filterByStatus() {
             let value = document.getElementById('filterByStatus').value;
             console.log(value);
-            let rows = document.querySelectorAll('.table-container tr');
+            if(value=='all'){
+                location.reload();
+            }
+            let rows = document.querySelectorAll('.tbody tr');
 
             console.log(rows);
 
@@ -183,39 +209,61 @@
             });
         }
 
+        // filer by payment status functions
+        function filterByPaymentStatus() {
+            let value = document.getElementById('filterbyPaymentStatus').value;
+            console.log(value);
+            if(value=='all'){
+                location.reload();
+            }
+            let rows = document.querySelectorAll('.tbody tr');
 
+            console.log(rows);
 
-
-        // make status color
-        function makeStatus() {
-            let statuses = document.querySelectorAll('.status-indicator');
-            statuses.forEach(status => {
-                let text = status.innerText.trim();
-                if (text === 'Pending') {
-                    status.classList.add('pending');
-                } else if (text === 'Canceled') {
-                    status.classList.add('rejected');
-                    const row = status.closest('tr');
-
-                    const button = row.querySelector('.action-button');
-
-                    button.disabled = true;
-                    button.style.opacity = 0.8
-                    button.style.cursor = 'not-allowed'
-
-                } else if (text === 'Approved') {
-                    status.classList.add('approved');
-                } else if (text = 'Complete') {
-                    const row = status.closest('tr');
-
-                    const button = row.querySelector('.action-button');
-
-                    button.disabled = true;
-                    button.style.opacity = 0.8
-                    button.style.cursor = 'not-allowed'
+            rows.forEach(row => {
+                let status = row.querySelector('td .payment_status').innerText;
+                console.log(status)
+                if (value === '' || status === value) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
                 }
             });
-        };
+        }
+
+
+
+
+        // // make status color
+        // function makeStatus() {
+        //     let statuses = document.querySelectorAll('.status-indicator');
+        //     statuses.forEach(status => {
+        //         let text = status.innerText.trim();
+        //         if (text === 'Pending') {
+        //             status.classList.add('pending');
+        //         } else if (text === 'Canceled') {
+        //             status.classList.add('rejected');
+        //             const row = status.closest('tr');
+
+        //             const button = row.querySelector('.action-button');
+
+        //             button.disabled = true;
+        //             button.style.opacity = 0.8
+        //             button.style.cursor = 'not-allowed'
+
+        //         } else if (text === 'Approved') {
+        //             status.classList.add('approved');
+        //         } else if (text = 'Complete') {
+        //             const row = status.closest('tr');
+
+        //             const button = row.querySelector('.action-button');
+
+        //             button.disabled = true;
+        //             button.style.opacity = 0.8
+        //             button.style.cursor = 'not-allowed'
+        //         }
+        //     });
+        // };
 
 
 
@@ -225,7 +273,7 @@
 
             let baseLink = window.location.origin;
             let link = `${baseLink}/labora/PatientDashboard/cancelAppointment/${id}`
-
+            showLoadingModal();
             fetch(link)
                 .then(response => {
                     if (!response.ok) {
@@ -237,13 +285,18 @@
                     console.log(data);
                     if (data['status'] == 'success') {
                         showSuccessMessage();
+                        let cancelBtn = document.getElementById('btn' + id);
+                        cancelBtn.disabled = true;
+                        cancelBtn.classList.add('button_disabled')
                         getTableData();
                     } else {
                         showErrorMessage();
                     }
+                    hideLoadingModal();
                 })
                 .catch(error => {
-                    console.error('Error fetching data ', error)
+                    console.error('Error fetching data ', error);
+                    hideLoadingModal();
                 })
 
             modal.style.display = "none";

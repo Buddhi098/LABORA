@@ -61,11 +61,11 @@
                 <tbody>
                     <div class='table_body'>
                         <?php
-                        foreach ($data['reports'] as $report) {
+                        foreach ($data['reports'] as $index => $report) {
                             $btn = '<button class="btn-0 btn-1 button_disabled" onclick="openModal(\'' . $report['ref_no'] . '\')" disabled><i class="fas fa-paper-plane"></i> Send MLT</button>';
-                            $report_view_btn = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] .'" target="_blank"><button class="btn-0 btn-2">View</button></a>';
+                            $report_view_btn = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2">View</button></a>';
                             if ($report['report_status'] == 'Pending') {
-                                $report_view = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] .'" target="_blank"><button class="btn-0 btn-2 button_disabled" disabled>View</button></a>';
+                                $report_view = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2 button_disabled" disabled>View</button></a>';
                                 $str = 'status-8';
                                 $btn = '<a href="' . URLROOT . 'labassistant/getMedicalReportForm/' . $report['test_type_id'] . '/' . $report['email'] . '/' . $report['ref_no'] . '"><button class="btn-0 btn-2"><i class="fas fa-marker"></i> Report</button></a>';
                             } else if ($report['report_status'] == 'Created') {
@@ -94,8 +94,8 @@
                             <td>' . $report['email'] . '</td>
                             <td>' . $report['test_type'] . '</td>
                             <td><span class="' . $str . '">' . $report['report_status'] . '<span></td>
-                            <td>'.$report_view_btn.'</td>
-                            <td><button class="btn-0 btn-2 ' . $disable_cls . '" ' . $disabled . '>View</button></td>
+                            <td>' . $report_view_btn . '</td>
+                            <td><button class="btn-0 btn-2 ' . $disable_cls . '" ' . $disabled . ' onclick=\'openModal5("' . $index . '")\'>View</button></td>
                             <td>' . $btn . '</td>             
                         </tr>';
                         }
@@ -168,11 +168,60 @@
 
     <script>
         let yesBtn1 = document.getElementById('yesBtn');
-        yesBtn1.addEventListener('click' , ()=>{
+        yesBtn1.addEventListener('click', () => {
             let ref_no = document.getElementById('hidden_id').value;
             window.location.href = `http://localhost/labora/labassistant/reportSendToMLT/${ref_no}`;
         })
     </script>
+
+
+    <!-- Modal -->
+    <div class="modal" id="customModal5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Medical Test Details</h4>
+                <button type="button" onclick="closeModal5()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal_info5">Data Not Found</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" onclick="closeModal5()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal5(id) {
+            var modal = document.getElementById("customModal5");
+            modal.style.display = "flex";
+            console.log(id);
+
+            // Assuming $data['reports'] is a PHP array that gets JSON encoded
+            let rejectNotes = <?php echo json_encode($data['reports']) ?>;
+            let rejectNote = rejectNotes[id]['reject_note'];
+
+            console.log(rejectNote);
+            document.getElementById('modal_info5').innerHTML = rejectNote;
+        }
+
+
+        function closeModal5() {
+            var modal = document.getElementById("customModal5");
+            modal.style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function (event) {
+            var modal = document.getElementById("customModal5");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+    </script>
+
+
     <!-- import table javascript -->
     <script src="<?php echo APPROOT . '/public/js/components/table.js' ?>"></script>
 </body>

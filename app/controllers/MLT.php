@@ -12,6 +12,8 @@ class MLT extends Controller
 
     private $md_report;
 
+    private $md_user;
+
     public function __construct()
     {
         $this->auth = new AuthMiddleware();
@@ -21,6 +23,7 @@ class MLT extends Controller
         $this->md_holiday = $this->model('M_holiday_calendar');
         $this->md_appointment = $this->model('M_appointment');
         $this->md_report = $this->model('M_report');
+        $this->md_user = $this->model('M_user');
     }
 
     public function index()
@@ -200,17 +203,32 @@ class MLT extends Controller
     }
 
     public function setAppointmentApproved($ref_no){
-        $result = $this->md_appointment->setApprovedAppointment($ref_no);
+        $email = $this->md_appointment->setApprovedAppointment($ref_no);
         $_SESSION['success_msg'] = 'Appointment approved successfully';
         $data = [];
+
+        $name = $this->md_user->getUserNameByEmail($email);
+        $subject = 'Appointment Approved';
+        $body = 'Your appointment has been approved by the MLT.<br>Ref No: '.$ref_no;
+        sendEmail($email, $name, $body , $subject);
         header('Location: ' . URLROOT . '/MLT/appointment');
     }
 
-    public function setAppointmentRejected($ref_no , $reason){
-        $result = $this->md_appointment->setRejectedAppointment($ref_no, $reason);
+    public function setAppointmentRejected(){
+        $ref_no = $_POST['ref_no'];
+        $reason = $_POST['reason'];
+        $email = $this->md_appointment->setRejectedAppointment($ref_no, $reason);
         $_SESSION['success_msg'] = 'Appointment rejected successfully';
 
-        header('Location: ' . URLROOT . '/MLT/appointment');
+
+        $name = $this->md_user->getUserNameByEmail($email);
+        $subject = 'Appointment Rejected';
+        $body = 'Your appointment has been rejected by the MLT.<br>Ref No: '.$ref_no.'<br> Reason: '.$reason;
+        sendEmail($email, $name, $body , $subject);
+
+        $data['success'] = 'success';
+        echo json_encode($data);
+        exit();
     }
 
     public function removeAppointmentMLT($ref_no){
@@ -243,13 +261,20 @@ class MLT extends Controller
         header('Location: ' . URLROOT . '/MLT/reports');
     }
 
-    public function rejectReport($ref_no , $reason){
+    public function rejectReport(){
+        $ref_no = $_POST['ref_no'];
+        $reason = $_POST['reason'];
         $result = $this->md_report->rejectReport($ref_no, $reason);
         if($result){
             $_SESSION['success_msg'] = 'Report rejected successfully';
+            $data['success'] = 'success';
+            echo json_encode($data);
+            exit();
+        }else{
+            $data['error'] = 'error';
+            echo json_encode($data);
+            exit();
         }
-
-        header('Location: ' . URLROOT . '/MLT/reports');
     }
 
     public function removeReport($ref_no){

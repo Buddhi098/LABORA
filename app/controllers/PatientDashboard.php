@@ -342,11 +342,17 @@ class PatientDashboard extends Controller
     {
         $data = [];
         try {
-            $this->md_appointment->cancelAppointment($id);
+            $appointment = $this->md_appointment->cancelAppointment($id);
 
             $data = [
                 'status' => 'success'
             ];
+
+            $subject = "Appointment Cancellation Notice";
+            $body = "<p>Your appointment has been cancelled successfully.<br>
+                        <strong>Appointment RefNo</strong>: ".$appointment['Ref_No']."</p>";
+
+            sendEmail($_SESSION['useremail'] , $_SESSION['username'] , $body , $subject);
 
             echo json_encode($data);
             exit();
