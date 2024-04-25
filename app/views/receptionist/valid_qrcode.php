@@ -18,7 +18,7 @@
         </div>
         <div class="detail-row">
           <span class="detail-label">Appointment Date:</span>
-          <span class="detail-value"><?php echo $data['appointment']['Ref_No']?></span>
+          <span class="detail-value"><?php echo $data['appointment']['Appointment_Date']?></span>
         </div>
         <div class="detail-row">
           <span class="detail-label">Appointment Time:</span>
@@ -26,7 +26,7 @@
         </div>
         <div class="detail-row">
           <span class="detail-label">Medical Test:</span>
-          <span class="detail-value"><?php echo $data['appointment']['Appointment_Date']?></span>
+          <span class="detail-value"><?php echo $data['appointment']['Test_Type']?></span>
         </div>
         <div class="detail-row">
           <span class="detail-label">Patient Email:</span>
