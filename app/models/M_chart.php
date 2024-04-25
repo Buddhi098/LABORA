@@ -174,7 +174,7 @@
                 FROM
                     appointment
                 WHERE
-                    (Appointment_Status = 'Pending' OR Appointment_Status = 'Complete')
+                    (Appointment_Status = 'Pending' OR Appointment_Status = 'Completed')
                     AND DATE(Appointment_Date) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 6 DAY)
                 GROUP BY
                     DATE(Appointment_Date)
