@@ -45,7 +45,7 @@
                 <div class='table_body'>
                     <tr>
                         <td>1</td>
-                        <td>ML202401</td>
+                        <td>IO-202401</td>
                         <td>MC-001</td>
                         <td>Blood Test Kit</td>
                         <td>2024-04-01</td>
@@ -53,7 +53,7 @@
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>ML202402</td>
+                        <td>IO-202402</td>
                         <td>UR-002</td>
                         <td>Urine Analyzer</td>
                         <td>2024-04-05</td>
@@ -61,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>ML202403</td>
+                        <td>IO-202403</td>
                         <td> XP-003</td>
                         <td> X-Ray Film</td>
                         <td>2024-04-10</td>
@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>ML202404</td>
+                        <td>IO-202404</td>
                         <td>ST-004</td>
                         <td>Sterilization Pouches</td>
                         <td>2024-04-12</td>
