@@ -11,6 +11,8 @@ class receptionist extends Controller
     private $md_holiday;
 
     private $md_user;
+
+    private $md_report;
     public function __construct()
     {
         $this->md_appointment = $this->model('M_appointment');
@@ -18,6 +20,7 @@ class receptionist extends Controller
         $this->md_temp_prescription = $this->model('M_temp_prescription');
         $this->md_holiday = $this->model('M_holiday_calendar');
         $this->md_user = $this->model('M_user');
+        $this->md_report = $this->model('M_report');
 
         $this->auth = new AuthMiddleware();
         $this->auth->authMiddleware('receptionist');
@@ -621,8 +624,38 @@ class receptionist extends Controller
         $pass_key = $this->md_appointment->setPassKey($appointment_id);
         $appointment_data = $this->md_appointment->getAppointmentByID($appointment_id);
 
+        $patient_name = $this->md_user->getPatientName($appointment_data['patient_email']);
         $data['appointment_data'] = $appointment_data;
         $data['pass_key'] = $pass_key;
+
+        // send email to patient
+        $subject = 'Appointment Pass';
+        $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' .  $patient_name . ',</p>
+
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your upcoming appointment:</p>
+            
+            <a href="'.URLROOT.'PatientDashboard/viewPass/'.$appointment_id.'" style="display: inline-block;
+                   padding: 10px 20px;
+                   background-color: #4CAF50;
+                   color: white;
+                   text-align: center;
+                   text-decoration: none;
+                   font-size: 16px;
+                   border-radius: 5px;
+                   border: none;
+                   cursor: pointer;
+                   transition: background-color 0.3s ease;">Get Pass</a>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">This appointment pass is your ticket to your scheduled medical test at LABORA. Please present this pass upon arrival to ensure a smooth check-in process.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Thank you for choosing us.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
+            LABORA<br>';
+
+        sendEmail($appointment_data['patient_email'],  $patient_name, $body, $subject);
 
         $this->view('receptionist/appointment_pass', $data);
 
@@ -643,6 +676,20 @@ class receptionist extends Controller
         $user = $this->md_user->getUser($email);
         $data['appointment'] = $appointment_data;
         $data['user'] = $user;
+
+        $subject = 'Payment Confirmation';
+        $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $user['patient_name'] . ',</p>
+
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your payment for '.$id.' Appointment</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Thank you for choosing us.</p>
+            
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
+            LABORA<br>';
+
+        sendEmail($email, $user['patient_name'], $body, $subject);
 
         $this->view('receptionist/payment_invoice', $data);
     }
@@ -701,6 +748,35 @@ class receptionist extends Controller
 
         sendEmail($email, $name, $body, $subject);
 
+    }
+
+    // for retrieving the medical reports
+
+    public function report()
+    {
+
+        $data = array();
+        $result = $this->md_report->getAllReportsForReceptionist();
+        if ($result) {
+            $data = $result;
+        }
+
+        $this->view("receptionist/reports", $data);
+
+    }
+
+    public function viewReport($report_ref_no)
+    {
+        $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
+
+        $pdfContent = file_get_contents($pdfPath);
+
+        if ($pdfContent === false) {
+            echo "Failed to read the PDF file.";
+        } else {
+            header('Content-Type: application/pdf');
+            echo $pdfContent;
+        }
     }
 
 }
