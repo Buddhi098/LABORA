@@ -139,5 +139,11 @@
                 $result = mysqli_fetch_assoc($result);
                 return $result['patient_name'];
             }
+
+            public function getPatientName($email){
+                $result = mysqli_query($this->conn , "SELECT * FROM patient_data WHERE patient_email='$email'");
+                $result = mysqli_fetch_assoc($result);
+                return $result['patient_name'];
+            }
     }
 ?>
