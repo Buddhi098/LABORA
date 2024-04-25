@@ -96,7 +96,7 @@
         </table>
             <div class="pagination">
             <h5 id="table_data"></h5>
-            <button onclick="previousPage()" >Previous</button>
+            <button onclick="previousPage()" id='prev' >Previous</button>
             <button onclick="nextPage()" id="next">Next</button>
             </div>
         </div>
