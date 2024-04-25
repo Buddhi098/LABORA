@@ -65,8 +65,8 @@
                             echo "<td>".$appointment['Appointment_Date']."</td>";
                             echo "<td>".$appointment['Appointment_Time']."</td>";
                             echo "<td>".$appointment['Appointment_Notes']."</td>";
-                            echo "<td>".$appointment['Appointment_Status']."</td>";
-                            echo "<td>".$appointment['payment_status']."</td>";
+                            echo "<td><div class='status-1'>".$appointment['Appointment_Status']."</div></td>";
+                            echo "<td><div class='status-3'>".$appointment['payment_status']."</div></td>";
                             echo "<td><a href='".URLROOT."receptionist/viewPass/".$appointment['Id']."' target='_blank'><button class='btn-0 btn-2 viewbtn'>View Pass</button></a> <a><button class='btn-0 btn-3 viewbtn' onclick=\"openModal('".$appointment['Id']."')\"><i class='fa-solid fa-trash'></i> Remove</button></a></td>";
                             echo "</tr>";
                         }

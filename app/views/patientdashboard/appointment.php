@@ -50,7 +50,6 @@
             </div>
             <table id="myTable">
                 <thead>
-                    <th>Index</th>
                     <th>Ref No</th>
                     <th>Test Type</th>
                     <th>Appointment Date</th>
@@ -58,7 +57,7 @@
                     <th>Appointment Duration</th>
                     <th>Appointment Status</th>
                     <th>Payment Status</th>
-                    <th>Appointment Notes</th>
+                    <th>Reject Reason</th>
                     <th>Action</th>
                 </thead>
                 <tbody class="tbody" id="t_body">
@@ -125,6 +124,23 @@
         </div>
     </div>
 
+    <!--data Modal -->
+    <div class="modal" id="customModal4">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Medical Test Details</h4>
+                <button type="button" onclick="closeModal4()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal_info">Data Not Found</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" onclick="closeModal4()">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
 
 
 
@@ -134,6 +150,7 @@
             getTableData();
         });
 
+        let dataset = [];
 
         // get table data
         function getTableData() {
@@ -149,12 +166,27 @@
                 .then(data => {
                     console.log(data)
                     let mockup = ''
+                    dataset = data['dataset']
                     data['dataset'].reverse()
-                    data['dataset'].forEach(row => {
+                    data['dataset'].forEach((row, index) => {
                         if (row['payment_status'] == 'paid') {
                             str = 'status-3'
                         } else if (row['payment_status'] == 'unpaid') {
                             str = 'status-5'
+                        }
+
+                        if (row['Appointment_Status'] == 'Pending') {
+                            str2 = 'status-4'
+                        } else if (row['Appointment_Status'] == 'Approved') {
+                            str2 = 'status-3'
+                        } else if (row['Appointment_Status'] == 'Canceled') {
+                            str2 = 'status-5'
+                        } else if (row['Appointment_Status'] == 'Rejected') {
+                            str2 = 'status-5'
+                        } else if (row['Appointment_Status'] == 'Completed') {
+                            str2 = 'status-1'
+                        } else if (row['Appointment_Status'] == 'Expired') {
+                            str2 = 'status-8'
                         }
 
 
@@ -164,16 +196,22 @@
                             btn_disable = ''
                             btn_clz = ''
                         }
+
+                        str5 = ''
+                        str5_btn = ''
+                        if (!row['reject_note']) {
+                            str5 = 'disabled'
+                            str5_btn = 'button_disabled'
+                        }
                         mockup += `<tr>
-                            <td>${row['Id']}</td>
                             <td>${row['Ref_No']}</td>
                             <td>${row['Test_Type']}</td>
                             <td>${row['Appointment_Date']}</td>
                             <td>${row['Appointment_Time']}</td>
                             <td>${row['Appointment_Duration']}</td>
-                            <td><span class="status-indicator" id="status">${row['Appointment_Status']}</span></td>
+                            <td><span class="status-indicator1 ${str2}" id="status">${row['Appointment_Status']}</span></td>
                             <td><div class="${str} payment_status">${row['payment_status']}</div></td>
-                            <td>${row['Appointment_Notes']}</td>
+                            <td><button class="btn-0 btn-2 ${str5_btn}" onclick="openModal4('${index}')" ${str5}>View</button></td>
                             <td><button onclick="openModal('${row['Id']}')" id="btn${row['Id']}" class="btn-0 btn-2 ${btn_clz}" ${btn_disable}>Cancel</button></td>
                         </tr>`
                     })
@@ -187,11 +225,30 @@
                 })
         }
 
+
+        function openModal4(id) {
+            var modal = document.getElementById("customModal4");
+            modal.style.display = "flex";
+            document.getElementById('modal_info').innerHTML = dataset[id]['reject_note']
+        }
+
+        function closeModal4() {
+            var modal = document.getElementById("customModal4");
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById("customModal4");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
         // filer by appointment status functions
         function filterByStatus() {
             let value = document.getElementById('filterByStatus').value;
             console.log(value);
-            if(value=='all'){
+            if (value == 'all') {
                 location.reload();
             }
             let rows = document.querySelectorAll('.tbody tr');
@@ -199,7 +256,7 @@
             console.log(rows);
 
             rows.forEach(row => {
-                let status = row.querySelector('td .status-indicator').innerText;
+                let status = row.querySelector('td .status-indicator1').innerText;
                 console.log(status)
                 if (value === '' || status === value) {
                     row.style.display = 'table-row';
@@ -213,7 +270,7 @@
         function filterByPaymentStatus() {
             let value = document.getElementById('filterbyPaymentStatus').value;
             console.log(value);
-            if(value=='all'){
+            if (value == 'all') {
                 location.reload();
             }
             let rows = document.querySelectorAll('.tbody tr');
