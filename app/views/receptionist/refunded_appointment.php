@@ -62,19 +62,23 @@
                             foreach ($data['appointment_data'] as $appointment) {
                                 if ($appointment['refund_status'] == 'refunded') {
                                     $str = 'disabled';
+                                    $status_cls = 'status-1';
+                                    $btn_cls = 'button_disabled';
                                 } else {
                                     $str = '';
+                                    $status_cls = 'status-4';
+                                    $btn_cls = '';
                                 }
                                 echo "<tr>";
                                 echo "<td>" . $appointment['Ref_No'] . "</td>";
                                 echo "<td>" . $appointment['patient_email'] . "</td>";
                                 echo "<td>" . $appointment['Test_Type'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Date'] . "</td>";
-                                echo "<td>" . $appointment['refund_status'] . "</td>";
+                                echo "<td><div class='".$status_cls."'>" . $appointment['refund_status'] . "</div></td>";
                                 echo "<td>Rs. " . $appointment['cost'] . ".00</td>";
-                                echo "<td>" . $appointment['Appointment_Status'] . "</td>";
-                                echo "<td>" . $appointment['payment_status'] . "</td>";
-                                echo "<td><a><button class='viewbtn btn-0 btn-2' onclick=\"openWarningModal('" . $appointment['Id'] . "' , '" . $appointment['patient_email'] . "')\" " . $str . ">Pay Refund</button></a></td>";
+                                echo "<td><div class='status-5'>" . $appointment['Appointment_Status'] . "</div></td>";
+                                echo "<td><div class='status-1'>" . $appointment['payment_status'] . "</div></td>";
+                                echo "<td><a><button class='viewbtn btn-0 btn-2 ".$btn_cls."' onclick=\"openWarningModal('" . $appointment['Id'] . "' , '" . $appointment['patient_email'] . "')\" " . $str . ">Pay Refund</button></a></td>";
                                 echo "</tr>";
                             }
                         } else {
