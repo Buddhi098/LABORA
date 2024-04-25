@@ -140,17 +140,18 @@ let barChart = new Chart(ctx2, {
 
 
 const appointmentData = [
-  { appointmentTime: '2023-01-01 09:00:00', value: 10 },
+  { appointmentTime: '2023-01-01 08:00:00', value: 10 },
+  { appointmentTime: '2023-01-01 09:00:00', value: 20 },
   { appointmentTime: '2023-01-01 10:30:00', value: 12 },
   { appointmentTime: '2023-01-01 12:00:00', value: 9},
   { appointmentTime: '2023-01-01 14:00:00', value: 14 },
   { appointmentTime: '2023-01-01 15:30:00', value: 11 },
   { appointmentTime: '2023-01-01 16:00:00', value: 13 },
   { appointmentTime: '2023-01-01 17:30:00', value: 15 },
-  { appointmentTime: '2023-01-01 18:00:00', value: 16 },
-  { appointmentTime: '2023-01-01 19:30:00', value: 17 },
-  { appointmentTime: '2023-01-01 21:30:00', value: 19 },
-  { appointmentTime: '2023-01-01 22:00:00', value: 20 }
+  { appointmentTime: '2023-01-01 18:00:00', value: 6 },
+  // { appointmentTime: '2023-01-01 19:30:00', value: 0 },
+  // { appointmentTime: '2023-01-01 21:30:00', value: 0 },
+  // { appointmentTime: '2023-01-01 22:00:00', value: 0 }
 ];
 
 // Create the line chart

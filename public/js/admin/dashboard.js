@@ -14,7 +14,7 @@ const ctx = document.getElementById('myChart');
     options: {
       scales: {
         y: {
-          beginAtZero: false
+          beginAtZero: true
         }
       }
     }

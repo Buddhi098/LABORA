@@ -163,18 +163,18 @@
                 <div><canvas id="myChart4"></canvas></div>
             </div>
             <div class="chart-container2">
-                <h3>Calender</h3>
-                <!-- <div class="calendar_1">
+                <!-- <h3>Calender</h3> -->
+                    <div class="calendar">
                         <div class="header">
                             <div class="month"></div>
                             <div class="btns">
-                                <div class="c-btn today-btn">
+                                <div class="btn today-btn">
                                     <i class="fas fa-calendar-day"></i>
                                 </div>
-                                <div class="c-btn prev-btn">
+                                <div class="btn prev-btn">
                                     <i class="fas fa-chevron-left"></i>
                                 </div>
-                                <div class="c-btn next-btn">
+                                <div class="btn next-btn">
                                     <i class="fas fa-chevron-right"></i>
                                 </div>
                             </div>
@@ -189,9 +189,10 @@
                             <div class="day">Sat</div>
                         </div>
                         <div class="days">
+                            <!-- lets add days using js -->
                         </div>
                     </div>
-                </div> -->
+                
                 
             </div>
 
@@ -235,7 +236,6 @@
             
         }
     </script>
-    <!-- <script>window.onload = getHolidays();</script> -->
 
 </body>
 
