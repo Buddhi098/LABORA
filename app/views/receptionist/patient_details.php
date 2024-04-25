@@ -25,24 +25,6 @@
             <input type="text" class="search-box" id="searchInput" placeholder="Search...">
             <button class="search-button">Search</button>
             </div>
-            <div class="filter-box">
-                <div class="filter-section">
-                    <select class="filter-box">
-                    <option value="all">All</option>
-                    <option value="category1">Category 1</option>
-                    <option value="category2">Category 2</option>
-                    </select>
-                    <button class="filter-button">Filter By ID</button>
-                </div>
-                <div class="filter-section">
-                    <select class="filter-box">
-                    <option value="all">All</option>
-                    <option value="category1">Category 1</option>
-                    <option value="category2">Category 2</option>
-                    </select>
-                    <button class="filter-button">Filter By Email</button>
-                </div>
-            </div>
             <table id="myTable">
             <thead>
                 <th>Patient ID</th>

@@ -19,6 +19,16 @@ class M_report
         }
     }
 
+    public function getAllReportsForReceptionist(){
+        $result = mysqli_query($this->conn, "SELECT * FROM medical_report");
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if (!empty($rows)) {
+            return $rows;
+        } else {
+            return false;
+        }
+    }
+
     public function deleteFromId($id)
     {
         $result = mysqli_query($this->conn, "DELETE FROM medical_report WHERE id = '$id';");

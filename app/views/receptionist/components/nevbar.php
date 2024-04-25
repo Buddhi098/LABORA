@@ -48,6 +48,12 @@
                     <span class="title">Patient Details</span>
                     </a>
                 </li>
+                <li id="2">
+                    <a href="<?php echo URLROOT;?>receptionist/report">
+                    <span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
+                    <span class="title">Medical Reports</span>
+                    </a>
+                </li>
                 <li id="3-multi">
                     <a href="<?php echo URLROOT;?>receptionist/approved_appointment">
                     <span class="icon"><ion-icon name="calendar-number-outline"></ion-icon></span>
