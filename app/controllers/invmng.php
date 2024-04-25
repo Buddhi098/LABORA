@@ -60,8 +60,22 @@
 
         public function expiredChemicals(){
             $data = [];
-            $table_data = $this->md_expire->getExpiredItem();
+            $table_data = $this->md_item->getExpiredItem();
             $this->view("invmng/expiredChemicals" , $table_data);
+        }
+
+        public function deleteExpiredItem($itemId)
+        {
+            
+            $result = $this->md_item->deleteExpiredItem($itemId);
+
+            if ($result) {
+                // Item deleted successfully
+                echo json_encode(['success' => true]);
+            } else {
+                // Error occurred during deletion
+                echo json_encode(['success' => false, 'error' => 'An error occurred while deleting the item']);
+            }
         }
 
 
@@ -144,6 +158,7 @@
         public function reorder(){
 
             $data = [];
+            $data = $this -> md_item->getReorderData();
             $this->view("invmng/reorder" , $data);
         }
 
