@@ -720,5 +720,14 @@ class PatientDashboard extends Controller
         ];
         $this->view('patientdashboard/appointment_finish', $data);
     }
+
+    // for viewing the pass
+    public function viewPass($appointment_id)
+    {
+        $appointment_data = $this->md_appointment->getAppointmentByID($appointment_id);
+        $data['appointment_data'] = $appointment_data;
+        $data['pass_key'] = $appointment_data['pass_code'];
+        $this->view('patientdashboard/appointment_pass', $data);
+    }
 }
 ?>
