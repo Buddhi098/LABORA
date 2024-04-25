@@ -15,7 +15,12 @@
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>
+
+    
+
     <div class="container_1">
+
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
 
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i>Supply Requests</h2>
@@ -36,22 +41,13 @@
                 </select>
                 <button class="filter-button">Filter By Status</button>
             </div>
-            <div class="filter-section">
-                <select class="filter-box">
-                <option value="all">All</option>
-                <option value="department1">Department 1</option>
-                <option value="department2">Department 2</option>
-                </select>
-                <button class="filter-button">Filter By Department</button>
-            </div>
         </div>
 
         <table id="myTable">
             <thead>
-                <th>Request ID</th>
-                <th>Requested By</th>
+                <th>Request ID</th>          
                 <th>Request Date</th>
-                <th>Requested Delivery Date</th>
+                <th>Delivery Date</th>
                 <th>Status</th>
                 <th>Items Requested</th>
                 <th>Note</th>
@@ -59,24 +55,64 @@
             </thead>
             <tbody>
                 <div class='table_body'>
-                    <?php
-                    $array = array_reverse($data, true);
+                    <?php foreach($data['request_data'] as $request){
 
-                    foreach($array as $index=>$row){
-                        echo '
-                            <tr>
-                            <td>'.$row['request_id'].'</td>
-                            <td>'.$row['requested_by'].'</td>
-                            <td>'.$row['request_date'].'</td>
-                            <td>'.$row['requested_delivery_date'].'</td>
-                            <td>'.$row['status'].'</td>
-                            <td><button href="#" class="action-button" onclick="getItems('.$row['request_id'].')">View</button></td>
-                            <td>'.$row['notes'].'</td>
-                            <td>
-                                <button href="#" class="action-button" onclick="approveRequest('.$row['request_id'].')">Approve</button>
-                                <button href="#" class="action-button" onclick="denyRequest('.$row['request_id'].')">Deny</button>
-                            </td>
-                            </tr>';
+                        if ($request['status'] === 'Pending') {
+                            $text_1 = "Approve";
+                            $class_1 = "btn-0 btn-6";
+                            $text_2 = "Deny";
+                            $class_2 = "btn-0 btn-3";
+                        }
+                        else if ($request['status'] === 'Approved') {
+                            $text_1 = "Delivered";
+                            $class_1 = '';
+                            $text_2 = " ";
+                            $class_2 = " ";
+                        }
+                        else if ($request['status'] === 'Canceled') {
+                            $text_1 = "Remove";
+                            $class_1 = 'btn-0 btn-7';
+                            $text_2 = " ";
+                            $class_2 = " ";
+                        }
+                        else if($request['status'] === 'Denied') {
+                            $text_1 = "Remove";
+                            $class_1 = 'btn-0 btn-7';
+                            $text_2 = " ";
+                            $class_2 = " ";
+                        } 
+
+                        if ($request['status'] === 'Pending') {
+                            $text_status = "Pending Approval";
+                            $class_status = "status-1";
+                        }
+                        else if ($request['status'] === 'Approved') {
+                            $text_status = "Approved";
+                            $class_status = "status-3";
+                        }
+                        else if ($request['status'] === 'Canceled') {
+                            $text_status = "Canceled";
+                            $class_status = "status-5";
+                        }
+                        else if ($request['status'] === 'Denied') {
+                            $text_status = "Canceled";
+                            $class_status = "status-5";
+                        }
+                   
+                         
+                         echo "<tr>";
+                         echo "<td>".$request['request_id']."</td>";
+                         echo "<td>".$request['request_date']."</td>";
+                         echo "<td>".$request['delivered_date']."</td>";
+                         echo "<td><a class='" .$class_status ."'>" . $text_status . "</a></td>";
+                         echo "<td><button class='action-button' onclick=\"getItems('".$request['id']."')\">View</button></td>";
+                         echo "<td>".$request['note']."</td>";
+                         echo "<td>
+                                <button class='".$class_1."' onclick=\"handleRequestAction('".$request['id']."','".$request['status']."')\">" . $text_1 . "</button>
+                        
+                                <button class='".$class_2."' onclick=\"denyRequest('".$request['id']."')\">" . $text_2 . "</button>
+                            </td>";
+                        echo "</tr>";
                     }
                     ?>
                 </div>
@@ -121,10 +157,47 @@
     </div>
   </div>
 
-    <!-- import table javascript -->
-    <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
-</body>
-</html>
+        <!-- Confirmation Modal for Approving Request -->
+<div class="confirmation-modal" id="confirmApproveModal">
+    <div class="confirmation-modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Are you sure you want to approve this request?</p>
+        <div class="btn-container">
+            <button id="confirmApproveBtn">Yes</button>
+            <button onclick="closeModal()">No</button>
+        </div>
+        <!-- Hidden input field to store the request ID -->
+        <input type="hidden" id="confirmRequestID">
+    </div>
+</div>
+
+<!-- Confirmation Modal for Denying Request -->
+<div class="confirmation-modal" id="confirmDenyModal">
+    <div class="confirmation-modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Are you sure you want to deny this request?</p>
+        <div class="btn-container">
+            <button id="confirmDenyBtn">Yes</button>
+            <button onclick="closeModal()">No</button>
+        </div>
+        <!-- Hidden input field to store the request ID -->
+        <input type="hidden" id="confirmRequestID">
+    </div>
+</div>
+
+<!-- Confirmation Modal for Removing Request -->
+<div class="confirmation-modal" id="confirmRemoveModal">
+    <div class="confirmation-modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Are you sure you want to remove this request?</p>
+        <div class="btn-container">
+            <button id="confirmRemoveBtn">Yes</button>
+            <button onclick="closeModal()">No</button>
+        </div>
+        <!-- Hidden input field to store the request ID -->
+        <input type="hidden" id="confirmRequestID">
+    </div>
+</div>
 
 <script>
     function getItems(request_id){
@@ -164,3 +237,93 @@
 
             }
 </script>
+
+
+
+<script>
+
+// Function to handle the button click based on the request status
+function handleRequestAction(request_id, status) {
+    document.getElementById('confirmRequestID').value = request_id;
+
+    if (status === 'Pending') {
+        document.getElementById('confirmApproveModal').style.display = 'block';
+        document.getElementById('confirmApproveBtn').addEventListener('click', confirmApprove);
+    } else if (status === 'Canceled' || status === 'Denied') {
+        document.getElementById('confirmRemoveModal').style.display = 'block';
+        document.getElementById('confirmRemoveBtn').addEventListener('click', confirmRemove);
+    }
+}
+
+// Function to deny a supply request
+function denyRequest(request_id) {
+    document.getElementById('confirmDenyModal').style.display = 'block';
+    document.getElementById('confirmRequestID').value = request_id;
+
+    // Add event listener to the "Yes" button
+    document.getElementById('confirmDenyBtn').addEventListener('click', confirmDeny);
+}
+
+// Function to handle approval confirmation
+function confirmApprove() {
+    var request_id = document.getElementById('confirmRequestID').value;
+
+    // Here, you can perform further processing such as making an AJAX request to update the request status
+    // Once the request is processed, you can display a success message or reload the page
+
+    // For demonstration purposes, let's display a success message
+    alert('Request approved successfully.');
+
+    // Close the confirmation modal
+    closeModal();
+}
+
+// Function to handle denial confirmation
+function confirmDeny() {
+    var request_id = document.getElementById('confirmRequestID').value;
+
+    // Here, you can perform further processing such as making an AJAX request to update the request status
+    // Once the request is processed, you can display a success message or reload the page
+
+    // For demonstration purposes, let's display a success message
+    alert('Request denied successfully.');
+
+    // Close the confirmation modal
+    closeModal();
+}
+
+// Function to handle request removal confirmation
+function confirmRemove() {
+    var request_id = document.getElementById('confirmRequestID').value;
+
+    // Here, you can perform further processing such as making an AJAX request to remove the request from the database
+    // Once the request is processed, you can display a success message or reload the page
+
+    // For demonstration purposes, let's display a success message
+    alert('Request removed successfully.');
+
+    // Close the confirmation modal
+    closeModal();
+}
+
+// Function to close the confirmation modal without taking any action
+function closeModal() {
+    // Remove the event listeners from the "Yes" buttons
+    document.getElementById('confirmApproveBtn').removeEventListener('click', confirmApprove);
+    document.getElementById('confirmDenyBtn').removeEventListener('click', confirmDeny);
+    document.getElementById('confirmRemoveBtn').removeEventListener('click', confirmRemove);
+
+    // Hide the confirmation modals
+    document.getElementById('confirmApproveModal').style.display = 'none';
+    document.getElementById('confirmDenyModal').style.display = 'none';
+    document.getElementById('confirmRemoveModal').style.display = 'none';
+}
+
+</script>
+
+
+
+    <!-- import table javascript -->
+    <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+</body>
+</html>

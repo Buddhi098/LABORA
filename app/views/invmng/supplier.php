@@ -16,6 +16,7 @@
 <body>
     <?php require_once 'components/nevbar.php' ?>
     <div class="container_1">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
 
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i> Suppliers</h2>

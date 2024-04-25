@@ -13,26 +13,16 @@
     overflow: auto;
     font-family: roboto;
 }
-
+/* 
 .tablename {
     color: #007bff;
     padding: 10px;
     font-size: 20px;
 }
 
-.container_1 .line{
-    position: absolute;
-    top: 75px;
-    left: 157px;
-    width: 40px;
-    color: red;
-    background-color: red;
-    height: 2.4px;
-}
-
 .tablename h3 {
     margin: 0;
-}
+} */
 
 /* Style the search bar */
 .searchbar .search{

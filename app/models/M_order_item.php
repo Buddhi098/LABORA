@@ -24,7 +24,13 @@
             // }
 
             public function getOrderItem($order_id){
-                $result = mysqli_query($this->conn , "SELECT CONCAT('IT-' , id) AS item_id , item_name , quantity  , note FROM order_item WHERE order_id='$order_id'");
+                $result = mysqli_query($this->conn , "SELECT 
+                CONCAT('IT-' , id) AS item_id , 
+                item_name , 
+                quantity  , 
+                note 
+                FROM order_item 
+                WHERE order_id='$order_id'");
                 $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 return $result_data;
             }

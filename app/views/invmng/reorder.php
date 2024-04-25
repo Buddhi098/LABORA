@@ -25,6 +25,7 @@
                     <th>Item Name</th>
                     <th>Quantity in the stock</th>
                     <th>Reorder Limit</th>
+                    
             </thead >
         <tbody>
                 <div class='table_body'>
@@ -34,11 +35,11 @@
                     foreach ($reversedArray as $index => $row) {
                         echo '
                         <tr>
-                        <td>'.$row['item_id'].'</td>
-                        <td>'.$row['item_name'].'</td>
                         <td>'.$row['id'].'</td>
-                        <td>'.$row['expire_date'].'</td>
-                        <td>'.$row['quantity'].'</td>
+                        <td>'.$row['Item_name'].'</td>
+                        <td>'.$row['id'].'</td>
+                        <td>'.$row['reorder_limit'].'</td>
+                      
                         </tr>';
                     }
                 

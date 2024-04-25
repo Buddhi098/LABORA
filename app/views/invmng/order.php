@@ -16,6 +16,7 @@
 <body>
     <?php require_once 'components/nevbar.php' ?>
     <div class="container_1">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
 
     <div class="table-container">
         <h2><i class="fa-solid fa-calendar-check"></i> Purchase Order</h2>
@@ -39,10 +40,13 @@
             <div class="filter-section">
                 <select class="filter-box">
                 <option value="all">All</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
+                <option value="category1">Placed Order</option>
+                <option value="category2">Invoice Recieved</option>
+                <option value="category1">Order Confirmed</option>
+                <option value="category2">Completed</option>
+                <option value="category1">Canceled</option>
                 </select>
-                <button class="filter-button">Filter By Email</button>
+                <button class="filter-button">Filter By Status</button>
             </div>
         </div>
         <table id="myTable">
@@ -55,26 +59,66 @@
                 <th>Status</th>
                 <th>Items Ordered</th>
                 <th>Invoices</th>
+                <th>Action</th>
                 
             </thead >
         <tbody>
                 <div class='table_body'>
-                    <?php
-                    $array = array_reverse($data , true);
+                    <?php foreach ($data['table_data'] as $order) {
+                        if ($order['status'] === 'received invoice') {
+                            $text = "Confirm";
+                            $class = "btn-0 btn-8";
+                        }
+                        else if ($order['status'] === 'confirmed order') {
+                            $text = "Add to Inventory";
+                            $class = 'btn-0 btn-1';
+                        }
+                        else if ($order['status'] === 'Placed Order') {
+                            $text = "Cancel";
+                            $class = 'btn-0 btn-3';
+                        }
+                        else if ($order['status'] === 'complete') {
+                            $text = "Remove";
+                            $class = 'action-button-edit';
+                        } 
+                        else{
+                            $text = " ";
+                            $class = " ";
+                        }
 
-                    foreach($array as $index=>$row){
-                        echo '
-                            <tr>
-                            <td>'.$row['orderid'].'</td>
-                            <td>'.$row['Supplier_name'].'</td>
-                            <td>'.$row['order_date'].'</td>
-                            <td>'.$row['expected_date'].'</td>
-                            <td>Not_Available</td>
-                            <td>'.$row['status'].'</td>
-                            <td><button href="#" class="action-button" onclick="getItems('.$row['id'].')">View</button></td>
-                            <td>Not_Available</td>
-                            
-                            </tr>';
+                        if ($order['status'] === 'Placed Order') {
+                            $text_status = "Placed Order";
+                            $class_status = 'status-4';
+                        }
+                        else if ($order['status'] === 'received invoice') {
+                            $text_status = "Invoice Received";
+                            $class_status = 'status-1';
+                        }
+                        else if ($order['status'] === 'confirmed order') {
+                            $text_status = "Confirmed";
+                            $class_status = 'status-3';
+                        }
+                        else if ($order['status'] === 'complete') {
+                            $text_status = "Completed";
+                            $class_status = 'status-2';
+                        } 
+                        else{
+                            $text_status = "Canceled";
+                            $class_status = 'status-5';
+                        } 
+                         
+                         
+                        echo "<tr>";
+                        echo "<td>".$order['orderid']."</td>";
+                        echo "<td>".$order['Supplier_name']."</td>";
+                        echo "<td>".$order['order_date']."</td>";
+                        echo "<td>".$order['expected_date']."</td>";
+                        echo "<td>Not_Available</td>";
+                        echo "<td><a class='" .$class_status ."'>" . $text_status . "</a></td>";
+                        echo "<td><button class='action-button' onclick=\"getItems('".$order['id']."')\">View</button></td>";
+                        echo "<td>Not_Available</td>";
+                        echo "<td><button class='" .$class ."'>" . $text . "</button></td>";
+                        echo "</tr>";    
 
                     }
                     
@@ -165,3 +209,4 @@
 
             }
 </script>
+
