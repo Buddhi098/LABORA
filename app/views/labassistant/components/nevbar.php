@@ -66,7 +66,7 @@
                 <li>
                     <a href="http://localhost/labora/labassistant/report">
                     <span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
-                    <span class="title">report</span>
+                    <span class="title">Reports</span>
                     </a>
                 </li>
             </ul>

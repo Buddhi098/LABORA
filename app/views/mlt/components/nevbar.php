@@ -57,7 +57,7 @@
                 <li>
                     <a href="http://localhost/labora/MLT/reports">
                     <span class="icon"><ion-icon name="reader"></ion-icon></span>
-                    <span class="title">Medical reports</span>
+                    <span class="title">Medical Reports</span>
                     </a>
                 </li>
                 <li>
