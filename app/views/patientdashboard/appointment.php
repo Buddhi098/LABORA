@@ -94,7 +94,7 @@
             <lord-icon src="https://cdn.lordicon.com/guqkthkk.json" trigger="in" delay="15" state="in-reveal">
             </lord-icon>
         </div>
-        <p> Success! Appointment Scheduled.</p>
+        <p id='success_msg'> Success! Appointment Scheduled.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
@@ -106,6 +106,22 @@
         <p id="error_msg">Error! Your action was failed.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
+
+    <!-- for showing sucess message -->
+    <script>
+        window.onload = showMessage();
+
+        function showMessage() {
+            let success = <?php echo isset($_SESSION["success_msg"]) ? json_encode($_SESSION["success_msg"]) : ""; ?>;
+            <?php unset($_SESSION["success_msg"]); ?>;
+            if (success.trim() !== "") {
+                console.log(success);
+                document.getElementById('success_msg').innerHTML = success;
+                showSuccessMessage();
+            }
+        }
+    </script>
+
 
     <!-- table js -->
     <script src="<?php echo APPROOT . '/public/js/components/table.js' ?>"></script>
