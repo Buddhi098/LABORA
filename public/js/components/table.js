@@ -2,7 +2,6 @@
 let currentPage = 1;
 
 function showPage(page) {
-    console.log('asda')
     const rows = document.querySelectorAll('tbody tr');
     const rowsPerPage = 5; 
 
@@ -94,3 +93,29 @@ function searchTable() {
 }
 
 document.getElementById('searchInput').addEventListener('input', searchTable);
+
+
+
+// filer functions
+function filterFunction($input_id , tr_selector , td_selector) {
+    let value = document.getElementById($input_id).value;
+    console.log(value);
+    console.log(tr_selector);
+    console.log(td_selector)
+    if (value == 'all') {
+        location.reload();
+    }
+    let rows = document.querySelectorAll(tr_selector);
+
+    console.log(rows);
+
+    rows.forEach(row => {
+        let status = row.querySelector(td_selector).innerText;
+        console.log(status)
+        if (value === '' || status === value) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}

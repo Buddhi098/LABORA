@@ -88,6 +88,10 @@
             </div>
         </div>
     </div>
+
+    <!--add hover effect to the table -->
+    <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
+    
 </body>
 </html>
 

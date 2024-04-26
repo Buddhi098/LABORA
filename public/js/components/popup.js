@@ -1,3 +1,5 @@
+
+
 function showSuccessMessage() {
     var message = document.getElementById('successMessage');
     message.classList.add('show-message');
@@ -5,7 +7,7 @@ function showSuccessMessage() {
     // Hide message after 3 seconds
     setTimeout(function() {
       hideSuccessMessage();
-    }, 3000);
+    }, 8000);
   }
 
   function showErrorMessage() {
@@ -15,7 +17,7 @@ function showSuccessMessage() {
     // Hide message after 3 seconds
     setTimeout(function() {
       hideErrorMessage();
-    }, 3000);
+    }, 8000);
   }
 
   function hideSuccessMessage() {

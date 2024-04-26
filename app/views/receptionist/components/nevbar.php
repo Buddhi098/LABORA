@@ -13,9 +13,19 @@
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <!-- annimation icons -->
-    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    
+
+    <!--Modal -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/modal.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/modal.js'?>"></script>
+
+    <!-- popup messages -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
+
+    <!-- delete warning message -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
+    <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
+
     <title>Patient dashboard</title>
 </head>
 <body>
@@ -26,28 +36,28 @@
                 <h2>Sahanya Labs</h2>
             </div>
             <ul>
-                <li>
-                    <a href="<?php echo APPROOT.'/public/';?>receptionist/dashboard">
+                <li id="1">
+                    <a href="<?php echo URLROOT;?>receptionist/dashboard">
                     <span class="icon"><ion-icon name="grid"></ion-icon></span>
                     <span class="title">Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo APPROOT.'/public/';?>receptionist/register">
+                <li id="2">
+                    <a href="<?php echo URLROOT;?>receptionist/patient_details">
                     <span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
-                    <span class="title">Register Patient</span>
+                    <span class="title">Patient Details</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo APPROOT.'/public/';?>receptionist/appointment">
+                <li id="2">
+                    <a href="<?php echo URLROOT;?>receptionist/report">
+                    <span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
+                    <span class="title">Medical Reports</span>
+                    </a>
+                </li>
+                <li id="3-multi">
+                    <a href="<?php echo URLROOT;?>receptionist/approved_appointment">
                     <span class="icon"><ion-icon name="calendar-number-outline"></ion-icon></span>
                     <span class="title">Appointment</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo APPROOT.'/public/';?>receptionist/payment">
-                    <span class="icon"><ion-icon name="card-outline"></ion-icon></span>
-                    <span class="title">Payment</span>
                     </a>
                 </li>
             </ul>
@@ -82,6 +92,8 @@
             </div>
         </div>
     </div>
+
+    <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
 </body>
 </html>
 

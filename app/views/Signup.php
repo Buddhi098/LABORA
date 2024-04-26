@@ -49,7 +49,11 @@
                         </div>
                         <div class="double">
                             <label for="patient_dob">Date of Birth</label><br>
-                            <input type="date" id="patient_dob" name="patient_dob" max="2023-11-1" value="<?php echo $data['dob'];?>" required> <br>
+                            <?php
+                                $maxDate = new DateTime();
+                                $maxDateFormatted = $maxDate->format('Y-m-d');
+                            ?>
+                            <input type="date" id="patient_dob" name="patient_dob" max="<?php echo $maxDateFormatted?>" value="<?php echo $data['dob'];?>" required> <br>
                         </div>
                     </div>
                     

@@ -14,65 +14,72 @@
     <title>Inventory Manager dashboard</title>
 </head>
 <body>
-<?php require_once 'components/invnavbar.php' ?>
+    <?php require_once 'components/nevbar.php' ?>
     <div class="container_1">
 
-        <div class="tablename">
-            <h3>Inventory Item Details</h3>
+    <div class="table-container">
+        <h2><i class="fa-solid fa-calendar-check"></i> Products</h2>
+        
+        <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search...">
+        <button class="search-button">Search</button>
         </div>
-        <div class="line"></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item ID</th>
-                        <th>Item Name</th>
-                        <th>Reorder Level</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($item_details as $item): ?>
-                        <tr>
-                            <td><?php echo $item['Item_Id']; ?></td>
-                            <td><?php echo $item['Item_Name']; ?></td>
-                            <td><?php echo $item['Reorder_Level']; ?></td>
-                            <td></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Supplier ID</th>
-                        <th>Added Date</th>
-                        <th>Expired Date</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($item_details as $item): ?>
-                        <tr>
-                            <td><?php echo $item['Supplier_Id']; ?></td>
-                            <td><?php echo $item['Added_Date']; ?></td>
-                            <td><?php echo $item['Expired_Date']; ?></td>
-                            <td><?php echo $item['Quantity']; ?></td>
-                            <td><a href="#" class="edit" >Edit</a>
-                                <a href="#" class="del" >Delete</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-
-                
-    </tr>
-        </tbody>
+        <div class="filter-box">
+            <div class="filter-section">
+                <select class="filter-box">
+                <option value="all">All</option>
+                <option value="category1">Category 1</option>
+                <option value="category2">Category 2</option>
+                </select>
+                <button class="filter-button">Filter By ID</button>
+            </div>
+            <div class="filter-section">
+                <select class="filter-box">
+                <option value="all">All</option>
+                <option value="category1">Category 1</option>
+                <option value="category2">Category 2</option>
+                </select>
+                <button class="filter-button">Filter By Email</button>
+            </div>
+        </div>
+        <table id="myTable">
+            <thead>
+                    <th>Index</th>
+                    <th>Supplier</th>
+                    <th>Added Date</th>
+                    <th>Expire Date</th>
+                    <th>Quantity</th>
+            </thead >
+        <tbody>
+                <div class='table_body'>
+              
+                <?php
+                    if (count($data) > 0) {
+                        foreach ($data as $index => $row) {
+                            echo '
+                            <tr>
+                                <td>' . $index . '</td>
+                                <td>' . $row['item_name'] . '</td>
+                                <td>' . $row['manufacturer'] . '</td>
+                                <td>' . $row['expire_date'] . '</td>
+                                <td>' . $row['quantity'] . '</td>
+                            </tr>';
+                        }
+                    }
+                    ?>
+                </div>
+            </tbody>
         </table>
+            <div class="pagination">
+            <h5 id="table_data"></h5>
+            <button onclick="previousPage()" >Previous</button>
+            <button onclick="nextPage()" id="next">Next</button>
+            </div>
         </div>
     </div>
-   
+
+    <!-- import table javascript -->
+    <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <title>Patient dashboard</title>
+    <title>Appointment</title>
 </head>
 <!--Only temporary-->
 <body>
@@ -54,34 +54,49 @@
                 <th>Appointment Duration</th>
                 <th>Appointment Status</th>
                 <th>Appointment Notes</th>
-                <th>Action</th>
         </thead >
         <tbody>
                 <div class='table_body'>
                     <?php
-                        $reversedArray = array_reverse($data, true);
-                        foreach ($reversedArray as $row) {
-                            echo '<tr>
-                            <td>'.$row['Id'].'</td>
-                            <td>'.$row['patient_name'].'</td>
-                            <td>'.$row['Ref_No'].'</td>
-                            <td>'.$row['Test_Type'].'</td>
-                            <td>'.$row['Appointment_Date'].'</td>
-                            <td>'.$row['Appointment_Time'].'</td>
-                            <td>'.$row['Appointment_Duration'].'</td>
-                            <td>'.$row['Appointment_Status'].'</td>
-                            <td>'.$row['Appointment_Notes'].'</td>
-                            <td><a href="http://localhost/labora/labassistant/cancelAppointment/'.$row['Id'].'" class="cancel">Cancel</a><br><a href="http://localhost/labora/labassistant/sendAppointment/'.$row['Id'].'" class="cancel">Send</a></td>
-                            
-                        </tr>';
+                        $reversedArray = array_reverse( $data['appointments'], true);
+                        if($data['appointments'] != null){
+                            foreach ($reversedArray as $row) {
+                                if($row['Appointment_Status']=='Pending'){
+                                    $str = 'status-4';
+                                }else if($row['Appointment_Status']=='Approved'){
+                                    $str = 'status-3';
+                                }else if($row['Appointment_Status']=='Rejected'){
+                                    $str = 'status-5';
+                                }else if($row['Appointment_Status']=='Completed'){
+                                    $str = 'status-1';   
+                                }else if($row['Appointment_Status']=='Canceled'){
+                                    $str = 'status-5';
+                                }else if($row['Appointment_Status']=='Expired'){
+                                    $str = 'status-6';
+                                }
+                                echo '<tr>
+                                <td>'.$row['Id'].'</td>
+                                <td>'.$row['patient_email'].'</td>
+                                <td>'.$row['Ref_No'].'</td>
+                                <td>'.$row['Test_Type'].'</td>
+                                <td>'.$row['Appointment_Date'].'</td>
+                                <td>'.$row['Appointment_Time'].'</td>
+                                <td>'.$row['Appointment_Duration'].'</td>
+                                <td><div class="'.$str.'">'.$row['Appointment_Status'].'</div></td>
+                                <td>'.$row['Appointment_Notes'].'</td>                        
+                            </tr>';
+                            }
+                        }else{
+                            echo '<tr><td colspan="100%" class="empty_msg">No data available in the table.</td></tr>';
                         }
+                        
                     ?>
                 </div>
             </tbody>
         </table>
             <div class="pagination">
             <h5 id="table_data"></h5>
-            <button onclick="previousPage()" >Previous</button>
+            <button onclick="previousPage()" id='prev' >Previous</button>
             <button onclick="nextPage()" id="next">Next</button>
             </div>
         </div>

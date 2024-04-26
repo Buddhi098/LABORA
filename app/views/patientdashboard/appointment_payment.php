@@ -31,15 +31,32 @@
     </div>
 
 
+    <!-- pop success & error messages -->
     <!-- popup success messages -->
     <div class="success-message-container" id="successMessage">
-    <p>Success! Payment Successfull.</p>
-    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+        <div class="icon">
+            <lord-icon
+            src="https://cdn.lordicon.com/guqkthkk.json"
+            trigger="in"
+            delay="15"
+            state="in-reveal">
+            </lord-icon>
+        </div>
+        <p> Success! Appointment Scheduled.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
     <div class="error-message-container" id="ErrorMessage">
-    <p>Error! Payment was failed.</p>
-    <span class="close-button" onclick="hideSuccessMessage()">×</span>
+        <div class="icon">
+            <lord-icon
+            src="https://cdn.lordicon.com/akqsdstj.json"
+            trigger="in"
+            delay="15"
+            state="in-reveal">
+            </lord-icon>
+        </div>
+        <p id="error_msg">Error! Your action was failed.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
 
@@ -79,8 +96,9 @@
             // Payment completed. It can be a successful failure.
             payhere.onCompleted =async function onCompleted(orderId) {
                 console.log("Payment completed. OrderID:" + orderId);
-                showSuccessMessage();
-                const apiUrl = 'http://localhost/labora/PatientDashboard/storeAppointment';
+                // showSuccessMessage();
+                const baseLink = window.location.origin;
+                const apiUrl = `${baseLink}/labora/PatientDashboard/doPayment`;
                 fetch(apiUrl)
                     .then(response => {
                         if (!response.ok) {
@@ -89,8 +107,11 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log('Data:', data);
-                        window.location.href = "http://localhost/labora/PatientDashboard/appointment";
+                        if(data.success_msg == 'payment_success'){
+                            window.location.href = `${baseLink}/labora/PatientDashboard/appointment`;
+                        }else{
+                            showErrorMessage();
+                        }
                     })
                     .catch(error => {
                         console.error('Fetch error:', error);
@@ -114,6 +135,7 @@
             payhere.onError = function onError(error) {
                 // Note: show an error page
                 console.log("Error:"  + error);
+                showErrorMessage()
             };
 
             // Put the payment variables here

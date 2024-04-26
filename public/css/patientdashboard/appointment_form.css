@@ -157,6 +157,43 @@
   margin-bottom: 20px;
 }
 
+
+.section_3{
+  margin-top: 20px;
+}
+
+.section_3 .note {
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+	margin-bottom: 3px;
+	margin-top: -10px;
+}
+
+.section_3 label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.section_3 input[type="file"] {
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section_3 input[type="file"]:hover {
+  border-color: #aaa;
+}
+
+.section_3 input[type="file"]:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
 .container_1 .submit_button {
   background-color: #1e0e58;
   color: #fff;
@@ -171,6 +208,8 @@
 .container_1 .submit_button:hover {
   background-color: #0d0731;
 }
+
+
 
 
 

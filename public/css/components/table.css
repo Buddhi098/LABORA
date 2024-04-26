@@ -19,7 +19,7 @@
   }
 
   .table-container th, td {
-    padding: 15px;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 14px;
@@ -28,6 +28,10 @@
   .table-container th {
     background-color: #1e0e58;
     color: #fff;
+  }
+
+  .table-container tr:nth-child(even) {
+    background-color: #f2f2f2;
   }
 
   .table-container tr:hover {
@@ -144,9 +148,10 @@
     text-decoration: none;
   }
 
-  .table-container .action-button:hover {
+.table-container .action-button:hover {
     background-color: #0d8e29;
-  }
+}
+
 
   .table-container .status-cell {
     position: relative;

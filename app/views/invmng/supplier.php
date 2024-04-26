@@ -16,9 +16,10 @@
 <body>
     <?php require_once 'components/nevbar.php' ?>
     <div class="container_1">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
 
     <div class="table-container">
-        <h2><i class="fa-solid fa-calendar-check"></i> Supplier</h2>
+        <h2><i class="fa-solid fa-calendar-check"></i> Suppliers</h2>
         <div class="search-container">
         <input type="text" class="search-box" id="searchInput" placeholder="Search...">
         <button class="search-button">Search</button>
@@ -48,21 +49,18 @@
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Date Of Birth</th>
                     <th>Address</th>
             </thead >
         <tbody>
                 <div class='table_body'>
                 <?php
-                $reversedArray = array_reverse($data, true);
-                if(count($reversedArray)>1){
-                    foreach ($reversedArray as $index => $row) {
+                if(count($data)>0){
+                    foreach ($data as $index => $row) {
                         echo '<tr>
                         <td>'.$index.'</td>
                         <td>'.$row['full_name'].'</td>
                         <td>'.$row['email'].'</td>
                         <td>'.$row['phone'].'</td>
-                        <td>'.$row['dob'].'</td>
                         <td>'.$row['address'].'</td>
                     </tr>';
                     }

@@ -1,9 +1,22 @@
+@font-face {
+    font-family: mainfont;
+    src: url(../fonts/AllertaStencil-Regular.ttf);
+}
+@font-face {
+    font-family: regfont;
+    src: url(../fonts/Allerta-Regular.ttf);
+}
+@font-face {
+    font-family: roboto;
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+
 .container_1
 {
     position: fixed;
     width: calc(100% - 300px);
     left: 300px;
-    background: white;
+    background: #f5f7ff;
     transition: 0.5s;
     color: rgb(0, 0, 0);
     top: 72px;
@@ -12,70 +25,135 @@
     height: 93%;
     overflow: auto;
     font-family: roboto;
+    font-family: 'Roboto', sans-serif;
 }
 
+  
+.container_1 .container {
+	background-color: #FFFFFF;
+	padding: 25px 40px;
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	width: 847px;
+	text-align: center;
+	margin: 70px auto;
+}
 
-h1 {
-    color: #333;
+.container_1 h2 {
+	color: #0d0628;
+	font-size: 28px;
+	margin-bottom: -11px;
+	width: 100%;
+	background-color: #392b84;
+	padding: 12px;
+	border-radius: 10px;
+	color: white;
+	font-size: 20px;
+}
+
+.container_1 .subtitle {
+	color: #727272;
+	font-size: 13px;
+	margin: 20px 0 26px 0;
+	font-weight: 530;
+}
+
+  .container_1 .form-row {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
-    color: #007bff;
+  }
+
+  .container_1 .form-group {
+    flex: 1;
+    margin-right: 20px;
+    text-align: left;
+  }
+
+  .container_1 label {
+	display: block;
+	margin-bottom: 0px;
+	color: black;
+	/* font-weight: bold; */
+	font-weight: 570;
+	font-size: 14px;
 }
 
-.appointment-form {
-    width: 500px;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    font-family: roboto;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="time"],
-input[type="number"],
-select,
-textarea {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #392b84;
     border-radius: 5px;
-    font-size: 16px;
-    margin-top: 10px;
-}
+    background-color: #F2F5F8;
+    color: #333333;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
 
-select {
-    height: 40px;
-}
+  input[type="radio"] {
+    margin-right: 5px;
+  }
 
-textarea {
-    resize: vertical;
-}
-
-button {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
+  .container_1 button {
+    width: 20%;
+    padding: 10px;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    background-color: #5133cf;
+    color: #FFFFFF;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .container_1 button:hover {
+    background-color: #32217a;
+  }
+
+
+  /* override nev bar for keep white check */
+
+.navigation ul li:nth-child(2)
+{
+    background-color: white;
 }
 
-button:hover {
-    background-color: #0056b3;
+.navigation ul li:nth-child(2) a .title
+{
+    color: var(--darkblue);
+}
+
+.navigation ul li:nth-child(2) a::before
+{
+    content:'';
+    position: absolute;
+    right:0;
+    top:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px 30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a::after
+{
+    content:'';
+    position: absolute;
+    right:0;
+    bottom:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px -30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a .icon
+{
+    color: var(--darkblue);
 }

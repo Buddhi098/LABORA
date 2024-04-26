@@ -24,7 +24,18 @@
             // }
 
             public function orderTableData(){
-                $result = mysqli_query($this->conn, "SELECT id , CONCAT('OR-', id) AS orderid, order_date, expected_date, status, invoice_id, (SELECT full_name FROM employees WHERE id=suplier_id) AS Supplier_name FROM orders_tbl WHERE invmng_id='".$_SESSION["empid"]."'");
+                $result = mysqli_query($this->conn, "SELECT 
+                id , 
+                CONCAT('OR-', id) AS orderid, 
+                order_date, 
+                expected_date, 
+                status, 
+                invoice_id,
+                
+                (SELECT full_name FROM employees WHERE id=suplier_id) AS Supplier_name 
+                FROM orders_tbl 
+                WHERE invmng_id='".$_SESSION["empid"]."'");
+                
                 $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 return $result;
             }

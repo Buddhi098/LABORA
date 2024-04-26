@@ -1,0 +1,151 @@
+body{
+    background-color: #e9ecff75;
+}
+.pass-container {
+	font-family: Arial, sans-serif;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	width: 712px;
+	padding: 40px;
+	margin: 90px auto;
+}
+
+.pass-header {
+    background-color: #251087;
+    border-radius: 10px 10px 0 0;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.pass-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+}
+
+.info-item i {
+    margin-right: 10px;
+    color: #251087;
+    font-size: 24px;
+}
+
+.qr-code {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.qr-code img {
+    max-width: 120px;
+}
+
+.print-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.print-btn button {
+    background-color: #251087;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.print-btn button:hover {
+    background-color: #251087;
+}
+
+.print-btn button i {
+    margin-right: 5px;
+}
+
+.pass-description {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+ /* override nev bar for keep white check */
+
+ .navigation ul li:nth-child(2)
+ {
+     background-color: white;
+ }
+ 
+ .navigation ul li:nth-child(2) a .title
+ {
+     color: var(--darkblue);
+ }
+ 
+ .navigation ul li:nth-child(2) a::before
+ {
+     content:'';
+     position: absolute;
+     right:0;
+     top:-50px;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     box-shadow: 30px 30px 0 10px white;
+ }
+ 
+ .navigation ul li:nth-child(2) a::after
+ {
+     content:'';
+     position: absolute;
+     right:0;
+     bottom:-50px;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     box-shadow: 30px -30px 0 10px white;
+ }
+ 
+ .navigation ul li:nth-child(2) a .icon
+ {
+     color: var(--darkblue);
+ }
+
+ @media print {
+    .container , .container *{
+        display: none;
+        width: 0px;
+        height: 0px;
+    }
+
+    .pass-container{
+        box-shadow: none;
+        border: 1px solid black;
+    }
+
+    .print-btn{
+        display: none;
+    }
+}

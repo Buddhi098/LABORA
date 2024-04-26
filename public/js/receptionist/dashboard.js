@@ -1,3 +1,8 @@
+
+
+
+// start calendar script
+
 const daysContainer = document.querySelector(".days"),
   nextBtn = document.querySelector(".next-btn"),
   prevBtn = document.querySelector(".prev-btn"),
@@ -52,15 +57,38 @@ function renderCalendar() {
       currentMonth === new Date().getMonth() &&
       currentYear === new Date().getFullYear()
     ) {
-      days += `<div class="day today">${i}</div>`;
-    } else {
-      days += `<div class="day ">${i}</div>`;
+      days += `<div id="${i}" class="day today">${i}</div>`;
+    }else {
+      days += `<div id="${i}" class="day ">${i}</div>`;
     }
   }
 
   for (let j = 1; j <= nextDays; j++) {
     days += `<div class="day next">${j}</div>`;
   }
+
+  const baseLink = window.location.origin;
+  const link = `${baseLink}/labora/receptionist/getHolidaysCalendar/${currentYear}/${currentMonth + 1}`;
+  console.log(link);
+  fetch(link , {
+    method: "GET"
+  }).then(res => {
+    if(!res.ok){
+      throw new Error("Error fetching data");
+    }
+    return res.json();
+  }).then(data => {
+    console.log(data);
+    for(let i=0 ; i<data.length ; i++){
+      const day = document.getElementById(data[i]['Dates']);
+      day.classList.add("holiday");
+    }
+
+  }).catch(err => {
+    console.log(err);
+  
+  })
+
   hideTodayBtn();
   daysContainer.innerHTML = days;
 }
@@ -102,4 +130,100 @@ function hideTodayBtn() {
   } else {
     todayBtn.style.display = "flex";
   }
+}
+
+
+// end clendar script
+
+
+
+// set holidays
+
+const holidayDate = document.getElementById('holiday-date');
+const holidayReason = document.getElementById('holiday-reason');
+const saveHolidayButton = document.getElementById('save-holiday');
+const holidayList = document.querySelector('.holiday-list');
+
+saveHolidayButton.addEventListener('click' , saveHoliday);
+
+function saveHoliday() {
+  if(holidayDate.value === ''){
+    console.log('input fields are empty');
+    return
+  }
+  const baseLink = window.location.origin;
+  const link = `${baseLink}/labora/receptionist/setHoliday`
+  const formData = new FormData();
+  formData.append('date', holidayDate.value);
+  formData.append('reason' , holidayReason.value);
+
+  fetch(link , {
+    method:'POST',
+    body: formData
+  }).then(res=>{
+    if(!res.ok){
+      throw new Error('Network Error Occur');
+    }
+    return res.json();
+  }).then(data => {
+      console.log(data);
+  }).catch(error => {
+    console.error(error);
+  })
+
+  getHolidays();
+
+};
+
+function getHolidays() {
+  const baseLink = window.location.origin;
+  const link = `${baseLink}/labora/receptionist/getHolidays`
+  fetch(link , {
+    method: "GET"
+  }).then(res => {
+    if(!res.ok){
+      throw new Error("Error fetching data");
+    }
+    return res.json();
+  }).then(data => {
+    console.log(data);
+    holidays = data['holidays'];
+    renderHolidays(holidays);
+  }).catch(err => {
+    console.log(err);
+  })
+}
+
+function renderHolidays(holidays) {
+  holidayList.innerHTML = '';
+  holidays.forEach(holiday => {
+    const holidayElement = document.createElement('div');
+    holidayElement.classList.add('holiday-item-saved');
+    holidayElement.innerHTML = `<span class="holiday-date">${holiday['holiday']}</span>
+    <span class="holiday-reason">${holiday['reason']}</span>
+    <button class="btn" onclick="deleteHoliday('${holiday['id']}')">Delete</button>`;
+    holidayList.appendChild(holidayElement);
+  })
+}
+
+function deleteHoliday(id){
+    console.log(id);
+
+    const baseLink = window.location.origin;
+    const link = `${baseLink}/labora/receptionist/deleteHoliday/${id}`;
+
+    fetch(link)
+    .then(res=>{
+      if(!res.ok){
+        throw new Error('Network Error Occur')
+      }
+
+      return res.json();
+    }).then(data => {
+      console.log(data);
+    }).catch(error => {
+      console.error(error);
+    })
+
+    getHolidays();
 }

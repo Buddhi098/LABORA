@@ -1,0 +1,149 @@
+.container_2
+{
+    display: none;
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: rgba(192, 189, 255, 0.1);
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 28px;
+    margin: 0px;
+    overflow: auto;
+    height: 95%;
+}
+
+/* Container styles */
+.container_2 .container {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    margin:10px auto;
+}
+
+/* Header styles */
+.container_2 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.container_2 .logo {
+    max-width: 50px;
+}
+
+/* Main content styles */
+.container_2 main {
+    margin-bottom: 30px;
+}
+
+.container_2 h2 {
+    margin-bottom: 20px;
+}
+
+.container_2 .account-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.container_2 .account-details p {
+    margin-bottom: 10px;
+}
+
+/* Button styles */
+.container_2 #print-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.container_2 #print-btn:hover {
+    background-color: #45a049;
+}
+
+/* Footer styles */
+.container_2 footer {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+}
+
+/* Message styles */
+.container_2 .message {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+@media print{
+    body *{
+        display: none;
+    }
+
+    .container_2{
+        margin-left: -350px;
+        width: 900px;
+        margin-top: 50px;
+    }
+    .container_2, .container_2 *{
+        display: block;
+    }
+}
+
+
+/* override nev bar for keep white check */
+
+.navigation ul li:nth-child(2)
+{
+    background-color: white;
+}
+
+.navigation ul li:nth-child(2) a .title
+{
+    color: var(--darkblue);
+}
+
+.navigation ul li:nth-child(2) a::before
+{
+    content:'';
+    position: absolute;
+    right:0;
+    top:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px 30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a::after
+{
+    content:'';
+    position: absolute;
+    right:0;
+    bottom:-50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 30px -30px 0 10px white;
+}
+
+.navigation ul li:nth-child(2) a .icon
+{
+    color: var(--darkblue);
+}

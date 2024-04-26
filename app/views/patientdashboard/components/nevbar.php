@@ -30,6 +30,10 @@
     <!-- delete warning message -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/warningModal.css'?>">
     <!-- <script src="<?php echo APPROOT.'/public/js/components/warningModal.js'?>"></script> -->
+
+    <!-- loading -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/loading.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/loading.js'?>"></script>
     
     <title>Patient dashboard</title>
 </head>
@@ -56,13 +60,13 @@
                 <li>
                     <a href="http://localhost/labora/PatientDashboard/report">
                     <span class="icon"><ion-icon name="reader"></ion-icon></span>
-                    <span class="title">Medical reports</span>
+                    <span class="title">Medical Reports</span>
                     </a>
                 </li>
                 <li>
                     <a href="http://localhost/labora/PatientDashboard/medicaltest">
                     <span class="icon"><ion-icon name="thermometer"></ion-icon></span>
-                    <span class="title">Medical tests</span>
+                    <span class="title">Medical Tests</span>
                     </a>
                 </li>
                 <li>
@@ -97,12 +101,16 @@
                     <ion-icon name="notifications"></ion-icon>
                 </div>
                 <div class="user">
-                    <img src="/labora/public/img/patientdashboard/user1.jpg" alt="">
+                    <img id="top_bar_pic" src=<?php echo APPROOT."/public/img/profile/". $_SESSION['profile_image']?> alt="">
                     <h4><?php echo $_SESSION['username'];?></h4>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--add hover effect to the table -->
+    <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
+    
 </body>
 </html>
 

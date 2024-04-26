@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/reorder.css'?>">
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/expiredChemicals.css'?>">
     <script src="<?php echo APPROOT.'/public/js/invmng/invmng.js';?>"></script>
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -15,57 +15,46 @@
 </head>
 <body>
     <?php require_once 'components/dashnavbar.php' ?>
-    <div class="container_1">
+    <div class="container_1">    
+    <div class="table-container">
+        <h2><i class="fa-solid fa-calendar-check"></i>Items to Reorder</h2>
 
-        <div class="tablename">
-            <h3>Items to reorder</h3>
-        </div>
-        <div class="line"></div>
-        
-
-        <div>
-        <table>
-        <thead>
-        <tr>
-        <th>Item ID</th>
-        <th>Item Name</th>
-       
-        <th>Quantity in Stock</th>
-        <th>Reorder Level</th>
-        <th>Action</th>
-    </tr>
-        </thead>
+        <table id="myTable">
+            <thead>
+                    <th>Item Id</th>
+                    <th>Item Name</th>
+                    <th>Quantity in the stock</th>
+                    <th>Reorder Limit</th>
+                    
+            </thead >
         <tbody>
-     
-    <tr>
-        <td>1001</td>
-        <td>Chemical A</td>
-       
-        <td>8</td>
-        <td>10</td>
-        <td><a href="http://localhost/labora/invmng/orderForm" class="download"><ion-icon name="cart"></ion-icon></a></td>
-    </tr>
-    <tr>
-        <td>1002</td>
-        <td>Chemical B</td>
-    
-        <td>18</td>
-        <td>20</td>
-        <td><a href="http://localhost/labora/invmng/orderForm" class="download"><ion-icon name="cart"></ion-icon></a></td>
-    </tr>
-    <tr>
-        <td>1003</td>
-        <td>Chemical D</td>
-    
-        <td>3</td>
-        <td>5</td>
-        <td><a href="http://localhost/labora/invmng/orderForm" class="download"><ion-icon name="cart"></ion-icon></a></td>
-    </tr>
-           
-            <!-- Add more rows as needed -->
-        </tbody>
+                <div class='table_body'>
+                <?php
+                $reversedArray = array_reverse($data, true);
+               
+                    foreach ($reversedArray as $index => $row) {
+                        echo '
+                        <tr>
+                        <td>'.$row['id'].'</td>
+                        <td>'.$row['Item_name'].'</td>
+                        <td>'.$row['id'].'</td>
+                        <td>'.$row['reorder_limit'].'</td>
+                      
+                        </tr>';
+                    }
+                
+                ?>
+                </div>
+            </tbody>
         </table>
+            <div class="pagination">
+            <h5 id="table_data"></h5>
+            <button onclick="previousPage()" >Previous</button>
+            <button onclick="nextPage()" id="next">Next</button>
+            </div>
         </div>
+    </div>
+       
     </div>
 </body>
 </html>
