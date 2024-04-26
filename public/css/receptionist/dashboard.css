@@ -1,19 +1,15 @@
 .container_1
 {
     position: fixed;
-    width: calc(100% - 350px);
+    width: calc(100% - 300px);
     left: 300px;
     background: white;
     transition: 0.5s;
     color: rgb(0, 0, 0);
     top: 72px;
-    padding: 28px;
+    padding: 10px;
     margin: 0px;
-    overflow: auto;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    background-color: #e9ecff75;
+    height: 93%;
     overflow: auto;
     background-color: #e0e4ff75;
 }
