@@ -6,7 +6,8 @@ function filterTableByDate() {
     var rows = table.querySelectorAll('tbody tr');
 
     rows.forEach(row => {
-        var dateCellText = row.cells[4].innerText || row.cells[4].textContent; // Assuming Date is in the 5th column
+        // Date is in the 5th column
+        var dateCellText = row.cells[4].innerText || row.cells[4].textContent; 
         var tableDate = new Date(dateCellText);
         
         if (isSameDate(filterDate, tableDate)) {
