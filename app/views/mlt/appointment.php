@@ -28,16 +28,26 @@
 
             <div class="filter-box">
                 <div class="filter-section">
-                    <select class="filter-box">
+                    <select class="filter-box" id='filter2'>
                         <option value="all">All</option>
-                        <option value="category1">Pending</option>
-                        <option value="category2">Completed</option>
+                        <option value="paid">Paid</option>
+                        <option value="unpaid">Unpaid</option>
                     </select>
-                    <button class="filter-button">Filter By Status</button>
+                    <button class="filter-button"
+                        onclick="filterFunction('filter2' , 'tbody tr' , 'td .payment')">Payment Status</button>
                 </div>
                 <div class="filter-section">
-                    <input type="date" id="filterDate">
-                    <button class="filter-button">Filter by Date</button>
+                    <select class="filter-box" id='filter3'>
+                        <option value="all">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Canceled">Canceled</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <button class="filter-button"
+                        onclick="filterFunction('filter3' , 'tbody tr' , 'td .status')">Appointment Status</button>
                 </div>
             </div>
             <table id="myTable">
@@ -73,9 +83,9 @@
                                 echo "<td>" . $appointment['Test_Type'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Date'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Time'] . "</td>";
-                                echo "<td><div class='" . $status_str . "'>" . $appointment['Appointment_Status'] . "</div></td>";
+                                echo "<td><div class='" . $status_str . " status'>" . $appointment['Appointment_Status'] . "</div></td>";
                                 echo "<td><button class='btn-0 btn-2' onclick=\"openModal2('" . $appointment['Appointment_Notes'] . "')\">View</button></td>";
-                                echo "<td><div class='" . $status . "'>" . $appointment['payment_status'] . "<div></td>";
+                                echo "<td><div class='" . $status . " payment'>" . $appointment['payment_status'] . "<div></td>";
                                 echo "<td><button class='btn-0 btn-2' onclick='openModal(`" . $appointment['Ref_No'] . "`)'>Approved</button><button class='btn-0 btn-3' onclick='openModal3(`" . $appointment['Ref_No'] . "`)'>Reject</button></td>";
                                 echo "</tr>";
                             }
@@ -107,9 +117,9 @@
                                 echo "<td>" . $appointment['Test_Type'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Date'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Time'] . "</td>";
-                                echo "<td><div class='" . $status_str . "'>" . $appointment['Appointment_Status'] . "</div></td>";
+                                echo "<td><div class='" . $status_str . " status'>" . $appointment['Appointment_Status'] . "</div></td>";
                                 echo "<td><button class='btn-0 btn-2' onclick=\"openModal2('" . $appointment['Appointment_Notes'] . "')\">View</button></td>";
-                                echo "<td><div class='" . $status . "'>" . $appointment['payment_status'] . "<div></td>";
+                                echo "<td><div class='" . $status . " payment'>" . $appointment['payment_status'] . "<div></td>";
                                 echo "<td><button class='btn-0 btn-3' onclick='openModal4(`" . $appointment['Ref_No'] . "`)'>Remove</button></td>";
                                 echo "</tr>";
                             }

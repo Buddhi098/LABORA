@@ -19,7 +19,7 @@
                 <form action="" id="test_form">
                     <div class="section_1">
                         <div class="name">
-                            <label for="test-type">Test Type</label>
+                            <label for="test-type">Medical Test</label>
                             <select id="test-type" name="test-type" required>
                                 <?php
                                 foreach ($data['test_types'] as $test) {
@@ -30,7 +30,7 @@
                         </div>
                         <div class="email">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="" required>
+                            <input type="text" name="email" id="" value="<?php echo $_SESSION['useremail'];?>" disabled>
                         </div>
                     </div>
                     <div class="section_2">

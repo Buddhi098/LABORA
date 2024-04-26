@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label for="price"><i class="fas fa-dollar-sign"></i> Price</label>
-                    <input type="number" id="price" name="price" required>
+                    <input type="number" id="price" name="price" min="30" required>
                 </div>
                 <button type="submit" id="import"><i class="fas fa-upload"></i> Import</button>
             </form>

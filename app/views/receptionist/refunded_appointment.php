@@ -27,20 +27,13 @@
 
             <div class="filter-box">
                 <div class="filter-section">
-                    <select class="filter-box">
+                    <select class="filter-box" id='filter2'>
                         <option value="all">All</option>
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
+                        <option value="pending">Pending</option>
+                        <option value="refunded">Refunded</option>
                     </select>
-                    <button class="filter-button">Filter By ID</button>
-                </div>
-                <div class="filter-section">
-                    <select class="filter-box">
-                        <option value="all">All</option>
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
-                    </select>
-                    <button class="filter-button">Filter By Email</button>
+                    <button class="filter-button"
+                        onclick="filterFunction('filter2' , 'tbody tr' , 'td .refund')">Refund Status</button>
                 </div>
             </div>
             <table id="myTable">
@@ -74,7 +67,7 @@
                                 echo "<td>" . $appointment['patient_email'] . "</td>";
                                 echo "<td>" . $appointment['Test_Type'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Date'] . "</td>";
-                                echo "<td><div class='".$status_cls."'>" . $appointment['refund_status'] . "</div></td>";
+                                echo "<td><div class='".$status_cls." refund'>" . $appointment['refund_status'] . "</div></td>";
                                 echo "<td>Rs. " . $appointment['cost'] . ".00</td>";
                                 echo "<td><div class='status-5'>" . $appointment['Appointment_Status'] . "</div></td>";
                                 echo "<td><div class='status-1'>" . $appointment['payment_status'] . "</div></td>";

@@ -39,7 +39,7 @@
                         </button>
                     </div>
                 </div>
-                <button class="add-field">
+                <button class="add-field" id='add_field_btn'>
                     <i class="fas fa-plus-circle"></i> Add Field
                 </button>
                 <div class="actions">
@@ -115,13 +115,23 @@
         }
 
         // Add event listener to the "Add Field" button
+        let field_count = 1;
         document.querySelector('.add-field').addEventListener('click', () => {
+            field_count++;
+            if(field_count > 16){
+                alert('You can only add 16 fields');
+                document.querySelector('.add_field_btn').disabled = true;
+                document.querySelector('.add_field_btn').classList.add('button_disabled');
+                return;
+            }
             const fieldGroup = createFieldGroup();
             document.querySelector('.form-fields').appendChild(fieldGroup);
         });
 
         // Add event listener to the "Save Form" button
+        
         document.querySelector('.save-form').addEventListener('click', () => {
+
             const formName = document.getElementById('form-name').value;
             const formFields = [];
 

@@ -12,7 +12,7 @@
 }
 
 .loading_modal-content {
-  background-color: white;
+  background-color: transparent;
   margin: 15% auto;
   padding: 20px;
   width: 12%;
@@ -21,7 +21,7 @@
 }
 
 .loading_modal-content p{
-    color: black;
+    color: white;
 }
 
 /* Loader styles */
@@ -37,8 +37,8 @@
 .loading_modal-content .circle {
   display: inline-block;
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background-color: #ff6347; /* Tomato color */
   animation: loading 1.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;

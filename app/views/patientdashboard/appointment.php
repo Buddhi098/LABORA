@@ -44,6 +44,9 @@
                         <option value="Pending">Pending</option>
                         <option value="Canceled">Canceled</option>
                         <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Completed">Completed</option>
                     </select>
                     <button class="filter-button" onclick="filterByStatus()">Filter By Status</button>
                 </div>

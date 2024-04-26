@@ -9,8 +9,6 @@
             public function enterOTP($email , $OTP_code){
                 $query = "INSERT INTO otptable VALUES('','$email' , '$OTP_code')";
                 mysqli_query($this->conn , $query);
-                echo
-                "<script> alert('Check your inbox');</script>";
             }
 
             public function isExistEmail($email){
@@ -33,6 +31,18 @@
 
             public function dropOTP($email){
                 mysqli_query($this->conn, "DELETE FROM otptable WHERE email='$email'");
+            }
+
+            public function checkOTP($email, $otp){
+                $result =mysqli_query($this->conn , "SELECT * FROM otptable WHERE email='$email' ORDER BY id DESC LIMIT 1") ;
+                if(mysqli_num_rows($result)>0){
+                    $row = mysqli_fetch_assoc($result);
+                    if($row["otp"] == $otp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
             }
             
     }

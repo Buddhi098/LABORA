@@ -28,16 +28,15 @@
 
             <div class="filter-box">
                 <div class="filter-section">
-                    <select class="filter-box">
+                    <select class="filter-box" id='filter2'>
                         <option value="all">All</option>
-                        <option value="category1">Pending</option>
-                        <option value="category2">Completed</option>
+                        <option value="Review By MLT">Review By MLT</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Approved">Approved</option>
                     </select>
-                    <button class="filter-button">Filter By Status</button>
-                </div>
-                <div class="filter-section">
-                    <input type="date" id="filterDate">
-                    <button class="filter-button">Filter by Date</button>
+                    <button class="filter-button"
+                        onclick="filterFunction('filter2' , 'tbody tr' , 'td .payment')">Payment Status</button>
                 </div>
             </div>
             <table id="myTable">
@@ -67,7 +66,7 @@
                                 echo "<td>" . $report['ref_no'] . "</td>";
                                 echo "<td>" . $report['email'] . "</td>";
                                 echo "<td>" . $report['test_type'] . "</td>";
-                                echo "<td><div class='" . $status_cls . "'>" . $report['report_status'] . "</td>";
+                                echo "<td><div class='" . $status_cls . " payment'>" . $report['report_status'] . "</td>";
                                 echo "<td><a href='" . APPROOT . "/mlt/viewReport/" . $report['ref_no'] . "' target='_blank'><button class='btn-0 btn-2'>View</button></a></td>";
                                 if ($report['report_status'] == 'Review By MLT') {
                                     echo "<td><button class='btn-0 btn-2' onclick=\"openModal1('" . $report['ref_no'] . "')\">Approve</button><button class='btn-0 btn-3' onclick=\"openModal6('" . $report['ref_no'] . "')\">Reject</button></td>";
