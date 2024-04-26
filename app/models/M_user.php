@@ -145,5 +145,11 @@
                 $result = mysqli_fetch_assoc($result);
                 return $result['patient_name'];
             }
+
+            public function chanegPassword($email , $password){
+                $result = mysqli_query($this->conn , "UPDATE patient_data
+                SET password = '$password'
+                WHERE patient_email = '$email'");
+            }
     }
 ?>

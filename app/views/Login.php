@@ -43,10 +43,10 @@
                         <label for="employee-password">Password</label><br>
                         <input type="password" id="patient-password" name="patient-password" value="" value='' required><br>
                         <span class="formerr"><?php echo $data['formerr'];?></span>
-                        <a href="#">Forgot Password</a>
+                        <a href="<?php echo URLROOT.'user/passwordRecover'?>">Forgot Password</a>
                     </div>
                     <button type="submit" name="submit" class="btn-login button">Login</button>
-                    <p>Not yet a member?<a href="http://localhost/labora/user/register">SignUp Now</a></p>
+                    <p>Not yet a member?<a href="<?php echo URLROOT.'user/register'?>">SignUp Now</a></p>
                 </form>
         </div>
     </div>
