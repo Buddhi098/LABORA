@@ -78,20 +78,32 @@
  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>let graph_data = <?php echo json_encode($data['graph_data'])?>;</script>
+
 
 <script>
     // First chart
+    console.log(graph_data);
     
     //for loop to fetch data
+    let labels_data = [];
+    for(let i = 0; i < graph_data.length; i++){
+        labels_data.push(graph_data[i].item_name);
+    }
+
+    let data_ = []
+    for(let i=0 ; i<graph_data.length ; i++){
+        data_.push(graph_data[i].quantity);
+    }
     const ctx = document.getElementById('firstChart').getContext('2d');
     new Chart(ctx, {
         
         type: 'bar',
         data: {
-            labels: ['Latex Glove', 'Test tube', 'Microscope slide', 'Pipette tip', 'Thermometer', 'Lab coats'],
+            labels: labels_data,
             datasets: [{
-                label: 'quantity',
-                data: [12, 19, 15, 15, 4, 5],
+                label: 'Number of items send out',
+                data: data_,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -111,14 +123,53 @@
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        options:{
+         plugins: {
+             title: {
+               display: false,
+               text: 'Number of items',
+               font: {
+                   size: 35
+               }
+             },
+        legend:{
+            display:true,
         }
+    }
+}
     });
+
+//     options: {
+//         plugins: {
+//             title: {
+//                 display: false,
+//                 text: 'Revenue By Test Type',
+//                 font: {
+//                     size: 35
+//                 }
+//             },
+//             legend:{
+//                 display:true,
+//                 // position:'right',
+//                 labels:{
+//                     fontColor:'black'
+//                 }
+//             },
+//         },
+        
+//         layout: {
+//             padding: {
+//                 left: 0,
+//                 right: 0,
+//                 top: 0,
+//                 bottom: 10,
+//             }
+//         },
+//         tooltips: {
+//             enabled: true,
+//         }
+//     }
+// });
 
 
     //Second chart
@@ -143,6 +194,7 @@
             }
         }
     });
+    
 </script>
 
 </html>

@@ -17,11 +17,20 @@
         $result_data=array();
 
         //query to fetch the item_name and quantity from requested_items
-        $query="SELECT 
-                item_name,quantity
+        // $query="SELECT 
+        //         item_name,quantity
                 
-                FROM
-                requested_items";
+        //         FROM
+        //         requested_items";
+
+        $query = "SELECT 
+        item_name,
+        quantity AS quantity
+      FROM 
+      requested_items
+      GROUP BY 
+        item_name";
+
                 
                 $result = mysqli_query($this->conn, $query);
 

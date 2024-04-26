@@ -2,7 +2,7 @@
     class supplier extends Controller{
         
         // private $md_invoice;
-        // private $md_supplier_item_quantity_chart;
+        private $md_supplier_item_quantity_chart;
 
         public function __construct(){
             // $this->md_product = $this->model('M_product'); 
@@ -17,7 +17,7 @@
 
             // $this->md_invoice = $this->model('M_order_invoice');
 
-            // $this->md_supplier_item_quantity_chart=$this->model('M_supplier_item_quantity_chart');
+            $this->md_supplier_item_quantity_chart=$this->model('M_supplier_item_quantity_chart');
 
         }
 
@@ -32,8 +32,8 @@
 
             $data = [];
             
-            // $ItemQuantity_graph = $this->md_supplier_item_quantity_chart->getItemQuantityData();
-            // $data['graph_data'] = $ItemQuantity_graph;
+            $ItemQuantity_graph = $this->md_supplier_item_quantity_chart->getItemQuantityData();
+            $data['graph_data'] = $ItemQuantity_graph;
            
 
             // //char2
@@ -44,7 +44,10 @@
             // $revenue_month = $this->md_chart->getMonthRevenue();
             // $data['revenue_month'] = $revenue_month;
 
+            // $data=[1,2,3];
             $this->view("supplier/dashboard" , $data);
+
+
         }
 
 
