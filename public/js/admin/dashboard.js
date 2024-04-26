@@ -1,5 +1,119 @@
+// chart1
+const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+      labels: ['Male', 'Female', 'Other'],
+      datasets: [{
+        label: 'Patients',
+        data: [12, 19, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // chart2
+  const ctx2 = document.getElementById('myChart2');
+
+  new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['Online', 'Onsite'],
+      datasets: [{
+        label: '',
+        data: [12, 19],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
 
+  // chart3
+  const ctx3 = document.getElementById('myChart3');
+  new Chart(ctx3, {
+    type: 'pie',
+    data: {
+      labels: ['Paid', 'Unpaid', 'Refunded'],
+      datasets: [{
+        label: 'Count',
+        data: [14, 9, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+
+//second row charts
+// chart4
+const chartData = [
+  { date: '2023-01-01', value: 10000 },
+  { date: '2023-02-01', value: 12000 },
+  { date: '2023-03-01', value: 11000 },
+  { date: '2023-04-01', value: 14000 },
+  { date: '2023-05-01', value: 11000 },
+  // { date: '2023-06-01', value: 130 },
+  // { date: '2023-07-01', value: 150 },
+  // { date: '2023-08-01', value: 160 },
+  // { date: '2023-09-01', value: 174 },
+  // { date: '2023-10-01', value: 180 },
+  // { date: '2023-11-01', value: 190 },
+  // { date: '2023-12-01', value: 200 }
+];
+
+// Create the line chart
+const ctx4 = document.getElementById('myChart4').getContext('2d');
+const myChart = new Chart(ctx4, {
+  type: 'line',
+  data: {
+      labels: chartData.map(data => new Date(data.date).toLocaleString('default', { month: 'long' })),
+      datasets: [{
+          label: 'Value',
+          data: chartData.map(data => data.value),
+          borderColor: '#5E2BB8',
+          fill: false
+      }]
+  },
+  options: {
+      responsive: true,
+      scales: {
+          x: {
+              title: {
+                  display: true,
+                  text: 'Month'
+              }
+          },
+          y: {
+              title: {
+                  display: true,
+                  text: 'Value'
+              }
+          }
+      }
+  }
+});
 
 // start calendar script
 
@@ -68,7 +182,7 @@ function renderCalendar() {
   }
 
   const baseLink = window.location.origin;
-  const link = `${baseLink}/labora/receptionist/getHolidaysCalendar/${currentYear}/${currentMonth + 1}`;
+  const link = `${baseLink}/labora/admin/getHolidays/${currentYear}/${currentMonth + 1}`;
   console.log(link);
   fetch(link , {
     method: "GET"
@@ -130,100 +244,4 @@ function hideTodayBtn() {
   } else {
     todayBtn.style.display = "flex";
   }
-}
-
-
-// end clendar script
-
-
-
-// set holidays
-
-const holidayDate = document.getElementById('holiday-date');
-const holidayReason = document.getElementById('holiday-reason');
-const saveHolidayButton = document.getElementById('save-holiday');
-const holidayList = document.querySelector('.holiday-list');
-
-saveHolidayButton.addEventListener('click' , saveHoliday);
-
-function saveHoliday() {
-  if(holidayDate.value === ''){
-    console.log('input fields are empty');
-    return
-  }
-  const baseLink = window.location.origin;
-  const link = `${baseLink}/labora/receptionist/setHoliday`
-  const formData = new FormData();
-  formData.append('date', holidayDate.value);
-  formData.append('reason' , holidayReason.value);
-
-  fetch(link , {
-    method:'POST',
-    body: formData
-  }).then(res=>{
-    if(!res.ok){
-      throw new Error('Network Error Occur');
-    }
-    return res.json();
-  }).then(data => {
-      console.log(data);
-  }).catch(error => {
-    console.error(error);
-  })
-
-  getHolidays();
-
-};
-
-function getHolidays() {
-  const baseLink = window.location.origin;
-  const link = `${baseLink}/labora/receptionist/getHolidays`
-  fetch(link , {
-    method: "GET"
-  }).then(res => {
-    if(!res.ok){
-      throw new Error("Error fetching data");
-    }
-    return res.json();
-  }).then(data => {
-    console.log(data);
-    holidays = data['holidays'];
-    renderHolidays(holidays);
-  }).catch(err => {
-    console.log(err);
-  })
-}
-
-function renderHolidays(holidays) {
-  holidayList.innerHTML = '';
-  holidays.forEach(holiday => {
-    const holidayElement = document.createElement('div');
-    holidayElement.classList.add('holiday-item-saved');
-    holidayElement.innerHTML = `<span class="holiday-date">${holiday['holiday']}</span>
-    <span class="holiday-reason">${holiday['reason']}</span>
-    <button class="btn" onclick="deleteHoliday('${holiday['id']}')">Delete</button>`;
-    holidayList.appendChild(holidayElement);
-  })
-}
-
-function deleteHoliday(id){
-    console.log(id);
-
-    const baseLink = window.location.origin;
-    const link = `${baseLink}/labora/receptionist/deleteHoliday/${id}`;
-
-    fetch(link)
-    .then(res=>{
-      if(!res.ok){
-        throw new Error('Network Error Occur')
-      }
-
-      return res.json();
-    }).then(data => {
-      console.log(data);
-    }).catch(error => {
-      console.error(error);
-    })
-
-    getHolidays();
 }

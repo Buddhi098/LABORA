@@ -38,7 +38,7 @@
                     <span class="title">User Accounts</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="<?php echo URLROOT?>admin/medicaltest">
                     <span class="icon"><ion-icon name="thermometer"></ion-icon></span>
                     <span class="title">Medical Tests</span>
@@ -49,9 +49,9 @@
                     <span class="icon"><ion-icon name="cash-outline"></ion-icon></span>
                     <span class="title">Payment</span>
                     </a>
-                </li>
+                </li> -->
                 <li>
-                    <a href="<?php echo URLROOT?>report/finance_report">
+                    <a href="<?php echo URLROOT?>report/test_report">
                     <span class="icon"><ion-icon name="document-attach-outline"></ion-icon></span>
                     <span class="title">Reports</span>
                     </a>

@@ -48,10 +48,36 @@
         }
        
 
-        public function appointment_report(){
+        // public function appointment_report(){
 
+        //     $data = [];
+
+        //     // Chart2
+        //     // $appointment_graph = $this->md_chart->getNextSevenDateAppointment();
+        //     // $data['graph_data'] = $appointment_graph;
+
+        //     $app_data = $this->md_chart->getSevenDay();
+        //     $data['app_data'] = $app_data;
+
+        //     $this->view("admin/appointment_report" , $data);
+        // }
+
+        public function appointment_report() {
             $data = [];
-            $this->view("admin/appointment_report" , $data);
+    
+            // Retrieve appointment data from model
+            $app_data = $this->md_chart->getSevenDay();
+    
+            if ($app_data !== false) {
+                // If data retrieval is successful, store it in $data array
+                $data['app_data'] = $app_data;
+            } else {
+                // Handle case where data retrieval failed
+                $data['error'] = "Failed to retrieve appointment data.";
+            }
+    
+            // Load the view and pass data to it
+            $this->view("admin/appointment_report", $data);
         }
         public function test_report(){
 

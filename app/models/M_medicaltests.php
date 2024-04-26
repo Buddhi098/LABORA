@@ -7,7 +7,7 @@
             }
 
             public function isExistTest($test_name){
-                $query =mysqli_query($this->conn , "SELECT * FROM medical_tests WHERE test_name='$test_name'") ;
+                $query =mysqli_query($this->conn , "SELECT * FROM medical_tests WHERE Test_Name='$test_name'") ;
                 if(mysqli_num_rows($query)>0){
                     return true;
                 }else{
@@ -23,9 +23,9 @@
             //     }
             // }
 
-            public function enterTestData($test_name,$short_name,$test_type,$availability,$description,$preparation ,$time){
+            public function enterTestData($test_name,$test_type,$availability,$description,$preparation ,$time){
                 // get last row id
-                $result =mysqli_query($this->conn , "SELECT * FROM medical_tests ORDER BY id DESC LIMIT 1") ;
+                $result =mysqli_query($this->conn , "SELECT * FROM medical_tests ORDER BY Test_ID DESC LIMIT 1") ;
                 $test = mysqli_fetch_assoc($result);
                 $lastid = 0;
                 if(isset($test['id'])){
@@ -47,7 +47,7 @@
             }
 
             public function getTest($test_name){
-                $result =mysqli_query($this->conn , "SELECT * FROM medical_tests WHERE test_name='$test_name'") ;
+                $result =mysqli_query($this->conn , "SELECT * FROM medical_tests WHERE Test_Name='$test_name'") ;
                 if(mysqli_num_rows($result)>0){
                     $test = mysqli_fetch_assoc($result);
                     return $test;
@@ -63,25 +63,22 @@
                 
             // }
 
-            public function deleteFromTest($id){
-                $result = mysqli_query($this->conn ,"DELETE FROM medical_tests WHERE id = '$id';") ;
+            public function deleteFromTest($Test_ID){
+                $result = mysqli_query($this->conn ,"DELETE FROM medical_tests WHERE Test_ID = '$Test_ID';") ;
             }
 
-            
+
             public function updateAvailability($testId, $newAvailability) {
-                // Your SQL query to update availability in the database
-                $sql = "UPDATE medical_tests SET availability = '$newAvailability' WHERE id = $testId";
-                
-                // Execute the query (you may need to adjust this based on your database connection method)
-                $result = mysqli_query($this->conn, $sql);
-                
-                // Check if the query was successful
-                if ($result) {
-                    return true; // Return true if update was successful
-                } else {
-                    return false; // Return false if there was an error
-                }
+                $query = "UPDATE medical_tests SET Status = ? WHERE Test_ID = ?";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bind_param('si', $newAvailability, $testId); // 'si' indicates string and integer types
+                return $stmt->execute();
             }
+
+
+            
             
     }
 ?>
+
+
