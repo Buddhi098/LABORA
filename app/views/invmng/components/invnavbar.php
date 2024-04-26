@@ -24,7 +24,7 @@
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     
-    <title>Patient dashboard</title>
+    <title>Inventory Manager dashboard</title>
 </head>
 <body>
     <div class="container">

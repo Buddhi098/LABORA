@@ -23,7 +23,7 @@
         <div class="navigation" id="nav_bar">
             <div class="logooo">
                 <img src="<?php echo APPROOT.'/public/';?>img/Health_Care__2_-removebg-preview.png" alt="">
-                <h2>Sahanya Labs</h2>
+                <h2>Labora</h2>
             </div>
             <ul>
                 <li>

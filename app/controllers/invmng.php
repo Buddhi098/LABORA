@@ -78,6 +78,13 @@
             }
         }
 
+        public function filterExpiredItems($startDate, $endDate) {
+            $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
+            echo json_encode($data); // Return JSON response instead of rendering a view
+        }
+        
+        
+
 
         public function product(){
 
@@ -403,11 +410,11 @@
         function sendEmailExpiredItem(){
             $result = mysqli_query($this->conn, "SELECT id, item_id, item_name, quantity, expire_date 
                                                 FROM order_item 
-                                                WHERE expire_date <= CURDATE() + INTERVAL 7 DAY 
+                                                WHERE expire_date <= CURDATE() + INTERVAL 21 DAY 
                                                 ORDER BY expire_date ASC");
             $expiredItems = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
-            $body = '<h2>Items with Expiry Date Within the Next Seven Days:</h2>';
+            $body = '<h2>Items with Expiry Date Within the Next Twenty One Days:</h2>';
             $body .= '<table border="1">
                         <tr>
                             <th>ID</th>
@@ -432,7 +439,7 @@
             $user = $_SESSION['user'];
             $name = $user['name'];
             $email = $user['email'];
-            $subject = 'Items with Expiry Date Within the Next Two Days';
+            $subject = 'Items with Expiry Date Within the Next Twenty One Days';
         
             sendEmail($email, $name, $body, $subject);
         

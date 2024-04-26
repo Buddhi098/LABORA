@@ -22,7 +22,7 @@
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     
-    <title>Patient dashboard</title>
+    <title>Inventory Manager dashboard</title>
 </head>
 <body>
     <div class="container">
@@ -42,6 +42,12 @@
                     <a href="http://localhost/labora/invmng/product">
                     <span class="icon"><ion-icon name="flask-sharp"></ion-icon></span>
                     <span class="title">Chemicals</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/labora/invmng/expiredChemicals">
+                    <span class="icon"><ion-icon name="warning"></ion-icon></span>
+                    <span class="title">Expiry Chemicals</span>
                     </a>
                 </li>
                 <li>

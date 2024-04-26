@@ -157,6 +157,15 @@
                 }
             }
 
+            public function getFilteredExpiredItems($startDate, $endDate) {
+                $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 
+                            FROM order_item 
+                            WHERE expire_date BETWEEN '$startDate' AND '$endDate' ORDER BY expire_date ASC");
+                $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                return $result;
+            }
+            
+
 
             
 
