@@ -130,6 +130,7 @@
             public function getReorderData(){
                 $result = mysqli_query($this->conn , "SELECT * 
                 FROM inventory_items 
+                WHERE quantity <= reorder_limit
                 ");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 

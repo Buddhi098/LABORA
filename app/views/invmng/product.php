@@ -14,7 +14,7 @@
     <title>Inventory Manager dashboard</title>
 </head>
 <body>
-    <?php require_once 'components/nevbar.php' ?>
+    <?php require_once 'components/navinventory.php' ?>
     <div class="container_1">
 
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">

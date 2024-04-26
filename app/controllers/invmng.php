@@ -151,8 +151,12 @@
             $invoiceToCheckQuantity = $this->md_dashboard->getInvoiceToCheckQuantity();
             $data['invoice_to_check'] = $invoiceToCheckQuantity;
 
-            $this->view("invmng/dashboard" , $data);
+            
+          
+      
+            $this->view("invmng/dashboard" ,   $data);
         }
+
 
         public function issueChemicals(){
 
@@ -360,6 +364,28 @@
             $data['supplier_name'] = $supplier;
 
             $this->view("invmng/orderForm" , $data);
+        }
+
+        public function getReorderForm(){
+
+            $data = [];
+            $rowData = $this->md_item->getReorderData();
+            $item_name = [];
+            foreach($rowData as $index => $dt){
+                $item_name[$index]['item_name'] = $dt['Item_name'];
+                $item_name[$index]['item_id'] = $dt['id'];
+            }
+
+            $rowData2 = $this->md_supplier->getAllSupplier();
+            $supplier = [];
+            foreach($rowData2 as $index => $dt){
+                $supplier[$index]['sup_name'] = $dt['full_name'];
+                $supplier[$index]['sup_id'] = $dt['id'];
+            }
+            $data['item_name'] = $item_name;
+            $data['supplier_name'] = $supplier;
+
+            $this->view("invmng/reorderForm" , $data);
         }
 
         public function submitOrderForm(){

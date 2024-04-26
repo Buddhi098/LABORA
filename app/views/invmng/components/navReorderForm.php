@@ -7,18 +7,20 @@
     <script src="<?php echo APPROOT.'/public/js/patientdashboard/patient.js'?>"></script>
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/nevbar.css'?>">
 
+    <!-- common javascript functions -->
+    <script src="<?php echo APPROOT.'/public/js/components/navbar.js'?>"></script>
+
+    <!-- popup messages -->
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/popup.css'?>">
+    <script src="<?php echo APPROOT.'/public/js/components/popup.js'?>"></script>
+
+
     <!-- import table styles -->
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/table.css'?>">
     
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-
-    <!-- import modal css and js -->
-    <script src="<?php echo APPROOT.'/public/js/components/modal.js'?>"></script>
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/modal.css'?>">
-
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     
@@ -33,39 +35,9 @@
             </div>
             <ul>
                 <li>
-                    <a href="http://localhost/labora/invmng/dashboard">
-                    <span class="icon"><ion-icon name="grid"></ion-icon></span>
-                    <span class="title">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://localhost/labora/invmng/product">
-                    <span class="icon"><ion-icon name="flask-sharp"></ion-icon></span>
-                    <span class="title">Chemicals</span>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a href="http://localhost/labora/invmng/expiredChemicals">
-                    <span class="icon"><ion-icon name="warning"></ion-icon></span>
-                    <span class="title">Expiry Chemicals</span>
-                    </a>
-                </li> -->
-                <li>
-                    <a href="http://localhost/labora/invmng/issueChemicals">
-                    <span class="icon"><ion-icon name="bag-remove-sharp"></ion-icon></span>
-                    <span class="title">Supply Requests</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://localhost/labora/invmng/supplier">
-                    <span class="icon"><ion-icon name="people"></ion-icon></span>
-                    <span class="title">Suppliers</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://localhost/labora/invmng/order">
-                    <span class="icon"><ion-icon name="cart"></ion-icon></span>
-                    <span class="title">Purchase Orders</span>
+                    <a href="http://localhost/labora/invmng/reorder">
+                    <span class="icon"><ion-icon name="arrow-back"></ion-icon></span>
+                    <span class="title">Back</span>
                     </a>
                 </li>
             </ul>

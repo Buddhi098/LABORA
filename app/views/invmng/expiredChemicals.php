@@ -14,12 +14,12 @@
     <title>Inventory Manager dashboard</title>
 </head>
 <body>
-    <?php require_once 'components/nevbar.php' ?>
+    <?php require_once 'components/navinventory.php' ?>
     <div class="container_1"> 
         <div class="table-container">
             <h2><i class="fa-solid fa-calendar-check"></i>Chemicals about to Expire</h2>
 
-            <label for="expiryRange">Select expiry range:</label>
+            <label for="expiryRange">Select Date Range</label>
             <input type="date" id="expiryRangeStart" name="expiryRangeStart">
             <input type="date" id="expiryRangeEnd" name="expiryRangeEnd">
             <button onclick="filterExpiredItems()">Filter</button>
@@ -77,7 +77,7 @@
         function filterExpiredItems() {
             const startDate = document.getElementById('expiryRangeStart').value;
             const endDate = document.getElementById('expiryRangeEnd').value;
-            const url = `<?php echo base_url('controller/filterExpiredItems')?>/${startDate}/${endDate}`;
+            const url = `<?php echo base_url('invmng/filterExpiredItems')?>/${startDate}/${endDate}`;
 
             fetch(url)
                 .then(response => {

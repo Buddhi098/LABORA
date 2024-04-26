@@ -117,37 +117,7 @@
     </div>
   </div>
 
-  <!-- Table Section -->
-  <div class="table-section">
-    <h3>Recent Orders</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Supplier</th>
-          <th>Expected Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>56</td>
-          <td>Avindu</td>
-          <td>2023-04-20</td>
-          <td>Pending</td>
-          
-        </tr>
-        <tr>
-          <td>59</td>
-          <td>Avindu</td>
-          <td>2023-04-19</td>
-          <td>Recieved</td>
-          
-        </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
-    </table>
-  </div>
+ 
 </div>
 </div>
 
