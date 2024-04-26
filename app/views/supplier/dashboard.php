@@ -55,9 +55,9 @@
 
             <div class="box box_4">
             <div class="text">
-                    <h5>Number of sent out quotations</h5>
+                    <h5>Number of sent out Invoices</h5>
                     <h1>15</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Quotations are sent after confirmation of items or chemicals</p>
+                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Invoices are sent after confirmation of items or chemicals</p>
                 </div>
                 <div class="icon">
                 <i class="fa-solid fa-file-import"></i>
