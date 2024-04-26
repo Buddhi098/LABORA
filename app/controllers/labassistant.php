@@ -286,7 +286,7 @@ class labassistant extends Controller
             // Table header row
             $pdf->Cell(48, 12, 'Investigation', 1, 0, 'C', true); // Fill cell with dark blue color
             $pdf->Cell(48, 12, 'Result', 1, 0, 'C', true);
-            $pdf->Cell(48, 12, 'Refference Value', 1, 0, 'C', true);
+            $pdf->Cell(48, 12, 'Reference Value', 1, 0, 'C', true);
             $pdf->Cell(48, 12, 'Unit', 1, 1, 'C', true); // Move to next line
 
             // Set table row colors

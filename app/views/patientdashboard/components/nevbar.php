@@ -60,13 +60,13 @@
                 <li>
                     <a href="http://localhost/labora/PatientDashboard/report">
                     <span class="icon"><ion-icon name="reader"></ion-icon></span>
-                    <span class="title">Medical reports</span>
+                    <span class="title">Medical Reports</span>
                     </a>
                 </li>
                 <li>
                     <a href="http://localhost/labora/PatientDashboard/medicaltest">
                     <span class="icon"><ion-icon name="thermometer"></ion-icon></span>
-                    <span class="title">Medical tests</span>
+                    <span class="title">Medical Tests</span>
                     </a>
                 </li>
                 <li>

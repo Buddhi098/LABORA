@@ -139,7 +139,11 @@
                 </div>
                 <p>You can indicate days off or holidays on this calendar.</p>
                 <div class="holiday-item">
-                    <input type="date" id="holiday-date" placeholder="Select holiday date" required>
+                    <?php
+                    $maxDate = new DateTime();
+                    $maxDateFormatted = $maxDate->format('Y-m-d');
+                    ?>
+                    <input type="date" min="<?php echo $maxDateFormatted?>" id="holiday-date" placeholder="Select holiday date" required>
                     <input type="text" id="holiday-reason" placeholder="Add reason">
                     <button class="btn" id="save-holiday">Save</button>
                 </div>
@@ -223,12 +227,12 @@
                             text: 'Day of the Week'
                         }
                     }
-                },plugins: {
-                    title:{
-                        display:false
+                }, plugins: {
+                    title: {
+                        display: false
                     },
-                    legend:{
-                        display:false
+                    legend: {
+                        display: false
                     }
                 }
             }

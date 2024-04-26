@@ -60,7 +60,7 @@ class PDF extends FPDF
         $this->Cell(40, 6, '', 0, 0);
         $this->SetFont('Arial', '', 10);
         $this->SetTextColor(51, 51, 51); // Dark gray color
-        $this->Cell(0, 6, $_SESSION['username'].' /Lab Assitant', 0, 1);
+        $this->Cell(0, 6, $_SESSION['username'].' /Lab Assistant', 0, 1);
 
         $this->SetFont('Arial', '', 8);
         $this->Cell(0, 4, 'Phone: (123) 456-7890 | Email: info@abclaboratory.com | Website: www.abclaboratory.com', 0, 1, 'C');

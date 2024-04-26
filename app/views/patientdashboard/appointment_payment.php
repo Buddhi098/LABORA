@@ -96,8 +96,9 @@
             // Payment completed. It can be a successful failure.
             payhere.onCompleted =async function onCompleted(orderId) {
                 console.log("Payment completed. OrderID:" + orderId);
-                showSuccessMessage();
-                const apiUrl = 'http://localhost/labora/PatientDashboard/doPayment';
+                // showSuccessMessage();
+                const baseLink = window.location.origin;
+                const apiUrl = `${baseLink}/labora/PatientDashboard/doPayment`;
                 fetch(apiUrl)
                     .then(response => {
                         if (!response.ok) {
@@ -106,7 +107,11 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log('Data:', data);
+                        if(data.success_msg == 'payment_success'){
+                            window.location.href = `${baseLink}/labora/PatientDashboard/appointment`;
+                        }else{
+                            showErrorMessage();
+                        }
                     })
                     .catch(error => {
                         console.error('Fetch error:', error);

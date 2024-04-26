@@ -572,10 +572,12 @@ class PatientDashboard extends Controller
             $result = $this->md_appointment->doPayment($_SESSION['refno']);
             if ($result) {
                 $this->sendAppointmentEmail('Online');
+                $_SESSION['success_msg'] = 'Payment successful';
                 $data = [
                     'success_msg' => 'payment_success'
                 ];
             } else {
+                $_SESSION['error_msg'] = 'Payment failed';
                 $data = [
                     'error_msg' => 'payment_failed'
                 ];
