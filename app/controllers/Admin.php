@@ -56,6 +56,32 @@
         public function dashboard(){
 
             $data = [];
+
+            $total_patients = $this->md_chart->getTotalUser();
+            $data['total_users'] = $total_patients;
+
+            $total_patients = $this->md_chart->getTotalPatient();
+            $data['total_patients'] = $total_patients;
+
+            $today_appointment_count = $this->md_chart->getTodayAppointmentCount();
+            $data['today_appointment_count'] = $today_appointment_count;
+
+            $today_revenue = $this->md_chart->getTodayRevenue();
+            $data['today_revenue'] = $today_revenue;
+
+            //chart
+            $test_graph = $this->md_chart->patientByGender();
+            $data['graph_data'] = $test_graph;
+
+            $test_graph2 = $this->md_chart->appointmentSchedule();
+            $data['graph_data2'] = $test_graph2;
+
+            $test_graph3 = $this->md_chart->paymentStatus();
+            $data['graph_data3'] = $test_graph3;
+
+            $revenue_month = $this->md_chart->getMonthRevenue();
+            $data['revenue_month'] = $revenue_month;
+
             $this->view("admin/dashboard" , $data);
         }
 

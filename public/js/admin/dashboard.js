@@ -1,13 +1,22 @@
 // chart1
+let labels_data = [];
+for(let i = 0; i < graph_data.length; i++){
+    labels_data.push(graph_data[i].patient_gender);
+}
+
+let data_ = []
+for(let i=0 ; i<graph_data.length ; i++){
+    data_.push(graph_data[i].gender_count);
+}
 const ctx = document.getElementById('myChart');
 
   new Chart(ctx, {
     type: 'polarArea',
     data: {
-      labels: ['Male', 'Female', 'Other'],
+      labels: labels_data,
       datasets: [{
         label: 'Patients',
-        data: [12, 19, 3],
+        data: data_,
         borderWidth: 1
       }]
     },
@@ -21,15 +30,24 @@ const ctx = document.getElementById('myChart');
   });
 
   // chart2
+  let labels_data2 = [];
+  for(let i = 0; i < graph_data2.length; i++){
+      labels_data2.push(graph_data2[i].payment_method);
+  }
+
+  let data_2 = []
+  for(let i=0 ; i<graph_data2.length ; i++){
+      data_2.push(graph_data2[i].payment_status);
+  }
   const ctx2 = document.getElementById('myChart2');
 
   new Chart(ctx2, {
     type: 'doughnut',
     data: {
-      labels: ['Online', 'Onsite'],
+      labels: labels_data2,
       datasets: [{
-        label: '',
-        data: [12, 19],
+        label: 'Appointments',
+        data: data_2,
         borderWidth: 1
       }]
     },
@@ -44,14 +62,23 @@ const ctx = document.getElementById('myChart');
 
 
   // chart3
+  let labels_data3 = [];
+  for(let i = 0; i < graph_data3.length; i++){
+      labels_data3.push(graph_data3[i].payment_status);
+  }
+
+  let data_3 = []
+  for(let i=0 ; i<graph_data3.length ; i++){
+      data_3.push(graph_data3[i].total_revenue);
+  }
   const ctx3 = document.getElementById('myChart3');
   new Chart(ctx3, {
     type: 'pie',
     data: {
-      labels: ['Paid', 'Unpaid', 'Refunded'],
+      labels: labels_data3,
       datasets: [{
-        label: 'Count',
-        data: [14, 9, 3],
+        label: 'Rs',
+        data: data_3,
         borderWidth: 1
       }]
     },
@@ -68,31 +95,44 @@ const ctx = document.getElementById('myChart');
 
 //second row charts
 // chart4
-const chartData = [
-  { date: '2023-01-01', value: 10000 },
-  { date: '2023-02-01', value: 12000 },
-  { date: '2023-03-01', value: 11000 },
-  { date: '2023-04-01', value: 14000 },
-  { date: '2023-05-01', value: 11000 },
-  // { date: '2023-06-01', value: 130 },
-  // { date: '2023-07-01', value: 150 },
-  // { date: '2023-08-01', value: 160 },
-  // { date: '2023-09-01', value: 174 },
-  // { date: '2023-10-01', value: 180 },
-  // { date: '2023-11-01', value: 190 },
-  // { date: '2023-12-01', value: 200 }
-];
+// Function to map numeric month values to month names
+function mapMonthToName(monthNumber) {
+  const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
-// Create the line chart
+  // Ensure monthNumber is a valid index (1 to 12)
+  if (monthNumber >= 1 && monthNumber <= 12) {
+      return months[monthNumber - 1]; // Subtract 1 to get the correct array index
+  }
+
+  return ''; // Return empty string for invalid monthNumber
+}
+// Example usage:
+let labels_data4 = [];
+for (let i = 0; i < graph_data4.length; i++) {
+  const monthNumber = graph_data4[i].Month;
+  const monthName = mapMonthToName(monthNumber);
+  labels_data4.push(monthName);
+}
+
+
+let data_4 = []
+for(let i=0 ; i<graph_data4.length ; i++){
+  data_4.push(graph_data4[i].TotalCost);
+}
+
 const ctx4 = document.getElementById('myChart4').getContext('2d');
-const myChart = new Chart(ctx4, {
+const myChart4 = new Chart(ctx4, {
   type: 'line',
   data: {
-      labels: chartData.map(data => new Date(data.date).toLocaleString('default', { month: 'long' })),
+      labels: labels_data4,
       datasets: [{
-          label: 'Value',
-          data: chartData.map(data => data.value),
+          label: 'Revenue',
+          data: data_4,
           borderColor: '#5E2BB8',
+          pointRadius: 5,
           fill: false
       }]
   },
@@ -108,12 +148,14 @@ const myChart = new Chart(ctx4, {
           y: {
               title: {
                   display: true,
-                  text: 'Value'
+                  text: 'Revenue'
               }
           }
       }
   }
 });
+
+
 
 // start calendar script
 
