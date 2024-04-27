@@ -6,29 +6,44 @@
                 $this->conn = $this->conn->dbObject();
             }
 
-            public function getAllData()
+            // public function getAllData()
+            // {
+            //     $query = "SELECT
+            //     i.id,
+            //     i.Item_name,
+            //     i.manufacturer,
+            //     i.reorder_limit,
+            //     SUM(CASE WHEN oi.expire_date IS NOT NULL THEN oi.quantity ELSE 0 END) AS total_quantity,
+            //     i.unit_of_measure,
+            //     i.description
+            // FROM
+            //     inventory_items i
+            // LEFT JOIN
+            //     order_item oi ON i.id = oi.item_id
+            // GROUP BY
+            //     i.id
+            // ORDER BY
+            //     i.id ASC";
+            
+            //     $result = mysqli_query($this->conn, $query);
+            //     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            //     return $data;
+            // }
+
+             public function getAllData()
             {
-                $query = "SELECT
-                i.id,
-                i.Item_name,
-                i.manufacturer,
-                i.reorder_limit,
-                SUM(CASE WHEN oi.expire_date IS NOT NULL THEN oi.quantity ELSE 0 END) AS total_quantity,
-                i.unit_of_measure,
-                i.description
+                $query = "SELECT *
             FROM
-                inventory_items i
-            LEFT JOIN
-                order_item oi ON i.id = oi.item_id
-            GROUP BY
-                i.id
+                inventory_items
             ORDER BY
-                i.id ASC";
+                id ASC";
             
                 $result = mysqli_query($this->conn, $query);
                 $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 return $data;
-            }
+         }
+
+            
 
             public function enterItems($item_name , $total_quantity , $manufacture , $reorder_level , $description){
                 $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, total_quantity, reorder_limit, description, manufacturer) VALUES ('$item_name', '$item_type', '$reorder_level', '$description', '$manufacture')");

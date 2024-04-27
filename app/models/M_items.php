@@ -128,9 +128,35 @@
             }
 
             public function getReorderData(){
-                $result = mysqli_query($this->conn , "SELECT * 
-                FROM inventory_items 
-                WHERE quantity <= reorder_limit
+                $result = mysqli_query($this->conn , "SELECT 
+                ii.*, 
+                CASE 
+                    WHEN oi.item_id IS NOT NULL THEN 'Yes'
+                    ELSE 'No'
+                END AS status
+            FROM 
+                inventory_items ii
+            LEFT JOIN 
+                order_item oi ON ii.id = oi.item_id
+            WHERE 
+                ii.quantity <= ii.reorder_limit;
+            
+                ");
+                $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
+
+                return $data;
+            }
+
+            public function getReorderFormData(){
+                $result = mysqli_query($this->conn , "SELECT 
+                ii.*
+            FROM 
+                inventory_items ii
+            LEFT JOIN 
+                order_item oi ON ii.id = oi.item_id
+            WHERE 
+                ii.quantity <= ii.reorder_limit
+                AND oi.item_id IS NULL;  
                 ");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 

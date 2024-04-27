@@ -34,24 +34,37 @@
                     <th>Item Name</th>
                     <th>Quantity in the stock</th>
                     <th>Reorder Limit</th>
-                    
+                    <th>Order Status</th>
             </thead >
         <tbody>
                 <div class='table_body'>
                 <?php
-                $reversedArray = array_reverse($data, true);
-               
-                    foreach ($reversedArray as $index => $row) {
+
+                if(count($data)>0){
+                    foreach ($data as $index => $row) {
+                        
+                if ($row['status'] == 'Yes') {
+                    $str_class = 'status-3';
+                    $str_test = 'Order Placed';
+                  
+                } else if ($row['status'] == 'No') {
+                    $str_class = 'status-5';
+                    $str_test = 'Haven\'t Ordered';
+                }
+
                         echo '
                         <tr>
                         <td>'.$row['id'].'</td>
                         <td>'.$row['Item_name'].'</td>
                         <td>'.$row['id'].'</td>
                         <td>'.$row['reorder_limit'].'</td>
-                      
+                        <td><div class="' . $str_class . '">' . $str_test  . '</div></td>
                         </tr>';
                     }
-                
+
+                }
+               
+                   
                 ?>
                 </div>
             </tbody>

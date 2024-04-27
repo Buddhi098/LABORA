@@ -369,7 +369,7 @@
         public function getReorderForm(){
 
             $data = [];
-            $rowData = $this->md_item->getReorderData();
+            $rowData = $this->md_item->getReorderFormData();
             $item_name = [];
             foreach($rowData as $index => $dt){
                 $item_name[$index]['item_name'] = $dt['Item_name'];
