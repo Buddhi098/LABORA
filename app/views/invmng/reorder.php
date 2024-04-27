@@ -56,12 +56,15 @@
                         <tr>
                         <td>'.$row['id'].'</td>
                         <td>'.$row['Item_name'].'</td>
-                        <td>'.$row['id'].'</td>
+                        <td>'.$row['quantity'].'</td>
                         <td>'.$row['reorder_limit'].'</td>
                         <td><div class="' . $str_class . '">' . $str_test  . '</div></td>
                         </tr>';
                     }
 
+                }
+                else{
+                    echo '<tr><td colspan="6">No data available</td></tr>';
                 }
                
                    

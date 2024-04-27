@@ -199,6 +199,14 @@
     </div>
 </div>
 
+
+
+
+    <!-- import table javascript -->
+    <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+</body>
+</html>
+
 <script>
     function getItems(request_id){
                 console.log(request_id);
@@ -320,10 +328,3 @@ function closeModal() {
 }
 
 </script>
-
-
-
-    <!-- import table javascript -->
-    <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
-</body>
-</html>

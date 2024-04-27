@@ -139,7 +139,10 @@
             LEFT JOIN 
                 order_item oi ON ii.id = oi.item_id
             WHERE 
-                ii.quantity <= ii.reorder_limit;
+                ii.quantity <= ii.reorder_limit
+            ORDER BY 
+                status ASC;
+            
             
                 ");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
