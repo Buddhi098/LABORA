@@ -43,11 +43,16 @@ class M_report
 
     public function getAllreports()
     {
-        $result = mysqli_query($this->conn, "SELECT * FROM medical_report WHERE active_status='1'");
-        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        $result = array_reverse($rows);
+        $first_report= mysqli_query($this->conn, "SELECT * FROM medical_report WHERE (report_status='Pending' OR report_status='Created') AND active_status='1';");
+        $last_report = mysqli_query($this->conn, "SELECT * FROM medical_report WHERE (report_status!='Pending' AND report_status!='Created') AND active_status='1';");
 
-        return $result;
+        $first_report = mysqli_fetch_all($first_report, MYSQLI_ASSOC);
+        $last_report = mysqli_fetch_all($last_report, MYSQLI_ASSOC);
+
+        $data['first_report'] = $first_report;
+        $data['last_report'] = $last_report;
+
+        return $data;
     }
 
     public function reportCreated($ref_no)
@@ -78,9 +83,9 @@ class M_report
 
     public function getReportForMLT()
     {
-        $result1 = mysqli_query($this->conn, "SELECT * FROM medical_report WHERE report_status='Review By MLT' AND mlt_active='1';");
+        $result1 = mysqli_query($this->conn, "SELECT * FROM medical_report WHERE (report_status='Review By MLT' OR report_status='Approved' OR report_status='Rejected') AND mlt_active='1';");
         $result1 = mysqli_fetch_all($result1, MYSQLI_ASSOC);
-        $result2 = mysqli_query($this->conn, "SELECT * FROM medical_report WHERE (report_status='Completed' OR report_status='Rejected' OR report_status='Approved') AND mlt_active='1';");
+        $result2 = mysqli_query($this->conn, "SELECT * FROM medical_report WHERE (report_status='Completed') AND mlt_active='1';");
         $report2 = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
         $reports = array_merge($result1, $report2);

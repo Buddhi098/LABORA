@@ -161,11 +161,10 @@ class M_appointment
 
     public function setPassKey($appointment_id)
     {
-        $pass_key = $this->generateRandomString();
-        $store_key = md5($pass_key);
+        $pass_key = $this->generateRandomString(20);
 
         $result = mysqli_query($this->conn, "UPDATE appointment
-                SET pass_code  = '$store_key '
+                SET pass_code  = '$pass_key'
                 WHERE Id = '$appointment_id' AND active_status='1' ");
 
         $result2 = mysqli_query($this->conn, "UPDATE appointment 
@@ -209,10 +208,14 @@ class M_appointment
         return $appointment;
     }
 
-    public function getAppointmentByPassKey($key)
+    public function getAppointmentByPassKey($key , $ref_no='')
     {
-        $hashed_key = md5($key);
-        $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$hashed_key' ");
+        if($ref_no == ''){
+            $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$key' ");
+        }else{
+            $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$key' AND  Ref_No='$ref_no' ");
+        }
+        
         if (mysqli_num_rows($appointment) > 0) {
             $appointment = mysqli_fetch_assoc($appointment);
             return $appointment;

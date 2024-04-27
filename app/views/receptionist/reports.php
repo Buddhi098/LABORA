@@ -68,7 +68,7 @@
                                     $str = 'status-3';
                                     $status_class = '';
                                     $str_btn = '';
-                                    $str_href = 'href="' . APPROOT . "/receptionist/viewReport/" . $row['ref_no'] . '" target=_blank"" ';
+                                    $str_href = 'href="' . APPROOT . "/receptionist/getQRCodeScanner/" . $row['ref_no'] . '" ';
                                 }
                                 echo '<tr>
                             <td>' . $row['id'] . '</td>

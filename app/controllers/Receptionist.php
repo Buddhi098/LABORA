@@ -599,6 +599,7 @@ class receptionist extends Controller
         }
 
         echo json_encode($data);
+        exit();
     }
 
 
@@ -630,11 +631,11 @@ class receptionist extends Controller
 
         // send email to patient
         $subject = 'Appointment Pass';
-        $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' .  $patient_name . ',</p>
+        $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $patient_name . ',</p>
 
             <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your upcoming appointment:</p>
             
-            <a href="'.URLROOT.'PatientDashboard/viewPass/'.$appointment_id.'" style="display: inline-block;
+            <a href="' . URLROOT . 'PatientDashboard/viewPass/' . $appointment_id . '" style="display: inline-block;
                    padding: 10px 20px;
                    background-color: #4CAF50;
                    color: white;
@@ -655,7 +656,7 @@ class receptionist extends Controller
             <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
             LABORA<br>';
 
-        sendEmail($appointment_data['patient_email'],  $patient_name, $body, $subject);
+        sendEmail($appointment_data['patient_email'], $patient_name, $body, $subject);
 
         $this->view('receptionist/appointment_pass', $data);
 
@@ -680,7 +681,7 @@ class receptionist extends Controller
         $subject = 'Payment Confirmation';
         $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $user['patient_name'] . ',</p>
 
-            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your payment for '.$id.' Appointment</p>
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your payment for ' . $id . ' Appointment</p>
             
             <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
             
@@ -765,11 +766,23 @@ class receptionist extends Controller
 
     }
 
+    public function getQRCodeScanner($report_ref_no)
+    {
+        $data = [];
+        $data['ref_no'] = $report_ref_no;
+        $this->view("receptionist/qr_code_scanner", $data);
+    }
+
     public function viewReport($report_ref_no)
     {
-        $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
+        $pdfPath = '../app/storage/medical_reports/' . $report_ref_no . '.pdf';
 
-        $pdfContent = file_get_contents($pdfPath);
+        if (file_exists($pdfPath)) {
+            $pdfContent = file_get_contents($pdfPath);
+        } else {
+            echo "Report Not Found";
+            exit();
+        }
 
         if ($pdfContent === false) {
             echo "Failed to read the PDF file.";
@@ -777,6 +790,24 @@ class receptionist extends Controller
             header('Content-Type: application/pdf');
             echo $pdfContent;
         }
+    }
+
+    public function checkPassValidity($pass_key , $ref_no)
+    {
+        $appointment = $this->md_appointment->getAppointmentByPassKey($pass_key , $ref_no);
+        if ($appointment) {
+            $data['success'] = true;
+        } else {
+            $data['success'] = false;
+        }
+
+        echo json_encode($data);
+        exit();
+    }
+
+    public function showInvalidQRPage(){
+        $data = [];
+        $this->view("receptionist/invalid_qrcode", $data);
     }
 
 }

@@ -1,5 +1,12 @@
+let currentPage;
 
-let currentPage = 1;
+if(typeof sessionStorage.page === 'undefined'){
+    currentPage = 1;
+    
+}else{
+    currentPage = parseInt(sessionStorage.getItem('page'));
+}
+console.log(currentPage);
 
 function showPage(page) {
     const rows = document.querySelectorAll('tbody tr');
@@ -29,21 +36,28 @@ function nextPage() {
     const rowsPerPage = 5;
     const totalPages = Math.ceil(totalRows / rowsPerPage);
 
+
     if (currentPage < totalPages) {
     currentPage++;
+    sessionStorage.setItem('page', currentPage);
     showPage(currentPage);
     }
 }
 
 function previousPage() {
+
     if (currentPage > 1) {
     currentPage--;
+    sessionStorage.setItem('page', currentPage);
     showPage(currentPage);
     }
 }
 
+console.log(currentPage+'adasdas');
+
 
 showPage(currentPage);
+
 
 
 function searchTable() {
