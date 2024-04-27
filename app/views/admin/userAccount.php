@@ -29,13 +29,13 @@
 
         <div class="filter-box">
             <div class="filter-section">
-                <select class="filter-box">
-                    <option value="option1">All</option>
-                    <option value="option2">Supplier</option>
-                    <option value="option3">MLT</option>
-                    <option value="option2">Lab Assistant</option>
-                    <option value="option2">Inventory Manager</option>
-                    <option value="option2">Receptionist</option>
+                <select class="filter-box" id="roleFilter" onchange="filterByRole()">
+                    <option value="All">All</option>
+                    <option value="Supplier">Supplier</option>
+                    <option value="MLT">MLT</option>
+                    <option value="Lab_Assistant">Lab Assistant</option>
+                    <option value="Inventory_Manager">Inventory Manager</option>
+                    <option value="Receptionist">Receptionist</option>
                 </select>
                 <button class="filter-button">Filter By Roll</button>
             </div>
@@ -86,5 +86,25 @@
 
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+
+    <script>
+        function filterByRole() {
+            var select = document.getElementById('roleFilter');
+            var filter = select.value.toUpperCase();
+            var table = document.getElementById('myTable');
+            var rows = table.querySelectorAll('tbody tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var roleCell = rows[i].querySelector('td:nth-child(8)'); // Assuming role cell is in the 8th column
+                var roleText = roleCell.textContent || roleCell.innerText;
+
+                if (filter === 'ALL' || roleText.toUpperCase() === filter.toUpperCase()) {
+                    rows[i].style.display = ''; // Show the row
+                } else {
+                    rows[i].style.display = 'none'; // Hide the row
+                }
+            }
+        }
+    </script>
 </body>
 </html>
