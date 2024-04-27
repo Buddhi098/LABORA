@@ -84,6 +84,10 @@
 
         public function appointment_report() {
             $data = [];
+
+            // chart1
+            $appointment_status = $this->md_chart->getAppointmentStatus();
+            $data['appointment_status'] = $appointment_status;
     
             // Retrieve appointment data from model
             $app_data = $this->md_chart->getSevenDay();
@@ -95,6 +99,10 @@
                 // Handle case where data retrieval failed
                 $data['error'] = "Failed to retrieve appointment data.";
             }
+
+            //chart3
+            $appointment_time = $this->md_chart->getDailyAppointmentTime();
+            $data['appointment_time'] = $appointment_time;
     
             // Load the view and pass data to it
             $this->view("admin/appointment_report", $data);

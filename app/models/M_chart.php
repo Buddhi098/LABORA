@@ -177,6 +177,7 @@
         
             return $revenue_data;
         }
+        
 
         public function getSevenDayRevenue() {
             // Initialize an empty array to store the result
@@ -302,6 +303,40 @@
 
 
         //Appointment report
+        //chart1
+        public function getAppointmentStatus() {
+            // Initialize an empty array to store the result
+            $app_data = [];
+        
+            // Build the SQL query to calculate revenue for the past seven days
+            $query = "
+            SELECT  Appointment_Status AS Status,
+                    COUNT(*) AS Appointment_Count
+                FROM
+                    appointment
+                WHERE
+    				YEAR(Appointment_Date) = YEAR(CURDATE()) AND MONTH(Appointment_Date) = MONTH(CURDATE())
+                GROUP BY
+                    Appointment_Status
+            ";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $app_data[] = array(
+                        'Status' => $row['Status'],
+                        'Appointment_Count' => $row['Appointment_Count']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $app_data;
+        }
+        //chart2
         public function getSevenDay() {
             // Initialize an empty array to store the result
             $app_data = [];
@@ -337,6 +372,53 @@
             }
         
             return $app_data;
+        }
+
+        public function getDailyAppointmentTime() {
+            // Initialize an empty array to store the result
+            $revenue_data = [];
+        
+            // Build the SQL query to calculate revenue for the past seven days
+            $query = "
+            SELECT
+                CASE
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '08:00' AND '09:00' THEN '1'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '09:00' AND '10:00' THEN '2'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '10:00' AND '11:00' THEN '3'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '11:00' AND '12:00' THEN '4'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '12:00' AND '01:00' THEN '5'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '01:00' AND '02:00' THEN '6'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '02:00' AND '03:00' THEN '7'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '03:00' AND '04:00' THEN '8'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '04:00' AND '05:00' THEN '9'
+                    WHEN TIME_FORMAT(Appointment_Time, '%H:%i') BETWEEN '05:00' AND '06:00' THEN '10'
+                END AS time_slot,
+                COUNT(*) AS appointment_count
+            FROM
+                appointment
+            WHERE
+                DATE(Appointment_Date) = CURDATE() -- Filter by current date
+            GROUP BY
+                time_slot
+            ORDER BY 
+                            time_slot ASC
+            ";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $revenue_data[] = array(
+                        'time_slot' => $row['time_slot'],
+                        'appointment_count' => $row['appointment_count']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $revenue_data;
         }
         
         
