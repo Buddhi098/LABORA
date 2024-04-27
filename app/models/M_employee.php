@@ -88,5 +88,22 @@
                     return false;
                 }
             }
+
+            public function getSupplierCount(){
+                $result = mysqli_query($this->conn , "SELECT COUNT(*) AS supplier_count FROM employees WHERE role='supplier'");
+                $result = mysqli_fetch_assoc($result);
+                return $result['supplier_count'];
+            }
+
+            public function getSupplier($supplier_id){
+                $supplier = mysqli_query($this->conn , "SELECT * FROM employees WHERE id='$supplier_id' AND role='supplier'");
+                $supplier = mysqli_fetch_assoc($supplier);
+                if($supplier){
+                    return $supplier;
+                } else {
+                    return false;
+                }
+                
+            }
     }
 ?>

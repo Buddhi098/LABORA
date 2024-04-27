@@ -1,201 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta http-equiv="refresh" content="600; url=http://localhost/labora/user/logout"> -->
-    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/supplier/dashboard.css'?>">
-    <script src="<?php echo APPROOT.'/public/js/patientdashboard/patient.js';?>"></script>
+    <link rel="stylesheet" href="<?php echo APPROOT . '/public/css/supplier/dashboard.css' ?>">
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Supplier dashboard</title>
 </head>
+
 <body>
     <?php require_once 'components/nevbar.php' ?>
-
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <div class="container_1">
-        <div class="boxset_1">
-
-            <!-- Existing boxes in code 1 -->
-            <div class="box box_1">
-            <div class="text">
-                    <h5>Number of Orders</h5>
-                    <h1>30</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Total number of orders received form the inventory manager in previous month.</p>
+        <div class="dashboard-container">
+            <div class="top-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <!-- <i class="fas fa-clipboard-list"></i> -->
+                        <i class="ri-user-2-line card--icon--lg"></i>
+                    </div>
+                    <div class="card-content">
+                        <p><?php echo $data['pending_orders']; ?></p>
+                        <h3>Pending Orders</h3>
+                    </div>
                 </div>
-                <div class="icon">
-                <i class="fa-solid fa-bars"></i>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="ri-user-line card--icon--lg"></i>
+                    </div>
+                    <div class="card-content">
+                        <p><?php echo $data['cancelled_orders']; ?></p>
+                        <h3>Cancelled Orders</h3>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <!-- <i class="fas fa-trash"></i> -->
+                        <ion-icon name="calendar-number-outline"></ion-icon>
+                    </div>
+                    <div class="card-content">
+                        <p><?php echo $data['Send_inovice']; ?></p>
+                        <h3>Send Invoice</h3>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                    <div class="card-content">
+                        <p><?php echo $data['supplier_count']; ?></p>
+                        <h3>Suppliers</h3>
+
+                    </div>
                 </div>
             </div>
 
-            <div class="box box_2">
-            <div class="text">
-                    <h5>Number of Pending Orders</h5>
-                    <h1>10</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>These orders are still pending check the availability on items and chemicals.</p>
+            <!-- Chart Section -->
+            <div class="chart-section">
+                <div class="chart-container">
+                    <h3><i class="fa-solid fa-money-bill"></i> Monthly Revenue</h3>
+                    <div><canvas id="myChart4"></canvas></div>
                 </div>
-                <div class="icon">
-                <i class="fa-solid fa-hourglass-start"></i>
-                </div>
-            </div>
+                <div class="chart-container2">
+                    <!-- <h3>Calender</h3> -->
+                    <div class="calendar">
+                        <div class="header">
+                            <div class="month"></div>
+                            <div class="btns">
+                                <div class="btn today-btn">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <div class="btn prev-btn">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <div class="btn next-btn">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weekdays">
+                            <div class="day">Sun</div>
+                            <div class="day">Mon</div>
+                            <div class="day">Tue</div>
+                            <div class="day">Wed</div>
+                            <div class="day">Thu</div>
+                            <div class="day">Fri</div>
+                            <div class="day">Sat</div>
+                        </div>
+                        <div class="days">
+                            <!-- lets add days using js -->
+                        </div>
+                    </div>
 
-            <div class="box box_3">
-            <div class="text">
-                    <h5>Number of Rejected Orders</h5>
-                    <h1>5</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Rejecting the orders because of unavailability of items or chemicals or lack of producers.</p>
-                </div>
-                <div class="icon">
-                <i class="fa-solid fa-xmark"></i>
-                </div>
-            </div>
 
-            <div class="box box_4">
-            <div class="text">
-                    <h5>Number of sent out Invoices</h5>
-                    <h1>15</h1>
-                    <p><i class="fa-solid fa-arrow-right" style="color: #ff0000;"></i>Invoices are sent after confirmation of items or chemicals</p>
-                </div>
-                <div class="icon">
-                <i class="fa-solid fa-file-import"></i>
                 </div>
             </div>
         </div>
 
-        <div class="chart">
-            <div class="chartContainer" id="chart1">
-        <canvas id="firstChart"></canvas>
-    </div>
+        <script src="<?php echo APPROOT . '/public/js/supplier/dashboard.js'; ?>"></script>
+        <script>
+            function getTime(date) {
 
-    
-    <div class="chartContainer" id="chart2">
-        <canvas id="secondChart"></canvas>
-    </div>
-       
- </div>
+            }
+        </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>let graph_data = <?php echo json_encode($data['graph_data'])?>;</script>
+</body>
 
+</html>
 
 <script>
-    // First chart
-    console.log(graph_data);
-    
-    //for loop to fetch data
-    let labels_data = [];
-    for(let i = 0; i < graph_data.length; i++){
-        labels_data.push(graph_data[i].item_name);
-    }
+    //second row charts
+    // chart4
 
-    let data_ = []
-    for(let i=0 ; i<graph_data.length ; i++){
-        data_.push(graph_data[i].quantity);
-    }
-    const ctx = document.getElementById('firstChart').getContext('2d');
-    new Chart(ctx, {
-        
-        type: 'bar',
-        data: {
-            labels: labels_data,
-            datasets: [{
-                label: 'Number of items send out',
-                data: data_,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options:{
-         plugins: {
-             title: {
-               display: false,
-               text: 'Number of items',
-               font: {
-                   size: 35
-               }
-             },
-        legend:{
-            display:true,
-        }
-    }
-}
-    });
+    let chartData = <?php echo json_encode($data['chart_data']); ?>;
+    console.log(chartData);
+    // const chartData = [
+    //     { date: '2023-01-01', value: 10000 },
+    //     { date: '2023-02-01', value: 12000 },
+    //     { date: '2023-03-01', value: 11000 },
+    //     { date: '2023-04-01', value: 14000 },
+    //     { date: '2023-05-01', value: 11000 },
+    //     // { date: '2023-06-01', value: 130 },
+    //     // { date: '2023-07-01', value: 150 },
+    //     // { date: '2023-08-01', value: 160 },
+    //     // { date: '2023-09-01', value: 174 },
+    //     // { date: '2023-10-01', value: 180 },
+    //     // { date: '2023-11-01', value: 190 },
+    //     // { date: '2023-12-01', value: 200 }
+    // ];
 
-//     options: {
-//         plugins: {
-//             title: {
-//                 display: false,
-//                 text: 'Revenue By Test Type',
-//                 font: {
-//                     size: 35
-//                 }
-//             },
-//             legend:{
-//                 display:true,
-//                 // position:'right',
-//                 labels:{
-//                     fontColor:'black'
-//                 }
-//             },
-//         },
-        
-//         layout: {
-//             padding: {
-//                 left: 0,
-//                 right: 0,
-//                 top: 0,
-//                 bottom: 10,
-//             }
-//         },
-//         tooltips: {
-//             enabled: true,
-//         }
-//     }
-// });
-
-
-    //Second chart
-    const secondCtx = document.getElementById('secondChart').getContext('2d');
-    new Chart(secondCtx, {
+    // Create the line chart
+    const ctx4 = document.getElementById('myChart4').getContext('2d');
+    const myChart = new Chart(ctx4, {
         type: 'line',
         data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: chartData.map(data => data.month.toLocaleString('default', { month: 'long' })),
             datasets: [{
-                label: 'Number of invoices sent out',
-                data: [20, 40, 35, 45, 30, 25, 20],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                label: 'Value',
+                data: chartData.map(data => data.order_count),
+                borderColor: '#5E2BB8',
+                fill: false
             }]
         },
         options: {
+            responsive: true,
             scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    }
+                },
                 y: {
-                    beginAtZero: true
+                    title: {
+                        display: true,
+                        text: 'Value'
+                    }
                 }
             }
         }
     });
-    
 </script>
-
-</html>
-

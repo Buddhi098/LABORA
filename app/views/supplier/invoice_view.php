@@ -45,18 +45,15 @@
                         <tbody>
                             <?php
                             if ($data['item']) {
+                                $sum = 0;
                                 foreach ($data['item'] as $item) {
+                                    $sum += (int)$item['price'];
                                     echo "<tr>";
                                     echo "<td>{$item['item_name']}</td>";
                                     echo "<td>{$item['quantity']}</td>";
                                     echo "<td>{$item['unit']}</td>";
-                                    echo "<td>
-                                        <input type='number' placeholder='Price' min='0' step='0.01' />
-                                        <input type='hidden' class='hidden' value=" . $item['id'] . " />
-                                    </td>
-                                    <td>
-                                        <input type='date' placeholder='Expire Date' />
-                                    </td>";
+                                    echo "<td>{$item['price']}</td>";
+                                    echo "<td>{$item['expire_date']}</td>";
                                     echo "</tr>";
                                 }
                             } else {
@@ -67,7 +64,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="3" class="total-label">Total:</td>
-                                <td id="total-amount" colspan="2">Rs. 0.00</td>
+                                <td id="total-amount" colspan="2">Rs. <?php echo $sum;?></td>
                                 <td></td>
                             </tr>
                         </tfoot>
@@ -82,6 +79,23 @@
             </footer>
         </div>
     </div>
+
+    <!-- delete waring message -->
+    <div id="deleteModal" class="warning-modal">
+        <div class="warning-modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure you want to Cancel?</p>
+            <div class="btn-container">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+                <input type="hidden" value="" id="hidden_id">
+            </div>
+        </div>
+    </div>
+
+    <script src="<?php echo APPROOT . '/public/js/components/warningModal.js' ?>"></script>
+
+    
 
 
 </body>
