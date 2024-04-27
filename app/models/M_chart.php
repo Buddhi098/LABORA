@@ -6,7 +6,36 @@
             $this->conn = $this->conn->dbObject();
         }
 
-        //Finance chart
+        //Test Report
+        public function getTestAvailability() {
+            $result_data = array();
+        
+            $query = "SELECT
+                        availability,
+                        COUNT(availability) AS NumberOfTests
+                    FROM
+                        Test_type
+                    GROUP BY
+                        availability";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $result_data[] = array(
+                        'availability' => $row['availability'],
+                        'NumberOfTests' => $row['NumberOfTests']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $result_data;
+        }
+
+        //Finance Report
         //chart 1
         public function getCost() {
             $result_data = array();
@@ -36,6 +65,117 @@
             }
         
             return $result_data;
+        }
+
+        public function getDailyTestCount() {
+            // Initialize an empty array to store the result
+            $revenue_data = [];
+        
+            // Build the SQL query to calculate revenue for the past seven days
+            $query = "
+                    SELECT 
+                    Test_type AS Test_type,
+                    COUNT(Test_type) AS TotalTests
+                FROM 
+                    appointment
+                WHERE 
+                    Appointment_Status = 'Completed' AND
+                    Appointment_Date = CURDATE()
+                GROUP BY 
+                    Test_type
+                ORDER BY 
+                    Test_type ASC;
+            ";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $revenue_data[] = array(
+                        'Test_type' => $row['Test_type'],
+                        'TotalTests' => $row['TotalTests']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $revenue_data;
+        }
+
+        public function getMonthlyTestCount() {
+            // Initialize an empty array to store the result
+            $revenue_data = [];
+        
+            // Build the SQL query to calculate revenue for the past seven days
+            $query = "
+                    SELECT 
+                    Test_type AS Test_type,
+                    COUNT(Test_type) AS TotalTests
+                FROM 
+                    appointment
+                WHERE 
+                    Appointment_Status = 'Completed' AND
+                    YEAR(Appointment_Date) = YEAR(CURDATE()) AND MONTH(Appointment_Date) = MONTH(CURDATE())
+                GROUP BY 
+                    Test_type
+                ORDER BY 
+                    Test_type ASC;
+            ";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $revenue_data[] = array(
+                        'Test_type' => $row['Test_type'],
+                        'TotalTests' => $row['TotalTests']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $revenue_data;
+        }
+
+        public function getWeeklyTestCount() {
+            // Initialize an empty array to store the result
+            $revenue_data = [];
+        
+            // Build the SQL query to calculate revenue for the past seven days
+            $query = "
+                    SELECT 
+                    Test_type AS Test_type,
+                    COUNT(Test_type) AS TotalTests
+                FROM 
+                    appointment
+                WHERE 
+                    Appointment_Status = 'Completed' AND
+                    Appointment_Date BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 DAY) AND CURDATE()
+                GROUP BY 
+                    Test_type
+                ORDER BY 
+                    Test_type ASC;
+            ";
+        
+            $result = mysqli_query($this->conn, $query);
+        
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $revenue_data[] = array(
+                        'Test_type' => $row['Test_type'],
+                        'TotalTests' => $row['TotalTests']
+                    );
+                }
+            } else {
+                // Handle query execution error
+                return false;
+            }
+        
+            return $revenue_data;
         }
 
         public function getSevenDayRevenue() {

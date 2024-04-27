@@ -10,6 +10,26 @@
             $this->auth->authMiddleware('admin');
         }
 
+        // Test report
+        public function test_report(){
+            $data = [];
+            
+            //chart1
+            $test_graph = $this->md_chart->getTestAvailability();
+            $data['graph_data'] = $test_graph;
+
+            $test_graph2 = $this->md_chart->getDailyTestCount();
+            $data['graph_data2'] = $test_graph2;
+
+            $test_graph3 = $this->md_chart->getMonthlyTestCount();
+            $data['graph_data3'] = $test_graph3;
+
+            $test_graph4 = $this->md_chart->getWeeklyTestCount();
+            $data['graph_data4'] = $test_graph4;
+
+            $this->view("admin/test_report" , $data);
+        }
+
         // Finance report
         public function finance_report(){
             $data = [];
@@ -78,11 +98,6 @@
     
             // Load the view and pass data to it
             $this->view("admin/appointment_report", $data);
-        }
-        public function test_report(){
-
-            $data = [];
-            $this->view("admin/test_report" , $data);
         }
 
         

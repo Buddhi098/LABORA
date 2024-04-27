@@ -1,13 +1,43 @@
 //Chart 1
+// let labels_data = [];
+// for(let i = 0; i < graph_data.length; i++){
+//     labels_data.push(graph_data[i].availability);
+// }
+
+// let data_ = []
+// for(let i=0 ; i<graph_data.length ; i++){
+//     data_.push(graph_data[i].NumberOfTests);
+// }
+let labels_data = [];
+let data_ = [];
+
+// Assuming graph_data is your original data array
+for (let i = 0; i < graph_data.length; i++) {
+    let availability = graph_data[i].availability;
+    let numberOfTests = graph_data[i].NumberOfTests;
+
+    // Map availability to labels_data and data_
+    if (availability === '1') {
+        labels_data.unshift('Available'); // Insert "Available" at the beginning
+    } else if (availability === '0') {
+        labels_data.push('Not Available');
+    }
+
+    data_.push(numberOfTests); // Always push numberOfTests
+}
+
+// Reverse data_ to match the labels order
+data_ = data_.reverse();
+
 const ctx = document.getElementById('myChart');
 
 new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ['Available', 'Not Available'],
+    labels: labels_data,
     datasets: [{
-      label: '',
-      data: [12, 19],
+      label: 'Number of Tests',
+      data: data_,
       borderWidth: 1
     }]
   },
@@ -26,14 +56,24 @@ new Chart(ctx, {
 
 
 //Chart 2
+let labels_data2 = [];
+for(let i = 0; i < graph_data2.length; i++){
+    labels_data2.push(graph_data2[i].Test_type);
+}
+
+let data_2 = []
+for(let i=0 ; i<graph_data2.length ; i++){
+    data_2.push(graph_data2[i].TotalTests);
+}
+
 const ctx2 = document.getElementById('myChart2');
 new Chart(ctx2, {
     type: 'bar',
     data: {
-        labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5', 'Test 6', 'Test 7', 'Test 8', 'Test 9', 'Test 10'],
+        labels: labels_data2,
         datasets: [{
             label: 'Number of Tests',
-            data: [25, 45, 32, 18, 12, 37, 29, 41, 22, 36],
+            data: data_2,
             borderWidth: 1,
             backgroundColor: [
                 '#FF6384', // Red
@@ -89,14 +129,23 @@ new Chart(ctx2, {
 
 
 //Chart 3
+let labels_data3 = [];
+for(let i = 0; i < graph_data3.length; i++){
+    labels_data3.push(graph_data3[i].Test_type);
+}
+
+let data_3 = [];
+for(let i=0 ; i<graph_data3.length ; i++){
+    data_3.push(graph_data3[i].TotalTests);
+}
 const ctx3 = document.getElementById('myChart3');
 new Chart(ctx3, {
     type: 'pie',
     data: {
-        labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5', 'Test 6', 'Test 7'],
+        labels: labels_data3,
         datasets: [{
             label: 'Number of Tests',
-            data: [25, 45, 32, 18, 12, 37, 29],
+            data: data_3,
             borderWidth: 1,
             backgroundColor: [
                 '#FF6384', // Red
@@ -137,14 +186,23 @@ new Chart(ctx3, {
 
 
 //Chart 4
+let labels_data4 = [];
+for(let i = 0; i < graph_data4.length; i++){
+    labels_data4.push(graph_data4[i].Test_type);
+}
+
+let data_4 = [];
+for(let i=0 ; i<graph_data4.length ; i++){
+    data_4.push(graph_data4[i].TotalTests);
+}
 const ctx4 = document.getElementById('myChart4');
 new Chart(ctx4, {
     type: 'line',
     data: {
-        labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5', 'Test 6', 'Test 7', 'Test 8', 'Test 9', 'Test 10'],
+        labels: labels_data4,
         datasets: [{
             label: 'Number of Tests',
-            data: [25, 45, 32, 18, 12, 37, 29, 41, 22, 36],
+            data: data_4,
             borderWidth: 2,
             borderColor: '#FF6384',
             pointRadius: 7,
