@@ -78,6 +78,13 @@
             }
         }
 
+        public function filterExpiredItems($startDate, $endDate) {
+            $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
+            echo json_encode($data); // Return JSON response instead of rendering a view
+        }
+        
+        
+
 
         public function product(){
 
@@ -144,8 +151,12 @@
             $invoiceToCheckQuantity = $this->md_dashboard->getInvoiceToCheckQuantity();
             $data['invoice_to_check'] = $invoiceToCheckQuantity;
 
-            $this->view("invmng/dashboard" , $data);
+            
+          
+      
+            $this->view("invmng/dashboard" ,   $data);
         }
+
 
         public function issueChemicals(){
 
@@ -355,6 +366,28 @@
             $this->view("invmng/orderForm" , $data);
         }
 
+        public function getReorderForm(){
+
+            $data = [];
+            $rowData = $this->md_item->getReorderFormData();
+            $item_name = [];
+            foreach($rowData as $index => $dt){
+                $item_name[$index]['item_name'] = $dt['Item_name'];
+                $item_name[$index]['item_id'] = $dt['id'];
+            }
+
+            $rowData2 = $this->md_supplier->getAllSupplier();
+            $supplier = [];
+            foreach($rowData2 as $index => $dt){
+                $supplier[$index]['sup_name'] = $dt['full_name'];
+                $supplier[$index]['sup_id'] = $dt['id'];
+            }
+            $data['item_name'] = $item_name;
+            $data['supplier_name'] = $supplier;
+
+            $this->view("invmng/reorderForm" , $data);
+        }
+
         public function submitOrderForm(){
 
             $formData = file_get_contents('php://input');
@@ -403,11 +436,11 @@
         function sendEmailExpiredItem(){
             $result = mysqli_query($this->conn, "SELECT id, item_id, item_name, quantity, expire_date 
                                                 FROM order_item 
-                                                WHERE expire_date <= CURDATE() + INTERVAL 7 DAY 
+                                                WHERE expire_date <= CURDATE() + INTERVAL 21 DAY 
                                                 ORDER BY expire_date ASC");
             $expiredItems = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
-            $body = '<h2>Items with Expiry Date Within the Next Seven Days:</h2>';
+            $body = '<h2>Items with Expiry Date Within the Next Twenty One Days:</h2>';
             $body .= '<table border="1">
                         <tr>
                             <th>ID</th>
@@ -432,7 +465,7 @@
             $user = $_SESSION['user'];
             $name = $user['name'];
             $email = $user['email'];
-            $subject = 'Items with Expiry Date Within the Next Two Days';
+            $subject = 'Items with Expiry Date Within the Next Twenty One Days';
         
             sendEmail($email, $name, $body, $subject);
         

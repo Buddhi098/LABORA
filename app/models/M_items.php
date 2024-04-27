@@ -128,8 +128,38 @@
             }
 
             public function getReorderData(){
-                $result = mysqli_query($this->conn , "SELECT * 
-                FROM inventory_items 
+                $result = mysqli_query($this->conn , "SELECT 
+                ii.*, 
+                CASE 
+                    WHEN oi.item_id IS NOT NULL THEN 'Yes'
+                    ELSE 'No'
+                END AS status
+            FROM 
+                inventory_items ii
+            LEFT JOIN 
+                order_item oi ON ii.id = oi.item_id
+            WHERE 
+                ii.quantity <= ii.reorder_limit
+            ORDER BY 
+                status ASC;
+            
+            
+                ");
+                $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
+
+                return $data;
+            }
+
+            public function getReorderFormData(){
+                $result = mysqli_query($this->conn , "SELECT 
+                ii.*
+            FROM 
+                inventory_items ii
+            LEFT JOIN 
+                order_item oi ON ii.id = oi.item_id
+            WHERE 
+                ii.quantity <= ii.reorder_limit
+                AND oi.item_id IS NULL;  
                 ");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 
@@ -156,6 +186,15 @@
                     return false;
                 }
             }
+
+            public function getFilteredExpiredItems($startDate, $endDate) {
+                $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 
+                            FROM order_item 
+                            WHERE expire_date BETWEEN '$startDate' AND '$endDate' ORDER BY expire_date ASC");
+                $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                return $result;
+            }
+            
 
 
             

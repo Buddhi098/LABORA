@@ -135,17 +135,17 @@ a.del:hover {
 
 /* override nev bar for keep white check */
 
-.navigation ul li:nth-child(2)
+.navigation ul li:nth-child(3)
 {
     background-color: white;
 }
 
-.navigation ul li:nth-child(2) a .title
+.navigation ul li:nth-child(3) a .title
 {
     color: var(--darkblue);
 }
 
-.navigation ul li:nth-child(2) a::before
+.navigation ul li:nth-child(3) a::before
 {
     content:'';
     position: absolute;
@@ -157,7 +157,7 @@ a.del:hover {
     box-shadow: 30px 30px 0 10px white;
 }
 
-.navigation ul li:nth-child(2) a::after
+.navigation ul li:nth-child(3) a::after
 {
     content:'';
     position: absolute;
@@ -169,7 +169,7 @@ a.del:hover {
     box-shadow: 30px -30px 0 10px white;
 }
 
-.navigation ul li:nth-child(2) a .icon
+.navigation ul li:nth-child(3) a .icon
 {
     color: var(--darkblue);
 }
@@ -294,3 +294,30 @@ a.del:hover {
         width: 90%;
     }
 }
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input[type="date"] {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

@@ -14,7 +14,7 @@
     <title>Inventory Manager dashboard</title>
 </head>
 <body>
-    <?php require_once 'components/nevbar.php' ?>
+    <?php require_once 'components/navinventory.php' ?>
     <div class="container_1">
 
     <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/invmng/components/invTables.css'?>">
@@ -70,10 +70,10 @@
                                 <td>'.$row['Item_name'].'</td>  
                               
                                 <td>'.$row['reorder_limit'].'</td>
-                                <td>'.$row['total_quantity'].'</td>
+                                <td>'.$row['quantity'].'</td>
                                 <td>'.$row['unit_of_measure'].'</td>
                                 <td>
-                                <button href="#" class="action-button" onclick="getItems('.$row['id'].','.$row['total_quantity'].')">View</button>
+                                <button href="#" class="action-button" onclick="getItems('.$row['id'].','.$row['quantity'].')">View</button>
                                 </td>
                                
                                 <td>'.$row['description'].'</td>
@@ -132,8 +132,8 @@
 </html>
 
 <script>
-function getItems(id, total_quantity) {
-    if (total_quantity > 0) {
+function getItems(id, quantity) {
+    if (quantity > 0) {
         baseLink = window.location.origin;
         link = `${baseLink}/labora/invmng/getItemDetails/${id}`;
         console.log(link);
