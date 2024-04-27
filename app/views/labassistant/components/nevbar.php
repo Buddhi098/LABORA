@@ -47,10 +47,11 @@
                 </li>
                 <li>
                     <a href="http://localhost/labora/labassistant/appointment">
-                    <span class="icon"><ion-icon name="calendar-number"></ion-icon></ion-icon></span>
+                    <span class="icon"><ion-icon name="calendar-number"></ion-icon></span>
                     <span class="title">Appointment</span>
                     </a>
                 </li>
+                
                 <li>
                     <a href="http://localhost/labora/labassistant/patientdetails">
                     <span class="icon"><ion-icon name="reader"></ion-icon></span>

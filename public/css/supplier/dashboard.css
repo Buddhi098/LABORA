@@ -1,247 +1,325 @@
 .container_1
 {
     position: fixed;
-    width: calc(100% - 300px);
+    width: calc(100% - 350px);
     left: 300px;
     background: white;
     transition: 0.5s;
     color: rgb(0, 0, 0);
     top: 72px;
-    padding: 10px;
+    padding: 28px;
     margin: 0px;
-    height: 93%;
     overflow: auto;
-    font-family: roboto;
-}
-
-.container_1 .boxset-1{
+    height: 95%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    background-color: #e9ecff75;
 }
 
-.container_1 .boxset-1 div{
-    width: 250px;
-    height: 170px;
-    /*background-color: brown;*/
-    border-radius: 14px;
-    background-image: url('/LABORA/public/img/background.png');
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    padding: 16px;
-    color: white;
-    text-align: center;
+body{
+  overflow: hidden;
 }
-
-.container_1 .boxset-1 div span{
-    font-size: 55px;
-    color: var(--mainyellow);
-}
-.container_1 .boxset-1 div p{
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.8);
-}
-.container_2{
-    position: absolute;
-    width: calc(100% - 325px);
-    left: 300px;
-    background: rgba(255, 255, 255, 0.1);
-    transition: 0.5s;
-    color: rgb(0, 0, 0);
-    top: 330px;
-    padding: 0px;
-    margin: 0px 0 10px 10px;
-    border-radius: 20px;
-}
-
-.container_2 .boxset-2{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.container_2 .boxset-2 div{
-    flex-basis: 35%;
-    min-height: 360px;
-    background-color: rgba(228, 228, 228 , 0.1);
-    border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding: 8px;
-}
-.container_2 .boxset-2 .message{
-    flex-basis: 60%;
-}
-
-.container_2 .boxset-2 h1{
-    text-align: center;
-}
-
-
-/* override nev bar for keep white check */
-
-.navigation ul li:nth-child(1)
-{
-    background-color: white;
-}
-
-.navigation ul li:nth-child(1) a .title
-{
-    color: var(--darkblue);
-}
-
-.navigation ul li:nth-child(1) a::before
-{
-    content:'';
-    position: absolute;
-    right:0;
-    top:-50px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    box-shadow: 30px 30px 0 10px white;
-}
-
-.navigation ul li:nth-child(1) a::after
-{
-    content:'';
-    position: absolute;
-    right:0;
-    bottom:-50px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    box-shadow: 30px -30px 0 10px white;
-}
-
-.navigation ul li:nth-child(1) a .icon
-{
-    color: var(--darkblue);
-}
-
-
-* {box-sizing: border-box;}
-ul {list-style-type: none;}
-body {font-family: Verdana, sans-serif;}
-
-.month {
-  padding: 70px 25px;
+.container_1 .boxset_1{
+  
+  margin: 0;
   width: 100%;
-  background: #1abc9c;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  height: 350px;
+  margin-top: 16px;
+  padding: 0 20px;
+}
+
+.container_1 .boxset_1 .box {
+	display: flex;
+	width: 504px;
+	height: 159px;
+	font-family: roboto;
+	padding: 18px;
+	border: 2px solid #7570ff;
+	border-radius: 16px;
+	background-color: white;
+	box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  margin:10px 0;
+}
+
+.container_1 .boxset_1 .box .text h5 {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgba(24, 11, 76, 0.8);
+	margin-top: 4px;
+	width: 250px;
+	justify-content: left;
+}
+.container_1 .boxset_1 .box .text h1{
+    margin:14px 0;
+    font-family: mainfont;
+}
+.container_1 .boxset_1 .box .text p {
+	font-size: 14px;
+	color: #000000ab;
+}
+
+.container_1 .boxset_1 .icon i {
+	background: #99a0ff8f;
+	padding: 16px;
+	border-radius: 16px;
+	font-size: 24px;
+	color: #4d1ff4;
+	width: 55px;
+	height: 55px;
+	text-align: center;
+}
+
+.container_1 .boxset_2{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  padding: 0 7px;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 32px;
+  min-height: 500px;
+}
+
+.container_1 .boxset_2 .bigbox_1{
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  overflow: hidden;
+  background-color: white;
+  padding: 24px;
+  font-family: roboto;
+  border-radius: 16px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  padding-top: 0;
+  color: #2e1699;
+}
+.container_1 .boxset_2 .bigbox_1 .boxes{
+  overflow: scroll;
+}
+.container_1 .boxset_2 .bigbox_1 h3{
+  margin-left: 10px;
+  color: #2e1699;
+}
+.container_1 .boxset_2 .bigbox_1 .title{
+  margin-bottom: 30px;
+  height: 80px;
+  width: 49%;
+  background-color: white;
+  margin: 0;
+  padding-top: 30px;
+}
+.container_1 .boxset_2 .bigbox_1 .sub_title{
+  color: rgba(13, 6, 40,0.6);
+  margin:5px 0;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.container_1 .boxset_2 .bigbox_1 .test_box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 10px;
+	border-radius: 10px;
+	background-color: #f0f0f0;
+	margin: 10px;
+	border: 1px solid #e1e1e1;
+}
+
+.container_1 .boxset_2 .bigbox_1 .test_box:hover{
+  background-color: #eaeaea;
+}
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox span{
+  font-size: 14px;
+  color: rgb(87, 87, 87);
+} 
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox{
   text-align: center;
+  
 }
 
-.month ul {
-  margin: 0;
-  padding: 0;
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox_2{
+  position: absolute;
+  left: 424px;
 }
 
-.month ul li {
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+.container_1 .boxset_2 .bigbox_1 .test_box .tbox_1 h4 i{
+  background-color: rgba(128, 0, 255,0.2);
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.month .prev {
-  float: left;
-  padding-top: 10px;
-}
-
-.month .next {
-  float: right;
-  padding-top: 10px;
-}
-
-.weekdays {
-position: absolute;
-top:120px;
-  margin: 0;
-  padding: 10px 0px;
-  background-color: #1abc9c;
-  width: 694px;
-}
-
-.weekdays li {
-  display: inline-block;
-  width: 95px;
-  color: #666;
-  text-align: center;
-  color: white;
-}
-
-.days {
-    position: absolute;
-    top:170px;
-  padding: 10px 0;
-  background: #eee;
-  margin: 0;
-  width: 694px;
-}
-
-.days li {
-  list-style-type: none;
-  display: inline-block;
-  width: 13.6%;
-  text-align: center;
-  margin-bottom: 5px;
-  font-size:12px;
-  color: #777;
-}
-
-.days li .active {
-  padding: 5px;
-  background: #1abc9c;
-  color: white !important
-}
-
-/* Add media queries for smaller screens */
-@media screen and (max-width:720px) {
-  .weekdays li, .days li {width: 13.1%;}
-}
-
-@media screen and (max-width: 420px) {
-  .weekdays li, .days li {width: 12.5%;}
-  .days li .active {padding: 2px;}
-}
-
-@media screen and (max-width: 290px) {
-  .weekdays li, .days li {width: 12.2%;}
-}
-
-/* notification box */
-
-.container_2 .boxset-2  div .notification-box{
-    font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
+.container_1 .boxset_2 .bigbox_2{
+  width: 30%;
+  height: 80%;
+  padding: 24px;
+  font-family: roboto;
+  border-radius: 16px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 100vh;
+}
+
+.chart{
+
+  display: grid;
+  grid-template-columns: auto auto;
+
+
+}
+.chartContainer {
   width: 100%;
+  height: 300px;
+  margin: 20px 10px; /* Add margin between the charts */
+}
+
+.chartContainer:first-child {
+  margin-right: 50px; /* Add margin to the right of the first chart */
+}
+
+
+
+
+
+
+
+/* calender Styles */
+/* @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+:root {
+  --primary-color: rgb(0, 0, 177);
+  --text-color: #1d1d1d;
+  --bg-color: #33186B;
+}
+
+.container_1 .boxset_2 .bigbox_2 .calendar {
+	width: 103%;
+	height: 104%;
+	max-width: 600px;
+	padding: 30px 20px;
+	background-color: var(--bg-color);
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .month {
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 600;
+  color: white;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .btns {
+  display: flex;
+  gap: 10px;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .btns .btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--primary-color);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.container_1 .boxset_2 .bigbox_2 .calendar .header .btns .btn:hover {
+  background-color: #db0933;
+  transform: scale(1.05);
+}
+.container_1 .boxset_2 .bigbox_2 .weekdays {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.weekdays .day {
+  width: calc(100% / 7 - 10px);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color:white;
+}
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.days .day {
+  width: calc(100% / 7 - 10px);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: #fff;
+  transition: all 0.3s;
+}
+.days .day:not(.next):not(.prev):hover {
+  color: #fff;
+  background-color:green;
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
-.notification-box {
-    width: 300px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    padding: 0px;
-    text-align: left;
+
+.days .day.today {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+.days .day.next,
+.days .day.prev {
+  color: #ccc;
 }
 
-.notification-box h2 {
-    font-size: 20px;
-    margin: 0;
+.days .clicked{
+  background-color: green;
+  color: white;
+  border-radius: 5px;
 }
 
-.notification-box p {
-    font-size: 16px;
-    margin: 10px 0;
+
+
+.credits a {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #aaa;
+}
+.credits span {
+  color: var(--primary-color);
 }
 
-.notification-box .timestamp {
-    color: #888;
-}
+
+
+
+
+@media (max-width: 800px) {
+  .container_1 .boxset_1 {
+    height: 110%;
+  }
+
+  .container_1 .boxset_1 .box{
+    margin-top:8px;
+  }
+} */
