@@ -51,7 +51,7 @@
                     <th>Phone</th>
                     <th>Address</th>
                     <th>No of Orders</th>
-                   
+                    <th>Supply Items</th>
             </thead >
         <tbody>
                 <div class='table_body'>
@@ -65,7 +65,9 @@
                         <td>'.$row['phone'].'</td>
                         <td>'.$row['address'].'</td>
                         <td>'.$row['order_count'].'</td>
-                   
+                        <td>
+                            <button href="#" class="action-button" onclick="getItems('.$row['id'].')">View</button>
+                        </td>
                     </tr>';
                     }
                 }

@@ -65,7 +65,30 @@
                     return false;
                 }
             }
+            public function getItemBySupplier($supplier_id){
+                $result = mysqli_query($this->conn , " SELECT 
+                oi.item_id,
+                ii.Item_name
+            FROM 
+                order_item oi
+            LEFT JOIN 
+                orders_tbl o ON o.id = oi.order_id
+           AND o.status = 'complete'
+            
+            LEFT JOIN 
+                inventory_items ii ON oi.item_id = ii.id
+            WHERE suplier_id='$supplier_id'
+            
+            ORDER BY 
+                ii.id ASC;");
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                return $result_data;
+            }   
+    
 
         }
+
+       
+       
     
 ?>
