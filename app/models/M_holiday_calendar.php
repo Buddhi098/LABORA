@@ -61,7 +61,7 @@
         }
 
         public function deleteHoliday($id){
-            $result = mysqli_query($this->conn , "UPDATE holiday_calendar SET delete_status='0' WHERE id='$id'");
+            $result = mysqli_query($this->conn , "DELETE FROM holiday_calendar WHERE id='$id'");
             return $result;
         }
         

@@ -599,6 +599,7 @@ class receptionist extends Controller
         }
 
         echo json_encode($data);
+        exit();
     }
 
 
@@ -769,7 +770,12 @@ class receptionist extends Controller
     {
         $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
 
-        $pdfContent = file_get_contents($pdfPath);
+        if(file_exists($pdfPath)){
+            $pdfContent = file_get_contents($pdfPath);
+        }else{
+            echo "Report Not Found";
+            exit();
+        }
 
         if ($pdfContent === false) {
             echo "Failed to read the PDF file.";

@@ -26,7 +26,7 @@
                     <label for="employee-password">Password</label><br>
                     <input type="password" id="employee-password" name="employee-password" value=""><br>
                     <span class="formerr"><?php echo $data['empformerr'];?></span>
-                    <a href="#">Forgot Password</a>
+                    <!-- <a href="#">Forgot Password</a> -->
                 </div>
                 <button type="submit" name="submit" class="btn-login button">Login</button>
                 <p>Not yet a member?<a href="">Please contact admin</a></p>

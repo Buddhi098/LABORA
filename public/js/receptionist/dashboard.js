@@ -167,6 +167,7 @@ function saveHoliday() {
     return res.json();
   }).then(data => {
       console.log(data);
+      location.reload();
   }).catch(error => {
     console.error(error);
   })
@@ -221,6 +222,7 @@ function deleteHoliday(id){
       return res.json();
     }).then(data => {
       console.log(data);
+      location.reload();
     }).catch(error => {
       console.error(error);
     })
