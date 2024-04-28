@@ -321,7 +321,7 @@
                 $data = [
                     'id' => trim($_POST['itemId']),
                     'Item_name' => trim($_POST['itemName']),
-                    'manufacturer' => trim($_POST['manufacture']),
+                    'manufacturer' => trim($_POST['manufacturer']),
                     'reorder_limit' => trim($_POST['reorderLimit']),
                     'unit_of_measure' => trim($_POST['unitOfMeasure']),
                     'description' => trim($_POST['description']),
