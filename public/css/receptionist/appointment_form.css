@@ -303,7 +303,7 @@
 
 .days .day.today {
   color: #fff;
-  background-color: var(--primary-color);
+  background-color: blue;
 }
 .days .day.next,
 .days .day.prev {

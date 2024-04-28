@@ -339,8 +339,50 @@ class receptionist extends Controller
     public function get_available_times($date)
     {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            date_default_timezone_set('Asia/Colombo');
             $date = new DateTime($date);
             $date = $date->format('Y-m-d');
+            $today = date('Y-m-d');
+
+            if ($date == $today) {
+                $current_time = date("H:i:s");
+
+                if ($current_time > '08:00:00' && $current_time < '12:00:00') {
+                    $first_start_time = new DateTime($current_time); // Create DateTime object directly
+                    $first_end_time = new DateTime('12:00:00');
+                    $second_start_time = new DateTime('1:00:00');
+                    $second_end_time = new DateTime('5:00:00');
+                } elseif ($current_time > '13:00:00' && $current_time < '17:00:00') {
+
+                    $current_time = new DateTime($current_time);
+                    $current_time->modify('-12 hours');
+
+                    $first_start_time = new DateTime('08:00:00');
+                    $first_end_time = new DateTime('08:00:00');
+                    $second_start_time = $current_time; // Create DateTime object directly
+                    $second_end_time = new DateTime('5:00:00');
+                } else {
+                    $first_start_time = new DateTime('08:00:00');
+                    $first_end_time = new DateTime('08:00:00');
+                    $second_start_time = new DateTime('1:00:00');
+                    $second_end_time = new DateTime('1:00:00');
+                }
+                // echo $current_time . "<br>";
+
+                // echo $first_start_time->format('H:i:s') . "<br>";
+                // echo $first_end_time->format('H:i:s') . "<br>";
+                // echo $second_start_time->format('H:i:s') . "<br>";
+                // echo $second_end_time->format('H:i:s') . "<br>";
+            } else {
+                $first_start_time = new DateTime('08:00:00');
+                $first_end_time = new DateTime('12:00:00');
+                $second_start_time = new DateTime('1:00:00');
+                $second_end_time = new DateTime('5:00:00');
+            }
+
+            // die();
+
+
             $_SESSION['date'] = $date;
             $timeString = $_SESSION['appointment_duration'];
 
@@ -350,11 +392,6 @@ class receptionist extends Controller
             $total_time_duration_minutes = $dateTime->format('H') * 60 + $dateTime->format('i');
             $duration_interval = new DateInterval('PT' . $total_time_duration_minutes . 'M');
 
-
-            $first_start_time = new DateTime('08:00:00');
-            $first_end_time = new DateTime('12:00:00');
-            $second_start_time = new DateTime('1:00:00');
-            $second_end_time = new DateTime('5:00:00');
 
             $available_times = [];
             $available_start_times = [];
@@ -433,6 +470,7 @@ class receptionist extends Controller
             exit();
         }
     }
+
 
     public function set_available_times($time)
     {
@@ -792,9 +830,9 @@ class receptionist extends Controller
         }
     }
 
-    public function checkPassValidity($pass_key , $ref_no)
+    public function checkPassValidity($pass_key, $ref_no)
     {
-        $appointment = $this->md_appointment->getAppointmentByPassKey($pass_key , $ref_no);
+        $appointment = $this->md_appointment->getAppointmentByPassKey($pass_key, $ref_no);
         if ($appointment) {
             $data['success'] = true;
         } else {
@@ -805,7 +843,8 @@ class receptionist extends Controller
         exit();
     }
 
-    public function showInvalidQRPage(){
+    public function showInvalidQRPage()
+    {
         $data = [];
         $this->view("receptionist/invalid_qrcode", $data);
     }

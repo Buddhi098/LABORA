@@ -1,74 +1,80 @@
 <?php
-        class M_product{
-            protected $conn;
-            public function __construct(){
-                $this->conn = new Database;
-                $this->conn = $this->conn->dbObject();
-            }
+class M_product
+{
+    protected $conn;
+    public function __construct()
+    {
+        $this->conn = new Database;
+        $this->conn = $this->conn->dbObject();
+    }
 
-            // public function getAllData()
-            // {
-            //     $query = "SELECT
-            //     i.id,
-            //     i.Item_name,
-            //     i.manufacturer,
-            //     i.reorder_limit,
-            //     SUM(CASE WHEN oi.expire_date IS NOT NULL THEN oi.quantity ELSE 0 END) AS total_quantity,
-            //     i.unit_of_measure,
-            //     i.description
-            // FROM
-            //     inventory_items i
-            // LEFT JOIN
-            //     order_item oi ON i.id = oi.item_id
-            // GROUP BY
-            //     i.id
-            // ORDER BY
-            //     i.id ASC";
-            
-            //     $result = mysqli_query($this->conn, $query);
-            //     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-            //     return $data;
-            // }
+    // public function getAllData()
+    // {
+    //     $query = "SELECT
+    //     i.id,
+    //     i.Item_name,
+    //     i.manufacturer,
+    //     i.reorder_limit,
+    //     SUM(CASE WHEN oi.expire_date IS NOT NULL THEN oi.quantity ELSE 0 END) AS total_quantity,
+    //     i.unit_of_measure,
+    //     i.description
+    // FROM
+    //     inventory_items i
+    // LEFT JOIN
+    //     order_item oi ON i.id = oi.item_id
+    // GROUP BY
+    //     i.id
+    // ORDER BY
+    //     i.id ASC";
 
-             public function getAllData()
-            {
-                $query = "SELECT *
+    //     $result = mysqli_query($this->conn, $query);
+    //     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //     return $data;
+    // }
+
+    public function getAllData()
+    {
+        $query = "SELECT *
             FROM
                 inventory_items
             WHERE
-                is_removed = 1;
+                is_removed = '0'
             ORDER BY
                 id ASC";
-            
-                $result = mysqli_query($this->conn, $query);
-                $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                return $data;
-         }
 
-            
+        $result = mysqli_query($this->conn, $query);
+        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $data;
+    }
 
-            public function enterItems($item_name , $total_quantity , $manufacture , $reorder_level , $description){
-                $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, total_quantity, reorder_limit, description, manufacturer) VALUES ('$item_name','$reorder_level', '$description', '$manufacture')");
 
-                if($result){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
 
-            public function getNameById($id){
-                $name = mysqli_query($this->conn , "SELECT Item_name FROM  inventory_items WHERE id='$id'");
-                $name = mysqli_fetch_assoc($name);
 
-                if($name){
-                    return $name['Item_name'];
-                }else{
-                    return false;
-                }
-            }
-            public function getItemBySupplier($supplier_id){
-                $result = mysqli_query($this->conn , " SELECT DISTINCT
+    public function enterItems($item_name, $total_quantity, $manufacture, $reorder_level, $description)
+    {
+        $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, total_quantity, reorder_limit, description, manufacturer) VALUES ('$item_name','$reorder_level', '$description', '$manufacture')");
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getNameById($id)
+    {
+        $name = mysqli_query($this->conn, "SELECT Item_name FROM  inventory_items WHERE id='$id'");
+        $name = mysqli_fetch_assoc($name);
+
+        if ($name) {
+            return $name['Item_name'];
+        } else {
+            return false;
+        }
+    }
+    public function getItemBySupplier($supplier_id)
+    {
+        $result = mysqli_query($this->conn, " SELECT DISTINCT
                 oi.item_id,
                 ii.Item_name
             FROM 
@@ -82,22 +88,23 @@
             ORDER BY 
                 ii.id ASC;
             ");
-                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
-                return $result_data;
-            }   
-    
+        $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result_data;
+    }
 
-            public function updateNewCount($item_id , $quantity){
-                $result = mysqli_query($this->conn , "UPDATE inventory_items SET quantity = quantity + '$quantity' WHERE id='$item_id'");
-                if($result){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
 
+    public function updateNewCount($item_id, $quantity)
+    {
+        $result = mysqli_query($this->conn, "UPDATE inventory_items SET quantity = quantity + '$quantity' WHERE id='$item_id'");
+        if ($result) {
+            return true;
+        } else {
+            return false;
         }
-       
-       
-    
+    }
+
+}
+
+
+
 ?>
