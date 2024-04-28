@@ -404,6 +404,8 @@ class labassistant extends Controller
             $set_item = $this->md_lab_order_item->enterLabOrderItem($storeOrderId, $item['itemName'], $item_name, $item['quantity'], $item['specialNote']);
         }
 
+        $_SESSION['success_msg'] = "Order submitted successfully.";
+
         $msg = [
             'msg' => true
         ];
