@@ -73,11 +73,21 @@
             
         }
 
-        public function filterExpiredItems($startDate, $endDate) {
-            $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
-            echo json_encode($data); // Return JSON response instead of rendering a view
-        }
+        // public function filterExpiredItems($startDate, $endDate) {
+        //     $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
+        //     echo json_encode($data); // Return JSON response instead of rendering a view
+        // }
         
+        public function getExpiredItemsByDateRange()
+        {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $startDate = $_GET['startDate'];
+                $endDate = $_GET['endDate'];
+        
+                $data = $this->md_order_items->getExpiredItemsByDateRange($startDate, $endDate);
+                echo json_encode($data);
+            }
+        }
         
 //product
 

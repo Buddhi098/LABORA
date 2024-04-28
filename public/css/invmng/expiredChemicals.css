@@ -295,29 +295,52 @@ a.del:hover {
     }
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
+
+  
+  .expired-chemicals-filter {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 24px;
     font-weight: bold;
-    color: #333;
-  }
-  
-  input[type="date"] {
-    padding: 8px;
     margin-bottom: 10px;
-  }
-  
-  button {
-    padding: 10px 20px;
+    color: #333;
+}
+
+.filter-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.filter-section {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.filter-section label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.filter-section input[type="date"] {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter-section button {
+    padding: 5px 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  button:hover {
+}
+
+.filter-section button:hover {
     background-color: #45a049;
-  }
-  
+}

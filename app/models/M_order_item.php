@@ -81,6 +81,36 @@
 
             }
 
+            // public function getExpiredItemsByDateRange($startDate, $endDate)
+            // {
+            //     $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, expire_date, quantity
+            //             FROM order_item
+            //             WHERE expire_date >= '$startDate' AND expire_date <= '$endDate';
+            //             ");
+
+            //     $data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+            //     return $data;
+            // }
+
+            public function getExpiredItemsByDateRange($startDate, $endDate)
+            {
+                $query = "SELECT id, item_id, item_name, expire_date, quantity 
+                        FROM order_item 
+                        WHERE expire_date >= ? AND expire_date <= ?";
+
+                $stmt = $this->conn->prepare($query);
+                $stmt->bind_param("ss", $startDate, $endDate);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $data = [];
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+
+                $stmt->close();
+                return $data;
+            }
     
     }
 ?>

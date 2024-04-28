@@ -17,12 +17,22 @@
     <?php require_once 'components/navinventory.php' ?>
     <div class="container_1"> 
         <div class="table-container">
-            <h2><i class="fa-solid fa-calendar-check"></i>Chemicals about to Expire</h2>
+            <h2><i class="fa-solid fa-calendar-check"></i>Expiry Chemicals </h2>
 
-            <label for="expiryRange">Select Date Range</label>
-            <input type="date" id="expiryRangeStart" name="expiryRangeStart">
-            <input type="date" id="expiryRangeEnd" name="expiryRangeEnd">
-            <button onclick="filterExpiredItems()">Filter</button>
+            <!-- <div class="filter-box">
+                <div class="filter-section">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date">
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date">
+                    <button id="filter-btn">Filter</button>
+                </div>
+            </div> -->
+
+            <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search...">
+        <button class="search-button">Search</button>
+        </div>
 
             <table id="myTable">
                 <thead>
@@ -112,3 +122,91 @@
     }
 
     </script>
+
+<script>
+    document.getElementById('filter-btn').addEventListener('click', function() {
+    var startDate = document.getElementById('start-date').value;
+    var endDate = document.getElementById('end-date').value;
+
+    if (startDate && endDate) {
+        // Construct the URL for fetching filtered data
+        const baseLink = window.location.origin;
+        const link = `${baseLink}/labora/invmng/getExpiredItemsByDateRange?startDate=${startDate}&endDate=${endDate}`;
+        
+        fetch(link)
+    .then(response => {
+        console.log('Response:', response);
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    })
+    .then(data => {
+        updateTable(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+        // Make an AJAX request to fetch the filtered data
+        fetch(link)
+            .then(response => response.json())
+            .then(data => {
+                // Update the table with the filtered data
+                updateTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+
+function updateTable(data) {
+    var tableBody = document.querySelector('.table_body');
+    tableBody.innerHTML = ''; // Clear the existing table rows
+
+    if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="6">No data available</td></tr>';
+    } else {
+        data.forEach(function(row) {
+            var tr = document.createElement('tr');
+
+            var tdId = document.createElement('td');
+            tdId.textContent = row.id;
+            tr.appendChild(tdId);
+
+            var tdItemId = document.createElement('td');
+            tdItemId.textContent = row.item_id;
+            tr.appendChild(tdItemId);
+
+            var tdItemName = document.createElement('td');
+            tdItemName.textContent = row.item_name;
+            tr.appendChild(tdItemName);
+
+            var tdExpireDate = document.createElement('td');
+            tdExpireDate.textContent = row.expire_date;
+            tr.appendChild(tdExpireDate);
+
+            var tdQuantity = document.createElement('td');
+            tdQuantity.textContent = row.quantity;
+            tr.appendChild(tdQuantity);
+
+            var tdAction = document.createElement('td');
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove from the Inventory';
+            removeButton.classList.add('btn-0', 'btn-3');
+            removeButton.addEventListener('click', function() {
+                deleteExpiredItem(row.id);
+            });
+            tdAction.appendChild(removeButton);
+            tr.appendChild(tdAction);
+
+            tableBody.appendChild(tr);
+        });
+    }
+}
+
+</script>
+
