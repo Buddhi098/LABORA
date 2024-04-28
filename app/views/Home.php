@@ -106,9 +106,9 @@
         </div> 
 
         <div class="contact-form">
-                <form action="submit.php" method="post">
+                <form action="<?php echo URLROOT.'home/submitContactUs'?>" method="post">
                     <label for="name">Name*</label><br>
-                    <input type="text" id="name" pattern="[A-Za-z. ]+" required><br>
+                    <input type="text" id="name" name='name' pattern="[A-Za-z. ]+" required><br>
                     <label for="email">Email*</label><br>
                     <input type="email" id="email" name="email"  required><br>
                     <label for="tel">Phone Number*</label><br>

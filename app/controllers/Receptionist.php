@@ -13,6 +13,8 @@ class receptionist extends Controller
     private $md_user;
 
     private $md_report;
+
+    private $md_contact_us;
     public function __construct()
     {
         $this->md_appointment = $this->model('M_appointment');
@@ -21,6 +23,7 @@ class receptionist extends Controller
         $this->md_holiday = $this->model('M_holiday_calendar');
         $this->md_user = $this->model('M_user');
         $this->md_report = $this->model('M_report');
+        $this->md_contact_us = $this->model('M_contact_us');
 
         $this->auth = new AuthMiddleware();
         $this->auth->authMiddleware('receptionist');
@@ -348,7 +351,7 @@ class receptionist extends Controller
                 $current_time = date("H:i:s");
 
                 if ($current_time > '08:00:00' && $current_time < '12:00:00') {
-                    $first_start_time = new DateTime($current_time); // Create DateTime object directly
+                    $first_start_time = new DateTime($current_time); 
                     $first_end_time = new DateTime('12:00:00');
                     $second_start_time = new DateTime('1:00:00');
                     $second_end_time = new DateTime('5:00:00');
@@ -359,7 +362,7 @@ class receptionist extends Controller
 
                     $first_start_time = new DateTime('08:00:00');
                     $first_end_time = new DateTime('08:00:00');
-                    $second_start_time = $current_time; // Create DateTime object directly
+                    $second_start_time = $current_time; 
                     $second_end_time = new DateTime('5:00:00');
                 } else {
                     $first_start_time = new DateTime('08:00:00');
@@ -386,7 +389,7 @@ class receptionist extends Controller
             $_SESSION['date'] = $date;
             $timeString = $_SESSION['appointment_duration'];
 
-            // Create a DateTime object with a specific time
+ 
             $dateTime = new DateTime($timeString);
             $time_duration = $dateTime->format('H:i:s');
             $total_time_duration_minutes = $dateTime->format('H') * 60 + $dateTime->format('i');
@@ -847,6 +850,50 @@ class receptionist extends Controller
     {
         $data = [];
         $this->view("receptionist/invalid_qrcode", $data);
+    }
+
+    public function getMessage()
+    {
+        $messages = $this->md_contact_us->getAllMessages();
+
+        $data = [
+            'messages' => $messages
+        ];
+
+
+
+        $this->view('receptionist/message', $data);
+    }
+
+    public function sendReply()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                'reply' => $_POST['reply'],
+                'id' => $_POST['id']
+            ];
+
+            $email = $_POST['email'];
+            $name = $_POST['name'];
+
+            $result = $this->md_contact_us->sendReply($data);
+
+            if ($result) {
+                $data['success'] = 'success';
+            } else {
+                $data['error'] = 'error';
+            }
+
+            $subject = 'Reply from LABORA';
+            $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $_POST['reply'] . ',</p>';
+
+            sendEmail($email, $name, $body, $subject);
+
+
+            echo json_encode($data);
+            exit();
+        }
+
     }
 
 }

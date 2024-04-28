@@ -21,6 +21,7 @@ class PatientDashboard extends Controller
         $this->md_report = $this->model('M_report');
         $this->md_temp_prescription = $this->model('M_temp_prescription');
         $this->md_holiday_calendar = $this->model('M_holiday_calendar');
+
         // check authentication
         $this->auth = new AuthMiddleware();
         $this->auth->authMiddleware("patient");
@@ -64,7 +65,6 @@ class PatientDashboard extends Controller
         $result = $this->md_appointment->getRowByEmail($_SESSION['useremail']);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Add each row as an associative array to the $data array
                 $data[] = $row;
             }
         } else {
@@ -248,7 +248,7 @@ class PatientDashboard extends Controller
                 $current_time = date("H:i:s");
 
                 if ($current_time > '08:00:00' && $current_time < '12:00:00') {
-                    $first_start_time = new DateTime($current_time); // Create DateTime object directly
+                    $first_start_time = new DateTime($current_time); 
                     $first_end_time = new DateTime('12:00:00');
                     $second_start_time = new DateTime('1:00:00');
                     $second_end_time = new DateTime('5:00:00');
@@ -259,7 +259,7 @@ class PatientDashboard extends Controller
                     
                     $first_start_time = new DateTime('08:00:00');
                     $first_end_time = new DateTime('08:00:00');
-                    $second_start_time = $current_time; // Create DateTime object directly
+                    $second_start_time = $current_time; 
                     $second_end_time = new DateTime('5:00:00');
                 } else {
                     $first_start_time = new DateTime('08:00:00');
@@ -286,7 +286,6 @@ class PatientDashboard extends Controller
             $_SESSION['date'] = $date;
             $timeString = $_SESSION['appointment_duration'];
 
-            // Create a DateTime object with a specific time
             $dateTime = new DateTime($timeString);
             $time_duration = $dateTime->format('H:i:s');
             $total_time_duration_minutes = $dateTime->format('H') * 60 + $dateTime->format('i');

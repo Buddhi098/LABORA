@@ -30,7 +30,10 @@ function openModal(id , msg='' ){
 //   console.log("Item deleted");
 //   modal.style.display = "none";
 // }
+function closeModal(){
+  modal.style.display = "none";
 
+}
 noBtn.onclick = function() {
   modal.style.display = "none";
 }
