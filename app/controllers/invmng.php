@@ -49,22 +49,9 @@
             echo json_encode($data);
             exit();
         }
-        
-        public function getItemDetails($id)
-        {
-            $data = $this->md_item->getItemDetail($id);
+       
 
-            echo json_encode($data);
-            exit();
-        }
-
-        public function getSupplierItems($supplier_id){
-            $data = $this->md_order_items->getSupplierItems($supplier_id);
-
-            echo json_encode($data);
-            exit();
-        }
-
+//Expired Chemicals
         public function expiredChemicals(){
             $data = [];
             $table_data = $this->md_item->getExpiredItem();
@@ -91,7 +78,7 @@
         }
         
         
-
+//product
 
         public function product(){
 
@@ -114,6 +101,30 @@
             $this->view("invmng/product" , $data);
         }
 
+        public function removeItem($item_id){
+            $result1 = $this->md_order_items->removeOrderItem($item_id);
+            $result3 = $this->md_issue->removeRequestItem($item_id);
+            $result2 = $this->md_product->removeItem($item_id);
+            
+
+            if($result1 && $result2 && $result3){
+                $_SESSION['success_msg'] = 'Item removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/product');
+        }
+
+         
+        public function getItemDetails($id)
+        {
+            $data = $this->md_item->getItemDetail($id);
+
+            echo json_encode($data);
+            exit();
+        }
+
+//Supplier
+
         public function supplier(){
     
             $data = array();
@@ -133,6 +144,17 @@
             }
             $this->view("invmng/supplier", $data);
         }
+
+        
+        public function getSupplierItems($supplier_id){
+            $data = $this->md_order_items->getSupplierItems($supplier_id);
+
+            echo json_encode($data);
+            exit();
+        }
+
+
+//Dashboard
 
         public function dashboard(){
             $data = [];
@@ -256,41 +278,15 @@
             }
         }
 
+//Add Inventory Form
+
         public function getAddItemForm(){
             $data = []; 
             $this->view("invmng/addInventoryForm" , $data);
         }
 
-        // public function getEditForm() {
-        //     $itemId = $_GET['id'];
-        //     $data = [];
-        //     $data = $this -> md_item->getAllDataByID($itemId);
-        //     $this->view('invmng/editInventoryForm', $data);
-        // }
-    
-        // public function updateInventoryItem() {
-        //     $jsonData = file_get_contents("php://input");
-        //     $data = json_decode($jsonData, true);
-    
-        //     $itemName = $data['Item_name'];
-        //     $manufacture = $data['manufacturer'];
-        //     $reorderLimit = $data['reorder_limit'];
-        //     $unitOfMeasure = $data['unit_of_measure'];
-        //     $description = $data['description'];
-    
-        //     $result = $this->md_item->updateItem($itemName, $manufacture, $reorderLimit, $unitOfMeasure, $description);
-    
-        //     if ($result) {
-        //         $msg = ['msg' => true];
-        //         echo json_encode($msg);
-        //         exit();
-        //     } else {
-        //         $msg = ['msg' => false];
-        //         echo json_encode($msg);
-        //         exit();
-        //     }
-        // }
-
+      
+//Edit Item Form
         public function getEditForm($id)
         {
             
@@ -353,24 +349,7 @@
             }
         }
         
-
-        // public function itemDetails(){
-        //     $data = array();
-        //     $result = $this->md_item->getItemDetails();
-        //     if (count($result) > 0) {
-        //         $data = $result;
-        //     }else{
-        //         $data = [[
-        //             'id'=> "",
-        //             'item_name' => '',
-        //             'expire_date' => '',
-        //             'quantity' => ''
-        //         ],];
-        //         $this->view("invmng/itemDetails" , $data);
-        //     }
-
-        //     $this->view("invmng/itemDetails" , $data);
-        // }
+//Item Details view
 
         public function itemDetails($itemId)
         {

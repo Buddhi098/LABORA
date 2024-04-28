@@ -56,7 +56,8 @@
             }
 
             public function getNameById($id){
-                $name = mysqli_query($this->conn , "SELECT Item_name FROM  inventory_items WHERE id='$id'");
+                $name = mysqli_query($this->conn , "SELECT Item_name 
+                FROM  inventory_items WHERE id='$id'");
                 $name = mysqli_fetch_assoc($name);
 
                 if($name){
@@ -65,6 +66,7 @@
                     return false;
                 }
             }
+
             public function getItemBySupplier($supplier_id){
                 $result = mysqli_query($this->conn , " SELECT DISTINCT
                 oi.item_id,
@@ -82,7 +84,15 @@
             ");
                 $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 return $result_data;
-            }   
+            } 
+            
+        
+            public function removeItem($item_id){
+                $result = mysqli_query($this->conn, "DELETE FROM 
+                 inventory_items
+                 WHERE id='$item_id';");
+                return $result;
+            } 
     
 
         }

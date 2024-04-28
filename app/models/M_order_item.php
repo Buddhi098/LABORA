@@ -54,5 +54,12 @@
                 return $result_data;
             }
     
+            public function removeOrderItem($item_id){
+                $result = mysqli_query($this->conn, "DELETE FROM 
+                 order_item 
+                 WHERE item_id='$item_id';");
+                return $result;
+            }
+    
     }
 ?>

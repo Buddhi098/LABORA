@@ -86,7 +86,7 @@
                                 <td>
                                 <a href="http://localhost/labora/invmng/getEditForm/'.$row['id'].'" class="action-button-edit">Edit</a>
                                 
-                                <a href="" class="action-button-delete">Remove</a>
+                                <button href="#" class="action-button-delete" onclick="removeItem('.$row['id'].')">Remove</button>
                                 </td>
                             </tr>';
                         }
@@ -130,6 +130,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Confirmation Modal for Removing Chemical -->
+<div class="confirmation-modal" id="confirmRemoveModal">
+    <div class="confirmation-modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Are you sure you want to remove this Chemical?</p>
+        <div class="btn-container">
+            <button id="confirmRemoveBtn">Yes</button>
+            <button onclick="closeModal()">No</button>
+        </div>
+        <!-- Hidden input field to store the item ID -->
+        <input type="hidden" id="confirmItemID">
+    </div>
+</div>
 
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
@@ -185,44 +199,31 @@
 }
 </script>
 
-<!-- <script>
-function getItems(id, total_quantity) {
-    if (total_quantity > 0) {
-        baseLink = window.location.origin;
-        link = `${baseLink}/labora/invmng/getItemDetails/${id}`;
-        console.log(link);
-        fetch(link)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                mockup = '';
-                for (let i = 0; i < data.length; i++) {
-                    mockup += `
-                    <tr>
-                    <td>${data[i]['id']}</td>
-                    <td>${data[i]['suplier_id']}</td>
-                    <td>${data[i]['expire_date']}</td>
-                    <td>${data[i]['quantity']}</td>
-                    </tr>`;
-                }
-                console.log(mockup);
-                document.getElementById('modal_body').innerHTML = mockup;
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
+<script>
 
-        openModal();
-    } else {
-        // Display "No items in stock" message
-        const modalBody = document.getElementById('modal_body');
-        modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
-        openModal();
-    }
+function removeItem(item_id) {
+    document.getElementById('confirmItemID').value = item_id;
+
+    document.getElementById('confirmRemoveModal').style.display = 'block';
+    document.getElementById('confirmRemoveBtn').addEventListener('click', confirmRemove);
+
 }
-</script> -->
+    // Item removal confirmation
+function confirmRemove() {
+    var item_id = document.getElementById('confirmItemID').value;
+    console.log(item_id);
+
+    const baseLink = window.location.origin;
+    const link = `${baseLink}/labora/invmng/removeItem/${item_id}`;
+ 
+    window.location.href = link;
+    closeModal();
+}
+
+function closeModal() {
+    // Remove the event listeners from the "Yes" buttons
+    document.getElementById('confirmRemoveBtn').removeEventListener('click', confirmRemove);
+    document.getElementById('confirmRemoveModal').style.display = 'none';
+    document.getElementById('customModal').style.display = 'none';
+}
+</script>
