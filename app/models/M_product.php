@@ -35,6 +35,8 @@
                 $query = "SELECT *
             FROM
                 inventory_items
+            WHERE
+                is_removed = 1;
             ORDER BY
                 id ASC";
             

@@ -49,7 +49,8 @@
 
             public function getAllData(){
                 $result = mysqli_query($this->conn , "SELECT * 
-                FROM inventory_items");
+                FROM inventory_items 
+                WHERE is_removed = 0");
                 $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
 
                 return $data;
