@@ -221,21 +221,21 @@ a.del:hover {
 }
 
 .confirmation-modal-content button:first-child {
-    background-color: #28a745;
-    color: #fff;
-}
-
-.confirmation-modal-content button:first-child:hover {
-    background-color: #218838;
-}
-
-.confirmation-modal-content button:last-child {
     background-color: #dc3545;
     color: #fff;
 }
 
-.confirmation-modal-content button:last-child:hover {
+.confirmation-modal-content button:first-child:hover {
     background-color: #c82333;
+}
+
+.confirmation-modal-content button:last-child {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.confirmation-modal-content button:last-child:hover {
+    background-color: #0056b3;
 }
 
 .confirmation-modal-content .close {
