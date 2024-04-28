@@ -44,6 +44,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            $today = date('Y-m-d');
                             if ($data['item']) {
                                 foreach ($data['item'] as $item) {
                                     echo "<tr>";
@@ -55,7 +56,7 @@
                                         <input type='hidden' class='hidden' value=" . $item['id'] . " />
                                     </td>
                                     <td>
-                                        <input type='date' placeholder='Expire Date' />
+                                        <input type='date' min=".$today." placeholder='Expire Date' />
                                     </td>";
                                     echo "</tr>";
                                 }
