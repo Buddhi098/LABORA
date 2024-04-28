@@ -69,14 +69,16 @@
                                 $class_status = 'status-2';
                             } else if ($order['status'] === 'Cancelled') {
                                 $class_status = 'status-5';
+                            }else if($order['status'] === 'Rejected'){
+                                $class_status = 'status-5';
                             }
 
-                            if ($order['status'] === 'Placed Order' or $order['status'] === 'Cancelled') {
-                                $btn1 = 'disabled';
-                                $btn_cls1 = 'button_disabled';
-                            } else {
+                            if ($order['status'] === 'Send Invoice') {
                                 $btn1 = '';
                                 $btn_cls1 = '';
+                            } else {
+                                $btn1 = 'disabled';
+                                $btn_cls1 = 'button_disabled';
                             }
 
                             echo "<tr>";
