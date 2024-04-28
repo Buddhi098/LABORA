@@ -54,22 +54,23 @@
 //Expired Chemicals
         public function expiredChemicals(){
             $data = [];
-            $table_data = $this->md_item->getExpiredItem();
+            $table_data = $this->md_order_items->getExpiredItem();
             $this->view("invmng/expiredChemicals" , $table_data);
         }
 
         public function deleteExpiredItem($itemId)
         {
             
-            $result = $this->md_item->deleteExpiredItem($itemId);
-
-            if ($result) {
-                // Item deleted successfully
-                echo json_encode(['success' => true]);
-            } else {
-                // Error occurred during deletion
-                echo json_encode(['success' => false, 'error' => 'An error occurred while deleting the item']);
+            $result1 = $this->md_order_items->deleteExpiredItem($itemId);
+            $result2 = $this->md_product->reduceQuantity($itemId);
+            
+            if($result1 && $result2){
+                $_SESSION['success_msg'] = 'Item removed successfully';
             }
+    
+            header('Location: ' . URLROOT . '/invmng/expiredChemicals');
+
+            
         }
 
         public function filterExpiredItems($startDate, $endDate) {
@@ -102,12 +103,9 @@
         }
 
         public function removeItem($item_id){
-            $result1 = $this->md_order_items->removeOrderItem($item_id);
-            $result3 = $this->md_issue->removeRequestItem($item_id);
-            $result2 = $this->md_product->removeItem($item_id);
+            $result = $this->md_product->removeItem($item_id);
             
-
-            if($result1 && $result2 && $result3){
+            if($result){
                 $_SESSION['success_msg'] = 'Item removed successfully';
             }
     

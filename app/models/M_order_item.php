@@ -54,12 +54,33 @@
                 return $result_data;
             }
     
-            public function removeOrderItem($item_id){
-                $result = mysqli_query($this->conn, "DELETE FROM 
-                 order_item 
-                 WHERE item_id='$item_id';");
+            // public function removeOrderItem($item_id){
+            //     $result = mysqli_query($this->conn, "DELETE FROM 
+            //      order_item 
+            //      WHERE item_id='$item_id';");
+            //     return $result;
+            // }
+            
+            public function getExpiredItem(){
+                $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 
+                FROM order_item 
+                WHERE expire_date <= CURDATE() AND is_removed = 0
+                ORDER BY expire_date ASC;
+                ");
+                $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
                 return $result;
+            } 
+            
+            public function deleteExpiredItem($itemId)
+            {
+                $result = mysqli_query($this->conn , "UPDATE order_item 
+                SET is_removed = 1
+                WHERE id = '$itemId';");
+                
+                return $result;
+
             }
+
     
     }
 ?>

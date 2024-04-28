@@ -174,26 +174,6 @@
                 return $data;
             }
 
-            public function getExpiredItem(){
-                $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 
-                FROM order_item 
-                WHERE expire_date <= CURDATE() + INTERVAL 21 DAY ORDER BY expire_date ASC;
-                ");
-                $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
-                return $result;
-            }
-
-            public function deleteExpiredItem($itemId)
-            {
-                $result = mysqli_query($this->conn , "DELETE FROM order_item WHERE id = '$itemId'");
-                $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
-
-                if ($data) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
 
             public function getFilteredExpiredItems($startDate, $endDate) {
                 $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 

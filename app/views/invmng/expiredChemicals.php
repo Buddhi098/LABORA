@@ -46,7 +46,7 @@
                                 <td>'.$row['item_name'].'</td>
                                 <td>'.$row['expire_date'].'</td>
                                 <td>'.$row['quantity'].'</td>
-                                <td> <button href="#" class="btn-0 btn-3" onclick=\'deleteItem("'.$row['id'].'")\'>Remove from the Inventory</button></td>
+                                <td> <button href="#" class="btn-0 btn-3" onclick=\'deleteExpiredItem("'.$row['id'].'")\'>Remove from the Inventory</button></td>
                             </tr>';
                         }
                     }
@@ -61,18 +61,19 @@
         </div>
     </div>
        
-    <!-- Confirmation Modal for Removing Item -->
-    <div class="confirmation-modal" id="confirmRemoveModal">
-        <div class="confirmation-modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p>Are you sure you want to remove this item?</p>
-            <div class="btn-container">
-                <button id="confirmRemoveBtn">Yes</button>
-                <button onclick="closeModal()">No</button>
-            </div>
+       <!-- Confirmation Modal for Removing Chemical -->
+<div class="confirmation-modal" id="confirmRemoveModal">
+    <div class="confirmation-modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Are you sure you want to remove this Chemical?</p>
+        <div class="btn-container">
+            <button id="confirmRemoveBtn">Yes</button>
+            <button onclick="closeModal()">No</button>
         </div>
+        <!-- Hidden input field to store the item ID -->
+        <input type="hidden" id="confirmItemID">
     </div>
-
+</div>
     
 
      <!-- import table javascript -->
@@ -83,99 +84,31 @@
 
 
 <script>
-        function filterExpiredItems() {
-            const startDate = document.getElementById('expiryRangeStart').value;
-            const endDate = document.getElementById('expiryRangeEnd').value;
-            const url = `<?php echo base_url('invmng/filterExpiredItems')?>/${startDate}/${endDate}`;
+     
+    function deleteExpiredItem(item_id) {
+        document.getElementById('confirmItemID').value = item_id;
 
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    updateTable(data);
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    showErrorMessage('An error occurred while fetching data');
-                });
-        }
+        document.getElementById('confirmRemoveModal').style.display = 'block';
+        document.getElementById('confirmRemoveBtn').addEventListener('click', confirmRemove);
 
-        function updateTable(data) {
-            const tableBody = document.querySelector('.table_body');
-            tableBody.innerHTML = ''; // Clear existing content
-            if (data.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="6">No data available</td></tr>';
-            } else {
-                data.forEach(row => {
-                    tableBody.innerHTML += `
-                        <tr>
-                            <td>${row.id}</td>
-                            <td>${row.item_id}</td>
-                            <td>${row.item_name}</td>
-                            <td>${row.expire_date}</td>
-                            <td>${row.quantity}</td>
-                            <td><button href="#" class="btn-0 btn-3" onclick="deleteItem('${row.id}')">Remove from the Inventory</button></td>
-                        </tr>`;
-                });
-            }
-        }
+    }
+        // Item removal confirmation
+    function confirmRemove() {
+        var item_id = document.getElementById('confirmItemID').value;
+        console.log(item_id);
 
-        function deleteItem(itemId) {
-            const baseLink = window.location.origin;
-            const link = `${baseLink}/labora/invmng/deleteExpiredItem/${itemId}`;
+        const baseLink = window.location.origin;
+        const link = `${baseLink}/labora/invmng/deleteExpiredItem/${item_id}`;
+    
+        window.location.href = link;
+        closeModal();
+    }
 
-            fetch(link, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                showSuccessMessage('Item deleted successfully');
-                filterExpiredItems(); // Refresh the table after successful deletion
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                showErrorMessage('An error occurred while deleting the item');
-            });
-        }
+    function closeModal() {
+        // Remove the event listeners from the "Yes" buttons
+        document.getElementById('confirmRemoveBtn').removeEventListener('click', confirmRemove);
+        document.getElementById('confirmRemoveModal').style.display = 'none';
+        document.getElementById('customModal').style.display = 'none';
+    }
 
-        function closeModal() {
-            document.getElementById('confirmRemoveModal').style.display = 'none';
-        }
-
-        function showSuccessMessage(message) {
-            const successModal = document.createElement('div');
-            successModal.classList.add('success-modal');
-            successModal.textContent = message;
-            document.body.appendChild(successModal);
-
-            setTimeout(() => {
-                successModal.classList.add('fade-out');
-                setTimeout(() => {
-                    document.body.removeChild(successModal);
-                }, 500);
-            }, 3000);
-        }
-
-        function showErrorMessage(message) {
-            const errorModal = document.createElement('div');
-            errorModal.classList.add('error-modal');
-            errorModal.textContent = message;
-            document.body.appendChild(errorModal);
-
-            setTimeout(() => {
-                errorModal.classList.add('fade-out');
-                setTimeout(() => {
-                    document.body.removeChild(errorModal);
-                }, 500);
-            }, 3000);
-        }
     </script>

@@ -68,12 +68,12 @@
         }
 
         
-        public function removeRequestItem($item_id){
-            $result = mysqli_query($this->conn, "DELETE FROM 
-             lab_order_item 
-             WHERE item_id='$item_id';");
-            return $result;
-        }
+        // public function removeRequestItem($item_id){
+        //     $result = mysqli_query($this->conn, "DELETE FROM 
+        //      lab_order_item 
+        //      WHERE item_id='$item_id';");
+        //     return $result;
+        // }
            
     }
 ?>

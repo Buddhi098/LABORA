@@ -35,6 +35,8 @@
                 $query = "SELECT *
             FROM
                 inventory_items
+            WHERE
+                is_removed = 0
             ORDER BY
                 id ASC";
             
@@ -88,11 +90,26 @@
             
         
             public function removeItem($item_id){
-                $result = mysqli_query($this->conn, "DELETE FROM 
+                $result = mysqli_query($this->conn, "UPDATE 
                  inventory_items
+                 SET is_removed = 1
                  WHERE id='$item_id';");
                 return $result;
             } 
+
+            public function reduceQuantity($item_id){
+                $result = mysqli_query($this->conn, "UPDATE inventory_items i
+                JOIN (
+                    SELECT item_id, SUM(quantity) AS total_quantity
+                    FROM order_item
+                    WHERE id = '$item_id'
+                    -- GROUP BY item_id
+                ) oi ON i.id = oi.item_id
+                SET i.quantity = i.quantity - oi.total_quantity;
+                ");
+                return $result;
+            } 
+            
     
 
         }
