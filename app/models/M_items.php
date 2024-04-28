@@ -6,25 +6,33 @@
                 $this->conn = $this->conn->dbObject();
             }
 
-            public function getItemDetail($id){
-                $result = mysqli_query($this->conn , "SELECT
-                oi.id,
-                o.suplier_id,
-                oi.expire_date,
-                oi.quantity 
-            FROM
-                order_item oi
-            JOIN
-                orders_tbl o ON oi.order_id = o.id
-            WHERE
-                oi.item_id = '$id'
-            AND
-                oi.expire_date IS NOT NULL
-            ORDER BY
-                oi.expire_date ASC");
+            // public function getItemDetail($id){
+            //     $result = mysqli_query($this->conn , "SELECT oi.id, o.suplier_id, oi.expire_date, oi.quantity
+            //     FROM order_item oi
+            //     JOIN orders_tbl o ON oi.order_id = o.id
+            //     WHERE oi.item_id = '$id'
+            //       AND oi.expire_date IS NOT NULL
+            //       AND oi.expire_date > DATE(NOW())
+            //     ORDER BY oi.expire_date ASC;");
 
-                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
-                return $result_data;
+            //     $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+            //     return $result_data;
+            // }
+
+            public function getItemDetail($id)
+            {
+                $result = mysqli_query($this->conn, "SELECT oi.id, o.suplier_id, oi.expire_date, oi.quantity 
+                FROM order_item oi 
+                JOIN orders_tbl o ON oi.order_id = o.id 
+                WHERE oi.item_id = '$id' AND oi.expire_date IS NOT NULL AND oi.expire_date > DATE(NOW()) 
+                ORDER BY oi.expire_date ASC;");
+                
+                if (mysqli_num_rows($result) > 0) {
+                    $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                    return $result_data;
+                } else {
+                    return false;
+                }
             }
 
             public function enterItems($item_name , $manufacture , $reorder_level , $description, $unit_of_measure){

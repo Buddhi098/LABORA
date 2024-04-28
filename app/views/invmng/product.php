@@ -9,9 +9,15 @@
     <!-- static icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+     <!-- import modal css and js -->
+     <script src="<?php echo APPROOT.'/public/js/components/modal.js'?>"></script>
+    <link rel="stylesheet" href="<?php echo APPROOT.'/public/css/components/modal.css'?>">
+
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     <title>Inventory Manager dashboard</title>
+
 </head>
 <body>
     <?php require_once 'components/navinventory.php' ?>
@@ -80,7 +86,7 @@
                                 <td>
                                 <a href="http://localhost/labora/invmng/getEditForm/'.$row['id'].'" class="action-button-edit">Edit</a>
                                 
-                                <a href="" class="action-button-delete" onclick="RemoveItems('.$row['id'].')">Remove</a>
+                                <a href="" class="action-button-delete">Remove</a>
                                 </td>
                             </tr>';
                         }
@@ -132,8 +138,56 @@
 </html>
 
 <script>
-function getItems(id, quantity) {
-    if (quantity > 0) {
+    function getItems(id, total_quantity) {
+    if (total_quantity > 0) {
+        baseLink = window.location.origin;
+        link = `${baseLink}/labora/invmng/getItemDetails/${id}`;
+        console.log(link);
+        fetch(link)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data === false) { // Check if data is false
+                    // Display "No items in stock" message
+                    const modalBody = document.getElementById('modal_body');
+                    modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
+                    openModal();
+                } else {
+                    console.log(data);
+                    mockup = '';
+                    for (let i = 0; i < data.length; i++) {
+                        mockup += `
+                            <tr>
+                                <td>${data[i]['id']}</td>
+                                <td>${data[i]['suplier_id']}</td>
+                                <td>${data[i]['expire_date']}</td>
+                                <td>${data[i]['quantity']}</td>
+                            </tr>`;
+                    }
+                    console.log(mockup);
+                    document.getElementById('modal_body').innerHTML = mockup;
+                    openModal();
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    } else {
+        // Display "No items in stock" message
+        const modalBody = document.getElementById('modal_body');
+        modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
+        openModal();
+    }
+}
+</script>
+
+<!-- <script>
+function getItems(id, total_quantity) {
+    if (total_quantity > 0) {
         baseLink = window.location.origin;
         link = `${baseLink}/labora/invmng/getItemDetails/${id}`;
         console.log(link);
@@ -164,50 +218,11 @@ function getItems(id, quantity) {
             });
 
         openModal();
-    } 
-    else {
+    } else {
         // Display "No items in stock" message
         const modalBody = document.getElementById('modal_body');
         modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
         openModal();
     }
 }
-</script>
-<!-- <script>
-    function getItems(id){
-                console.log(id);
-
-                baseLink = window.location.origin
-                link = `${baseLink}/labora/invmng/getItemDetails/${id}`
-                console.log(link);
-                fetch(link)
-                .then(response => {
-                    if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    mockup = ''
-                    for(let i=0 ; i < data.length ; i++){
-                        mockup += `
-                        <tr>
-                        <td>${data[i]['id']}</td>
-                        <td>${data[i]['supplier_id']}</td>
-                        <td>${data[i]['expire_date']}</td>
-                        <td>${data[i]['quantity']}</td>
-                        </tr>`
-                    }
-                    console.log(mockup)
-                    document.getElementById('modal_body').innerHTML =mockup;
-
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-
-                openModal();
-
-            }
 </script> -->
