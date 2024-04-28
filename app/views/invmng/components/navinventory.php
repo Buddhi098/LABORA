@@ -34,19 +34,19 @@
                 </li>
                 <li>
                     <a href="http://localhost/labora/invmng/product">
-                    <span class="icon"><i class="fa-solid fa-kit-medical"></i></span>
+                    <span class="icon"><ion-icon name="flask-outline"></ion-icon></span>
                     <span class="title">Stock Details</span>
                     </a>
                 </li>
                 <li>
                     <a href="http://localhost/labora/invmng/expiredChemicals">
-                    <span class="icon"><i class="fa-solid fa-hourglass-end"></i></span>
+                    <span class="icon"><ion-icon name="hourglass-outline"></ion-icon></span>
                     <span class="title">Expiry Chemicals</span>
                     </a>
                 </li>
                 <li>
                     <a href="http://localhost/labora/invmng/reorder">
-                    <span class="icon"><ion-icon name="warning"></ion-icon></span>
+                    <span class="icon"><ion-icon name="warning-outline"></ion-icon></span>
                     <span class="title">Below Alert Quantity</span>
                     </a>
                 </li>

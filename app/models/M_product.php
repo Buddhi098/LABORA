@@ -38,7 +38,7 @@ class M_product
             FROM
                 inventory_items
             WHERE
-                is_removed = '0'
+                is_removed = 0
             ORDER BY
                 id ASC";
 
@@ -61,20 +61,20 @@ class M_product
         }
     }
 
-    public function getNameById($id)
-    {
-        $name = mysqli_query($this->conn, "SELECT Item_name FROM  inventory_items WHERE id='$id'");
-        $name = mysqli_fetch_assoc($name);
+            public function getNameById($id){
+                $name = mysqli_query($this->conn , "SELECT Item_name 
+                FROM  inventory_items WHERE id='$id'");
+                $name = mysqli_fetch_assoc($name);
 
-        if ($name) {
-            return $name['Item_name'];
-        } else {
-            return false;
-        }
-    }
-    public function getItemBySupplier($supplier_id)
-    {
-        $result = mysqli_query($this->conn, " SELECT DISTINCT
+                if($name){
+                    return $name['Item_name'];
+                }else{
+                    return false;
+                }
+            }
+
+            public function getItemBySupplier($supplier_id){
+                $result = mysqli_query($this->conn , " SELECT DISTINCT
                 oi.item_id,
                 ii.Item_name
             FROM 
@@ -88,10 +88,33 @@ class M_product
             ORDER BY 
                 ii.id ASC;
             ");
-        $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        return $result_data;
-    }
+                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+                return $result_data;
+            } 
+            
+        
+            public function removeItem($item_id){
+                $result = mysqli_query($this->conn, "UPDATE 
+                 inventory_items
+                 SET is_removed = 1
+                 WHERE id='$item_id';");
+                return $result;
+            } 
 
+            public function reduceQuantity($item_id){
+                $result = mysqli_query($this->conn, "UPDATE inventory_items i
+                JOIN (
+                    SELECT item_id, SUM(quantity) AS total_quantity
+                    FROM order_item
+                    WHERE id = '$item_id'
+                    -- GROUP BY item_id
+                ) oi ON i.id = oi.item_id
+                SET i.quantity = i.quantity - oi.total_quantity;
+                ");
+                return $result;
+            } 
+            
+    
 
     public function updateNewCount($item_id, $quantity)
     {

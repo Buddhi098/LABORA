@@ -70,8 +70,8 @@
                 </li> -->
                 <li>
                     <a href="http://localhost/labora/invmng/issueChemicals">
-                        <span class="icon"><ion-icon name="bag-remove-sharp"></ion-icon></span>
-                        <span class="title">Supply Requests</span>
+                    <span class="icon"><ion-icon name="archive"></ion-icon></span>
+                    <span class="title">Supply Requests</span>
                     </a>
                 </li>
                 <li>

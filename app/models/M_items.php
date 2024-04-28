@@ -6,25 +6,33 @@
                 $this->conn = $this->conn->dbObject();
             }
 
-            public function getItemDetail($id){
-                $result = mysqli_query($this->conn , "SELECT
-                oi.id,
-                o.suplier_id,
-                oi.expire_date,
-                oi.quantity 
-            FROM
-                order_item oi
-            JOIN
-                orders_tbl o ON oi.order_id = o.id
-            WHERE
-                oi.item_id = '$id'
-            AND
-                oi.expire_date IS NOT NULL
-            ORDER BY
-                oi.expire_date ASC");
+            // public function getItemDetail($id){
+            //     $result = mysqli_query($this->conn , "SELECT oi.id, o.suplier_id, oi.expire_date, oi.quantity
+            //     FROM order_item oi
+            //     JOIN orders_tbl o ON oi.order_id = o.id
+            //     WHERE oi.item_id = '$id'
+            //       AND oi.expire_date IS NOT NULL
+            //       AND oi.expire_date > DATE(NOW())
+            //     ORDER BY oi.expire_date ASC;");
 
-                $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
-                return $result_data;
+            //     $result_data = mysqli_fetch_all($result , MYSQLI_ASSOC);
+            //     return $result_data;
+            // }
+
+            public function getItemDetail($id)
+            {
+                $result = mysqli_query($this->conn, "SELECT oi.id, o.suplier_id, oi.expire_date, oi.quantity 
+                FROM order_item oi 
+                JOIN orders_tbl o ON oi.order_id = o.id 
+                WHERE oi.item_id = '$id' AND oi.expire_date IS NOT NULL AND oi.expire_date > DATE(NOW()) 
+                ORDER BY oi.expire_date ASC;");
+                
+                if (mysqli_num_rows($result) > 0) {
+                    $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                    return $result_data;
+                } else {
+                    return false;
+                }
             }
 
             public function enterItems($item_name , $manufacture , $reorder_level , $description, $unit_of_measure){
@@ -167,26 +175,6 @@
                 return $data;
             }
 
-            public function getExpiredItem(){
-                $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 
-                FROM order_item 
-                WHERE expire_date <= CURDATE() + INTERVAL 21 DAY ORDER BY expire_date ASC;
-                ");
-                $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
-                return $result;
-            }
-
-            public function deleteExpiredItem($itemId)
-            {
-                $result = mysqli_query($this->conn , "DELETE FROM order_item WHERE id = '$itemId'");
-                $data =  mysqli_fetch_all($result , MYSQLI_ASSOC);
-
-                if ($data) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
 
             public function getFilteredExpiredItems($startDate, $endDate) {
                 $result = mysqli_query($this->conn , "SELECT id, item_id, item_name, quantity, expire_date 
