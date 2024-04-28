@@ -54,42 +54,47 @@
             echo json_encode($data);
             exit();
         }
-        
-        public function getItemDetails($id)
-        {
-            $data = $this->md_item->getItemDetail($id);
+       
 
-            echo json_encode($data);
-            exit();
-        }
-
+//Expired Chemicals
         public function expiredChemicals(){
             $data = [];
-            $table_data = $this->md_item->getExpiredItem();
+            $table_data = $this->md_order_items->getExpiredItem();
             $this->view("invmng/expiredChemicals" , $table_data);
         }
 
         public function deleteExpiredItem($itemId)
         {
             
-            $result = $this->md_item->deleteExpiredItem($itemId);
+            $result1 = $this->md_order_items->deleteExpiredItem($itemId);
+            $result2 = $this->md_product->reduceQuantity($itemId);
+            
+            if($result1){
+                $_SESSION['success_msg'] = 'Item removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/expiredChemicals');
 
-            if ($result) {
-                // Item deleted successfully
-                echo json_encode(['success' => true]);
-            } else {
-                // Error occurred during deletion
-                echo json_encode(['success' => false, 'error' => 'An error occurred while deleting the item']);
+            
+        }
+
+        // public function filterExpiredItems($startDate, $endDate) {
+        //     $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
+        //     echo json_encode($data); // Return JSON response instead of rendering a view
+        // }
+        
+        public function getExpiredItemsByDateRange()
+        {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $startDate = $_GET['startDate'];
+                $endDate = $_GET['endDate'];
+        
+                $data = $this->md_order_items->getExpiredItemsByDateRange($startDate, $endDate);
+                echo json_encode($data);
             }
         }
-
-        public function filterExpiredItems($startDate, $endDate) {
-            $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
-            echo json_encode($data); // Return JSON response instead of rendering a view
-        }
         
-        
-
+//product
 
         public function product(){
 
@@ -112,6 +117,27 @@
             $this->view("invmng/product" , $data);
         }
 
+        public function removeItem($item_id){
+            $result = $this->md_product->removeItem($item_id);
+            
+            if($result){
+                $_SESSION['success_msg'] = 'Item removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/product');
+        }
+
+         
+        public function getItemDetails($id)
+        {
+            $data = $this->md_item->getItemDetail($id);
+
+            echo json_encode($data);
+            exit();
+        }
+
+//Supplier
+
         public function supplier(){
     
             $data = array();
@@ -131,6 +157,17 @@
             }
             $this->view("invmng/supplier", $data);
         }
+
+        
+        public function getSupplierItems($supplier_id){
+            $data = $this->md_order_items->getSupplierItems($supplier_id);
+
+            echo json_encode($data);
+            exit();
+        }
+
+
+//Dashboard
 
         public function dashboard(){
             $data = [];
@@ -162,7 +199,7 @@
             $this->view("invmng/dashboard" ,   $data);
         }
 
-
+//Supply Requests
         public function issueChemicals(){
 
             $data = [];
@@ -171,6 +208,40 @@
             $this->view("invmng/issueChemicals" , $data);
         }
 
+        public function removeSupplyRequest($request_id){
+            $result1 = $this->md_issue->removeSupplyRequestItem($request_id);
+            $result2 = $this->md_issue->removeSupplyRequest($request_id);
+            
+
+            if($result1 && $result2){
+                $_SESSION['success_msg'] = 'Request removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+        public function denySupplyRequest($request_id){
+            $result = $this->md_issue->denySupplyRequest($request_id);
+
+            if($result){
+                $_SESSION['success_msg'] = 'Request denied successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+        public function approveSupplyRequest($request_id){
+            $result1 = $this->md_issue->approveSupplyRequest($request_id);
+            $result2 = $this->md_issue->approveSupplyItem($request_id);
+            $result3 = $this->md_issue->approveDelivaryDate($request_id);
+            if($result1 && $result2  && $result3){
+                $_SESSION['success_msg'] = 'Request approved successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+//Reorder
         public function reorder(){
 
             $data = [];
@@ -220,41 +291,15 @@
             }
         }
 
+//Add Inventory Form
+
         public function getAddItemForm(){
             $data = []; 
             $this->view("invmng/addInventoryForm" , $data);
         }
 
-        // public function getEditForm() {
-        //     $itemId = $_GET['id'];
-        //     $data = [];
-        //     $data = $this -> md_item->getAllDataByID($itemId);
-        //     $this->view('invmng/editInventoryForm', $data);
-        // }
-    
-        // public function updateInventoryItem() {
-        //     $jsonData = file_get_contents("php://input");
-        //     $data = json_decode($jsonData, true);
-    
-        //     $itemName = $data['Item_name'];
-        //     $manufacture = $data['manufacturer'];
-        //     $reorderLimit = $data['reorder_limit'];
-        //     $unitOfMeasure = $data['unit_of_measure'];
-        //     $description = $data['description'];
-    
-        //     $result = $this->md_item->updateItem($itemName, $manufacture, $reorderLimit, $unitOfMeasure, $description);
-    
-        //     if ($result) {
-        //         $msg = ['msg' => true];
-        //         echo json_encode($msg);
-        //         exit();
-        //     } else {
-        //         $msg = ['msg' => false];
-        //         echo json_encode($msg);
-        //         exit();
-        //     }
-        // }
-
+      
+//Edit Item Form
         public function getEditForm($id)
         {
             
@@ -317,24 +362,7 @@
             }
         }
         
-
-        // public function itemDetails(){
-        //     $data = array();
-        //     $result = $this->md_item->getItemDetails();
-        //     if (count($result) > 0) {
-        //         $data = $result;
-        //     }else{
-        //         $data = [[
-        //             'id'=> "",
-        //             'item_name' => '',
-        //             'expire_date' => '',
-        //             'quantity' => ''
-        //         ],];
-        //         $this->view("invmng/itemDetails" , $data);
-        //     }
-
-        //     $this->view("invmng/itemDetails" , $data);
-        // }
+//Item Details view
 
         public function itemDetails($itemId)
         {
