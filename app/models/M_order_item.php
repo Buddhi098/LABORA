@@ -50,7 +50,8 @@ class M_order_item
                             order_item.note ,
                             inventory_items.unit_of_measure AS unit,
                             order_item.price,
-                            order_item.expire_date
+                            order_item.expire_date,
+                            order_item.item_id
                             FROM order_item 
                             INNER JOIN inventory_items ON order_item.item_id = inventory_items.id
                             WHERE order_item.order_id = ?");

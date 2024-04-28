@@ -8,6 +8,9 @@
         private $md_order;
 
         private $md_order_items;
+        private $md_employee;
+
+        private $md_invoice;
         public function __construct(){
             $this->md_dashboard = $this->model('M_invDashboard'); 
             $this->md_product = $this->model('M_product'); 
@@ -18,6 +21,8 @@
             $this->md_order_items = $this->model('M_order_item');
             $this->md_issue = $this->model('M_issue_chemicals');
             $this->md_request_item = $this->model('M_request_items');
+            $this->md_employee = $this->model('M_employee');
+            $this->md_invoice = $this->model('M_invoice');
             // auth middleware
 
             $this->auth = new AuthMiddleware();
@@ -410,6 +415,8 @@
             $msg = [
                 'msg' => true
             ];
+
+            $_SESSION['success_msg'] = 'Order placed successfully';
             echo json_encode($msg);
            
             exit();      
@@ -470,6 +477,56 @@
             sendEmail($email, $name, $body, $subject);
         
             return $expiredItems;
+        }
+
+        public function viewInvoice($order_id , $supplier_id){
+            $item = $this->md_order_items->getOrderItemForSupplier($order_id);
+            $_SESSION['order_id'] = $order_id;
+            $data['item'] = $item;
+
+            $supplier = $this->md_employee->getSupplier($supplier_id);
+            $data['order_id'] = $order_id;
+            $data['supplier'] = $supplier;
+            $this->view("invmng/invoice_view" , $data);
+        }
+
+        public function approveInvoice(){
+            $data2 = file_get_contents("php://input");
+            $input_data = json_decode($data2, true);
+
+            $order_id = $input_data['order_id'];
+
+            $approve_order= $this->md_order->approveOrder($order_id);
+
+            $approve_invoice = $this->md_invoice->approveInvoice($order_id);
+
+            $inventory_items = $input_data['items'];
+
+            foreach ($inventory_items as $item) {
+                $result = $this->md_product->updateNewCount($item['item_catergory_Id'], $item['quantity']);
+            }
+
+            $data['success_msg'] = 'Invoice approved successfully';
+            $_SESSION['success_msg'] = 'Invoice approved successfully';
+
+            echo json_encode($data);
+            exit();
+        }
+
+        public function rejectOrder(){
+            
+            $data2 = file_get_contents("php://input");
+            $input_data = json_decode($data2, true);
+            $order_id = $input_data['order_id'];
+
+            $reject_order = $this->md_order->rejectOrder($order_id);
+            $reject_invoice = $this->md_invoice->rejectInvoice($order_id);
+
+            $data['success_msg'] = 'Order rejected successfully';
+            $_SESSION['success_msg'] = 'Order rejected successfully';
+
+            echo json_encode($data);
+            exit();
         }
 
     }

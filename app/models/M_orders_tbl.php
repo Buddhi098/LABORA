@@ -33,9 +33,9 @@ class M_orders_tbl
                 CONCAT('OR-', id) AS orderid, 
                 order_date, 
                 expected_date, 
-                status, 
+                `status`, 
                 invoice_id,
-                
+                suplier_id,
                 (SELECT full_name FROM employees WHERE id=suplier_id) AS Supplier_name 
                 FROM orders_tbl 
                 WHERE invmng_id='" . $_SESSION["empid"] . "'");
@@ -126,6 +126,24 @@ class M_orders_tbl
 
     public function updateStatus($order_id , $status){
         $result = mysqli_query($this->conn , "UPDATE orders_tbl SET `status`='$status' WHERE id='$order_id'");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function approveOrder($order_id){
+        $result = mysqli_query($this->conn , "UPDATE orders_tbl SET `status`='Approved' WHERE id='$order_id'");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function rejectOrder($order_id){
+        $result = mysqli_query($this->conn , "UPDATE orders_tbl SET `status`='Rejected' WHERE id='$order_id'");
         if($result){
             return true;
         }else{

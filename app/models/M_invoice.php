@@ -32,5 +32,25 @@ class M_invoice
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result_data;
     }
+
+    public function approveInvoice($order_id)
+    {
+        $result = mysqli_query($this->conn, "UPDATE order_invoice_tbl SET `status`='Approved' WHERE order_id='$order_id'");
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function rejectInvoice($order_id)
+    {
+        $result = mysqli_query($this->conn, "UPDATE order_invoice_tbl SET `status`='Rejected' WHERE order_id='$order_id'");
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

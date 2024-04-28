@@ -46,7 +46,7 @@
             
 
             public function enterItems($item_name , $total_quantity , $manufacture , $reorder_level , $description){
-                $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, total_quantity, reorder_limit, description, manufacturer) VALUES ('$item_name', '$item_type', '$reorder_level', '$description', '$manufacture')");
+                $result = mysqli_query($this->conn, "INSERT INTO inventory_items (Item_name, total_quantity, reorder_limit, description, manufacturer) VALUES ('$item_name','$reorder_level', '$description', '$manufacture')");
 
                 if($result){
                     return true;
@@ -85,8 +85,16 @@
             }   
     
 
-        }
+            public function updateNewCount($item_id , $quantity){
+                $result = mysqli_query($this->conn , "UPDATE inventory_items SET quantity = quantity + '$quantity' WHERE id='$item_id'");
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
 
+        }
        
        
     
