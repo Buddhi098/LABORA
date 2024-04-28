@@ -208,14 +208,14 @@ class M_appointment
         return $appointment;
     }
 
-    public function getAppointmentByPassKey($key , $ref_no='')
+    public function getAppointmentByPassKey($key, $ref_no = '')
     {
-        if($ref_no == ''){
+        if ($ref_no == '') {
             $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$key' ");
-        }else{
+        } else {
             $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$key' AND  Ref_No='$ref_no' ");
         }
-        
+
         if (mysqli_num_rows($appointment) > 0) {
             $appointment = mysqli_fetch_assoc($appointment);
             return $appointment;
@@ -450,6 +450,43 @@ class M_appointment
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result_data;
     }
+
+    public function getWeeklyAppointemntCount($email)
+    {
+        $data_set = mysqli_query($this->conn, "SELECT
+                    YEAR(`date`) AS appointment_year,
+                    MONTH(`date`) AS appointment_month,
+                    COUNT(*) AS appointment_count
+                FROM
+                    appointment 
+                WHERE
+                    `date` >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 MONTH) AND patient_email='$email' AND Appointment_Status='Completed' 
+                GROUP BY
+                    YEAR(`date`),
+                    MONTH(`date`)
+                ORDER BY
+                    appointment_year DESC,
+                    appointment_month DESC;
+                ");
+
+        $data_set = mysqli_fetch_all($data_set, MYSQLI_ASSOC);
+        return $data_set;
+
+
+    }
+
+    public function getUpComingAppointments($email){
+        $today_date = date("Y-m-d");
+        $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE patient_email='$email' AND Appointment_Date >= '$today_date' AND Appointment_Status='Approved'");
+        $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if (!empty($result_data)) {
+            return $result_data;
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 }

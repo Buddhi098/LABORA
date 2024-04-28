@@ -107,7 +107,16 @@ class PatientDashboard extends Controller
         $total_cost = $this->md_appointment->getTotalCost($_SESSION['useremail']);
         $data['total_cost'] = $total_cost;
 
-        $this->view("patientdashboard/dashboard", $data);
+        $graph_data = $this->md_appointment->getWeeklyAppointemntCount($_SESSION['useremail']);
+        $data['graph_data'] = $graph_data;
+
+        $upcomming_appointments = $this->md_appointment->getUpComingAppointments($_SESSION['useremail']);
+        $data['upcomming_appointments'] = $upcomming_appointments;
+
+        // print_r($data['graph_data']);
+        // die();
+
+        $this->view("patientdashboard/dashboard_2", $data);
     }
 
     public function getHolidays($year, $month)
