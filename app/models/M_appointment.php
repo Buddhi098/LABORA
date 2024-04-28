@@ -121,7 +121,7 @@ class M_appointment
 
     public function getTotalRefund($email)
     {
-        $result = mysqli_query($this->conn, "SELECT SUM(cost) AS refund FROM appointment WHERE patient_email='$email' AND payment_status='paid' AND Appointment_Status='Canceled' AND payment_method='online'");
+        $result = mysqli_query($this->conn, "SELECT SUM(cost) AS refund FROM appointment WHERE patient_email='$email' AND payment_status='paid' AND (Appointment_Status='Canceled' OR  Appointment_Status='Expired') AND payment_method='online'");
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (!empty($result_data[0]['refund'])) {
             return $result_data[0]['refund'];
