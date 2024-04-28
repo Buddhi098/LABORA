@@ -59,36 +59,36 @@
 
                         if ($request['status'] === 'Pending') {
                             $text_1 = "Approve";
-                            $class_1 = "btn-0 btn-6";
+                            $class_1 = "btn-0 btn-8";
                             $text_2 = "Deny";
                             $class_2 = "btn-0 btn-3";
                         }
                         else if ($request['status'] === 'Approved') {
-                            $text_1 = "Delivered";
+                            $text_1 = "";
                             $class_1 = '';
                             $text_2 = " ";
                             $class_2 = " ";
                         }
                         else if ($request['status'] === 'Canceled') {
                             $text_1 = "Remove";
-                            $class_1 = 'btn-0 btn-7';
+                            $class_1 = 'btn-0 btn-9';
                             $text_2 = " ";
                             $class_2 = " ";
                         }
                         else if($request['status'] === 'Denied') {
                             $text_1 = "Remove";
-                            $class_1 = 'btn-0 btn-7';
+                            $class_1 = 'btn-0 btn-9';
                             $text_2 = " ";
                             $class_2 = " ";
                         } 
 
                         if ($request['status'] === 'Pending') {
                             $text_status = "Pending Approval";
-                            $class_status = "status-1";
+                            $class_status = "status-4";
                         }
                         else if ($request['status'] === 'Approved') {
                             $text_status = "Approved";
-                            $class_status = "status-3";
+                            $class_status = "status-2";
                         }
                         else if ($request['status'] === 'Canceled') {
                             $text_status = "Canceled";
@@ -199,7 +199,13 @@
     </div>
 </div>
 
-
+<!-- Success/Failure Modal -->
+<div id="messageModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeMessageModal()">&times;</span>
+    <p id="messageText"></p>
+  </div>
+</div>
 
 
     <!-- import table javascript -->
@@ -247,7 +253,6 @@
 </script>
 
 
-
 <script>
 
 // Function to handle the button click based on the request status
@@ -275,14 +280,13 @@ function denyRequest(request_id) {
 // Function to handle approval confirmation
 function confirmApprove() {
     var request_id = document.getElementById('confirmRequestID').value;
+    console.log(request_id);
 
-    // Here, you can perform further processing such as making an AJAX request to update the request status
-    // Once the request is processed, you can display a success message or reload the page
+    const baseLink = window.location.origin;
+    const link = `${baseLink}/labora/invmng/approveSupplyRequest/${request_id}`;
+  
+    window.location.href = link;
 
-    // For demonstration purposes, let's display a success message
-    alert('Request approved successfully.');
-
-    // Close the confirmation modal
     closeModal();
 }
 
@@ -290,41 +294,40 @@ function confirmApprove() {
 function confirmDeny() {
     var request_id = document.getElementById('confirmRequestID').value;
 
-    // Here, you can perform further processing such as making an AJAX request to update the request status
-    // Once the request is processed, you can display a success message or reload the page
+    console.log(request_id);
 
-    // For demonstration purposes, let's display a success message
-    alert('Request denied successfully.');
+    const baseLink = window.location.origin;
+    const link = `${baseLink}/labora/invmng/denySupplyRequest/${request_id}`;
 
-    // Close the confirmation modal
+    window.location.href = link;
+  
     closeModal();
 }
 
 // Function to handle request removal confirmation
 function confirmRemove() {
     var request_id = document.getElementById('confirmRequestID').value;
+    console.log(request_id);
 
-    // Here, you can perform further processing such as making an AJAX request to remove the request from the database
-    // Once the request is processed, you can display a success message or reload the page
-
-    // For demonstration purposes, let's display a success message
-    alert('Request removed successfully.');
-
-    // Close the confirmation modal
+    const baseLink = window.location.origin;
+    const link = `${baseLink}/labora/invmng/removeSupplyRequest/${request_id}`;
+ 
+    window.location.href = link;
     closeModal();
 }
 
-// Function to close the confirmation modal without taking any action
+
 function closeModal() {
     // Remove the event listeners from the "Yes" buttons
     document.getElementById('confirmApproveBtn').removeEventListener('click', confirmApprove);
     document.getElementById('confirmDenyBtn').removeEventListener('click', confirmDeny);
     document.getElementById('confirmRemoveBtn').removeEventListener('click', confirmRemove);
 
-    // Hide the confirmation modals
     document.getElementById('confirmApproveModal').style.display = 'none';
     document.getElementById('confirmDenyModal').style.display = 'none';
     document.getElementById('confirmRemoveModal').style.display = 'none';
+    document.getElementById('customModal').style.display = 'none';
 }
+
 
 </script>

@@ -73,7 +73,16 @@
         </div>
     </div>
 
-    <script>
+    
+
+     <!-- import table javascript -->
+     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
+
+</body>
+</html>
+
+
+<script>
         function filterExpiredItems() {
             const startDate = document.getElementById('expiryRangeStart').value;
             const endDate = document.getElementById('expiryRangeEnd').value;
@@ -170,5 +179,3 @@
             }, 3000);
         }
     </script>
-</body>
-</html>

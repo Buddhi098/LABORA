@@ -58,6 +58,13 @@
             exit();
         }
 
+        public function getSupplierItems($supplier_id){
+            $data = $this->md_order_items->getSupplierItems($supplier_id);
+
+            echo json_encode($data);
+            exit();
+        }
+
         public function expiredChemicals(){
             $data = [];
             $table_data = $this->md_item->getExpiredItem();
@@ -157,7 +164,7 @@
             $this->view("invmng/dashboard" ,   $data);
         }
 
-
+//Supply Requests
         public function issueChemicals(){
 
             $data = [];
@@ -166,6 +173,40 @@
             $this->view("invmng/issueChemicals" , $data);
         }
 
+        public function removeSupplyRequest($request_id){
+            $result1 = $this->md_issue->removeSupplyRequestItem($request_id);
+            $result2 = $this->md_issue->removeSupplyRequest($request_id);
+            
+
+            if($result1 && $result2){
+                $_SESSION['success_msg'] = 'Request removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+        public function denySupplyRequest($request_id){
+            $result = $this->md_issue->denySupplyRequest($request_id);
+
+            if($result){
+                $_SESSION['success_msg'] = 'Request denied successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+        public function approveSupplyRequest($request_id){
+            $result1 = $this->md_issue->approveSupplyRequest($request_id);
+            $result2 = $this->md_issue->approveSupplyItem($request_id);
+            $result3 = $this->md_issue->approveDelivaryDate($request_id);
+            if($result1 && $result2  && $result3){
+                $_SESSION['success_msg'] = 'Request approved successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+//Reorder
         public function reorder(){
 
             $data = [];

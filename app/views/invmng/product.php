@@ -80,7 +80,7 @@
                                 <td>
                                 <a href="http://localhost/labora/invmng/getEditForm/'.$row['id'].'" class="action-button-edit">Edit</a>
                                 
-                                <a href="" class="action-button-delete">Remove</a>
+                                <a href="" class="action-button-delete" onclick="RemoveItems('.$row['id'].')">Remove</a>
                                 </td>
                             </tr>';
                         }
@@ -164,7 +164,8 @@ function getItems(id, quantity) {
             });
 
         openModal();
-    } else {
+    } 
+    else {
         // Display "No items in stock" message
         const modalBody = document.getElementById('modal_body');
         modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
