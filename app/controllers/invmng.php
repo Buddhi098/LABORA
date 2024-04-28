@@ -64,7 +64,7 @@
             $result1 = $this->md_order_items->deleteExpiredItem($itemId);
             $result2 = $this->md_product->reduceQuantity($itemId);
             
-            if($result1 && $result2){
+            if($result1){
                 $_SESSION['success_msg'] = 'Item removed successfully';
             }
     

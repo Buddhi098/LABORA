@@ -85,6 +85,57 @@
     </div>
 </div>
     
+  <!-- pop success & error messages -->
+    <!-- popup success messages -->
+    <div class="success-message-container" id="successMessage">
+        <div class="icon">
+            <lord-icon src="https://cdn.lordicon.com/guqkthkk.json" trigger="in" delay="15" state="in-reveal">
+            </lord-icon>
+        </div>
+        <p id="success_msg"> Success! Add New Medical Test.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+    <div class="error-message-container" id="ErrorMessage">
+        <div class="icon">
+            <lord-icon src="https://cdn.lordicon.com/akqsdstj.json" trigger="in" delay="15" state="in-reveal">
+            </lord-icon>
+        </div>
+        <p id="error_msg">Error! Your action was failed.</p>
+        <span class="close-button" onclick="hideSuccessMessage()">×</span>
+    </div>
+
+    <!-- for showing sucess message -->
+    <script>
+       window.onload = function() {
+            showMessage();
+        }
+
+        function showMessage() {
+            let success = '<?php echo isset($_SESSION["success_msg"]) ? json_encode($_SESSION["success_msg"]) : ""; ?>';
+            <?php unset($_SESSION["success_msg"]); ?>;
+            if (success.trim() !== "") {
+                console.log(success);
+                document.getElementById('success_msg').innerHTML = success;
+                showSuccessMessage();
+            }
+        }
+
+        function showSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show-message');
+
+            // Set a timeout to hide the message after 2 seconds (2000 milliseconds)
+            setTimeout(function() {
+                hideSuccessMessage();
+            }, 1500);
+        }
+
+        function hideSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.remove('show-message');
+        }
+    </script>
 
      <!-- import table javascript -->
      <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
@@ -103,16 +154,18 @@
 
     }
         // Item removal confirmation
-    function confirmRemove() {
-        var item_id = document.getElementById('confirmItemID').value;
-        console.log(item_id);
-
-        const baseLink = window.location.origin;
-        const link = `${baseLink}/labora/invmng/deleteExpiredItem/${item_id}`;
     
-        window.location.href = link;
-        closeModal();
-    }
+    function confirmRemove() {
+    var item_id = document.getElementById('confirmItemID').value;
+    console.log(item_id);
+
+    const baseLink = window.location.origin;
+    const link = `${baseLink}/labora/invmng/deleteExpiredItem/${item_id}`;
+
+    window.location.href = link;
+
+    closeModal();
+}
 
     function closeModal() {
         // Remove the event listeners from the "Yes" buttons
@@ -123,7 +176,7 @@
 
     </script>
 
-<script>
+<!-- <script>
     document.getElementById('filter-btn').addEventListener('click', function() {
     var startDate = document.getElementById('start-date').value;
     var endDate = document.getElementById('end-date').value;
@@ -209,4 +262,4 @@ function updateTable(data) {
 }
 
 </script>
-
+ -->
