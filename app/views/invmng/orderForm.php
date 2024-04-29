@@ -35,7 +35,7 @@
               ?>
 
           </select>
-          <input type="number" name="quantity" placeholder="Quantity" required>
+          <input type="number" min=0 name="quantity" placeholder="Quantity" required>
           <input type="text" name="specialNote" placeholder="Special Note">
           <button class="removeItem" type="button">Remove</button>
         </div>

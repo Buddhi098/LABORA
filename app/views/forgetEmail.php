@@ -97,7 +97,6 @@
     verifyOTPBtn.addEventListener("click", () => {
         const otp = document.getElementById("otp").value;
 
-        // Replace this with your actual logic for verifying the OTP
         if (otp) {
 
             const baseLink = window.location.origin;
@@ -133,11 +132,11 @@
 
     changePasswordBtn.addEventListener("click", () => {
         const newPassword = document.getElementById("newPassword").value;
-
-        // Replace this with your actual logic for changing the password
+        console.log(newPassword);
+        console.log(email);
         if (newPassword) {
             const baseLink = window.location.origin;
-            const link = `${baseLink}/labora/user/changePassword/${newPassword}`
+            const link = `${baseLink}/labora/user/changePassword/${newPassword}/${email}`
 
             fetch(link)
                 .then(res => {
@@ -147,7 +146,10 @@
 
                     return res.json();
                 }).then(data => {
-                    if (data.msg == 'success') {
+                    console.log(data);
+                    if(data.err){
+                        messageContainer.textContent = data.err;
+                    }else if (data.msg == 'success') {
                         messageContainer.textContent = "Password changed successfully.";
                     } else {
                         messageContainer.textContent = "Please enter Valid Password";

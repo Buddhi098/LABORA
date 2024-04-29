@@ -425,7 +425,11 @@ class PatientDashboard extends Controller
                 'password' => trim($_POST['new_password']),
                 'comfirm_password' => trim($_POST['confirm_password']),
             ];
-
+            if($data['password'] != $data['comfirm_password']) {
+                $message['error'] = 'Password Missmatch';
+                echo json_encode($message);
+                exit();
+            }
             $img_status = 'not uploaded';
             $profile_rename = 'default.jpg';
 
