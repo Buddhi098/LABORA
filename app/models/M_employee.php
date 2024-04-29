@@ -237,5 +237,17 @@
 
             }
 
+            public function getSupplierCount(){
+                $result = mysqli_query($this->conn , "SELECT COUNT(*) AS supplier_count FROM employees WHERE role = 'supplier'");
+                $row = mysqli_fetch_assoc($result);
+                return $row['supplier_count'];
+            }
+
+            public function getSupplier($id){
+                $result = mysqli_query($this->conn , "SELECT * FROM employees WHERE id = '$id'");
+                $row = mysqli_fetch_assoc($result);
+                return $row;
+            }
+
     }
 ?>

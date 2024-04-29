@@ -77,6 +77,14 @@
                                 if ($appointment['Appointment_Status'] === 'Pending') {
                                     $status_str = 'status-4';
                                 }
+
+                                if($appointment['prescription'] != ''){
+                                    $btn_clz = '';
+                                    $Btn = '';
+                                }else{
+                                    $btn_clz = 'button_disabled';
+                                    $Btn = 'disabled';
+                                }
                                 echo "<tr>";
                                 echo "<td>" . $appointment['Ref_No'] . "</td>";
                                 echo "<td>" . $appointment['patient_email'] . "</td>";
@@ -84,7 +92,7 @@
                                 echo "<td>" . $appointment['Appointment_Date'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Time'] . "</td>";
                                 echo "<td><div class='" . $status_str . " status'>" . $appointment['Appointment_Status'] . "</div></td>";
-                                echo "<td><button class='btn-0 btn-2' onclick=\"openModal2('" . $appointment['Appointment_Notes'] . "')\">View</button></td>";
+                                echo "<td><button class='btn-0 btn-2' onclick=\"openModal2('" . $appointment['Appointment_Notes'] . "')\">View</button><button class='btn-0 btn-1 ".$btn_clz."' onclick=\"Prescription('" . $appointment['prescription'] . "')\" ".$Btn.">Prescription</button></td>";
                                 echo "<td><div class='" . $status . " payment'>" . $appointment['payment_status'] . "<div></td>";
                                 echo "<td><button class='btn-0 btn-2' onclick='openModal(`" . $appointment['Ref_No'] . "`)'>Approved</button><button class='btn-0 btn-3' onclick='openModal3(`" . $appointment['Ref_No'] . "`)'>Reject</button></td>";
                                 echo "</tr>";
@@ -111,6 +119,14 @@
                                 } else if ($appointment['Appointment_Status'] === 'Expired') {
                                     $status_str = 'status-6';
                                 }
+
+                                if($appointment['prescription'] != ''){
+                                    $btn_clz = '';
+                                    $Btn = '';
+                                }else{
+                                    $btn_clz = 'button_disabled';
+                                    $Btn = 'disabled';
+                                }
                                 echo "<tr>";
                                 echo "<td>" . $appointment['Ref_No'] . "</td>";
                                 echo "<td>" . $appointment['patient_email'] . "</td>";
@@ -118,7 +134,7 @@
                                 echo "<td>" . $appointment['Appointment_Date'] . "</td>";
                                 echo "<td>" . $appointment['Appointment_Time'] . "</td>";
                                 echo "<td><div class='" . $status_str . " status'>" . $appointment['Appointment_Status'] . "</div></td>";
-                                echo "<td><button class='btn-0 btn-2' onclick=\"openModal2('" . $appointment['Appointment_Notes'] . "')\">View</button></td>";
+                                echo "<td><button class='btn-0 btn-2' onclick=\"openModal2('" . $appointment['Appointment_Notes'] . "')\">Note</button><button class='btn-0 btn-1 ".$btn_clz."' onclick=\"Prescription('" . $appointment['prescription'] . "')\" ".$Btn .">Prescription</button></td>";
                                 echo "<td><div class='" . $status . " payment'>" . $appointment['payment_status'] . "<div></td>";
                                 echo "<td><button class='btn-0 btn-3' onclick='openModal4(`" . $appointment['Ref_No'] . "`)'>Remove</button></td>";
                                 echo "</tr>";
@@ -239,6 +255,15 @@
     </div>
 
     <script src="<?php echo APPROOT . '/public/js/components/warningModal.js' ?>"></script>
+
+    <!-- for Prescription -->
+    <script>
+        function Prescription(id) {
+            const baseLink = window.location.origin;
+            const link = `${baseLink}/labora/mlt/viewPrescription/${id}`;
+            window.location.href = link;
+        }
+    </script>
 
     <script>
 

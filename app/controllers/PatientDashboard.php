@@ -163,7 +163,7 @@ class PatientDashboard extends Controller
                 $_SESSION['prescription'] = '';
 
                 if (is_uploaded_file($_FILES["prescription"]['tmp_name'])) {
-                    $is_valid_file = $this->verifyAndScanImage($_FILES["prescription"]);
+                    $is_valid_file = $this->verifyAndScanPDF($_FILES["prescription"]);
                     if ($is_valid_file !== 1) {
                         $data['error'] = $is_valid_file;
                         echo json_encode($data);
@@ -214,25 +214,25 @@ class PatientDashboard extends Controller
     }
 
     // Function to verify and scan uploaded image
-    function verifyAndScanImage($uploadedFile)
+    function verifyAndScanPDF($uploadedFile)
     {
-
         if (!isset($uploadedFile['tmp_name']) || !is_uploaded_file($uploadedFile['tmp_name'])) {
             return 'No file uploaded.';
         }
 
-        $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-        if (!in_array($uploadedFile['type'], $allowedTypes)) {
-            return 'Invalid file type. Only JPEG, PNG, and PDF are allowed.';
+        // Check if the uploaded file is a PDF
+        if ($uploadedFile['type'] !== 'application/pdf') {
+            return 'Invalid file type. Only PDF files are allowed.';
         }
 
-        $maxSize = 5 * 1024 * 1024;
+        $maxSize = 5 * 1024 * 1024; // 5 MB
         if ($uploadedFile['size'] > $maxSize) {
             return 'File size exceeds the limit. Maximum allowed size is 5 MB.';
         }
 
-        return 1;
+        return 1; // Indicates success
     }
+
 
 
 
@@ -248,7 +248,7 @@ class PatientDashboard extends Controller
                 $current_time = date("H:i:s");
 
                 if ($current_time > '08:00:00' && $current_time < '12:00:00') {
-                    $first_start_time = new DateTime($current_time); 
+                    $first_start_time = new DateTime($current_time);
                     $first_end_time = new DateTime('12:00:00');
                     $second_start_time = new DateTime('1:00:00');
                     $second_end_time = new DateTime('5:00:00');
@@ -256,10 +256,10 @@ class PatientDashboard extends Controller
 
                     $current_time = new DateTime($current_time);
                     $current_time->modify('-12 hours');
-                    
+
                     $first_start_time = new DateTime('08:00:00');
                     $first_end_time = new DateTime('08:00:00');
-                    $second_start_time = $current_time; 
+                    $second_start_time = $current_time;
                     $second_end_time = new DateTime('5:00:00');
                 } else {
                     $first_start_time = new DateTime('08:00:00');
@@ -425,7 +425,7 @@ class PatientDashboard extends Controller
                 'password' => trim($_POST['new_password']),
                 'comfirm_password' => trim($_POST['confirm_password']),
             ];
-            if($data['password'] != $data['comfirm_password']) {
+            if ($data['password'] != $data['comfirm_password']) {
                 $message['error'] = 'Password Missmatch';
                 echo json_encode($message);
                 exit();

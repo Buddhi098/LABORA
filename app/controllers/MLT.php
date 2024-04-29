@@ -128,57 +128,61 @@ class MLT extends Controller
                 'form-name' => isset($_POST['form-name']) ? $_POST['form-name'] : null,
                 'form-fields' => isset($_POST['form-fields']) ? json_decode($_POST['form-fields'], true) : null
             ];
-    
+
 
             if ($data['form-fields'] === null) {
                 $msg['error'] = 'Invalid JSON data';
             } else {
                 $result = $this->md_test_form->addTestForm($_SESSION['test_id'], $data['form-fields']);
-    
-                if($result){
+
+                if ($result) {
                     $msg['success'] = 'Form template added successfully';
                     $_SESSION['success_msg'] = 'Form template added successfully';
                 } else {
                     $msg['error'] = 'Failed to add form template';
-                    $_SESSION['error_msg'] = 'Failed to add form template'; 
+                    $_SESSION['error_msg'] = 'Failed to add form template';
                 }
             }
-    
+
             echo json_encode($msg);
             exit();
         }
     }
 
-    public function getTestDescription($id){
-            $result = $this->md_test_type->getDescriptionById($id);
+    public function getTestDescription($id)
+    {
+        $result = $this->md_test_type->getDescriptionById($id);
 
-            echo json_encode($result);
-            exit();
+        echo json_encode($result);
+        exit();
     }
-    public function getPreparations($id){
+    public function getPreparations($id)
+    {
         $result = $this->md_test_type->getPreparationsById($id);
 
         echo json_encode($result);
         exit();
     }
 
-    public function changeAvailabilityStatus($id){
+    public function changeAvailabilityStatus($id)
+    {
         $result = $this->md_test_type->changeAvailabilityStatus($id);
-        if($result){
+        if ($result) {
             $msg['success'] = 'Changed Availability status';
-        }else{
+        } else {
             $msg['error'] = 'Error occured';
         }
 
         echo json_encode($msg);
         exit();
     }
-    
-    public function removeTest($id){
+
+    public function removeTest($id)
+    {
         $result = $this->md_test_type->removeTestById($id);
-        if($result){
+        if ($result) {
             $msg['success'] = 'Test removed successfully';
-        }else{
+        } else {
             $msg['error'] = 'Error occured';
         }
 
@@ -202,19 +206,21 @@ class MLT extends Controller
 
     }
 
-    public function setAppointmentApproved($ref_no){
+    public function setAppointmentApproved($ref_no)
+    {
         $email = $this->md_appointment->setApprovedAppointment($ref_no);
         $_SESSION['success_msg'] = 'Appointment approved successfully';
         $data = [];
 
         $name = $this->md_user->getUserNameByEmail($email);
         $subject = 'Appointment Approved';
-        $body = 'Your appointment has been approved by the MLT.<br>Ref No: '.$ref_no;
-        sendEmail($email, $name, $body , $subject);
+        $body = 'Your appointment has been approved by the MLT.<br>Ref No: ' . $ref_no;
+        sendEmail($email, $name, $body, $subject);
         header('Location: ' . URLROOT . '/MLT/appointment');
     }
 
-    public function setAppointmentRejected(){
+    public function setAppointmentRejected()
+    {
         $ref_no = $_POST['ref_no'];
         $reason = $_POST['reason'];
         $email = $this->md_appointment->setRejectedAppointment($ref_no, $reason);
@@ -223,15 +229,16 @@ class MLT extends Controller
 
         $name = $this->md_user->getUserNameByEmail($email);
         $subject = 'Appointment Rejected';
-        $body = 'Your appointment has been rejected by the MLT.<br>Ref No: '.$ref_no.'<br> Reason: '.$reason;
-        sendEmail($email, $name, $body , $subject);
+        $body = 'Your appointment has been rejected by the MLT.<br>Ref No: ' . $ref_no . '<br> Reason: ' . $reason;
+        sendEmail($email, $name, $body, $subject);
 
         $data['success'] = 'success';
         echo json_encode($data);
         exit();
     }
 
-    public function removeAppointmentMLT($ref_no){
+    public function removeAppointmentMLT($ref_no)
+    {
         $result = $this->md_appointment->removeAppointmentMLT($ref_no);
         $_SESSION['success_msg'] = 'Appointment removed successfully';
 
@@ -240,7 +247,7 @@ class MLT extends Controller
 
     public function viewReport($report_ref_no)
     {
-        $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
+        $pdfPath = '../app/storage/medical_reports/' . $report_ref_no . '.pdf';
 
         $pdfContent = file_get_contents($pdfPath);
 
@@ -252,49 +259,66 @@ class MLT extends Controller
         }
     }
 
-    public function approveReport($ref_no){
+    public function approveReport($ref_no)
+    {
         $result = $this->md_report->approveReport($ref_no);
-        if($result){
+        if ($result) {
             $_SESSION['success_msg'] = 'Report approved successfully';
         }
 
         header('Location: ' . URLROOT . '/MLT/reports');
     }
 
-    public function rejectReport(){
+    public function rejectReport()
+    {
         $ref_no = $_POST['ref_no'];
         $reason = $_POST['reason'];
         $result = $this->md_report->rejectReport($ref_no, $reason);
-        if($result){
+        if ($result) {
             $_SESSION['success_msg'] = 'Report rejected successfully';
             $data['success'] = 'success';
             echo json_encode($data);
             exit();
-        }else{
+        } else {
             $data['error'] = 'error';
             echo json_encode($data);
             exit();
         }
     }
 
-    public function removeReport($ref_no){
+    public function removeReport($ref_no)
+    {
         $result = $this->md_report->removeReportForMLT($ref_no);
-        if($result){
+        if ($result) {
             $_SESSION['success_msg'] = 'Report removed successfully';
         }
 
         header('Location: ' . URLROOT . '/MLT/reports');
     }
 
-    public function completeReport($ref_no){
+    public function completeReport($ref_no)
+    {
         $result = $this->md_report->completeReport($ref_no);
-        if($result){
+        if ($result) {
             $_SESSION['success_msg'] = 'Report completed successfully';
         }
 
         header('Location: ' . URLROOT . '/MLT/reports');
     }
 
+    public function viewPrescription($pdf)
+    {
+        $pdfPath = '../app/storage/prescription/' . $pdf;
+
+        $pdfContent = file_get_contents($pdfPath);
+
+        if ($pdfContent === false) {
+            echo "Failed to read the PDF file.";
+        } else {
+            header('Content-Type: application/pdf');
+            echo $pdfContent;
+        }
+    }
 
 }
 ?>

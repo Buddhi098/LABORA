@@ -68,7 +68,7 @@
         <tbody>
                 <div class='table_body'>
                 <?php
-                    if(count($data) > 0) {
+                    if($data[0]['Item_name'] != '') {
                         foreach ($data as $index => $row) {
                             echo '
                             <tr>
