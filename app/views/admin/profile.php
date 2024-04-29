@@ -129,7 +129,7 @@
             console.log(data);
             if(data.status!=""){
                 showSuccessMessage()
-                window.location.href = `${baseLink}/labora/admin/userAccount`;
+                // window.location.href = `${baseLink}/labora/admin/userAccount`;
             }else{
                 showErrorMessage()
             }

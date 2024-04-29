@@ -219,8 +219,9 @@
                         echo json_encode($message);
                         exit();
                     } else {
-                        $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
-                        $this->md_employee->changePassword($hashed_password, $data['email']);
+                        // $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
+                        // $this->md_employee->changePassword($hashed_password, $data['email']);
+                        $this->md_employee->changePassword($data['password'], $data['email']);
                     }
                 }
 
