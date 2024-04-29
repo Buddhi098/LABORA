@@ -95,14 +95,14 @@ const ctx = document.getElementById('myChart');
 
 //second row charts
 // chart4
-// Function to map numeric month values to month names
+//function to map numeric month values to month names
 function mapMonthToName(monthNumber) {
   const months = [
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  // Ensure monthNumber is a valid index (1 to 12)
+  //ensure monthNumber is a valid index (1 to 12)
   if (monthNumber >= 1 && monthNumber <= 12) {
       return months[monthNumber - 1]; // Subtract 1 to get the correct array index
   }
