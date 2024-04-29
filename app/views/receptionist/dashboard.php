@@ -140,6 +140,8 @@
                 <p>You can indicate days off or holidays on this calendar.</p>
                 <div class="holiday-item">
                     <?php
+                    date_default_timezone_set('Asia/Colombo');
+
                     $maxDate = new DateTime();
                     $maxDateFormatted = $maxDate->format('Y-m-d');
                     ?>
