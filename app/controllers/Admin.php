@@ -3,6 +3,7 @@
         private $md_employee;
         private $md_chart;
 
+
         private $md_holiday_calendar;
 
         private $auth;
@@ -170,9 +171,87 @@
 
             $this->view('admin/user_form' , $data);
             // for avoiding form resubmission
-            stopResubmission();      
+            stopResubmission();
 
         }
+
+
+        public function editProfile($email)
+        {
+            $data = [];
+    
+                $current_user = $this->md_employee->getUser($email);
+                $data = [
+                    'full_name' => $current_user['full_name'],
+                    'email' =>  $current_user['email'],
+                    'phone' => $current_user['phone'],
+                    'dob' => $current_user['dob'],
+                    'address' => $current_user['address'],
+                    'role' => $current_user['role'],
+                ];
+            
+    
+            $this->view('admin/profile', $data);
+    
+            //for avoiding form resubmission
+            // stopResubmission();
+        }
+
+        public function editDetails(){
+
+            if($_SERVER['REQUEST_METHOD']=="POST"){
+                $data = [
+                    'full_name' => trim($_POST['full_name']),
+                    'email' =>trim($_POST['email']),
+                    'phone' => trim($_POST['phone']),
+                    'dob' => trim($_POST['dob']),
+                    'address' => trim($_POST['address']),
+                    'password' => trim($_POST['new_password']),
+                    'comfirm_password' => trim($_POST['confirm_password']),
+                ];
+                
+                if ($data['password'] != '' && $data['comfirm_password'] != '') {
+                    if ($data['password'] != $data['comfirm_password']) {
+                        $message['error'] = 'Password and Confirm Password does not match';
+                        echo json_encode($message);
+                        exit();
+                    } else {
+                        $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
+                        $this->md_employee->changePassword($hashed_password, $data['email']);
+                    }
+                }
+                if ($data['full_name'] != '') {
+                    $this->md_employee->changeName($data['email'], $data['full_name']);
+                }
+
+                if ($data['email'] != '') {
+                    $this->md_employee->changeMail($data['full_name'], $data['email']);
+                }
+    
+                if ($data['phone'] != '') {
+                    $this->md_employee->changePhone($data['email'], $data['phone']);
+                }
+    
+                if ($data['dob'] != '') {
+                    $this->md_employee->changeDob($data['email'], $data['dob']);
+                }
+    
+                if ($data['address'] != '') {
+                    $this->md_employee->changeAddress($data['email'], $data['address']);
+                }
+                
+                $message = [
+                    'status' => 'success',
+                ];
+
+                echo json_encode($message);
+                header('Location: http://localhost/labora/admin/userAccount');
+                exit();
+
+            }
+        }
+
+
 
         function generateRandomPassword($length = 12) {
             // Define character sets

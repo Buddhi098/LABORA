@@ -68,7 +68,7 @@
                         <td>'.$row['address'].'</td>
                         <td>'.$row['gender'].'</td>
                         <td>'.$row['role'].'</td>
-                        <td><a href="http://localhost/labora/admin/editProfile" class="action-button">Edit</a> <a href="http://localhost/labora/admin/deleteEmployee/'.$row['email'].'" class="action-button">Delete</a></td>
+                        <td><a href="http://localhost/labora/admin/editProfile/'.$row['email'].'" class="action-button">Edit</a> <a href="http://localhost/labora/admin/deleteEmployee/'.$row['email'].'" class="action-button">Delete</a></td>
                         </tr>';
                     }
                 }
