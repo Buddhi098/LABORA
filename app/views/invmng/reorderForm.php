@@ -55,7 +55,7 @@
                   }
                   echo $mockup;
                 ?>
-                <!-- Add more options as needed -->
+                
             </select>
         </div>
       <button id="submit" type="submit">Submit Order</button>
