@@ -64,7 +64,7 @@ class M_testtype
 
     public function getTestTypeCount()
     {
-        $result = mysqli_query($this->conn, "SELECT * FROM test_type");
+        $result = mysqli_query($this->conn, "SELECT * FROM test_type WHERE active_status ='1'");
         $count = mysqli_num_rows($result);
         return $count;
     }
