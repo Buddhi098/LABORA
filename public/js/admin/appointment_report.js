@@ -1,4 +1,13 @@
+//chart 2
+let labels_data1 = [];
+for(let i = 0; i < appointment_status.length; i++){
+    labels_data1.push(appointment_status[i].Status);
+}
 
+let data_1 = []
+for(let i=0 ; i<appointment_status.length ; i++){
+    data_1.push(appointment_status[i].Appointment_Count);
+}
 
 let ctx = document.getElementById('myChart').getContext('2d');
 // Set global chart options
@@ -9,14 +18,14 @@ Chart.defaults.color = 'black';
 let pieChart = new Chart(ctx, {
     type: 'doughnut',// bar, horizontalBar, pie, Line, doughnut, radar, polarArea
     data: {
-        labels: ['Complete','Pending', 'Cancelled'],
+        labels: labels_data1,
         datasets: [{
-            // label: 'Population',
-            data: [25,4,3],
-            backgroundColor: ['#C9473E', '#78C249', '#FFD700'],
+            label: 'Appointments',
+            data: data_1,
+            backgroundColor: ['#C9473E', '#78C249', '#FFD700', '#45A2DC', '#DF71D6'],
             borderWidth: 1,
-            borderColor: 'yellow',
-            hoverBorderWidth: 2,
+            borderColor: '#45A2DC',
+            hoverBorderWidth: 1,
             hoverBorderColor: 'black'
         }]
     },
@@ -70,7 +79,7 @@ let barChart = new Chart(ctx2, {
   data: {
     labels: labels_data2 ,
     datasets: [{
-      label: 'Count',
+      label: 'Appointments',
       data: data_2 ,
       backgroundColor: [
         '#d41e11', // Red
@@ -139,31 +148,64 @@ let barChart = new Chart(ctx2, {
 
 
 
-const appointmentData = [
-  { appointmentTime: '2023-01-01 08:00:00', value: 10 },
-  { appointmentTime: '2023-01-01 09:00:00', value: 20 },
-  { appointmentTime: '2023-01-01 10:30:00', value: 12 },
-  { appointmentTime: '2023-01-01 12:00:00', value: 9},
-  { appointmentTime: '2023-01-01 14:00:00', value: 14 },
-  { appointmentTime: '2023-01-01 15:30:00', value: 11 },
-  { appointmentTime: '2023-01-01 16:00:00', value: 13 },
-  { appointmentTime: '2023-01-01 17:30:00', value: 15 },
-  { appointmentTime: '2023-01-01 18:00:00', value: 6 },
-  // { appointmentTime: '2023-01-01 19:30:00', value: 0 },
-  // { appointmentTime: '2023-01-01 21:30:00', value: 0 },
-  // { appointmentTime: '2023-01-01 22:00:00', value: 0 }
-];
+// const appointmentData = [
+//   { appointmentTime: '2023-01-01 08:00:00', value: 10 },
+//   { appointmentTime: '2023-01-01 09:00:00', value: 20 },
+//   { appointmentTime: '2023-01-01 10:30:00', value: 12 },
+//   { appointmentTime: '2023-01-01 12:00:00', value: 9},
+//   { appointmentTime: '2023-01-01 14:00:00', value: 14 },
+//   { appointmentTime: '2023-01-01 15:30:00', value: 11 },
+//   { appointmentTime: '2023-01-01 16:00:00', value: 13 },
+//   { appointmentTime: '2023-01-01 17:30:00', value: 15 },
+//   { appointmentTime: '2023-01-01 18:00:00', value: 6 },
+//   { appointmentTime: '2023-01-01 19:30:00', value: 0 },
+//   { appointmentTime: '2023-01-01 21:30:00', value: 0 },
+//   { appointmentTime: '2023-01-01 22:00:00', value: 0 }
+// ];
+
+
+function mapTimeSlotLabel(label) {
+  switch (label) {
+      case '1':
+          return '8-9am';
+      case '2':
+          return '9-10am';
+      case '3':
+          return '10-11am';
+      case '4':
+          return '11-12pm';
+      case '5':
+          return '12-1pm';
+      case '6':
+          return '1-2pm';
+      case '7':
+          return '2-3pm';
+      case '8':
+          return '3-4pm';
+      case '9':
+          return '4-5pm';
+      case '10':
+          return '5-6pm';
+      default:
+          return 'Other';
+  }
+}
+
+// Prepare data for the chart
+const labels_data3 = appointment_time.map(item => mapTimeSlotLabel(item.time_slot));
+const data_3 = appointment_time.map(item => item.appointment_count);
 
 // Create the line chart
 const ctx3 = document.getElementById('myChart3').getContext('2d');
 const myChart = new Chart(ctx3, {
   type: 'line',
   data: {
-      labels: appointmentData.map(data => new Date(data.appointmentTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })),
+      labels: labels_data3,
       datasets: [{
           label: 'Number of Appointments',
-          data: appointmentData.map(data => data.value),
+          data: data_3,
           borderColor: '#5E2BB8',
+          pointRadius: 5,
           fill: false
       }]
   },

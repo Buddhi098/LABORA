@@ -72,7 +72,7 @@
                 })
         }
 
-        function closeModal() {
+        function closeModal2() {
             var modal = document.getElementById("customModal");
             modal.style.display = "none";
         }
@@ -88,7 +88,7 @@
     <div class="container_1">
 
         <div class="table-container">
-            <h2><i class="fa-solid fa-calendar-check"></i>Testing Details</h2>
+            <h2><i class="fa-solid fa-calendar-check"></i>Medical Tests</h2>
             <div class="add">
                 <a href="<?php echo URLROOT ?>MLT/test_form" class="addbtn"><ion-icon name="add"></ion-icon> Create
                     New</a>
@@ -196,13 +196,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Medical Test Details</h4>
-                <button type="button" onclick="closeModal()">&times;</button>
+                <button type="button" onclick="closeModal2()">&times;</button>
             </div>
             <div class="modal-body">
                 <p id="modal_info">Data Not Found</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-primary" onclick="closeModal()">Close</button>
+                <button type="button" class="btn-primary" onclick="closeModal2()">Close</button>
             </div>
         </div>
     </div>

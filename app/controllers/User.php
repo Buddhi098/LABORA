@@ -67,9 +67,7 @@ class User extends Controller
 
         } else {
 
-            // initial state
             $data = [
-                // error variable
                 'passworderr' => '',
                 'emailerr' => '',
                 'username' => '',

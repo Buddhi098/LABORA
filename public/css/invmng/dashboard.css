@@ -1,7 +1,7 @@
 .container_1
 {
     position: fixed;
-    width: calc(100% - 350px);
+    width: calc(100% - 300px);
     left: 300px;
     background: white;
     transition: 0.5s;

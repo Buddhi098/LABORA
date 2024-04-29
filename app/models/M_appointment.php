@@ -423,20 +423,22 @@ class M_appointment
         $result = mysqli_query($this->conn, "UPDATE appointment SET Appointment_Status='Rejected' WHERE Ref_No='$ref_no'");
         $result2 = mysqli_query($this->conn, "UPDATE appointment SET reject_note='$reason' WHERE Ref_No='$ref_no'");
 
-        // add refund record.
+
         $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE Ref_No='$ref_no'");
         $result_data = mysqli_fetch_assoc($result);
 
         if ($result_data['payment_status'] == 'paid') {
             $result = mysqli_query($this->conn, "UPDATE appointment
-                SET refund_status = 'pending'
-                WHERE Ref_No = '$ref_no'");
+            SET refund_status = 'pending'
+            WHERE Ref_No = '$ref_no'");
         }
 
-        $patient_email = mysqli_query($this->conn, "SELECT patient_email  FROM appointment WHERE Ref_No='$ref_no'");
-        $patient_email = mysqli_fetch_assoc($patient_email);
-        return $patient_email['patient_email'];
+        $patient_email_query = mysqli_query($this->conn, "SELECT patient_email  FROM appointment WHERE Ref_No='$ref_no'");
+        $patient_email_data = mysqli_fetch_assoc($patient_email_query);
+        $patient_email = $patient_email_data['patient_email'];
+        return $patient_email;
     }
+
 
     public function removeAppointmentMLT($ref_no)
     {
@@ -475,7 +477,8 @@ class M_appointment
 
     }
 
-    public function getUpComingAppointments($email){
+    public function getUpComingAppointments($email)
+    {
         $today_date = date("Y-m-d");
         $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE patient_email='$email' AND Appointment_Date >= '$today_date' AND Appointment_Status='Approved'");
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);

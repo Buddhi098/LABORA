@@ -73,7 +73,7 @@
                     des = response['result'][i].Description;
                     pre = '';
                     for(let i=0 ; i<response['preparation'].length ; i++){
-                        pre += `<p>${i+1}. ${response['preparation'][i].preparation}<p>`;
+                        pre += `<p> ${response['preparation'][i].preparation}<p>`;
                     }
                     console.log(pre);
                 }

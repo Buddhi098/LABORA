@@ -93,6 +93,18 @@
 
     </div>
 
+    <!-- loading modal -->
+    <div id="loading-modal" class="loading_modal">
+        <div class="loading_modal-content">
+            <div class="loader">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <p>Sending Email...</p>
+        </div>
+    </div>
 
 
 
