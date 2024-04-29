@@ -186,7 +186,7 @@
 
                 <div class="dashboard-row">
                     <div class="urgent-actions">
-                        <h2>Appointment Status</h2>
+                        <h2>Monthly Appointment Status</h2>
                         <!-- <div class="action-item">
                             <div class="action-icon">
                                 <i class="fas fa-exclamation-triangle"></i>
@@ -205,7 +205,7 @@
                     </div>
 
                     <div class="urgent-actions2">
-                        <h2>Appointment Schedule</h2>
+                        <h2>Weekly Appointment Schedule</h2>
                         <!-- <div class="action-item">
                             <div class="action-icon">
                                 <i class="fas fa-file-invoice"></i>
@@ -216,26 +216,26 @@
                             </div>
                         </div> -->
                         <div><canvas id="myChart2"></canvas></div>
-                        <div class="filter-container">
+                        <!-- <div class="filter-container">
                             <label for="startDate">Start Date:</label>
                             <input type="date" id="startDate">
                             <label for="endDate">End Date:</label>
                             <input type="date" id="endDate">
                             <button onclick="applyDateFilter()">Apply</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
                 <!-- Chart Section -->
                 <div class="chart-section">
                     <div class="chart-container">
-                        <h3>Appointment Summary By Time</h3>
+                        <h3>Daily Appointments By Time</h3>
                         <div><canvas id="myChart3"></canvas></div>
-                        <div class="filter-container">
+                        <!-- <div class="filter-container">
                             <label for="Date">Enter Date:</label>
                             <input type="date" id="Date">
                             <button onclick="applyDateFilter()">Apply</button>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- <div class="chart-container2">
                         <h3>Weekly Test Count by Test Types</h3>
@@ -283,8 +283,10 @@
 
     <!-- data pass to the chart -->
     <script>
+        let appointment_status = <?php echo json_encode($data['appointment_status']); ?>;
         let app_data = <?php echo json_encode($data['app_data']); ?>;
-        console.log(app_data);
+        let appointment_time = <?php echo json_encode($data['appointment_time']); ?>;
+        console.log(appointment_time);
     </script>
     <script src="<?php echo APPROOT.'/public/js/admin/appointment_report.js';?>"></script>
 

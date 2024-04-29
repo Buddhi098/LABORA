@@ -1,0 +1,131 @@
+.container_1
+{
+    position: fixed;
+    width: calc(100% - 300px);
+    left: 300px;
+    background: rgba(192, 189, 255, 0.1);
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+    top: 72px;
+    padding: 28px;
+    margin: 0px;
+    overflow: auto;
+    height: 95%;
+}
+
+.container_2 {
+	font-family: 'Roboto', sans-serif;
+	max-width: 984px;
+	margin: 0px auto;
+	background-color: white;
+	padding: 10px 50px;
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+    padding-bottom: 5px;
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 35px;
+	border-bottom: 1px solid #0000002e;
+	padding-bottom: 10px;
+}
+.header h1 {
+    font-size: 24px;
+    color: #333;
+}
+.header h1 p{
+
+    color: #888;
+    font-size: 14px;
+    font-weight: 400;
+}
+.profile-picture {
+    text-align: center;
+}
+.profile-picture img {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.profile-picture input[type="file"] {
+    display: none;
+}
+.profile-picture label {
+    display: inline-block;
+    background-color: #5133cf;
+    color: white;
+    padding: 8px 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 0px;
+    position: relative;
+    right: 41px;
+    top: -2px;
+}
+.profile-picture label:hover {
+    background-color: #392b84;
+}
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+.form-group label {
+    width: 150px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 20px;
+}
+.form-group input, .form-group textarea {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    margin-top:5px;
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #5133cf;
+    outline: none;
+}
+.form-group.horizontal {
+    display: flex;
+    justify-content: space-between;
+}
+.form-group.horizontal > div {
+    flex: 1;
+    margin-right: 20px;
+}
+.form-group.horizontal > div:last-child {
+    margin-right: 0;
+}
+.form-group.horizontal input {
+    width: 100%;
+}
+.form-group button {
+    background-color: #5133cf;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 0 auto;
+}
+.form-group button:hover {
+    background-color: #392b84;
+}
+.form-group .icon {
+    margin-right: 10px;
+    color: #6d5ff5;
+}

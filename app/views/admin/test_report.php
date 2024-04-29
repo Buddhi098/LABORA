@@ -265,10 +265,14 @@
         </div>
     </div>
 
-    <script src="<?php echo APPROOT.'/public/js/admin/test_report.js';?>"></script>
-
     <script>
+        let graph_data = <?php echo json_encode($data['graph_data'])?>;
+        let graph_data2 = <?php echo json_encode($data['graph_data2'])?>;
+        let graph_data3 = <?php echo json_encode($data['graph_data3'])?>;
+        let graph_data4 = <?php echo json_encode($data['graph_data4'])?>;
     </script>
+
+    <script src="<?php echo APPROOT.'/public/js/admin/test_report.js';?>"></script>
 
 </body>
 

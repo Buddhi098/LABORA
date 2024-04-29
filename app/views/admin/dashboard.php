@@ -40,7 +40,7 @@
             </div>
             <div class="card-content">
             <h3>User Accounts</h3>
-            <p>6</p>
+            <p><?php echo  $data['total_users']?></p>
             </div>
         </div>
 
@@ -50,7 +50,7 @@
             </div>
             <div class="card-content">
             <h3>Total Patients</h3>
-            <p>200</p>
+            <p><?php echo  $data['total_patients']?></p>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="card-content">
                 <h3>Appointments</h3>
-                <p>23</p>
+                <p><?php echo  $data['today_appointment_count']?></p>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
             </div>
             <div class="card-content">
                 <h3>Total Revenue</h3>
-                <p>Rs 12 000</p>
+                <p>Rs:<?php echo  $data['today_revenue']?></p>
             </div>
         </div>
     </div>
@@ -229,7 +229,15 @@
         </div>
     </div>
 
-    <script src="<?php echo APPROOT.'/public/js/admin/dashboard.js';?>"></script>
+   
+
+    <script>
+        let graph_data = <?php echo json_encode($data['graph_data'])?>;
+        let graph_data2 = <?php echo json_encode($data['graph_data2'])?>;
+        let graph_data3 = <?php echo json_encode($data['graph_data3'])?>;
+        let graph_data4 = <?php echo json_encode($data['revenue_month'])?>;
+
+    </script>
 
     <script>
         function getTime(date){
@@ -237,6 +245,7 @@
         }
     </script>
 
+     <script src="<?php echo APPROOT.'/public/js/admin/dashboard.js';?>"></script>
 </body>
 
 </html>

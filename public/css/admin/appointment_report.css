@@ -14,6 +14,8 @@
     display: flex;
     flex-direction: column;
     background-color: #e9ecff75;
+
+    font-family: 'roboto';
 }
 
 body{
@@ -179,7 +181,7 @@ body{
   } */
 
 .chart-container h3 {
-  font-size: 25px;
+  font-size: 22px;
   margin-bottom: 10px;
   color: #13155D;
   text-align: center;
@@ -466,13 +468,13 @@ th {
   }
 
 .urgent-actions h2 {
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 10px;
     color: #13155D;
     text-align: center;
 }
 .urgent-actions2 h2 {
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 10px;
     color: #13155D;
     text-align: center;
