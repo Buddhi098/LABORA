@@ -185,7 +185,7 @@
             var successMessage = document.getElementById('successMessage');
             successMessage.classList.add('show-message');
 
-            // Set a timeout to hide the message after 2 seconds (2000 milliseconds)
+
             setTimeout(function() {
                 hideSuccessMessage();
             }, 1500);
@@ -197,7 +197,6 @@
         }
     </script>
     
-    <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
 
 </body>   
@@ -217,8 +216,8 @@
                 return response.json();
             })
             .then(data => {
-                if (data === false) { // Check if data is false
-                    // Display "No items in stock" message
+                if (data === false) { 
+                    
                     const modalBody = document.getElementById('modal_body');
                     modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
                     openModal();
@@ -243,7 +242,7 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
     } else {
-        // Display "No items in stock" message
+       
         const modalBody = document.getElementById('modal_body');
         modalBody.innerHTML = '<tr><td colspan="4">No Chemicals in the stock</td></tr>';
         openModal();
@@ -260,7 +259,7 @@ function removeItem(item_id) {
     document.getElementById('confirmRemoveBtn').addEventListener('click', confirmRemove);
 
 }
-    // Item removal confirmation
+    
 function confirmRemove() {
     var item_id = document.getElementById('confirmItemID').value;
     console.log(item_id);
@@ -273,7 +272,7 @@ function confirmRemove() {
 }
 
 function closeModal() {
-    // Remove the event listeners from the "Yes" buttons
+    
     document.getElementById('confirmRemoveBtn').removeEventListener('click', confirmRemove);
     document.getElementById('confirmRemoveModal').style.display = 'none';
     document.getElementById('customModal').style.display = 'none';

@@ -76,7 +76,7 @@
         <i class="fas fa-clock"></i>
       </div>
       <div class="action-content">
-        <h3>New Expiry (21 Days)</h3>
+        <h3>New Expiry (Within 21 Days)</h3>
         <p><?php echo $data['new_expiry_quantity']; ?> chemicals</p>
       </div>
     </div>
@@ -112,8 +112,8 @@
       <div><canvas id="multipleBarChart"></canvas></div>
     </div>
     <div class="chart-container">
-      <h3>Sales Performance</h3>
-      <canvas id="sales-chart"></canvas>
+      <h3>Top 10 Ordered Chemicals</h3>
+      <canvas id="top10Chart"></canvas>
     </div>
   </div>
 
@@ -123,24 +123,24 @@
 
     <script src="<?php echo APPROOT.'/public/js/invmng/dashboard.js';?>"></script>
 
-    <script> // Assuming you have fetched the inventory data from your PHP backend
+    <script> 
 const inventoryData = [
-    { date: '2023-04-15', received: 50, used: 20, stock: 100 },
-    { date: '2023-04-16', received: 30, used: 15, stock: 115 },
-    { date: '2023-04-17', received: 40, used: 25, stock: 130 },
-    { date: '2023-04-18', received: 0, used: 10, stock: 120 },
-    { date: '2023-04-19', received: 20, used: 30, stock: 110 },
-    { date: '2023-04-20', received: 60, used: 15, stock: 155 },
-    { date: '2023-04-21', received: 10, used: 5, stock: 160 },
+    { date: '2023-04-23', received: 50, used: 20, stock: 100 },
+    { date: '2023-04-24', received: 30, used: 15, stock: 115 },
+    { date: '2023-04-25', received: 40, used: 25, stock: 130 },
+    { date: '2023-04-26', received: 0, used: 10, stock: 120 },
+    { date: '2023-04-27', received: 20, used: 30, stock: 110 },
+    { date: '2023-04-28', received: 60, used: 15, stock: 155 },
+    { date: '2023-04-29', received: 10, used: 5, stock: 160 },
 ];
 
-// Extract labels and data for the chart
+
 const labels = inventoryData.map(data => data.date);
 const receivedData = inventoryData.map(data => data.received);
 const usedData = inventoryData.map(data => data.used);
 const stockData = inventoryData.map(data => data.stock);
 
-// Create the multiple bar chart
+
 const ctx = document.getElementById('multipleBarChart').getContext('2d');
 const multipleBarChart = new Chart(ctx, {
     type: 'bar',
@@ -229,6 +229,58 @@ const multipleBarChart = new Chart(ctx, {
         });
     </script>
 
+
+<script>
+  
+    function renderTop10Chart() {
+       
+        const data = [
+            { item_name: 'Ethanol', total_quantity: 100 },
+            { item_name: 'Hydrogen peroxide', total_quantity: 80 },
+            { item_name: 'Formaldehyde', total_quantity: 60 },
+            { item_name: 'Sodium chloride', total_quantity: 55 },
+            { item_name: 'Potassium hydroxide', total_quantity: 50 },
+            { item_name: 'Glutaraldehyde', total_quantity: 45 },
+            { item_name: 'Acetic acid', total_quantity: 40 },
+            { item_name: 'Isopropyl alcohol', total_quantity: 35 },
+            { item_name: 'Sodium hydroxide', total_quantity: 30 },
+            { item_name: 'Phenol', total_quantity: 25 }
+        ];
+
+        const labels = data.map(item => item.item_name);
+        const totalQuantity = data.reduce((sum, item) => sum + item.total_quantity, 0);
+        const percentages = data.map(item => (item.total_quantity / totalQuantity) * 100);
+
+        const ctx = document.getElementById('top10Chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Percentage',
+                    data: percentages,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: value => value + '%'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Call the renderTop10Chart function when the page has finished loading
+    window.onload = renderTop10Chart;
+</script>
 </body>
 
 </html>

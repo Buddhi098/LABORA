@@ -57,7 +57,7 @@
                 <a href="#" class="delete"><ion-icon name="trash"></ion-icon></a></td>
     </tr>
 
-            <!-- Add more rows as needed -->
+        
         </tbody>
         </table>
         </div>
