@@ -93,7 +93,7 @@
                             }
                             echo "<tr>";
                             echo "<td>" . $order['orderid'] . "</td>";
-                            echo "<td>" . $order['Supplier_name'] . "</td>";
+                            echo "<td>" . $order['order_date'] . "</td>";
                             echo "<td>" . $order['order_date'] . "</td>";
                             echo "<td>" . $order['expected_date'] . "</td>";
                             echo "<td><div class='" . $class_status . "'>" . $order['status'] . "</div></td>";
