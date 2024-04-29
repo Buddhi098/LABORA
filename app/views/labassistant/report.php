@@ -65,7 +65,7 @@
                             $btn = '<button class="btn-0 btn-1 button_disabled" onclick="openModal(\'' . $report['ref_no'] . '\')" disabled><i class="fas fa-paper-plane"></i> Send MLT</button>';
                             $report_view_btn = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2">View</button></a>';
                             if ($report['report_status'] == 'Pending') {
-                                $report_view = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2 button_disabled" disabled>View</button></a>';
+                                $report_view_btn = '<button class="btn-0 btn-2 button_disabled" disabled>View</button>';
                                 $str = 'status-8';
                                 $btn = '<a href="' . URLROOT . 'labassistant/getMedicalReportForm/' . $report['test_type_id'] . '/' . $report['email'] . '/' . $report['ref_no'] . '"><button class="btn-0 btn-2"><i class="fas fa-marker"></i> Report</button></a>';
                             } else if ($report['report_status'] == 'Created') {

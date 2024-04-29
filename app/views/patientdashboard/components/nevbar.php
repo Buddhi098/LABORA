@@ -94,12 +94,6 @@
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
                 </button>
-                <div class="chat">
-                    <ion-icon name="chatbubble-ellipses"></ion-icon>
-                </div>
-                <div class="notification">
-                    <ion-icon name="notifications"></ion-icon>
-                </div>
                 <div class="user">
                     <img id="top_bar_pic" src=<?php echo APPROOT."/public/img/profile/". $_SESSION['profile_image']?> alt="">
                     <h4><?php echo $_SESSION['username'];?></h4>

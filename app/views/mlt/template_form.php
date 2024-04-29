@@ -85,7 +85,7 @@
             const fieldTypeSelect = document.createElement('select');
             fieldTypeSelect.id = `field-type-${document.querySelectorAll('.field-group').length}`;
 
-            const fieldTypeOptions = ['Text', 'Number', 'Email', 'Password'];
+            const fieldTypeOptions = ['Text', 'Number'];
             fieldTypeOptions.forEach(option => {
                 const optionElement = document.createElement('option');
                 optionElement.value = option.toLowerCase();

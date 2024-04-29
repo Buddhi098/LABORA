@@ -28,7 +28,6 @@
                     );
                 }
             } else {
-                // Handle query execution error
                 return false;
             }
         

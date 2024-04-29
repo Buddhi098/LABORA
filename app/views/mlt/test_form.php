@@ -30,22 +30,22 @@
                     <label for="preparation"><i class="fas fa-flask"></i> Preparation</label>
                     <div class="preparation-container">
                         <div class="preparation-item">
-                            <input type="text" id="preparation-1" name="preparation[]" required>
+                            <input type="text" id="preparation-1" name="preparation[]" >
                         </div>
                         <div class="preparation-item">
-                            <input type="text" id="preparation-2" name="preparation[]" required>
+                            <input type="text" id="preparation-2" name="preparation[]" >
                         </div>
                         <div class="preparation-item">
-                            <input type="text" id="preparation-3" name="preparation[]" required>
+                            <input type="text" id="preparation-3" name="preparation[]" >
                         </div>
                         <div class="preparation-item">
-                            <input type="text" id="preparation-4" name="preparation[]" required>
+                            <input type="text" id="preparation-4" name="preparation[]" >
                         </div>
                         <div class="preparation-item">
-                            <input type="text" id="preparation-5" name="preparation[]" required>
+                            <input type="text" id="preparation-5" name="preparation[]" >
                         </div>
                         <div class="preparation-item">
-                            <input type="text" id="preparation-6" name="preparation[]" required>
+                            <input type="text" id="preparation-6" name="preparation[]" >
                         </div>
                     </div>
                 </div>

@@ -288,7 +288,7 @@
         window.onload = showMessage();
 
         function showMessage() {
-            let success = '<?php echo isset($_SESSION["success_msg"]) ? json_encode($_SESSION["success_msg"]) : ""; ?>';
+            let success = <?php echo isset($_SESSION["success_msg"]) ? json_encode($_SESSION["success_msg"]) : ""; ?>;
             <?php unset($_SESSION["success_msg"]); ?>;
             if (success.trim() !== "") {
                 console.log(success);

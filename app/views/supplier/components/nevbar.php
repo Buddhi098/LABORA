@@ -75,12 +75,6 @@
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
                 </button>
-                <div class="chat">
-                    <ion-icon name="chatbubble-ellipses"></ion-icon>
-                </div>
-                <div class="notification">
-                    <ion-icon name="notifications"></ion-icon>
-                </div>
                 <div class="user">
                     <img src="/labora/public/img/patientdashboard/user1.jpg" alt="">
                     <h4><?php echo $_SESSION['username']; ?><span></h4>
