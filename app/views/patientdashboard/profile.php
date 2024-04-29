@@ -40,18 +40,22 @@
                 </div>
                 <div class="form-group horizontal">
                     <div>
+                        <?php
+                            $today = date('Y-m-d');
+                        ?>
                         <label for="dob"><i class="fas fa-at icon"></i> Date Of Birth</label>
-                        <input type="date" id="dob" name="dob" placeholder="<?php echo $data['dob']?>" >
+                        <input type="date" id="dob" max=<?php echo $today;?> name="dob" placeholder="<?php echo $data['dob']?>" >
                     </div>
                     <div>
                         <label for="phone"><i class="fas fa-phone icon"></i> Phone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="<?php echo $data['phone']?>" >
+                        <input type="tel" id="phone" name="phone" placeholder="<?php echo $data['phone']?>" pattern="\d{10}" title="Please enter a 10-digit phone number">
                     </div>
                 </div>
                 <div class="form-group horizontal">
                     <div>
                         <label for="new_password"><i class="fa-solid fa-key icon"></i> New Password</label>
                         <input type="password" id="new_password" name="new_password" placeholder="***********" >
+                        <span class="formerr" id='err'></span>
                     </div>
                     <div>
                         <label for="confirm_password"><i class="fa-solid fa-key icon"></i> Confirm New Password</label>
@@ -134,7 +138,9 @@
         })
         .then(data => {
             console.log(data);
-            if(data[status]="success"){
+            if(data.error){ 
+                document.getElementById('err').innerText = data.error;
+            }else if(data[status]="success"){
                 showSuccessMessage()
             }else{
                 showErrorMessage()
