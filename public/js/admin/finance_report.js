@@ -8,6 +8,13 @@ for(let i=0 ; i<graph_data.length ; i++){
     data_.push(graph_data[i].TotalPaidAmount);
 }
 
+//generate a random color
+function getRandomColor() {
+    return '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
+}
+
+//colors for the dataset
+let backgroundColor = labels_data.map(() => getRandomColor());
 
 let ctx = document.getElementById('myChart').getContext('2d');
 // Set global chart options
@@ -20,9 +27,9 @@ let pieChart = new Chart(ctx, {
     data: {
         labels: labels_data,
         datasets: [{
-            label: '',
+            label: 'Rs',
             data: data_,
-            backgroundColor: ['#B71E13', '#5ECB15','#E6E62E','black'],
+            backgroundColor: backgroundColor,
             borderWidth: 1,
             borderColor: 'yellow',
             hoverBorderWidth: 2,
@@ -78,7 +85,7 @@ let barChart = new Chart(ctx2, {
   data: {
     labels: labels_data2 ,
     datasets: [{
-      label: 'Revenue',
+      label: 'Rs',
       data: data_2 ,
       backgroundColor: [
         '#d41e11', // Red
@@ -139,21 +146,21 @@ let barChart = new Chart(ctx2, {
 
 
 // chart3
-// Function to map numeric month values to month names
+//function  map month values to names
 function mapMonthToName(monthNumber) {
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
 
-    // Ensure monthNumber is a valid index (1 to 12)
+    //is a valid index (1 to 12)
     if (monthNumber >= 1 && monthNumber <= 12) {
-        return months[monthNumber - 1]; // Subtract 1 to get the correct array index
+        return months[monthNumber - 1]; //subtract 1 
     }
 
-    return ''; // Return empty string for invalid monthNumber
+    return ''; //empty string
 }
-// Example usage:
+
 let labels_data3 = [];
 for (let i = 0; i < graph_data3.length; i++) {
     const monthNumber = graph_data3[i].Month;
@@ -173,9 +180,10 @@ const myChart3 = new Chart(ctx3, {
     data: {
         labels: labels_data3,
         datasets: [{
-            label: 'Revenue',
+            label: 'Rs',
             data: data_3,
             borderColor: '#5E2BB8',
+            pointRadius: 5,
             fill: false
         }]
     },
@@ -200,7 +208,7 @@ const myChart3 = new Chart(ctx3, {
 
 
 
-// Function to update myChart3 with filtered chart data
+//update myChart3
 function filterChart() {
     const startMonth = document.getElementById('startMonth').value;
     const endMonth = document.getElementById('endMonth').value;
@@ -222,15 +230,15 @@ function filterChart() {
         return response.json();
     })
     .then(data => {
-        // Extract chartData from the nested array structure
-        const chartData = data[0]; // Assuming chartData is wrapped in an extra array
+        //extract chartData 
+        const chartData = data[0];
 
         console.log('Received chart data:', chartData);
 
-        // Update myChart3 with fetched chartData
+        //update fetched chartData
         myChart3.data.labels = chartData.map(item => new Date(`${item.Year}-${item.Month}`).toLocaleString('default', { month: 'long' }));
         myChart3.data.datasets[0].data = chartData.map(item => item.TotalCost);
-        myChart3.update(); // Update the chart
+        myChart3.update();
     })
     .catch(error => {
         console.error('Error fetching chart data:', error);

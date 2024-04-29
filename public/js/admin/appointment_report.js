@@ -239,7 +239,7 @@ function filterAppointmentsByTime(startTime, endTime) {
   myChart3.update();
 }
 
-// Example: Filter appointments between 12:00 PM and 6:00 PM
+//filter appointments between 12:00 to 6:00 
 filterAppointmentsByTime(12, 18);
 
 
