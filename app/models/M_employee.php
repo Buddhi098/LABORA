@@ -112,7 +112,6 @@
                         $orderCount = $checkResult->fetch_assoc()['orderCount'];
         
                         if ($orderCount > 0) {
-                            // Orders are referencing this supplier, handle accordingly
                             return false; // Cannot delete supplier with active orders
                         }
                     }
@@ -122,11 +121,11 @@
                     $deleteStmt = $this->conn->prepare($deleteQuery);
                     $deleteStmt->bind_param('i', $employeeId);
                     if ($deleteStmt->execute()) {
-                        return true; // Deletion successful
+                        return true; 
                     }
                 }
         
-                return false; // Deletion failed (employee not found or other constraints)
+                return false; 
             }
 
 
@@ -185,9 +184,6 @@
             }
 
             public function changeName($email , $full_name){
-                echo '<script>';
-                echo 'console.log("hello");';
-                echo '</script>';
                 $result = mysqli_query($this->conn , "UPDATE employees
                 SET full_name = '$full_name'
                 WHERE email = '$email'");
