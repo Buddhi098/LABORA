@@ -166,7 +166,7 @@
             <button id="confirmApproveBtn">Yes</button>
             <button onclick="closeModal()">No</button>
         </div>
-        <!-- Hidden input field to store the request ID -->
+       
         <input type="hidden" id="confirmRequestID">
     </div>
 </div>
@@ -180,7 +180,7 @@
             <button id="confirmDenyBtn">Yes</button>
             <button onclick="closeModal()">No</button>
         </div>
-        <!-- Hidden input field to store the request ID -->
+        
         <input type="hidden" id="confirmRequestID">
     </div>
 </div>
@@ -194,7 +194,7 @@
             <button id="confirmRemoveBtn">Yes</button>
             <button onclick="closeModal()">No</button>
         </div>
-        <!-- Hidden input field to store the request ID -->
+       
         <input type="hidden" id="confirmRequestID">
     </div>
 </div>
@@ -247,7 +247,6 @@
             var successMessage = document.getElementById('successMessage');
             successMessage.classList.add('show-message');
 
-            // Set a timeout to hide the message after 2 seconds (2000 milliseconds)
             setTimeout(function() {
                 hideSuccessMessage();
             }, 1500);
@@ -320,16 +319,16 @@ function handleRequestAction(request_id, status) {
     }
 }
 
-// Function to deny a supply request
+
 function denyRequest(request_id) {
     document.getElementById('confirmDenyModal').style.display = 'block';
     document.getElementById('confirmRequestID').value = request_id;
 
-    // Add event listener to the "Yes" button
+   
     document.getElementById('confirmDenyBtn').addEventListener('click', confirmDeny);
 }
 
-// Function to handle approval confirmation
+
 function confirmApprove() {
     var request_id = document.getElementById('confirmRequestID').value;
     console.log(request_id);
@@ -342,7 +341,7 @@ function confirmApprove() {
     closeModal();
 }
 
-// Function to handle denial confirmation
+
 function confirmDeny() {
     var request_id = document.getElementById('confirmRequestID').value;
 
@@ -356,7 +355,6 @@ function confirmDeny() {
     closeModal();
 }
 
-// Function to handle request removal confirmation
 function confirmRemove() {
     var request_id = document.getElementById('confirmRequestID').value;
     console.log(request_id);
@@ -370,7 +368,7 @@ function confirmRemove() {
 
 
 function closeModal() {
-    // Remove the event listeners from the "Yes" buttons
+   
     document.getElementById('confirmApproveBtn').removeEventListener('click', confirmApprove);
     document.getElementById('confirmDenyBtn').removeEventListener('click', confirmDeny);
     document.getElementById('confirmRemoveBtn').removeEventListener('click', confirmRemove);

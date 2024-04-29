@@ -57,7 +57,6 @@
         <td><a href="#" class="download"><ion-icon name="search"></ion-icon></a></td>
     </tr>
           
-            <!-- Add more rows as needed -->
         </tbody>
         </table>
         </div>
