@@ -327,8 +327,7 @@ class M_appointment
 
     public function getTodayAppointmentCount()
     {
-        $today_date = date("Y-m-d");
-        $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE Appointment_Date='$today_date'");
+        $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE Appointment_Date=CURDATE() AND Appointment_Status='Approved'");
         return mysqli_num_rows($result);
     }
 
@@ -347,7 +346,7 @@ class M_appointment
     public function getTodayAppointment()
     {
         $today_date = date("Y-m-d");
-        $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE Appointment_Date='$today_date'");
+        $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE Appointment_Date=CURDATE() AND Appointment_Status='Approved'");
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (!empty($result_data)) {
             return $result_data;
