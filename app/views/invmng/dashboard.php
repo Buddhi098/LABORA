@@ -76,7 +76,7 @@
         <i class="fas fa-clock"></i>
       </div>
       <div class="action-content">
-        <h3>New Expiry (21 Days)</h3>
+        <h3>New Expiry (Within 21 Days)</h3>
         <p><?php echo $data['new_expiry_quantity']; ?> chemicals</p>
       </div>
     </div>
@@ -112,7 +112,7 @@
       <div><canvas id="multipleBarChart"></canvas></div>
     </div>
     <div class="chart-container">
-      <h3>Sales Performance</h3>
+      <h3>Most Requested Items</h3>
       <canvas id="sales-chart"></canvas>
     </div>
   </div>
