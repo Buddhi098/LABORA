@@ -242,12 +242,21 @@ class User extends Controller
         }
     }
 
-    public function changePassword($password){
-        $email = $_SESSION['recover_email'];
+    public function changePassword($password , $email){
+
+        if(strlen($password) < 8){
+            $data = [
+                'err' => 'Password must be at least 8 characters long.',
+            ];
+            echo json_encode($data);
+            exit();
+        }
+
         $encode_password = password_hash($password , PASSWORD_DEFAULT);
-        $this->md_user->changePassword($email , $encode_password);
+
+        $result = $this->md_user->changeForgetPassword($email , $encode_password);
         $data = [
-            'msg' => 'success'
+            'msg' => 'success',
         ];
         echo json_encode($data);
         exit();

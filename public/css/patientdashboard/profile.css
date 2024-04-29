@@ -129,3 +129,10 @@
     margin-right: 10px;
     color: #6d5ff5;
 }
+
+.formerr{
+    color: red;
+    font-size: 12px;
+    font-family: roboto;
+    margin: 0px 10px;
+}

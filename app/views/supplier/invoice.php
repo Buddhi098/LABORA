@@ -52,7 +52,7 @@
                                     echo "<td>{$item['quantity']}</td>";
                                     echo "<td>{$item['unit']}</td>";
                                     echo "<td>
-                                        <input type='number' placeholder='Price' min='0' step='0.01' />
+                                        <input type='number' min='0' placeholder='Price' min='0' step='0.01' />
                                         <input type='hidden' class='hidden' value=" . $item['id'] . " />
                                     </td>
                                     <td>
