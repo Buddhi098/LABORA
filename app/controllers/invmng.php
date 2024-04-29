@@ -8,6 +8,9 @@
         private $md_order;
 
         private $md_order_items;
+        private $md_employee;
+
+        private $md_invoice;
         public function __construct(){
             $this->md_dashboard = $this->model('M_invDashboard'); 
             $this->md_product = $this->model('M_product'); 
@@ -18,6 +21,8 @@
             $this->md_order_items = $this->model('M_order_item');
             $this->md_issue = $this->model('M_issue_chemicals');
             $this->md_request_item = $this->model('M_request_items');
+            $this->md_employee = $this->model('M_employee');
+            $this->md_invoice = $this->model('M_invoice');
             // auth middleware
 
             $this->auth = new AuthMiddleware();
@@ -49,35 +54,47 @@
             echo json_encode($data);
             exit();
         }
-        
-        public function getItemDetails($id)
-        {
-            $data = $this->md_item->getItemDetail($id);
+       
 
-            echo json_encode($data);
-            exit();
-        }
-
+//Expired Chemicals
         public function expiredChemicals(){
             $data = [];
-            $table_data = $this->md_item->getExpiredItem();
+            $table_data = $this->md_order_items->getExpiredItem();
             $this->view("invmng/expiredChemicals" , $table_data);
         }
 
         public function deleteExpiredItem($itemId)
         {
             
-            $result = $this->md_item->deleteExpiredItem($itemId);
-
-            if ($result) {
-                // Item deleted successfully
-                echo json_encode(['success' => true]);
-            } else {
-                // Error occurred during deletion
-                echo json_encode(['success' => false, 'error' => 'An error occurred while deleting the item']);
+            $result1 = $this->md_order_items->deleteExpiredItem($itemId);
+            $result2 = $this->md_product->reduceQuantity($itemId);
+            
+            if($result1){
+                $_SESSION['success_msg'] = 'Item removed successfully';
             }
+    
+            header('Location: ' . URLROOT . '/invmng/expiredChemicals');
+
+            
         }
 
+        // public function filterExpiredItems($startDate, $endDate) {
+        //     $data = $this->md_item->getFilteredExpiredItems($startDate, $endDate);
+        //     echo json_encode($data); // Return JSON response instead of rendering a view
+        // }
+        
+        public function getExpiredItemsByDateRange()
+        {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $startDate = $_GET['startDate'];
+                $endDate = $_GET['endDate'];
+        
+                $data = $this->md_order_items->getExpiredItemsByDateRange($startDate, $endDate);
+                echo json_encode($data);
+            }
+        }
+        
+//product
 
         public function product(){
 
@@ -100,6 +117,27 @@
             $this->view("invmng/product" , $data);
         }
 
+        public function removeItem($item_id){
+            $result = $this->md_product->removeItem($item_id);
+            
+            if($result){
+                $_SESSION['success_msg'] = 'Item removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/product');
+        }
+
+         
+        public function getItemDetails($id)
+        {
+            $data = $this->md_item->getItemDetail($id);
+
+            echo json_encode($data);
+            exit();
+        }
+
+//Supplier
+
         public function supplier(){
     
             $data = array();
@@ -119,6 +157,17 @@
             }
             $this->view("invmng/supplier", $data);
         }
+
+        
+        public function getSupplierItems($supplier_id){
+            $data = $this->md_order_items->getSupplierItems($supplier_id);
+
+            echo json_encode($data);
+            exit();
+        }
+
+
+//Dashboard
 
         public function dashboard(){
             $data = [];
@@ -144,9 +193,13 @@
             $invoiceToCheckQuantity = $this->md_dashboard->getInvoiceToCheckQuantity();
             $data['invoice_to_check'] = $invoiceToCheckQuantity;
 
-            $this->view("invmng/dashboard" , $data);
+            
+          
+      
+            $this->view("invmng/dashboard" ,   $data);
         }
 
+//Supply Requests
         public function issueChemicals(){
 
             $data = [];
@@ -155,6 +208,40 @@
             $this->view("invmng/issueChemicals" , $data);
         }
 
+        public function removeSupplyRequest($request_id){
+            $result1 = $this->md_issue->removeSupplyRequestItem($request_id);
+            $result2 = $this->md_issue->removeSupplyRequest($request_id);
+            
+
+            if($result1 && $result2){
+                $_SESSION['success_msg'] = 'Request removed successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+        public function denySupplyRequest($request_id){
+            $result = $this->md_issue->denySupplyRequest($request_id);
+
+            if($result){
+                $_SESSION['success_msg'] = 'Request denied successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+        public function approveSupplyRequest($request_id){
+            $result1 = $this->md_issue->approveSupplyRequest($request_id);
+            $result2 = $this->md_issue->approveSupplyItem($request_id);
+            $result3 = $this->md_issue->approveDelivaryDate($request_id);
+            if($result1 && $result2  && $result3){
+                $_SESSION['success_msg'] = 'Request approved successfully';
+            }
+    
+            header('Location: ' . URLROOT . '/invmng/issueChemicals');
+        }
+
+//Reorder
         public function reorder(){
 
             $data = [];
@@ -204,41 +291,15 @@
             }
         }
 
+//Add Inventory Form
+
         public function getAddItemForm(){
             $data = []; 
             $this->view("invmng/addInventoryForm" , $data);
         }
 
-        // public function getEditForm() {
-        //     $itemId = $_GET['id'];
-        //     $data = [];
-        //     $data = $this -> md_item->getAllDataByID($itemId);
-        //     $this->view('invmng/editInventoryForm', $data);
-        // }
-    
-        // public function updateInventoryItem() {
-        //     $jsonData = file_get_contents("php://input");
-        //     $data = json_decode($jsonData, true);
-    
-        //     $itemName = $data['Item_name'];
-        //     $manufacture = $data['manufacturer'];
-        //     $reorderLimit = $data['reorder_limit'];
-        //     $unitOfMeasure = $data['unit_of_measure'];
-        //     $description = $data['description'];
-    
-        //     $result = $this->md_item->updateItem($itemName, $manufacture, $reorderLimit, $unitOfMeasure, $description);
-    
-        //     if ($result) {
-        //         $msg = ['msg' => true];
-        //         echo json_encode($msg);
-        //         exit();
-        //     } else {
-        //         $msg = ['msg' => false];
-        //         echo json_encode($msg);
-        //         exit();
-        //     }
-        // }
-
+      
+//Edit Item Form
         public function getEditForm($id)
         {
             
@@ -301,24 +362,7 @@
             }
         }
         
-
-        // public function itemDetails(){
-        //     $data = array();
-        //     $result = $this->md_item->getItemDetails();
-        //     if (count($result) > 0) {
-        //         $data = $result;
-        //     }else{
-        //         $data = [[
-        //             'id'=> "",
-        //             'item_name' => '',
-        //             'expire_date' => '',
-        //             'quantity' => ''
-        //         ],];
-        //         $this->view("invmng/itemDetails" , $data);
-        //     }
-
-        //     $this->view("invmng/itemDetails" , $data);
-        // }
+//Item Details view
 
         public function itemDetails($itemId)
         {
@@ -355,6 +399,28 @@
             $this->view("invmng/orderForm" , $data);
         }
 
+        public function getReorderForm(){
+
+            $data = [];
+            $rowData = $this->md_item->getReorderFormData();
+            $item_name = [];
+            foreach($rowData as $index => $dt){
+                $item_name[$index]['item_name'] = $dt['Item_name'];
+                $item_name[$index]['item_id'] = $dt['id'];
+            }
+
+            $rowData2 = $this->md_supplier->getAllSupplier();
+            $supplier = [];
+            foreach($rowData2 as $index => $dt){
+                $supplier[$index]['sup_name'] = $dt['full_name'];
+                $supplier[$index]['sup_id'] = $dt['id'];
+            }
+            $data['item_name'] = $item_name;
+            $data['supplier_name'] = $supplier;
+
+            $this->view("invmng/reorderForm" , $data);
+        }
+
         public function submitOrderForm(){
 
             $formData = file_get_contents('php://input');
@@ -377,6 +443,8 @@
             $msg = [
                 'msg' => true
             ];
+
+            $_SESSION['success_msg'] = 'Order placed successfully';
             echo json_encode($msg);
            
             exit();      
@@ -403,11 +471,11 @@
         function sendEmailExpiredItem(){
             $result = mysqli_query($this->conn, "SELECT id, item_id, item_name, quantity, expire_date 
                                                 FROM order_item 
-                                                WHERE expire_date <= CURDATE() + INTERVAL 7 DAY 
+                                                WHERE expire_date <= CURDATE() + INTERVAL 21 DAY 
                                                 ORDER BY expire_date ASC");
             $expiredItems = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
-            $body = '<h2>Items with Expiry Date Within the Next Seven Days:</h2>';
+            $body = '<h2>Items with Expiry Date Within the Next Twenty One Days:</h2>';
             $body .= '<table border="1">
                         <tr>
                             <th>ID</th>
@@ -432,11 +500,61 @@
             $user = $_SESSION['user'];
             $name = $user['name'];
             $email = $user['email'];
-            $subject = 'Items with Expiry Date Within the Next Two Days';
+            $subject = 'Items with Expiry Date Within the Next Twenty One Days';
         
             sendEmail($email, $name, $body, $subject);
         
             return $expiredItems;
+        }
+
+        public function viewInvoice($order_id , $supplier_id){
+            $item = $this->md_order_items->getOrderItemForSupplier($order_id);
+            $_SESSION['order_id'] = $order_id;
+            $data['item'] = $item;
+
+            $supplier = $this->md_employee->getSupplier($supplier_id);
+            $data['order_id'] = $order_id;
+            $data['supplier'] = $supplier;
+            $this->view("invmng/invoice_view" , $data);
+        }
+
+        public function approveInvoice(){
+            $data2 = file_get_contents("php://input");
+            $input_data = json_decode($data2, true);
+
+            $order_id = $input_data['order_id'];
+
+            $approve_order= $this->md_order->approveOrder($order_id);
+
+            $approve_invoice = $this->md_invoice->approveInvoice($order_id);
+
+            $inventory_items = $input_data['items'];
+
+            foreach ($inventory_items as $item) {
+                $result = $this->md_product->updateNewCount($item['item_catergory_Id'], $item['quantity']);
+            }
+
+            $data['success_msg'] = 'Invoice approved successfully';
+            $_SESSION['success_msg'] = 'Invoice approved successfully';
+
+            echo json_encode($data);
+            exit();
+        }
+
+        public function rejectOrder(){
+            
+            $data2 = file_get_contents("php://input");
+            $input_data = json_decode($data2, true);
+            $order_id = $input_data['order_id'];
+
+            $reject_order = $this->md_order->rejectOrder($order_id);
+            $reject_invoice = $this->md_invoice->rejectInvoice($order_id);
+
+            $data['success_msg'] = 'Order rejected successfully';
+            $_SESSION['success_msg'] = 'Order rejected successfully';
+
+            echo json_encode($data);
+            exit();
         }
 
     }

@@ -21,6 +21,7 @@ class PatientDashboard extends Controller
         $this->md_report = $this->model('M_report');
         $this->md_temp_prescription = $this->model('M_temp_prescription');
         $this->md_holiday_calendar = $this->model('M_holiday_calendar');
+
         // check authentication
         $this->auth = new AuthMiddleware();
         $this->auth->authMiddleware("patient");
@@ -64,7 +65,6 @@ class PatientDashboard extends Controller
         $result = $this->md_appointment->getRowByEmail($_SESSION['useremail']);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Add each row as an associative array to the $data array
                 $data[] = $row;
             }
         } else {
@@ -107,7 +107,16 @@ class PatientDashboard extends Controller
         $total_cost = $this->md_appointment->getTotalCost($_SESSION['useremail']);
         $data['total_cost'] = $total_cost;
 
-        $this->view("patientdashboard/dashboard", $data);
+        $graph_data = $this->md_appointment->getWeeklyAppointemntCount($_SESSION['useremail']);
+        $data['graph_data'] = $graph_data;
+
+        $upcomming_appointments = $this->md_appointment->getUpComingAppointments($_SESSION['useremail']);
+        $data['upcomming_appointments'] = $upcomming_appointments;
+
+        // print_r($data['graph_data']);
+        // die();
+
+        $this->view("patientdashboard/dashboard_2", $data);
     }
 
     public function getHolidays($year, $month)
@@ -230,22 +239,58 @@ class PatientDashboard extends Controller
     public function get_available_times($date)
     {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            date_default_timezone_set('Asia/Colombo');
             $date = new DateTime($date);
             $date = $date->format('Y-m-d');
+            $today = date('Y-m-d');
+
+            if ($date == $today) {
+                $current_time = date("H:i:s");
+
+                if ($current_time > '08:00:00' && $current_time < '12:00:00') {
+                    $first_start_time = new DateTime($current_time); 
+                    $first_end_time = new DateTime('12:00:00');
+                    $second_start_time = new DateTime('1:00:00');
+                    $second_end_time = new DateTime('5:00:00');
+                } elseif ($current_time > '13:00:00' && $current_time < '17:00:00') {
+
+                    $current_time = new DateTime($current_time);
+                    $current_time->modify('-12 hours');
+                    
+                    $first_start_time = new DateTime('08:00:00');
+                    $first_end_time = new DateTime('08:00:00');
+                    $second_start_time = $current_time; 
+                    $second_end_time = new DateTime('5:00:00');
+                } else {
+                    $first_start_time = new DateTime('08:00:00');
+                    $first_end_time = new DateTime('08:00:00');
+                    $second_start_time = new DateTime('1:00:00');
+                    $second_end_time = new DateTime('1:00:00');
+                }
+                // echo $current_time . "<br>";
+
+                // echo $first_start_time->format('H:i:s') . "<br>";
+                // echo $first_end_time->format('H:i:s') . "<br>";
+                // echo $second_start_time->format('H:i:s') . "<br>";
+                // echo $second_end_time->format('H:i:s') . "<br>";
+            } else {
+                $first_start_time = new DateTime('08:00:00');
+                $first_end_time = new DateTime('12:00:00');
+                $second_start_time = new DateTime('1:00:00');
+                $second_end_time = new DateTime('5:00:00');
+            }
+
+            // die();
+
+
             $_SESSION['date'] = $date;
             $timeString = $_SESSION['appointment_duration'];
 
-            // Create a DateTime object with a specific time
             $dateTime = new DateTime($timeString);
             $time_duration = $dateTime->format('H:i:s');
             $total_time_duration_minutes = $dateTime->format('H') * 60 + $dateTime->format('i');
             $duration_interval = new DateInterval('PT' . $total_time_duration_minutes . 'M');
 
-
-            $first_start_time = new DateTime('08:00:00');
-            $first_end_time = new DateTime('12:00:00');
-            $second_start_time = new DateTime('1:00:00');
-            $second_end_time = new DateTime('5:00:00');
 
             $available_times = [];
             $available_start_times = [];
@@ -350,13 +395,13 @@ class PatientDashboard extends Controller
 
             $subject = "Appointment Cancellation Notice";
             $body = "<p>Your appointment has been cancelled successfully.<br>
-                        <strong>Appointment RefNo</strong>: ".$appointment['Ref_No']."</p>";
+                        <strong>Appointment RefNo</strong>: " . $appointment['Ref_No'] . "</p>";
 
-            sendEmail($_SESSION['useremail'] , $_SESSION['username'] , $body , $subject);
+            sendEmail($_SESSION['useremail'], $_SESSION['username'], $body, $subject);
 
             echo json_encode($data);
             exit();
-            
+
         } catch (Exception $e) {
             $error_msg = $e->getMessage();
             $data['status'] = $error_msg;
@@ -479,9 +524,14 @@ class PatientDashboard extends Controller
 
     public function viewReport($report_ref_no)
     {
-        $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
+        $pdfPath = '../app/storage/medical_reports/' . $report_ref_no . '.pdf';
+        if (file_exists($pdfPath)) {
+            $pdfContent = file_get_contents($pdfPath);
+        } else {
+            echo "Report Not Found";
+            exit();
+        }
 
-        $pdfContent = file_get_contents($pdfPath);
 
         if ($pdfContent === false) {
             echo "Failed to read the PDF file.";
@@ -496,10 +546,10 @@ class PatientDashboard extends Controller
 
         $result = $this->md_report->deleteReportByRefNo($ref_no);
 
-        if($result){
+        if ($result) {
             $_SESSION['success_msg'] = 'Report deleted successfully';
         }
-        
+
         header("location: http://localhost/labora/PatientDashboard/report");
 
 

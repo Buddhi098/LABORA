@@ -121,7 +121,7 @@ class M_appointment
 
     public function getTotalRefund($email)
     {
-        $result = mysqli_query($this->conn, "SELECT SUM(cost) AS refund FROM appointment WHERE patient_email='$email' AND payment_status='paid' AND Appointment_Status='Canceled' AND payment_method='online'");
+        $result = mysqli_query($this->conn, "SELECT SUM(cost) AS refund FROM appointment WHERE patient_email='$email' AND payment_status='paid' AND (Appointment_Status='Canceled' OR  Appointment_Status='Expired') AND payment_method='online'");
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (!empty($result_data[0]['refund'])) {
             return $result_data[0]['refund'];
@@ -161,11 +161,10 @@ class M_appointment
 
     public function setPassKey($appointment_id)
     {
-        $pass_key = $this->generateRandomString();
-        $store_key = md5($pass_key);
+        $pass_key = $this->generateRandomString(20);
 
         $result = mysqli_query($this->conn, "UPDATE appointment
-                SET pass_code  = '$store_key '
+                SET pass_code  = '$pass_key'
                 WHERE Id = '$appointment_id' AND active_status='1' ");
 
         $result2 = mysqli_query($this->conn, "UPDATE appointment 
@@ -209,10 +208,14 @@ class M_appointment
         return $appointment;
     }
 
-    public function getAppointmentByPassKey($key)
+    public function getAppointmentByPassKey($key, $ref_no = '')
     {
-        $hashed_key = md5($key);
-        $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$hashed_key' ");
+        if ($ref_no == '') {
+            $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$key' ");
+        } else {
+            $appointment = mysqli_query($this->conn, "SELECT * FROM appointment WHERE  pass_code='$key' AND  Ref_No='$ref_no' ");
+        }
+
         if (mysqli_num_rows($appointment) > 0) {
             $appointment = mysqli_fetch_assoc($appointment);
             return $appointment;
@@ -447,6 +450,43 @@ class M_appointment
         $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result_data;
     }
+
+    public function getWeeklyAppointemntCount($email)
+    {
+        $data_set = mysqli_query($this->conn, "SELECT
+                    YEAR(`date`) AS appointment_year,
+                    MONTH(`date`) AS appointment_month,
+                    COUNT(*) AS appointment_count
+                FROM
+                    appointment 
+                WHERE
+                    `date` >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 MONTH) AND patient_email='$email' AND Appointment_Status='Completed' 
+                GROUP BY
+                    YEAR(`date`),
+                    MONTH(`date`)
+                ORDER BY
+                    appointment_year DESC,
+                    appointment_month DESC;
+                ");
+
+        $data_set = mysqli_fetch_all($data_set, MYSQLI_ASSOC);
+        return $data_set;
+
+
+    }
+
+    public function getUpComingAppointments($email){
+        $today_date = date("Y-m-d");
+        $result = mysqli_query($this->conn, "SELECT * FROM appointment WHERE patient_email='$email' AND Appointment_Date >= '$today_date' AND Appointment_Status='Approved'");
+        $result_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if (!empty($result_data)) {
+            return $result_data;
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 }

@@ -79,12 +79,6 @@
   border-radius: 10px;
 }
 
-.container_1 .item_1 .time_slots div .clicked{
-  background-color: green;
-  color: white;
-  border-radius: 10px;
-}
-
 .container_1 .item_1 .time_slots div {
   margin: 8px;
   display: inline-block;
@@ -303,7 +297,7 @@
 
 .days .day.today {
   color: #fff;
-  background-color: var(--primary-color);
+  background-color: blue;
 }
 .days .day.next,
 .days .day.prev {
@@ -422,4 +416,11 @@
 
 .paymentModal button:hover {
   background: linear-gradient(to bottom, #4b2cd8, #312078);
+}
+
+
+.container_1 .item_1 .time_slots div .clicked{
+  background-color: green;
+  color: white;
+  border-radius: 10px;
 }

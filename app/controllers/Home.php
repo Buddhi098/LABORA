@@ -1,8 +1,11 @@
 <?php
     class Home extends Controller{
         private $md_testtype;
+
+        private $md_contact_us;
         public function __construct(){
             $this->md_testtype = $this->model('M_testtype');
+            $this->md_contact_us = $this->model('M_contact_us');
         }
         public function index(){
             $this->view("Home" , []);
@@ -24,5 +27,32 @@
 
             exit(json_encode($data));
         }
+
+        public function submitContactUs(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST , FILTER_SANITIZE_STRING);
+
+                $name = trim($_POST['name']);
+                $email = trim($_POST['email']);
+                $tel = trim($_POST['tel']);
+                $subject = trim($_POST['subject']);
+                $message = trim($_POST['message']);
+
+                $data = [
+                    'name' => $name,
+                    'email' => $email,
+                    'tel' => $tel,
+                    'subject' => $subject,
+                    'message' => $message
+                ];
+
+                $this->md_contact_us->submitContactUs($data);
+
+                $this->view("thank_you" , []);
+
+
+            }
+        }
     }
+    
 ?>

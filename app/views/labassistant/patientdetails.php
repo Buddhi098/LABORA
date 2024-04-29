@@ -11,7 +11,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- annimation icons -->
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <title>Patient dashboard</title>
+    <title>Lab assistant dashboard</title>
 </head>
 <body>
     <?php require_once 'components/nevbar.php' ?>

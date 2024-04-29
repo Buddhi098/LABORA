@@ -13,6 +13,8 @@ class receptionist extends Controller
     private $md_user;
 
     private $md_report;
+
+    private $md_contact_us;
     public function __construct()
     {
         $this->md_appointment = $this->model('M_appointment');
@@ -21,6 +23,7 @@ class receptionist extends Controller
         $this->md_holiday = $this->model('M_holiday_calendar');
         $this->md_user = $this->model('M_user');
         $this->md_report = $this->model('M_report');
+        $this->md_contact_us = $this->model('M_contact_us');
 
         $this->auth = new AuthMiddleware();
         $this->auth->authMiddleware('receptionist');
@@ -339,22 +342,59 @@ class receptionist extends Controller
     public function get_available_times($date)
     {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            date_default_timezone_set('Asia/Colombo');
             $date = new DateTime($date);
             $date = $date->format('Y-m-d');
+            $today = date('Y-m-d');
+
+            if ($date == $today) {
+                $current_time = date("H:i:s");
+
+                if ($current_time > '08:00:00' && $current_time < '12:00:00') {
+                    $first_start_time = new DateTime($current_time); 
+                    $first_end_time = new DateTime('12:00:00');
+                    $second_start_time = new DateTime('1:00:00');
+                    $second_end_time = new DateTime('5:00:00');
+                } elseif ($current_time > '13:00:00' && $current_time < '17:00:00') {
+
+                    $current_time = new DateTime($current_time);
+                    $current_time->modify('-12 hours');
+
+                    $first_start_time = new DateTime('08:00:00');
+                    $first_end_time = new DateTime('08:00:00');
+                    $second_start_time = $current_time; 
+                    $second_end_time = new DateTime('5:00:00');
+                } else {
+                    $first_start_time = new DateTime('08:00:00');
+                    $first_end_time = new DateTime('08:00:00');
+                    $second_start_time = new DateTime('1:00:00');
+                    $second_end_time = new DateTime('1:00:00');
+                }
+                // echo $current_time . "<br>";
+
+                // echo $first_start_time->format('H:i:s') . "<br>";
+                // echo $first_end_time->format('H:i:s') . "<br>";
+                // echo $second_start_time->format('H:i:s') . "<br>";
+                // echo $second_end_time->format('H:i:s') . "<br>";
+            } else {
+                $first_start_time = new DateTime('08:00:00');
+                $first_end_time = new DateTime('12:00:00');
+                $second_start_time = new DateTime('1:00:00');
+                $second_end_time = new DateTime('5:00:00');
+            }
+
+            // die();
+
+
             $_SESSION['date'] = $date;
             $timeString = $_SESSION['appointment_duration'];
 
-            // Create a DateTime object with a specific time
+ 
             $dateTime = new DateTime($timeString);
             $time_duration = $dateTime->format('H:i:s');
             $total_time_duration_minutes = $dateTime->format('H') * 60 + $dateTime->format('i');
             $duration_interval = new DateInterval('PT' . $total_time_duration_minutes . 'M');
 
-
-            $first_start_time = new DateTime('08:00:00');
-            $first_end_time = new DateTime('12:00:00');
-            $second_start_time = new DateTime('1:00:00');
-            $second_end_time = new DateTime('5:00:00');
 
             $available_times = [];
             $available_start_times = [];
@@ -433,6 +473,7 @@ class receptionist extends Controller
             exit();
         }
     }
+
 
     public function set_available_times($time)
     {
@@ -599,6 +640,7 @@ class receptionist extends Controller
         }
 
         echo json_encode($data);
+        exit();
     }
 
 
@@ -630,11 +672,11 @@ class receptionist extends Controller
 
         // send email to patient
         $subject = 'Appointment Pass';
-        $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' .  $patient_name . ',</p>
+        $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $patient_name . ',</p>
 
             <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your upcoming appointment:</p>
             
-            <a href="'.URLROOT.'PatientDashboard/viewPass/'.$appointment_id.'" style="display: inline-block;
+            <a href="' . URLROOT . 'PatientDashboard/viewPass/' . $appointment_id . '" style="display: inline-block;
                    padding: 10px 20px;
                    background-color: #4CAF50;
                    color: white;
@@ -655,7 +697,7 @@ class receptionist extends Controller
             <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 0;">Best regards,<br>
             LABORA<br>';
 
-        sendEmail($appointment_data['patient_email'],  $patient_name, $body, $subject);
+        sendEmail($appointment_data['patient_email'], $patient_name, $body, $subject);
 
         $this->view('receptionist/appointment_pass', $data);
 
@@ -680,7 +722,7 @@ class receptionist extends Controller
         $subject = 'Payment Confirmation';
         $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $user['patient_name'] . ',</p>
 
-            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your payment for '.$id.' Appointment</p>
+            <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">We\'re confirming your payment for ' . $id . ' Appointment</p>
             
             <p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">If you have any questions or need to reschedule, please let us know.</p>
             
@@ -765,11 +807,23 @@ class receptionist extends Controller
 
     }
 
+    public function getQRCodeScanner($report_ref_no)
+    {
+        $data = [];
+        $data['ref_no'] = $report_ref_no;
+        $this->view("receptionist/qr_code_scanner", $data);
+    }
+
     public function viewReport($report_ref_no)
     {
-        $pdfPath = '../app/storage/medical_reports/'.$report_ref_no.'.pdf';
+        $pdfPath = '../app/storage/medical_reports/' . $report_ref_no . '.pdf';
 
-        $pdfContent = file_get_contents($pdfPath);
+        if (file_exists($pdfPath)) {
+            $pdfContent = file_get_contents($pdfPath);
+        } else {
+            echo "Report Not Found";
+            exit();
+        }
 
         if ($pdfContent === false) {
             echo "Failed to read the PDF file.";
@@ -777,6 +831,69 @@ class receptionist extends Controller
             header('Content-Type: application/pdf');
             echo $pdfContent;
         }
+    }
+
+    public function checkPassValidity($pass_key, $ref_no)
+    {
+        $appointment = $this->md_appointment->getAppointmentByPassKey($pass_key, $ref_no);
+        if ($appointment) {
+            $data['success'] = true;
+        } else {
+            $data['success'] = false;
+        }
+
+        echo json_encode($data);
+        exit();
+    }
+
+    public function showInvalidQRPage()
+    {
+        $data = [];
+        $this->view("receptionist/invalid_qrcode", $data);
+    }
+
+    public function getMessage()
+    {
+        $messages = $this->md_contact_us->getAllMessages();
+
+        $data = [
+            'messages' => $messages
+        ];
+
+
+
+        $this->view('receptionist/message', $data);
+    }
+
+    public function sendReply()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                'reply' => $_POST['reply'],
+                'id' => $_POST['id']
+            ];
+
+            $email = $_POST['email'];
+            $name = $_POST['name'];
+
+            $result = $this->md_contact_us->sendReply($data);
+
+            if ($result) {
+                $data['success'] = 'success';
+            } else {
+                $data['error'] = 'error';
+            }
+
+            $subject = 'Reply from LABORA';
+            $body = '<p style="font-family: Arial, sans-serif; line-height: 1.6; margin-bottom: 20px;">Dear ' . $_POST['reply'] . ',</p>';
+
+            sendEmail($email, $name, $body, $subject);
+
+
+            echo json_encode($data);
+            exit();
+        }
+
     }
 
 }

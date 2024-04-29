@@ -119,7 +119,7 @@ function hideTodayBtn() {
 }
 
 
-
+let today ;
 // for getting avalable time slots
 function getTimes(date , day){
   const baseLink = window.location.origin
@@ -153,6 +153,16 @@ function getTimes(date , day){
   day_list.forEach(element => {
     element.classList.remove('clicked')
   });
+
+
+  if(day.classList.contains('today')){
+    today = day;
+    day.classList.remove('today')
+  }else{
+    if(today != undefined){
+      today.classList.add('today')
+    }    
+  }
 
   day.classList.add('clicked')
 

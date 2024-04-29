@@ -165,12 +165,13 @@
         .then(responseData => {
           // console.log(responseData);
 
-          let btn = document.getElementById('submit')
-          btn.disabled = true;
-          btn.classList.add('btn-disable')
+          // let btn = document.getElementById('submit')
+          // btn.disabled = true;
+          // btn.classList.add('btn-disable')
 
           if(responseData['msg']){
-                showSuccessMessage();
+                // showSuccessMessage();
+                window.location.href = `${baseUrl}/labora/invmng/order`;
           }else{
                 showErrorMessage();
           }

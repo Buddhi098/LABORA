@@ -48,9 +48,9 @@
         }
 
         public function getBelowAlertQuantity() {
-            $result = mysqli_query($this->conn , 'SELECT SUM(price * quantity) AS below_alert_quantity 
-            FROM order_item
-            WHERE expire_date IS NOT NULL AND expire_date > CURRENT_DATE;
+            $result = mysqli_query($this->conn , 'SELECT COUNT(*) AS below_alert_quantity 
+            FROM inventory_items
+            WHERE reorder_limit >= quantity;
             ');
             $result = mysqli_fetch_all($result , MYSQLI_ASSOC);
             

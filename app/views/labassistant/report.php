@@ -61,7 +61,37 @@
                 <tbody>
                     <div class='table_body'>
                         <?php
-                        foreach ($data['reports'] as $index => $report) {
+                        foreach ($data['reports']['first_report'] as $index => $report) {
+                            $btn = '<button class="btn-0 btn-1 button_disabled" onclick="openModal(\'' . $report['ref_no'] . '\')" disabled><i class="fas fa-paper-plane"></i> Send MLT</button>';
+                            $report_view_btn = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2">View</button></a>';
+                            if ($report['report_status'] == 'Pending') {
+                                $report_view = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2 button_disabled" disabled>View</button></a>';
+                                $str = 'status-8';
+                                $btn = '<a href="' . URLROOT . 'labassistant/getMedicalReportForm/' . $report['test_type_id'] . '/' . $report['email'] . '/' . $report['ref_no'] . '"><button class="btn-0 btn-2"><i class="fas fa-marker"></i> Report</button></a>';
+                            } else if ($report['report_status'] == 'Created') {
+                                $btn = '<button class="btn-0 btn-1" onclick="openModal(\'' . $report['ref_no'] . '\')"><i class="fas fa-paper-plane"></i> Send MLT</button>';
+                                $str = 'status-2';
+                            }
+
+                            if ($report['reject_note'] == '') {
+                                $disabled = 'disabled';
+                                $disable_cls = 'button_disabled';
+                            } else {
+                                $disabled = '';
+                                $disable_cls = '';
+                            }
+                            echo '<tr>
+                            <td>' . $report['ref_no'] . '</td>
+                            <td>' . $report['email'] . '</td>
+                            <td>' . $report['test_type'] . '</td>
+                            <td><span class="' . $str . '">' . $report['report_status'] . '<span></td>
+                            <td>' . $report_view_btn . '</td>
+                            <td><button class="btn-0 btn-2 ' . $disable_cls . '" ' . $disabled . ' onclick=\'openModal5("' . $index . '")\'>View</button></td>
+                            <td>' . $btn . '</td>             
+                        </tr>';
+                        }
+
+                        foreach ($data['reports']['last_report'] as $index => $report) {
                             $btn = '<button class="btn-0 btn-1 button_disabled" onclick="openModal(\'' . $report['ref_no'] . '\')" disabled><i class="fas fa-paper-plane"></i> Send MLT</button>';
                             $report_view_btn = '<a href="' . URLROOT . 'labassistant/viewReport/' . $report['ref_no'] . '" target="_blank"><button class="btn-0 btn-2">View</button></a>';
                             if ($report['report_status'] == 'Pending') {

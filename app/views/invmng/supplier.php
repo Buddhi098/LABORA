@@ -45,11 +45,13 @@
         </div>
         <table id="myTable">
             <thead>
-                    <th>Index</th>
+                    <th>Supplier ID</th>
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Address</th>
+                    <th>No of Orders</th>
+                    <th>Supply Items</th>
             </thead >
         <tbody>
                 <div class='table_body'>
@@ -57,11 +59,15 @@
                 if(count($data)>0){
                     foreach ($data as $index => $row) {
                         echo '<tr>
-                        <td>'.$index.'</td>
+                        <td>'.$row['id'].'</td>
                         <td>'.$row['full_name'].'</td>
                         <td>'.$row['email'].'</td>
                         <td>'.$row['phone'].'</td>
                         <td>'.$row['address'].'</td>
+                        <td>'.$row['order_count'].'</td>
+                        <td>
+                            <button href="#" class="action-button" onclick="getItems('.$row['id'].')">View</button>
+                        </td>
                     </tr>';
                     }
                 }
@@ -77,7 +83,74 @@
         </div>
     </div>
 
+      <!-- Modal -->
+  <div class="modal" id="customModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-solid fa-flask"></i> Supply Items</h4>
+        <button type="button" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+            <table class="simple_table">
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                </tr>
+            </thead>
+            <tbody id="modal_body">
+                
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" onclick="closeModal()">Close</button>
+        <!-- <button type="button" class="btn-primary">Save Changes</button> -->
+      </div>
+
+    </div>
+  </div>
+
     <!-- import table javascript -->
     <script src="<?php echo APPROOT.'/public/js/components/table.js'?>"></script>
 </body>
 </html>
+
+
+<script>
+    function getItems(supplier_id){
+                console.log(supplier_id);
+
+                baseLink = window.location.origin
+                link = `${baseLink}/labora/invmng/getSupplierItems/${supplier_id}`
+                console.log(link);
+                fetch(link)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    mockup = ''
+                    for(let i=0 ; i < data.length ; i++){
+                        mockup += `
+                        <tr>
+                        <td>${data[i]['item_id']}</td>
+                        <td>${data[i]['Item_name']}</td>
+                        </tr>`
+                    }
+                    console.log(mockup)
+                    document.getElementById('modal_body').innerHTML =mockup;
+
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+                openModal();
+
+            }
+</script>
+

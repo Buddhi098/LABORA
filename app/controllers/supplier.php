@@ -1,129 +1,149 @@
 <?php
     class supplier extends Controller{
-
-        private $md_appointment;
-        //private $md_testtype;
-
-        // private $md_catalog;
-        // private $md_quotation;
-
-        private $md_user;
+        
+        // private $md_invoice;
+        private $md_supplier_item_quantity_chart;
+        private $md_holiday_calendar;
 
         private $auth;
+
+        private $m_order;
+        private $m_order_item;
+        private $m_invoice;
+        private $m_employee;
+
         public function __construct(){
+            $this->m_order = $this->model('M_orders_tbl');
+            $this->m_order_item = $this->model('M_order_item');
+            $this->m_invoice = $this->model('M_invoice');
+            $this->m_employee = $this->model('M_employee');
+            // // auth middleware
 
-            $this->md_appointment = $this->model('M_appointment');
-            $this->md_user = $this->model('M_user');
-
-            // set auth middleware
             $this->auth = new AuthMiddleware();
             $this->auth->authMiddleware('supplier');
+
+            // $this->md_invoice = $this->model('M_order_invoice');
+            $this->md_holiday_calendar = $this->model('M_holiday_calendar');
+
+            $this->md_supplier_item_quantity_chart=$this->model('M_supplier_item_quantity_chart');
+
         }
 
-        public function f_Supplier(){
-            
-            $data = [];
-            $this->view("supplier/" , $data);
-        }
-
-       
-
+        
         public function index(){
 
             $data = [];
+            $this->dashboard();
+        }
+
+        public function dashboard(){
+
+            $data = [];
+            $pending_orders = $this->m_order->getPendingOrders();
+            $cancelled_orders = $this->m_order->getCancelledOrders();
+            $Send_inovice = $this->m_order->getSendInoviceCount();
+            $supplier_count = $this->m_employee->getSupplierCount();
+
+            $data['pending_orders'] = $pending_orders;
+            $data['cancelled_orders'] = $cancelled_orders;
+            $data['Send_inovice'] = $Send_inovice;
+            $data['supplier_count'] = $supplier_count;
+
+
+            $chart_data = $this->m_order->getMonthlyRevenue();
+
+            $data['chart_data'] = $chart_data;
+            
             $this->view("supplier/dashboard" , $data);
+
+
         }
 
-        //Data that inserted in catalog table
-        public function catalog(){
-            
-            $data = array();
-            $result = $this->md_catalog->getRow();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    // Add each row as an associative array to the $data array
-                    $data[] = $row;
-                }
-            }else{
-                $data = [[
-                    'product_id'=> "",
-                    "product_name"=> "",
-                    'quantity' => '',
-                    'price' => '',
-                    'description' => '',
-                    'availability' => '',
-                ],
+        public function getHolidays($year, $month)
+        {
+            $result = $this->md_holiday_calendar->getAlldates($year, $month);
+            if ($result) {
+                echo json_encode($result);
+                exit();
+            } else {
+                $data = [
+                    'error' => 'No holidays found'
                 ];
-                $this->view("supplier/catalog" , $data);
+                echo json_encode($data);
+                exit();
             }
-            
-            $this->view("supplier/catalog" , $data);
-            
+    
         }
 
-        public function quotation(){
+        public function getOrderItems($order_id){
+            $data = $this->m_order_item->getOrderItem($order_id);
 
+            echo json_encode($data);
+            exit();
+        }
+
+        public function orders(){
             $data = [];
-            $this->view("supplier/quotation" , $data);
+            $table_data = $this->m_order->orderTableDataForSupplier();
+            $data['table_data'] = $table_data;
+            $this->view("supplier/orders" , $data);
         }
 
-        public function inventory(){
+        public function getInvoice($order_id){
+            $item = $this->m_order_item->getOrderItemForSupplier($order_id);
+            $data['item'] = $item;
+            $_SESSION['order_id'] = $order_id;
 
-            $data = [];
-            $this->view("supplier/inventory" , $data);
+            $supplier = $this->m_employee->getSupplier($_SESSION['empid']);
+            $data['supplier'] = $supplier;
+            $this->view("supplier/invoice" , $data);
         }
 
-         //*Only temporary*//
-         public function appointment(){
-            
-            $data = array();
-            $result = $this->md_appointment->getRow();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    // Add each row as an associative array to the $data array
-                    if($row['Appointment_Status']=='Pending Approval' || $row['Appointment_Status']=='Send to MLT'){
-                        $row['patient_name'] = $this->md_user->getUserName($row['patient_email']);
-                        $data[] = $row;
-                    }
-                    
-                }
-            }else{
-                $data = [[
-                    'Id'=> "",
-                    'Ref_No' => '',
-                    'Test_Type' => '',
-                    'Appointment_Date' => '',
-                    'Appointment_Time'=> '',
-                    'Appointment_Duration'=> '',
-                    'Appointment_Status'=> '',
-                    'Appointment_Notes'=> '',
-                    'patient_name' => ''
-                ],];
-                $this->view("supplier/quotation" , $data);
+        public function sendInvoice(){
+            $data1 = file_get_contents("php://input");
+            $input_data = json_decode($data1, true);
+            $order_id = $_SESSION['order_id'];
+
+            $inv_id = $this->m_order->getInventoryManagerID($order_id);
+
+            $change_order_status = $this->m_order->updateStatus($order_id, 'Send Invoice');
+
+            $invoice_id = $this->m_invoice->setInvoice($_SESSION['empid'], $inv_id, 'Send Invoice', $order_id);
+
+            $setOrderInvoice = $this->m_order->updateInvoiceID($invoice_id, $order_id);
+
+            foreach ($input_data['items'] as $item) {
+                $result = $this->m_order_item->updatePriceAndExpireDate($order_id, $item['itemId'], $item['price'], $item['expireDate']);
             }
+
+            $_SESSION['success_msg'] = 'Invoice sent successfully';
+
+            $data['success_msg'] = 'Invoice sent successfully';
+
+
+            echo json_encode($data);
+            exit();
+
+        }
+
+        public function viewInvoice($order_id){
+            $item = $this->m_order_item->getOrderItemForSupplier($order_id);
+            $_SESSION['order_id'] = $order_id;
+            $data['item'] = $item;
+
+            $supplier = $this->m_employee->getSupplier($_SESSION['empid']);
+            $data['supplier'] = $supplier;
+            $this->view("supplier/invoice_view" , $data);
+        }
+
+        public function cancelOrder($order_id){
+            $change_order_status = $this->m_order->updateStatus($order_id, 'Cancelled');
+            $_SESSION['success_msg'] = 'Order cancelled successfully';
+            $data['success_msg'] = 'Order cancelled successfully';
             
-            $this->view("supplier/quotation" , $data);
+
+            $this->orders();
         }
-
-        public function cancelAppointment($id){
-
-            $data = [];
-            $row = $this->md_appointment->getRowList($id);
-            if($row['Appointment_Status']=='Pending Approval'){
-                $this->md_appointment->cancelAppointment($id);
-            }
-            header("Location: http://localhost/labora/supplier/quotation");
-        }
-
-        public function sendAppointment($id){
-
-            $data=[];
-            $this->md_appointment->sendAppointment($id);
-            header("Location: http://localhost/labora/supplier/quotation");
-        }
-
-
-        
-        
     }
+    
 ?>

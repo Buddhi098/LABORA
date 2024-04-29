@@ -28,22 +28,22 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="itemName">Chemical Name</label>
-                        <input type="text" id="itemName" name="itemName" value="<?php echo $data['itemName']; ?>" required>
+                        <input type="text" id="itemName" name="itemName" value="<?php echo $data['itemName']; ?>" >
                     </div>
                     <div class="form-group">
                         <label for="manufacturer">Manufacturer</label>
-                        <input type="text" id="manufacturer" name="manufacturer" value="<?php echo $data['manufacturer']; ?>" required>
+                        <input type="text" id="manufacturer" name="manufacturer" value="<?php echo $data['manufacturer']; ?>">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="reorderLimit">Reorder Limit</label>
-                        <input type="number" id="reorderLimit" name="reorderLimit" value="<?php echo $data['reorderLimit']; ?>" required>
+                        <input type="number" id="reorderLimit" name="reorderLimit" value="<?php echo $data['reorderLimit']; ?>" >
                     </div>
                     <div class="form-group">
                         <label for="unitOfMeasure">Unit of Measurement</label>
-                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" value="<?php echo $data['unitOfMeasure']; ?>"  required>
+                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" value="<?php echo $data['unitOfMeasure']; ?>" >
                     </div>
                 </div>
 

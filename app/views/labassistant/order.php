@@ -148,7 +148,7 @@
             <lord-icon src="https://cdn.lordicon.com/guqkthkk.json" trigger="in" delay="15" state="in-reveal">
             </lord-icon>
         </div>
-        <p> Success! Appointment Scheduled.</p>
+        <p id="success_msg"> Success! Item Request Placed.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
     </div>
 
@@ -166,7 +166,7 @@
         window.onload = showMessage();
 
         function showMessage() {
-            let success = '<?php echo isset($_SESSION["success_msg"]) ? json_encode($_SESSION["success_msg"]) : ""; ?>';
+            let success = <?php echo isset($_SESSION["success_msg"]) ? json_encode($_SESSION["success_msg"]) : ""; ?>;
             <?php unset($_SESSION["success_msg"]); ?>;
             if (success.trim() !== "") {
                 console.log(success);
