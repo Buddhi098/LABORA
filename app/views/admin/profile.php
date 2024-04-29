@@ -70,7 +70,7 @@
 
     <!-- pop success & error messages -->
     <!-- popup success messages -->
-    <!-- <div class="success-message-container" id="successMessage">
+    <div class="success-message-container" id="successMessage">
         <div class="icon">
             <lord-icon
             src="https://cdn.lordicon.com/guqkthkk.json"
@@ -81,9 +81,9 @@
         </div>
         <p> Success! Account Updated.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
-    </div> -->
+    </div>
 
-    <!-- <div class="error-message-container" id="ErrorMessage">
+    <div class="error-message-container" id="ErrorMessage">
         <div class="icon">
             <lord-icon
             src="https://cdn.lordicon.com/akqsdstj.json"
@@ -94,7 +94,7 @@
         </div>
         <p>Error! Your action was failed.</p>
         <span class="close-button" onclick="hideSuccessMessage()">×</span>
-    </div> -->
+    </div>
   
 
   <script>
@@ -114,7 +114,7 @@
         const baseLink = window.location.origin;
         // const link = `${baseLink}/labora/admin/editDetails/${email}`;
         const link = `${baseLink}/labora/admin/editDetails`;
-
+        console.log(formData)
         fetch(link, {
             method: 'POST',
             body: formData
@@ -127,15 +127,14 @@
         })
         .then(data => {
             console.log(data);
-            if(data[status]="success"){
-                // showSuccessMessage()
+            if(data.status!=""){
+                showSuccessMessage()
                 window.location.href = `${baseLink}/labora/admin/userAccount`;
             }else{
                 showErrorMessage()
             }
         })
         .catch(err => {
-            showErrorMessage()
             console.error(err);
         });
 

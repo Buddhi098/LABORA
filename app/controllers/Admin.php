@@ -209,6 +209,9 @@
                     'password' => trim($_POST['new_password']),
                     'comfirm_password' => trim($_POST['confirm_password']),
                 ];
+
+                // echo json_encode($data);
+                // exit();
                 
                 if ($data['password'] != '' && $data['comfirm_password'] != '') {
                     if ($data['password'] != $data['comfirm_password']) {
@@ -220,6 +223,8 @@
                         $this->md_employee->changePassword($hashed_password, $data['email']);
                     }
                 }
+
+
                 if ($data['full_name'] != '') {
                     $this->md_employee->changeName($data['email'], $data['full_name']);
                 }
@@ -245,7 +250,7 @@
                 ];
 
                 echo json_encode($message);
-                header('Location: http://localhost/labora/admin/userAccount');
+                //header('Location: http://localhost/labora/admin/userAccount');
                 exit();
 
             }
