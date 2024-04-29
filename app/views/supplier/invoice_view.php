@@ -71,12 +71,6 @@
                     </table>
                 </section>
             </main>
-
-            <footer>
-                <button type="button" id="generate-invoice">
-                    <i class="fas fa-file-invoice"></i> Generate Invoice
-                </button>
-            </footer>
         </div>
     </div>
 
