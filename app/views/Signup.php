@@ -66,7 +66,7 @@
                       <label class="gender" for="javascript">Other</label><br>
 
                     <label for="patient_address">Address</label><br>
-                    <input type="text" id="patient_address" pattern="[A-Za-z0-9,. -&@:/]+" oninvalid="this.setCustomValidity('Enter valid address')" oninput="setCustomValidity('')" name="patient_address" required><?php echo $data['address'];?></input><br>
+                    <input type="text" id="patient_address" pattern="[A-Za-z0-9,. -&@:/]+" oninvalid="this.setCustomValidity('Enter valid address')" oninput="setCustomValidity('')" name="patient_address" value="<?php echo $data['address'];?>" required></input><br>
                     
                     <input type="submit" value="Submit" class="submit button">
                 </form>
